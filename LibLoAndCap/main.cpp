@@ -8,32 +8,46 @@
 
 #include "AppIncludes.h"
 
+void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
+OscHandler oscSender;
 int main(int argc, const char * argv[])
 {
-    lo_address add = lo_address_new("127.0.0.1", "1234");
-    lo_send(add,"/fader","i",2);
     PcapHandler _pcap = PcapHandler();
-    char errbuf[PCAP_ERRBUF_SIZE];
-    pcap_if_t* alldevs, *d;
-    _pcap.FindAllDevs(&alldevs, errbuf);
-    int i=0;
-    for( d=alldevs; d; d=d->next)
-	{
-        
-		printf("%d. %s", ++i, d->name);
-		if (d->description)
-			printf(" (%s)\n", d->description);
-		else
-			printf(" (No description available)\n");
-	}
-    // insert code here...
-    OscHandler oscSender = OscHandler();
-    if(oscSender.SendData(3, 4)){
-        std::cout << "MESSAGE SENT";
-    }
-    Converter c = Converter();
-    c.Extrapolate(2);
-    printf("c extra %f \n", c.Extrapolate(3.0));
+    pcap_t *handle;
+    oscSender = OscHandler();
+    
+	handle = _pcap.ListAndChooseInterface();
+    _pcap.Loop(handle, 0, packet_handler, NULL);
     return 0;
+}
+
+void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data)
+{
+    ip_header *ih;
+	udp_header *uh;
+	u_int ip_len;
+	u_short sport,dport;
+	time_t local_tv_sec;
+    local_tv_sec = header->ts.tv_sec;
+	//localtime_s(&ltime, &local_tv_sec);
+	//strftime( timestr, sizeof timestr, "%H:%M:%S", &ltime);
+    
+	/* print timestamp and length of the packet */
+	//printf("%s.%.6d len:%d ", timestr, header->ts.tv_usec, header->len);
+    
+	/* retireve the position of the ip header */
+	ih = (ip_header *) (pkt_data +
+                        14); //length of ethernet header
+    
+	/* retireve the position of the udp header */
+	ip_len = (ih->ver_ihl & 0xf) * 4;
+	uh = (udp_header *) ((u_char*)ih + ip_len);
+    
+	/* convert from network byte order to host byte order */
+	sport = ntohs( uh->sport );
+	dport = ntohs( uh->dport );
+    if(oscSender.SendData(0, uh->len)){
+        std::cout<<"Message :" << uh->len <<std::endl;
+    }
 }
 

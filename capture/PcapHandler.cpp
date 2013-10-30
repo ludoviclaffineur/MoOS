@@ -7,9 +7,8 @@
 //
 
 #include "PcapHandler.h"
-
+#include <iostream>
 PcapHandler::PcapHandler(){
-    
 }
 
 int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
@@ -28,6 +27,36 @@ int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
     return 3;
 }
 
+pcap_t* PcapHandler::ListAndChooseInterface(){
+    _ListAllDevs();
+    return _ChooseDev();
+}
+
+void PcapHandler::_ListAllDevs(){
+    pcap_if_t* d;
+    FindAllDevs(&_alldevs, _errbuf);
+    int i=0;
+    for( d = _alldevs; d; d=d->next)
+	{
+		printf("%d. %s", ++i, d->name);
+		if (d->description)
+			printf(" (%s)\n", d->description);
+		else
+			printf(" (No description available)\n");
+	}
+}
+
+pcap_t* PcapHandler::_ChooseDev(){
+    int a;
+    pcap_if_t* selected = _alldevs;
+    std::cout<< "Select your interface :";
+    std::cin >> a;
+    for (int i = 1; i<a; i++){
+        selected = selected->next;
+    }
+	return OpenLive(selected->name, BUFSIZ, 1, 1000, _errbuf);
+    
+}
 
 pcap_t* PcapHandler::OpenLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf){
     

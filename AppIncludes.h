@@ -13,5 +13,7 @@
 #include "OscHandler.h"
 #include "PcapHandler.h"
 #include "Converter.h"
+#include "IpHeaderDefinitions.h"
+
 
 #endif
