@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.
 //
 
-#include "converter.h"
+#include "Converter.h"
 #include <math.h>
 
 Converter::Converter(){}

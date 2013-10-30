@@ -46,6 +46,7 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 	/* convert from network byte order to host byte order */
 	sport = ntohs( uh->sport );
 	dport = ntohs( uh->dport );
+    Converter c = Converter(Converter::LOGARITHMIC, 2, 4, 7, 9);
     if(oscSender.SendData(0, uh->len)){
         std::cout<<"Message :" << uh->len <<std::endl;
     }
