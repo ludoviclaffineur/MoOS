@@ -37,6 +37,10 @@ int main(int argc, const char * argv[])
     c.Extrapolate(2);
     printf("c extra %f \n", c.Extrapolate(3.0));
     qsdqmlsdkqsmdlkqsmdk;
+    qsdmqlsdkqmsdlkqmlskdmq
+    qmlsdkqmsdlkqmsdkqmsd
+    qmlsdkmqsldkmqsdksqml
+    mlqskdmlqskd
     return 0;
 }
 
