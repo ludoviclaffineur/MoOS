@@ -16,6 +16,7 @@ class PcapHandler {
     
 public:
     PcapHandler();
+    PcapHandler(char* filter);
     pcap_t* ListAndChooseInterface();
     int FindAllDevs(pcap_if_t **alldev, char* errbuff);
     pcap_t* OpenLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf);
@@ -29,5 +30,6 @@ private:
     
     char _errbuf[PCAP_ERRBUF_SIZE];
     pcap_if_t* _alldevs;
+    char* _filter;
 };
 #endif /* defined(__libpcapTest__PcapHandler__) */

@@ -9,7 +9,7 @@
 #include "OscHandler.h"
 
 OscHandler::OscHandler(){
-    _distant = lo_address_new("127.0.0.1", "1234");
+    _distant = lo_address_new("127.0.0.1", "57120");
 }
 
 OscHandler::OscHandler(const char* ipAddress, const char* port){

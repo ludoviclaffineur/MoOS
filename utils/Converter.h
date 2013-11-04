@@ -26,12 +26,17 @@ public:
     float Linear(float inputValue);
     float Exponential(float inputValue);
     float Logarithmic(float inputValue);
+    void SetDModifier(float d);
+    void SetCModifier(float c);
+    
 private:
     int _currentExtrapolation   = 1;
     float _xMaxValue             = 10;
     float _xMinValue             = 4;
     float _yMaxValue             = 3;
     float _yMinValue             = 1;
+    float _cModifier             = 0;
+    float _dModifier             = -2;
 };
 #endif /* defined(__libpcapTest__converter__) */
 

@@ -12,12 +12,18 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 OscHandler oscSender;
 int main(int argc, const char * argv[])
 {
-    PcapHandler _pcap = PcapHandler();
+    PcapHandler _pcap = PcapHandler("ip and dst host 172.30.8.13");
     pcap_t *handle;
     oscSender = OscHandler();
     
 	handle = _pcap.ListAndChooseInterface();
-    _pcap.Loop(handle, 0, packet_handler, NULL);
+    Converter c = Converter(Converter::EXPONENTIAL, 0, 65536, 0, 1);
+    std::cout<< c.Extrapolate(1)<<std::endl;
+
+    //for(int i = 0; i<65000;i++){
+      //  std::cout<< c.Extrapolate(i)<<std::endl;
+    //}
+    //_pcap.Loop(handle, 0, packet_handler, NULL);
     return 0;
 }
 
@@ -46,9 +52,9 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 	/* convert from network byte order to host byte order */
 	sport = ntohs( uh->sport );
 	dport = ntohs( uh->dport );
-    Converter c = Converter(Converter::LOGARITHMIC, 2, 4, 7, 9);
-    if(oscSender.SendData(0, uh->len)){
-        std::cout<<"Message :" << uh->len <<std::endl;
+    Converter c = Converter(Converter::EXPONENTIAL, 0, 65536, 0, 1);
+    if(uh->len>0 && oscSender.SendData(0, c.Extrapolate(uh->len))){
+        std::cout<<"Message :" << c.Extrapolate(uh->len) <<" lenght "<< uh->len<< std::endl;
     }
 }
 

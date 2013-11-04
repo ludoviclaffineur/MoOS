@@ -9,6 +9,11 @@
 #include "PcapHandler.h"
 #include <iostream>
 PcapHandler::PcapHandler(){
+    _filter = NULL;
+}
+
+PcapHandler::PcapHandler(char* filter){
+    _filter = filter;
 }
 
 int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
@@ -28,8 +33,15 @@ int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
 }
 
 pcap_t* PcapHandler::ListAndChooseInterface(){
+    struct bpf_program fcode;
+    u_int netmask = 0xffffff00;
     _ListAllDevs();
-    return _ChooseDev();
+    pcap_t* handle =  _ChooseDev();
+    if (_filter){
+        pcap_compile(handle, &fcode, _filter, 1, netmask);
+        pcap_setfilter(handle, &fcode);
+    }
+    return handle;
 }
 
 void PcapHandler::_ListAllDevs(){

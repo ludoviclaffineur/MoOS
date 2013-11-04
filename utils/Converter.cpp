@@ -46,13 +46,23 @@ float Converter::Linear(float inputValue){
 }
 
 float Converter::Exponential(float inputValue){
-    float b = log(_yMinValue/_yMaxValue)/(_xMinValue-_xMaxValue);
-    float a = _yMinValue/expf(b*_xMinValue);
-    return (a*expf(inputValue*b));
+    float b = log((_yMinValue-_dModifier)/(_yMaxValue-_dModifier))/(_xMinValue-_xMaxValue);
+    float a = (_yMinValue-_dModifier)/expf(b*_xMinValue-_cModifier);
+    std::cout<<a<<" " << b<< std::endl;
+    return (a*expf((inputValue-_cModifier)*b)+_dModifier);
 }
 
 float Converter::Logarithmic(float inputValue){
-    float b = (_yMinValue-_yMaxValue)/log(_xMinValue/_xMaxValue);
-    float a = expf(_yMinValue/b)/_xMinValue;
-    return ( b*log(a*inputValue));
+    float b = (_yMinValue-_yMaxValue)/log((_xMinValue-_cModifier)/(_xMaxValue-_cModifier));
+    float a = expf((_yMinValue-_dModifier)/b)/(_xMinValue-_cModifier);
+    //std::cout<<a<<" " << b<< std::endl;
+    return ( b*log(a*(inputValue-_cModifier))+_dModifier);
+}
+
+void Converter::SetDModifier(float d){
+    _dModifier = d;
+}
+
+void Converter::SetCModifier(float c){
+    _cModifier = c;
 }
