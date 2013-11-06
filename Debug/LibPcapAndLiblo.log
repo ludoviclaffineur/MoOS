@@ -1,0 +1,30 @@
+﻿La génération a démarré 6/11/2013 15:37:24.
+     1>Projet "C:\Users\Ludo\Documents\libpcapandliblo\LibPcapAndLiblo.vcxproj" sur le nœud 2 (build cible(s)).
+     1>InitializeBuildStatus:
+         Mise à jour de l'horodatage "Debug\LibPcapAndLiblo.unsuccessfulbuild".
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I.\ /I.\utils /I.\capture /I.\outputs /I.\lib\WpdPack\Include /I.\lib\lo /I.\lib /I.\lib\pthreads\include /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /D WIN32 /D WPCAP /D HAVE_REMOTE /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt capture\PcapHandler.cpp LibLoAndCap\main.cpp outputs\OscHandler.cpp outputs\OutputsHandler.cpp utils\Converter.cpp
+         Converter.cpp
+         OutputsHandler.cpp
+         OscHandler.cpp
+     1>c:\users\ludo\documents\libpcapandliblo\outputs\oschandler.cpp(20): warning C4800: 'int' : valeur forcée à la valeur booléenne 'true' ou 'false' (avertissement sur les performances)
+         main.cpp
+         PcapHandler.cpp
+         Génération de code en cours...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ludo\Documents\libpcapandliblo\Debug\LibPcapAndLiblo.exe" /NOLOGO /LIBPATH:.\lib\lo /LIBPATH:.\lib\pthreads\lib\x86 /LIBPATH:.\lib\WpdPack\Lib /LIBPATH:.\capture kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib wpcap.lib Packet.lib ws2_32.lib liblo.lib pthreadVC2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\LibPcapAndLiblo.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Ludo\Documents\libpcapandliblo\Debug\LibPcapAndLiblo.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ludo\Documents\libpcapandliblo\Debug\LibPcapAndLiblo.lib" /MACHINE:X86 Debug\PcapHandler.obj
+         Debug\main.obj
+         Debug\OscHandler.obj
+         Debug\OutputsHandler.obj
+         Debug\Converter.obj
+         LibPcapAndLiblo.vcxproj -> C:\Users\Ludo\Documents\libpcapandliblo\Debug\LibPcapAndLiblo.exe
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"C:\Users\Ludo\Documents\libpcapandliblo\Debug\LibPcapAndLiblo.exe;#1" /manifest Debug\LibPcapAndLiblo.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         Suppression du fichier "Debug\LibPcapAndLiblo.unsuccessfulbuild".
+         Mise à jour de l'horodatage "Debug\LibPcapAndLiblo.lastbuildstate".
+     1>Génération du projet "C:\Users\Ludo\Documents\libpcapandliblo\LibPcapAndLiblo.vcxproj" terminée (build cible(s)).
+
+La génération a réussi.
+
+Temps écoulé 00:00:02.36

@@ -30,13 +30,13 @@ public:
     void SetCModifier(float c);
     
 private:
-    int _currentExtrapolation   = 1;
-    float _xMaxValue             = 10;
-    float _xMinValue             = 4;
-    float _yMaxValue             = 3;
-    float _yMinValue             = 1;
-    float _cModifier             = 0;
-    float _dModifier             = -2;
+    int _currentExtrapolation;
+    float _xMaxValue;
+    float _xMinValue;
+    float _yMaxValue;
+    float _yMinValue;
+	 float _cModifier;
+    float _dModifier;
 };
 #endif /* defined(__libpcapTest__converter__) */
 
