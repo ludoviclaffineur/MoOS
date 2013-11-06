@@ -27,11 +27,11 @@ public:
     float Exponential(float inputValue);
     float Logarithmic(float inputValue);
 private:
-    int _currentExtrapolation   = 1;
-    float _xMaxValue             = 10;
-    float _xMinValue             = 4;
-    float _yMaxValue             = 3;
-    float _yMinValue             = 1;
+    int _currentExtrapolation;
+    float _xMaxValue;
+    float _xMinValue;
+    float _yMaxValue;
+    float _yMinValue;
 };
 #endif /* defined(__libpcapTest__converter__) */
 

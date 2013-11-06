@@ -13,6 +13,10 @@ Converter::Converter(){}
 
 Converter::Converter(int typeOfExtrapolation){
     _currentExtrapolation = typeOfExtrapolation;
+	_xMaxValue = 0;
+    _xMinValue = 6;
+    _yMaxValue = 0;
+    _yMinValue = 1;
 }
 
 Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax){
