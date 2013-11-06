@@ -278,7 +278,7 @@
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "./lib/**";
+				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib";
 			};
 			name = Debug;
 		};
@@ -294,7 +294,7 @@
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				USER_HEADER_SEARCH_PATHS = "./lib/**";
+				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib";
 			};
 			name = Release;
 		};
