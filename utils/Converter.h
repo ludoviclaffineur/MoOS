@@ -23,19 +23,19 @@ public:
     Converter(int typeOfExtrapolation);
     Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax);
     float Extrapolate(float inputValue);
-    float Linear(float inputValue);
-    float Exponential(float inputValue);
-    float Logarithmic(float inputValue);
     void SetDModifier(float d);
     void SetCModifier(float c);
     
 private:
     int _currentExtrapolation;
+    float _Linear(float inputValue);
+    float _Exponential(float inputValue);
+    float _Logarithmic(float inputValue);
     float _xMaxValue;
     float _xMinValue;
     float _yMaxValue;
     float _yMinValue;
-	 float _cModifier;
+    float _cModifier;
     float _dModifier;
 };
 #endif /* defined(__libpcapTest__converter__) */

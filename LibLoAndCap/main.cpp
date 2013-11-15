@@ -15,9 +15,8 @@ int main(int argc, const char * argv[])
     PcapHandler _pcap = PcapHandler("ip and dst host 172.30.8.13");
     pcap_t *handle;
     oscSender = OscHandler();
-    
 	handle = _pcap.ListAndChooseInterface();
-    Converter c = Converter(Converter::EXPONENTIAL, 0, 65536, 0, 1);
+    Converter c = Converter(Converter::EXPONENTIAL, 1, 65536, 0, 1);
     std::cout<< c.Extrapolate(1)<<std::endl;
 
     //for(int i = 0; i<65000;i++){

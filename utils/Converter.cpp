@@ -27,38 +27,40 @@ Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin
     _xMinValue = xmin;
     _yMaxValue = ymax;
     _yMinValue = ymin;
+    _cModifier = -3;
+	_dModifier = -1;
 }
 
 float Converter::Extrapolate(float inputValue){
     switch (_currentExtrapolation) {
         case LINEAR:
-            return Linear(inputValue);
+            return _Linear(inputValue);
             break;
         case EXPONENTIAL:
-            return Exponential(inputValue);
+            return _Exponential(inputValue);
             break;
         case LOGARITHMIC:
-            return Logarithmic(inputValue);
+            return _Logarithmic(inputValue);
             break;
         default:
             return -1;
     }
 }
 
-float Converter::Linear(float inputValue){
+float Converter::_Linear(float inputValue){
     float beta = _yMinValue - (_xMinValue*(_yMaxValue-_yMinValue)/(_xMaxValue-_xMinValue));
     float alpha =(_yMaxValue-_yMinValue)/(_xMaxValue-_xMinValue);
     return (alpha*inputValue + beta);
 }
 
-float Converter::Exponential(float inputValue){
+float Converter::_Exponential(float inputValue){
     float b = log((_yMinValue-_dModifier)/(_yMaxValue-_dModifier))/(_xMinValue-_xMaxValue);
     float a = (_yMinValue-_dModifier)/expf(b*_xMinValue-_cModifier);
     std::cout<<a<<" " << b<< std::endl;
     return (a*expf((inputValue-_cModifier)*b)+_dModifier);
 }
 
-float Converter::Logarithmic(float inputValue){
+float Converter::_Logarithmic(float inputValue){
     float b = (_yMinValue-_yMaxValue)/log((_xMinValue-_cModifier)/(_xMaxValue-_cModifier));
     float a = expf((_yMinValue-_dModifier)/b)/(_xMinValue-_cModifier);
     //std::cout<<a<<" " << b<< std::endl;

@@ -99,4 +99,3 @@ void PcapHandler::Close(pcap_t* handle){
 void PcapHandler::FreeAllDevs(pcap_if_t *alldevs){
     pcap_freealldevs(alldevs);
 }
-
