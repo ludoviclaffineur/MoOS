@@ -22,7 +22,7 @@ int main(int argc, const char * argv[])
     //for(int i = 0; i<65000;i++){
       //  std::cout<< c.Extrapolate(i)<<std::endl;
     //}
-    //_pcap.Loop(handle, 0, packet_handler, NULL);
+    _pcap.Loop(handle, 0, packet_handler, NULL);
     return 0;
 }
 
