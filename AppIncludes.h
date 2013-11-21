@@ -14,6 +14,7 @@
 #include "PcapHandler.h"
 #include "Converter.h"
 #include "IpHeaderDefinitions.h"
+#include "Grid.h"
 
 
 #endif

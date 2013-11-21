@@ -21,3 +21,10 @@ void Cell:: SetCoeff(float coeff){
 float Cell::GetCoeff(){
     return _Coeff;
 }
+
+Input Cell::GetInput(){
+    return _Input;
+}
+OutputsHandler Cell::GetOutput(){
+    return _Output;
+}

@@ -19,8 +19,10 @@ public:
     Input(const char* name, Converter c);
     Input(const char* name, float min, float max, int typeOfExtrapolation);
     Input(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
+    ~Input();
     bool CompareName(const char *n);
-    void setValue(float value);
+    void SetValue(float value);
+    float GetExtrapolatedValue();
 
 private:
     float _Value;

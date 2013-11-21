@@ -10,6 +10,10 @@
 
 Grid::Grid(){}
 
+void Grid::AddInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
+    _Inputs.push_back(Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
+}
+
 void Grid::AddInput(Input i){
     _Inputs.push_back(i);
 }
@@ -17,23 +21,30 @@ void Grid::AddInput(Input i){
 void Grid::AddOutput(OutputsHandler o){
     _Outputs.push_back(o);
 }
-void Grid::AddCell(char* inputName, char* outputName, float corrCoeff){
-    Input i =_GetInputWithName(inputName);
-    OutputsHandler o = _GetOutputWithName(outputName);
-    _Cells.push_back(Cell(i, o , corrCoeff));
+void Grid::AddCell(const char* inputName, const char* outputName, float corrCoeff){
+    _Cells.push_back(Cell(GetInputWithName(inputName), GetOutputWithName(outputName) , corrCoeff));
 }
-void Compute(){
-    //to do
+void Grid::Compute(){
+    for (int i = 0; i<_Cells.size(); i++){
+        Cell c = _Cells.at(i);
+        c.GetOutput().AddToValue(c.GetInput().GetExtrapolatedValue());
+    }
+    for (int i = 0; i<_Outputs.size(); i++) {
+        OutputsHandler o = _Outputs.at(i);
+        o.Extrapolate();
+        o.SendData();
+        o.Reset();
+    }
 }
 
-Input Grid::_GetInputWithName(char* n){
+Input Grid::GetInputWithName(const char* n){
     for(int i =0 ;i<_Inputs.size();i++){
         if (_Inputs.at(i).CompareName(n)) return _Inputs.at(i);
     }
-    return NULL;
+    return Input();
 }
 
-OutputsHandler Grid::_GetOutputWithName(char* n){
+OutputsHandler Grid::GetOutputWithName(const char* n){
     for(int i =0 ;i<_Inputs.size();i++){
         if (_Outputs.at(i).CompareName(n)) return _Outputs.at(i);
     }

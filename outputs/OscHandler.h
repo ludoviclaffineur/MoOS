@@ -16,11 +16,13 @@
 class OscHandler : public OutputsHandler{
 public:
     OscHandler();
+    OscHandler(const char* n);
     OscHandler(const char* ipAddress, const char* port);
     bool SendData (int paramNumber, float value);
-    
+    bool SendData ();
 private:
     lo_address _distant;
+    
     
 };
 #endif /* defined(__libpcapTest__Osc__) */

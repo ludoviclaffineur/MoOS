@@ -17,6 +17,8 @@ public:
     Cell(Input i, OutputsHandler o, float coeff);
     void SetCoeff(float coeff);
     float GetCoeff();
+    Input GetInput();
+    OutputsHandler GetOutput();
 private:
     float _Coeff;
     Input _Input;

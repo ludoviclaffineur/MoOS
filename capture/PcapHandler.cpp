@@ -7,6 +7,7 @@
 //
 
 #include "PcapHandler.h"
+
 #include <iostream>
 PcapHandler::PcapHandler(){
     _filter = NULL;
@@ -15,7 +16,11 @@ PcapHandler::PcapHandler(){
 PcapHandler::PcapHandler(char* filter){
     _filter = filter;
 }
-
+PcapHandler::PcapHandler(char* filter, Grid* g){
+    _filter = filter;
+    _TheGrid = *g;
+    g->AddInput("PacketLength", 0, 65532, 0, 0, Converter::EXPONENTIAL);
+}
 int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
 #ifdef _WIN32
     if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, alldev, errbuf) == -1)
