@@ -21,14 +21,28 @@ Converter::Converter(int typeOfExtrapolation){
 	_dModifier = -1;
 }
 
+Converter::Converter(Converter * c){
+    memcpy(this, c, sizeof(Converter));
+}
+
 Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax){
     _currentExtrapolation = typeOfExtrapolation;
     _xMaxValue = xmax;
     _xMinValue = xmin;
     _yMaxValue = ymax;
     _yMinValue = ymin;
-    _cModifier = -3;
-	_dModifier = -1;
+    _cModifier = 0;
+	_dModifier = 0;
+}
+
+Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset){
+    _currentExtrapolation = typeOfExtrapolation;
+    _xMaxValue = xmax;
+    _xMinValue = xmin;
+    _yMaxValue = ymax;
+    _yMinValue = ymin;
+    _cModifier = xOffset;
+	_dModifier = yOffset;
 }
 
 float Converter::Extrapolate(float inputValue){

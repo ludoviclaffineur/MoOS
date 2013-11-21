@@ -7,3 +7,7 @@
 //
 
 #include "OutputsHandler.h"
+
+bool OutputsHandler::CompareName(const char *n){
+    return strcmp(n, _Name);
+}

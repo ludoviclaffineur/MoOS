@@ -20,8 +20,10 @@ public:
         EXPONENTIAL = 3
     };
     Converter();
+    Converter(Converter * c);
     Converter(int typeOfExtrapolation);
     Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax);
+    Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset);
     float Extrapolate(float inputValue);
     void SetDModifier(float d);
     void SetCModifier(float c);

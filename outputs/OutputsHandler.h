@@ -12,6 +12,9 @@
 #include <iostream>
 class OutputsHandler{
 public:
-    virtual bool SendData (int paramNumber, float value) = 0;
+    virtual bool SendData (int paramNumber, float value){return false;};
+    bool CompareName (const char* n);
+protected:
+    char* _Name;
 };
 #endif /* defined(__LibLoAndCap__OutputsHandler__) */
