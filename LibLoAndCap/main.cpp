@@ -61,6 +61,6 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
     //const char* name = ;
     //std::cout<< ih->tlen<< std::endl;
     TheGrid->GetInputWithName("PacketLength")->SetValue(ih->tlen);
-    TheGrid->Compute();
+    TheGrid->Compute(); 
 }
 
