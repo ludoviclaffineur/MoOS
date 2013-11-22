@@ -36,12 +36,14 @@ _Converter(typeOfExtrapolation, min, max, 0.0, 1.0,xOffset, yOffset){
 }
 
 bool Input::CompareName(const char *n){
-    //printf("NameInput : %s \n Name to test : %s \n", _Name, n);
-    return strcmp(n, _Name);
+    //printf("NameInput : %s \n Name to test : %s \n Result strcmp : %d", _Name, n,strcmp(n, _Name));
+    bool a = (strcmp(n, _Name)==0);
+    return a;
 }
 
 void Input::SetValue(float value){
     _Value = _Converter.Extrapolate(value);
+    //std::cout<<"Converted Value"<< _Value<< std::endl;
 }
 
 float Input::GetExtrapolatedValue(){
@@ -49,5 +51,5 @@ float Input::GetExtrapolatedValue(){
 }
 
 Input::~Input(){
-    //delete _Name;
+    delete _Name;
 }

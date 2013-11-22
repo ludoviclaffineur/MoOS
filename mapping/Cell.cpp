@@ -8,8 +8,8 @@
 
 #include "Cell.h"
 
-Cell::Cell(Input i, OutputsHandler o, float coeff){
-    _Input = i;
+Cell::Cell(Input* i, OutputsHandler* o, float coeff){
+    _Input =i;
     _Output = o;
     _Coeff = coeff;
 }
@@ -22,9 +22,9 @@ float Cell::GetCoeff(){
     return _Coeff;
 }
 
-Input Cell::GetInput(){
+Input* Cell::GetInput(){
     return _Input;
 }
-OutputsHandler Cell::GetOutput(){
+OutputsHandler* Cell::GetOutput(){
     return _Output;
 }

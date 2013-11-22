@@ -10,19 +10,19 @@
 
 void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_char *pkt_data);
 
-Grid TheGrid;
+Grid* TheGrid;
 int main(int argc, const char * argv[])
 {
-    TheGrid = Grid();
-    PcapHandler _pcap = PcapHandler("ip and dst host 172.30.8.13", &TheGrid);
+    TheGrid = new Grid();
+    PcapHandler _pcap = PcapHandler("ip and dst host 172.30.8.13", TheGrid);
     pcap_t *handle;
     const char* osc1= "OSC1";
     OscHandler oscSender= OscHandler(osc1);
-    TheGrid.AddOutput(oscSender);
-    TheGrid.AddCell("PacketLength", "OSC1", 1.0);
+    TheGrid->AddOutput(&oscSender);
+    TheGrid->AddCell("PacketLength", "OSC1", 1.0);
 	handle = _pcap.ListAndChooseInterface();
-    Converter c = Converter(Converter::EXPONENTIAL, 1, 65536, 0, 1);
-    std::cout<< c.Extrapolate(1)<<std::endl;
+    //Converter c = Converter(Converter::EXPONENTIAL, 1, 65536, 0, 1);
+    //std::cout<< c.Extrapolate(1)<<std::endl;
 
     //for(int i = 0; i<65000;i++){
       //  std::cout<< c.Extrapolate(i)<<std::endl;
@@ -57,8 +57,9 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 	sport = ntohs( uh->sport );
 	dport = ntohs( uh->dport );
     //Converter c = Converter(Converter::EXPONENTIAL, 0, 65536, 0, 1);
-    const char* name = "PacketLength";
-    TheGrid.GetInputWithName(name).SetValue(uh->len);
-    TheGrid.Compute();
+    //const char* name = ;
+    //std::cout<< uh->len<< std::endl;
+    TheGrid->GetInputWithName("PacketLength")->SetValue((float)uh->len);
+    TheGrid->Compute();
 }
 

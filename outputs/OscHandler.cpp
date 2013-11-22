@@ -19,7 +19,7 @@ OscHandler::OscHandler(const char* n):OutputsHandler(n){
     _distant = lo_address_new("127.0.0.1", "57120");
     _ParamNumber = 0;
     _ValueBeforeSending = 0;
-    printf("Name : %s", n);
+    //printf("Name : %s", n);
     //strcpy(_Name,n);
 }
 
@@ -30,7 +30,7 @@ OscHandler::OscHandler(const char* ipAddress, const char* port){
 }
 
 bool OscHandler::SendData(){
-    std::cout<< "Sent value" << _ValueBeforeSending<<std::endl;
+    //std::cout<< "Sent value" << _ValueBeforeSending<<std::endl;
     return lo_send(_distant,"/param", "if", _ParamNumber,_ValueBeforeSending);
 }
 

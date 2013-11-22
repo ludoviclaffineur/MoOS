@@ -70,7 +70,7 @@ float Converter::_Linear(float inputValue){
 float Converter::_Exponential(float inputValue){
     float b = log((_yMinValue-_dModifier)/(_yMaxValue-_dModifier))/(_xMinValue-_xMaxValue);
     float a = (_yMinValue-_dModifier)/expf(b*_xMinValue-_cModifier);
-    std::cout<<a<<" " << b<< std::endl;
+    //std::cout<<a<<" " << b<< std::endl;
     return (a*expf((inputValue-_cModifier)*b)+_dModifier);
 }
 

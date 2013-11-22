@@ -20,7 +20,7 @@ OutputsHandler::OutputsHandler(const char* n){
 }
 
 bool OutputsHandler::CompareName(const char *n){
-    return strcmp(n, _Name);
+    return (strcmp(n, _Name)==0);
 }
 
 void OutputsHandler::AddToValue(float a){
@@ -36,5 +36,5 @@ void OutputsHandler::Reset(){
 }
 
 OutputsHandler::~OutputsHandler(){
-    //delete _Name;
+    delete _Name;
 }
