@@ -39,6 +39,7 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 	u_short sport,dport;
 	time_t local_tv_sec;
     local_tv_sec = header->ts.tv_sec;
+
 	//localtime_s(&ltime, &local_tv_sec);
 	//strftime( timestr, sizeof timestr, "%H:%M:%S", &ltime);
     
@@ -58,8 +59,8 @@ void packet_handler(u_char *param, const struct pcap_pkthdr *header, const u_cha
 	dport = ntohs( uh->dport );
     //Converter c = Converter(Converter::EXPONENTIAL, 0, 65536, 0, 1);
     //const char* name = ;
-    //std::cout<< uh->len<< std::endl;
-    TheGrid->GetInputWithName("PacketLength")->SetValue((float)uh->len);
+    //std::cout<< ih->tlen<< std::endl;
+    TheGrid->GetInputWithName("PacketLength")->SetValue(ih->tlen);
     TheGrid->Compute();
 }
 

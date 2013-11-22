@@ -19,7 +19,7 @@ PcapHandler::PcapHandler(char* filter){
 PcapHandler::PcapHandler(char* filter, Grid* g){
     _filter = filter;
     _TheGrid = *g;
-    g->AddInput("PacketLength", 1, 65635, 0, 0, Converter::LOGARITHMIC);
+    g->AddInput("PacketLength", 1, 65635, -1, 0, Converter::EXPONENTIAL);
 }
 int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
 #ifdef _WIN32

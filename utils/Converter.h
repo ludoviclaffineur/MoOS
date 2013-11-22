@@ -37,8 +37,8 @@ private:
     float _xMinValue;
     float _yMaxValue;
     float _yMinValue;
-    float _cModifier;
-    float _dModifier;
+    float _xOffset;
+    float _yOffset;
 };
 #endif /* defined(__libpcapTest__converter__) */
 

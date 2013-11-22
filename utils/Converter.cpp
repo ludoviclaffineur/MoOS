@@ -17,8 +17,8 @@ Converter::Converter(int typeOfExtrapolation){
     _xMinValue = 6;
     _yMaxValue = 0;
     _yMinValue = 1;
-	_cModifier = -3;
-	_dModifier = -1;
+	_yOffset = -3;
+	_xOffset = -1;
 }
 
 Converter::Converter(Converter * c){
@@ -31,8 +31,8 @@ Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin
     _xMinValue = xmin;
     _yMaxValue = ymax;
     _yMinValue = ymin;
-    _cModifier = 0;
-	_dModifier = 0;
+    _yOffset = 0;
+	_xOffset = 0;
 }
 
 Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset){
@@ -41,8 +41,8 @@ Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin
     _xMinValue = xmin;
     _yMaxValue = ymax;
     _yMinValue = ymin;
-    _cModifier = xOffset;
-	_dModifier = yOffset;
+    _yOffset = yOffset;
+	_xOffset = xOffset;
 }
 
 float Converter::Extrapolate(float inputValue){
@@ -68,23 +68,23 @@ float Converter::_Linear(float inputValue){
 }
 
 float Converter::_Exponential(float inputValue){
-    float b = log((_yMinValue-_dModifier)/(_yMaxValue-_dModifier))/(_xMinValue-_xMaxValue);
-    float a = (_yMinValue-_dModifier)/expf(b*_xMinValue-_cModifier);
+    float b = log((_yMinValue-_xOffset)/(_yMaxValue-_xOffset))/(_xMinValue-_xMaxValue);
+    float a = (_yMinValue-_xOffset)/expf(b*_xMinValue-_yOffset);
     //std::cout<<a<<" " << b<< std::endl;
-    return (a*expf((inputValue-_cModifier)*b)+_dModifier);
+    return (a*expf((inputValue-_yOffset)*b)+_xOffset);
 }
 
 float Converter::_Logarithmic(float inputValue){
-    float b = (_yMinValue-_yMaxValue)/log((_xMinValue-_cModifier)/(_xMaxValue-_cModifier));
-    float a = expf((_yMinValue-_dModifier)/b)/(_xMinValue-_cModifier);
+    float b = (_yMinValue-_yMaxValue)/log((_xMinValue-_yOffset)/(_xMaxValue-_yOffset));
+    float a = expf((_yMinValue-_xOffset)/b)/(_xMinValue-_yOffset);
     //std::cout<<a<<" " << b<< std::endl;
-    return ( b*log(a*(inputValue-_cModifier))+_dModifier);
+    return ( b*log(a*(inputValue-_yOffset))+_xOffset);
 }
 
 void Converter::SetDModifier(float d){
-    _dModifier = d;
+    _xOffset = d;
 }
 
 void Converter::SetCModifier(float c){
-    _cModifier = c;
+    _yOffset = c;
 }
