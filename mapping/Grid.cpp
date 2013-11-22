@@ -27,7 +27,6 @@ void Grid::AddCell(const char* inputName, const char* outputName, float corrCoef
 void Grid::Compute(){
     for (int i = 0; i<_Cells.size(); i++){
         Cell* c = _Cells.at(i);
-        std::cout<<"What is grid Input"<< c->GetInput()->GetExtrapolatedValue()<<std::endl;
         c->GetOutput()->AddToValue(c->GetInput()->GetExtrapolatedValue());
     }
     for (int i = 0; i<_Outputs.size(); i++) {
