@@ -37,8 +37,7 @@ mConverter(typeOfExtrapolation, min, max, 0.0, 1.0,xOffset, yOffset){
 
 bool Input::compareName(const char *n){
     //printf("NameInput : %s \n Name to test : %s \n Result strcmp : %d", _Name, n,strcmp(n, _Name));
-    bool a = (strcmp(n, mName)==0);
-    return a;
+    return (strcmp(n, mName)==0);
 }
 
 void Input::setValue(float value){

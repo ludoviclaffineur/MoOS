@@ -30,7 +30,6 @@ void* ThreadReceptionPacket (void* ptr){
         g->getInputWithName("PacketLength")->setValue(ih->tlen);
         g->compute();
     }
-
     return NULL;
 }
 
@@ -85,8 +84,7 @@ void PcapHandler::listAllDevs(){
     pcap_if_t* d;
     findAllDevs(&mAlldevs, mErrbuf);
     int i=0;
-    for( d = mAlldevs; d; d=d->next)
-	{
+    for( d = mAlldevs; d; d=d->next){
 		printf("%d. %s", ++i, d->name);
 		if (d->description)
 			printf(" (%s)\n", d->description);
@@ -133,7 +131,6 @@ int PcapHandler::loop(pcap_t *p, int cnt, pcap_handler callback, u_char *user){
 }
 
 int PcapHandler::loopThreading(){
-    //_Handle = p;
     pthread_create(&capture_thread, NULL, ThreadReceptionPacket, this);
     return 0;
 }

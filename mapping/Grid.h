@@ -18,16 +18,18 @@
 class Grid{
 public:
     Grid();
-    void addInput(Input* i);
-    void addInput(const char* Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
-    void addOutput(OutputsHandler* o);
-    void addCell(const char* inputName,const char* outputName, float corrCoeff);
-    Input* getInputWithName(const char* n);
+
+    void    addInput(Input* i);
+    void    addInput(const char* Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
+    void    addOutput(OutputsHandler* o);
+    void    addCell(const char* inputName,const char* outputName, float corrCoeff);
+    void    compute();
+    Input*  getInputWithName(const char* n);
     OutputsHandler* getOutputWithName(const char* n);
-    void compute();
+
 private:
-    std::vector<Input*> mInputs;
-    std::vector<OutputsHandler*> mOutputs;
-    std::vector<Cell*>  mCells;
+    std::vector <Input*> mInputs;
+    std::vector <OutputsHandler*> mOutputs;
+    std::vector <Cell*>  mCells;
 };
 #endif /* defined(__LibLoAndCap__Grid__) */

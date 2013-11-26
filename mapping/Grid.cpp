@@ -40,17 +40,13 @@ void Grid::compute(){
 }
 
 Input* Grid::getInputWithName(const char* n){
-    for(int i =0 ;i<mInputs.size();i++){
-        if (mInputs.at(i)->compareName(n)){
-            return mInputs.at(i);
-        }
-    }
+    for(int i =0 ;i<mInputs.size();i++)
+        if (mInputs.at(i)->compareName(n)) return mInputs.at(i);
     return NULL;
 }
 
 OutputsHandler* Grid::getOutputWithName(const char* n){
-    for(int i =0 ;i<mInputs.size();i++){
+    for(int i =0 ;i<mInputs.size();i++)
         if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
-    }
     return NULL;
 }

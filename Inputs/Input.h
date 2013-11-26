@@ -22,8 +22,8 @@ public:
     ~Input();
 
     bool    compareName(const char *n);
-    void    setValue(float value);
     float   getExtrapolatedValue();
+    void    setValue(float value);
 
 private:
     float   mValue;
