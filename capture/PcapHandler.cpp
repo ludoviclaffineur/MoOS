@@ -7,24 +7,56 @@
 //
 
 #include "PcapHandler.h"
+#include "IpHeaderDefinitions.h"
+#include <pthread.h>
 
 #include <iostream>
+
+pthread_t capture_thread;
+bool running = true;
+
+void* ThreadReceptionPacket (void* ptr){
+    PcapHandler* p = (PcapHandler*) ptr;
+    //pcap_t* handle = (pcap_t*) ptr;
+    struct pcap_pkthdr* header;
+    const u_char* datas;
+    while(running){
+        pcap_next_ex(p->getHandle(), &header, &datas);
+        std::cout<<header->len<<std::endl;
+        ip_header *ih;
+        ih = (ip_header *) (datas + 14);
+        std::cout<<ih->tlen<<std::endl;
+        Grid* g = p->getGrid();
+        g->getInputWithName("PacketLength")->setValue(ih->tlen);
+        g->compute();
+    }
+
+    return NULL;
+}
+
+PcapHandler::~PcapHandler(){
+    running = false;
+    pthread_join(capture_thread, NULL); //waiting that capture_thread finishes
+    close(mHandle);
+    freeAllDevs(mAlldevs);
+}
+
 PcapHandler::PcapHandler(){
-    _filter = NULL;
+    mFilter = NULL;
 }
 
 PcapHandler::PcapHandler(char* filter){
-    _filter = filter;
+    mFilter = filter;
 }
-PcapHandler::PcapHandler(char* filter, Grid* g){
-    _filter = filter;
-    _TheGrid = *g;
-    g->AddInput("PacketLength", 1, 65635, -1, 0, Converter::EXPONENTIAL);
+PcapHandler::PcapHandler(const char* filter, Grid* g){
+    mFilter = filter;
+    mGrid = g;
+    mGrid->addInput("PacketLength", 1, 65635, -1, 0, Converter::EXPONENTIAL);
 }
-int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
+
+int PcapHandler::findAllDevs(pcap_if_t **alldev , char *errbuf){
 #ifdef _WIN32
-    if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, alldev, errbuf) == -1)
-	{
+    if (pcap_findalldevs_ex(PCAP_SRC_IF_STRING, NULL, alldev, errbuf) == -1){
 		fprintf(stderr,"Error in pcap_findalldevs: %s\n", errbuf);
 		return -1;
 	}
@@ -37,23 +69,23 @@ int PcapHandler::FindAllDevs(pcap_if_t **alldev , char *errbuf){
     return 3;
 }
 
-pcap_t* PcapHandler::ListAndChooseInterface(){
+pcap_t* PcapHandler::listAndChooseInterface(){
     struct bpf_program fcode;
     u_int netmask = 0xffffff00;
-    _ListAllDevs();
-    pcap_t* handle =  _ChooseDev();
-    if (_filter){
-        pcap_compile(handle, &fcode, _filter, 1, netmask);
+    listAllDevs();
+    pcap_t* handle =  chooseDev();
+    if (mFilter){
+        pcap_compile(handle, &fcode, mFilter, 1, netmask);
         pcap_setfilter(handle, &fcode);
     }
     return handle;
 }
 
-void PcapHandler::_ListAllDevs(){
+void PcapHandler::listAllDevs(){
     pcap_if_t* d;
-    FindAllDevs(&_alldevs, _errbuf);
+    findAllDevs(&mAlldevs, mErrbuf);
     int i=0;
-    for( d = _alldevs; d; d=d->next)
+    for( d = mAlldevs; d; d=d->next)
 	{
 		printf("%d. %s", ++i, d->name);
 		if (d->description)
@@ -63,19 +95,23 @@ void PcapHandler::_ListAllDevs(){
 	}
 }
 
-pcap_t* PcapHandler::_ChooseDev(){
+pcap_t* PcapHandler::chooseDev(){
     int a;
-    pcap_if_t* selected = _alldevs;
+    pcap_if_t* selected = mAlldevs;
     std::cout<< "Select your interface :";
     std::cin >> a;
     for (int i = 1; i<a; i++){
         selected = selected->next;
     }
-	return OpenLive(selected->name, BUFSIZ, 1, 1000, _errbuf);
-    
+    mHandle = openLive(selected->name, BUFSIZ, 1, 1000, mErrbuf);
+	return mHandle;
 }
 
-pcap_t* PcapHandler::OpenLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf){
+pcap_t* PcapHandler::getHandle(){
+    return mHandle;
+}
+
+pcap_t* PcapHandler::openLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf){
     
 #ifdef _WIN32
     return pcap_open(device,  // name of the device
@@ -92,15 +128,24 @@ pcap_t* PcapHandler::OpenLive(const char *device, int snaplen,int promisc, int t
 #endif
 }
 
-int PcapHandler::Loop(pcap_t *p, int cnt, pcap_handler callback, u_char *user){
+int PcapHandler::loop(pcap_t *p, int cnt, pcap_handler callback, u_char *user){
     return pcap_loop(p, cnt, callback, user);
 }
 
+int PcapHandler::loopThreading(){
+    //_Handle = p;
+    pthread_create(&capture_thread, NULL, ThreadReceptionPacket, this);
+    return 0;
+}
 
-void PcapHandler::Close(pcap_t* handle){
+void PcapHandler::close(pcap_t* handle){
     pcap_close(handle);
 }
 
-void PcapHandler::FreeAllDevs(pcap_if_t *alldevs){
+void PcapHandler::freeAllDevs(pcap_if_t *alldevs){
     pcap_freealldevs(alldevs);
+}
+
+Grid* PcapHandler::getGrid(){
+    return mGrid;
 }

@@ -21,8 +21,7 @@ public:
     bool SendData (int paramNumber, float value);
     bool SendData ();
 private:
-    lo_address _distant;
-    
+    lo_address mDistant;
     
 };
 #endif /* defined(__libpcapTest__Osc__) */

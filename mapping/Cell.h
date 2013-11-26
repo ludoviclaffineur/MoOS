@@ -15,13 +15,14 @@
 class Cell{
 public:
     Cell(Input* i, OutputsHandler* o, float coeff);
-    void SetCoeff(float coeff);
-    float GetCoeff();
-    Input* GetInput();
-    OutputsHandler* GetOutput();
+
+    void            setCoeff(float coeff);
+    float           getCoeff();
+    Input*          getInput();
+    OutputsHandler* getOutput();
 private:
-    float _Coeff;
-    Input* _Input;
-    OutputsHandler* _Output;
+    float           mCoeff;
+    Input*          mInput;
+    OutputsHandler* mOutput;
 };
 #endif /* defined(__LibLoAndCap__Cell__) */

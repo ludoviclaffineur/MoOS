@@ -9,32 +9,32 @@
 #include "OutputsHandler.h"
 
 OutputsHandler::OutputsHandler(){
-    _ValueBeforeSending = 0;
+    mValueBeforeSending = 0;
 }
 
 OutputsHandler::OutputsHandler(const char* n){
     static int i = 0;
-    _Name = new char [strlen(n) + 1];
-    strcpy(_Name, n);
+    mName = new char [strlen(n) + 1];
+    strcpy(mName, n);
     i++;
 }
 
-bool OutputsHandler::CompareName(const char *n){
-    return (strcmp(n, _Name)==0);
+bool OutputsHandler::compareName(const char *n){
+    return (strcmp(n, mName)==0);
 }
 
-void OutputsHandler::AddToValue(float a){
-    _ValueBeforeSending += a;
+void OutputsHandler::addToValue(float a){
+    mValueBeforeSending += a;
 }
 
-void OutputsHandler::Extrapolate(){
+void OutputsHandler::extrapolate(){
 
 }
 
-void OutputsHandler::Reset(){
-    _ValueBeforeSending = 0;
+void OutputsHandler::reset(){
+    mValueBeforeSending = 0;
 }
 
 OutputsHandler::~OutputsHandler(){
-    delete _Name;
+    delete mName;
 }

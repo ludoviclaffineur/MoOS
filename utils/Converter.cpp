@@ -12,13 +12,13 @@
 Converter::Converter(){}
 
 Converter::Converter(int typeOfExtrapolation){
-    _currentExtrapolation = typeOfExtrapolation;
-	_xMaxValue = 0;
-    _xMinValue = 6;
-    _yMaxValue = 0;
-    _yMinValue = 1;
-	_yOffset = -3;
-	_xOffset = -1;
+    mCurrentExtrapolation = typeOfExtrapolation;
+	mXMaxValue = 0;
+    mXMinValue = 6;
+    mYMaxValue = 0;
+    mYMinValue = 1;
+	mYOffset = -3;
+	mXOffset = -1;
 }
 
 Converter::Converter(Converter * c){
@@ -26,65 +26,65 @@ Converter::Converter(Converter * c){
 }
 
 Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax){
-    _currentExtrapolation = typeOfExtrapolation;
-    _xMaxValue = xmax;
-    _xMinValue = xmin;
-    _yMaxValue = ymax;
-    _yMinValue = ymin;
-    _yOffset = 0;
-	_xOffset = 0;
+    mCurrentExtrapolation = typeOfExtrapolation;
+    mXMaxValue = xmax;
+    mXMinValue = xmin;
+    mYMaxValue = ymax;
+    mYMinValue = ymin;
+    mYOffset = 0;
+	mXOffset = 0;
 }
 
 Converter::Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset){
-    _currentExtrapolation = typeOfExtrapolation;
-    _xMaxValue = xmax;
-    _xMinValue = xmin;
-    _yMaxValue = ymax;
-    _yMinValue = ymin;
-    _yOffset = yOffset;
-	_xOffset = xOffset;
+    mCurrentExtrapolation = typeOfExtrapolation;
+    mXMaxValue = xmax;
+    mXMinValue = xmin;
+    mYMaxValue = ymax;
+    mYMinValue = ymin;
+    mYOffset = yOffset;
+	mXOffset = xOffset;
 }
 
-float Converter::Extrapolate(float inputValue){
-    switch (_currentExtrapolation) {
+float Converter::extrapolate(float inputValue){
+    switch (mCurrentExtrapolation) {
         case LINEAR:
-            return _Linear(inputValue);
+            return linear(inputValue);
             break;
         case EXPONENTIAL:
-            return _Exponential(inputValue);
+            return exponential(inputValue);
             break;
         case LOGARITHMIC:
-            return _Logarithmic(inputValue);
+            return logarithmic(inputValue);
             break;
         default:
             return -1;
     }
 }
 
-float Converter::_Linear(float inputValue){
-    float beta = _yMinValue - (_xMinValue*(_yMaxValue-_yMinValue)/(_xMaxValue-_xMinValue));
-    float alpha =(_yMaxValue-_yMinValue)/(_xMaxValue-_xMinValue);
+float Converter::linear(float inputValue){
+    float beta = mYMinValue - (mXMinValue*(mYMaxValue-mYMinValue)/(mXMaxValue-mXMinValue));
+    float alpha =(mYMaxValue-mYMinValue)/(mXMaxValue-mXMinValue);
     return (alpha*inputValue + beta);
 }
 
-float Converter::_Exponential(float inputValue){
-    float b = log((_yMinValue-_xOffset)/(_yMaxValue-_xOffset))/(_xMinValue-_xMaxValue);
-    float a = (_yMinValue-_xOffset)/expf(b*_xMinValue-_yOffset);
+float Converter::exponential(float inputValue){
+    float b = log((mYMinValue-mXOffset)/(mYMaxValue-mXOffset))/(mXMinValue-mXMaxValue);
+    float a = (mYMinValue-mXOffset)/expf(b*mXMinValue-mYOffset);
     //std::cout<<a<<" " << b<< std::endl;
-    return (a*expf((inputValue-_yOffset)*b)+_xOffset);
+    return (a*expf((inputValue-mYOffset)*b)+mXOffset);
 }
 
-float Converter::_Logarithmic(float inputValue){
-    float b = (_yMinValue-_yMaxValue)/log((_xMinValue-_yOffset)/(_xMaxValue-_yOffset));
-    float a = expf((_yMinValue-_xOffset)/b)/(_xMinValue-_yOffset);
+float Converter::logarithmic(float inputValue){
+    float b = (mYMinValue-mYMaxValue)/log((mXMinValue-mYOffset)/(mXMaxValue-mYOffset));
+    float a = expf((mYMinValue-mXOffset)/b)/(mXMinValue-mYOffset);
     //std::cout<<a<<" " << b<< std::endl;
-    return ( b*log(a*(inputValue-_yOffset))+_xOffset);
+    return ( b*log(a*(inputValue-mYOffset))+mXOffset);
 }
 
-void Converter::SetDModifier(float d){
-    _xOffset = d;
+void Converter::setDModifier(float d){
+    mXOffset = d;
 }
 
-void Converter::SetCModifier(float c){
-    _yOffset = c;
+void Converter::setCModifier(float c){
+    mYOffset = c;
 }

@@ -17,17 +17,17 @@ public:
     OutputsHandler();
     OutputsHandler(const char* n);
     ~OutputsHandler();
-    virtual bool SendData (int paramNumber, float value){return false;};
-    virtual bool SendData (){return false;};
-    bool CompareName (const char* n);
-    void AddToValue(float a);
-    void Reset();
-    void Extrapolate();
+    virtual bool sendData (int paramNumber, float value){return false;};
+    virtual bool sendData (){return false;};
+    bool    compareName (const char* n);
+    void    addToValue(float a);
+    void    reset();
+    void    extrapolate();
 
 protected:
-    float _ValueBeforeSending;
-    int _ParamNumber;
-    char* _Name;
-    Converter _Converter;
+    float   mValueBeforeSending;
+    int     mParamNumber;
+    char*   mName;
+    Converter mConverter;
 };
 #endif /* defined(__LibLoAndCap__OutputsHandler__) */

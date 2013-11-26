@@ -9,22 +9,23 @@
 #include "Cell.h"
 
 Cell::Cell(Input* i, OutputsHandler* o, float coeff){
-    _Input =i;
-    _Output = o;
-    _Coeff = coeff;
+    mInput =i;
+    mOutput = o;
+    mCoeff = coeff;
 }
 
-void Cell:: SetCoeff(float coeff){
-    _Coeff = coeff;
+void Cell:: setCoeff(float coeff){
+    mCoeff = coeff;
 }
 
-float Cell::GetCoeff(){
-    return _Coeff;
+float Cell::getCoeff(){
+    return mCoeff;
 }
 
-Input* Cell::GetInput(){
-    return _Input;
+Input* Cell::getInput(){
+    return mInput;
 }
-OutputsHandler* Cell::GetOutput(){
-    return _Output;
+
+OutputsHandler* Cell::getOutput(){
+    return mOutput;
 }

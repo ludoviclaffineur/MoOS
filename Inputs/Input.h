@@ -20,14 +20,15 @@ public:
     Input(const char* name, float min, float max, int typeOfExtrapolation);
     Input(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
     ~Input();
-    bool CompareName(const char *n);
-    void SetValue(float value);
-    float GetExtrapolatedValue();
+
+    bool    compareName(const char *n);
+    void    setValue(float value);
+    float   getExtrapolatedValue();
 
 private:
-    float _Value;
-    char* _Name;
-    Converter _Converter;
+    float   mValue;
+    char*   mName;
+    Converter mConverter;
 };
 
 #endif /* defined(__LibLoAndCap__Input__) */

@@ -9,17 +9,6 @@
 #ifndef LibLoAndCap_IpHeaderDefinition_h
 #define LibLoAndCap_IpHeaderDefinition_h
 
-//
-//  IpHeader.h
-//  libpcapTest
-//
-//  Created by Ludovic Laffineur on 29/10/13.
-//  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.
-//
-
-#ifndef libpcapTest_IpHeaderDefinitions_h
-#define libpcapTest_IpHeaderDefinitions_h
-
 typedef struct ip_address{
 	u_char byte1;
 	u_char byte2;
@@ -51,5 +40,3 @@ typedef struct udp_header{
 #endif
 
 
-
-#endif

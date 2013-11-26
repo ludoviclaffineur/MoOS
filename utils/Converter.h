@@ -11,7 +11,6 @@
 
 #include <iostream>
 
-
 class Converter{
 public:
     enum TypeOfExtrapolation {
@@ -24,23 +23,22 @@ public:
     Converter(int typeOfExtrapolation);
     Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax);
     Converter(int typeOfExtrapolation, float xmin, float xmax, float ymin, float ymax, float xOffset, float yOffset);
-    float Extrapolate(float inputValue);
-    void SetDModifier(float d);
-    void SetCModifier(float c);
-    
+
+    float   extrapolate(float inputValue);
+    void    setDModifier(float d);
+    void    setCModifier(float c);
 private:
-    int _currentExtrapolation;
-    float _Linear(float inputValue);
-    float _Exponential(float inputValue);
-    float _Logarithmic(float inputValue);
-    float _xMaxValue;
-    float _xMinValue;
-    float _yMaxValue;
-    float _yMinValue;
-    float _xOffset;
-    float _yOffset;
+
+    float   linear(float inputValue);
+    float   exponential(float inputValue);
+    float   logarithmic(float inputValue);
+    
+    int     mCurrentExtrapolation;
+    float   mXMaxValue;
+    float   mXMinValue;
+    float   mYMaxValue;
+    float   mYMinValue;
+    float   mXOffset;
+    float   mYOffset;
 };
 #endif /* defined(__libpcapTest__converter__) */
-
-
-

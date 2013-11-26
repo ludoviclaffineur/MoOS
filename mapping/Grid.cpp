@@ -10,46 +10,47 @@
 
 Grid::Grid(){}
 
-void Grid::AddInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
-    _Inputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
+void Grid::addInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
+    mInputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
 }
 
-void Grid::AddInput(Input* i){
-    _Inputs.push_back(i);
+void Grid::addInput(Input* i){
+    mInputs.push_back(i);
 }
 
-void Grid::AddOutput(OutputsHandler* o){
-    _Outputs.push_back(o);
+void Grid::addOutput(OutputsHandler* o){
+    mOutputs.push_back(o);
 }
-void Grid::AddCell(const char* inputName, const char* outputName, float corrCoeff){
-    _Cells.push_back(new Cell(GetInputWithName(inputName), GetOutputWithName(outputName) , corrCoeff));
+
+void Grid::addCell(const char* inputName, const char* outputName, float corrCoeff){
+    mCells.push_back(new Cell(getInputWithName(inputName), getOutputWithName(outputName) , corrCoeff));
 }
-void Grid::Compute(){
-    for (int i = 0; i<_Cells.size(); i++){
-        Cell* c = _Cells.at(i);
-        c->GetOutput()->AddToValue(c->GetInput()->GetExtrapolatedValue());
+
+void Grid::compute(){
+    for (int i = 0; i<mCells.size(); i++){
+        Cell* c = mCells.at(i);
+        c->getOutput()->addToValue(c->getInput()->getExtrapolatedValue());
     }
-    for (int i = 0; i<_Outputs.size(); i++) {
-        OutputsHandler* o = _Outputs.at(i);
-        o->Extrapolate();
-        o->SendData();
-        o->Reset();
+    for (int i = 0; i<mOutputs.size(); i++) {
+        OutputsHandler* o = mOutputs.at(i);
+        o->extrapolate();
+        o->sendData();
+        o->reset();
     }
 }
 
-Input* Grid::GetInputWithName(const char* n){
-    for(int i =0 ;i<_Inputs.size();i++){
-        if (_Inputs.at(i)->CompareName(n)){
-            return _Inputs.at(i);
+Input* Grid::getInputWithName(const char* n){
+    for(int i =0 ;i<mInputs.size();i++){
+        if (mInputs.at(i)->compareName(n)){
+            return mInputs.at(i);
         }
-
     }
     return NULL;
 }
 
-OutputsHandler* Grid::GetOutputWithName(const char* n){
-    for(int i =0 ;i<_Inputs.size();i++){
-        if (_Outputs.at(i)->CompareName(n)) return _Outputs.at(i);
+OutputsHandler* Grid::getOutputWithName(const char* n){
+    for(int i =0 ;i<mInputs.size();i++){
+        if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
     }
     return NULL;
 }
