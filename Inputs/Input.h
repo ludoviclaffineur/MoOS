@@ -13,6 +13,7 @@
 #include "Converter.h"
 
 class Input{
+
 public:
     Input();
     Input(const char* name);

@@ -13,16 +13,18 @@
 #include "Converter.h"
 
 class OutputsHandler{
+
 public:
     OutputsHandler();
     OutputsHandler(const char* n);
     ~OutputsHandler();
+    
+    void    addToValue(float a);
+    bool    compareName (const char* n);
+    void    extrapolate();
+    void    reset();
     virtual bool sendData (int paramNumber, float value){return false;};
     virtual bool sendData (){return false;};
-    bool    compareName (const char* n);
-    void    addToValue(float a);
-    void    reset();
-    void    extrapolate();
 
 protected:
     float   mValueBeforeSending;
@@ -30,4 +32,5 @@ protected:
     char*   mName;
     Converter mConverter;
 };
+
 #endif /* defined(__LibLoAndCap__OutputsHandler__) */

@@ -16,6 +16,7 @@
 #include <vector>
 
 class Grid{
+
 public:
     Grid();
 
@@ -32,4 +33,5 @@ private:
     std::vector <OutputsHandler*> mOutputs;
     std::vector <Cell*>  mCells;
 };
+
 #endif /* defined(__LibLoAndCap__Grid__) */

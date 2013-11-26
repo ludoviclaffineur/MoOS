@@ -12,6 +12,7 @@
 #include <iostream>
 
 class Converter{
+
 public:
     enum TypeOfExtrapolation {
         LINEAR      = 1,
@@ -27,8 +28,8 @@ public:
     float   extrapolate(float inputValue);
     void    setDModifier(float d);
     void    setCModifier(float c);
-private:
 
+private:
     float   linear(float inputValue);
     float   exponential(float inputValue);
     float   logarithmic(float inputValue);
@@ -41,4 +42,5 @@ private:
     float   mXOffset;
     float   mYOffset;
 };
+
 #endif /* defined(__libpcapTest__converter__) */

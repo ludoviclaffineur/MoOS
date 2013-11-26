@@ -14,14 +14,16 @@
 #include "OutputsHandler.h"
 
 class OscHandler : public OutputsHandler{
+
 public:
     OscHandler();
     OscHandler(const char* n);
     OscHandler(const char* ipAddress, const char* port);
-    bool SendData (int paramNumber, float value);
-    bool SendData ();
+    bool sendData (int paramNumber, float value);
+    bool sendData ();
+
 private:
     lo_address mDistant;
-    
 };
+
 #endif /* defined(__libpcapTest__Osc__) */

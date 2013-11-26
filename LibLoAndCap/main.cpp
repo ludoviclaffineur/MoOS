@@ -11,6 +11,7 @@
 
 Grid* TheGrid;
 const char* filter ="ip and dst host 172.30.8.13";
+
 int main(int argc, const char * argv[])
 {
     TheGrid = new Grid();
@@ -27,5 +28,3 @@ int main(int argc, const char * argv[])
     std::cin>>a;
     return 0;
 }
-
-

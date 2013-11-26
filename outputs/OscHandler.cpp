@@ -29,11 +29,11 @@ OscHandler::OscHandler(const char* ipAddress, const char* port){
     mValueBeforeSending = 0;
 }
 
-bool OscHandler::SendData(){
+bool OscHandler::sendData(){
     //std::cout<< "Sent value" << _ValueBeforeSending<<std::endl;
     return lo_send(mDistant,"/param", "if", mParamNumber,mValueBeforeSending);
 }
 
-bool OscHandler::SendData(int paramNumber, float value){
+bool OscHandler::sendData(int paramNumber, float value){
     return lo_send(mDistant,"/param", "if", paramNumber,value);
 }

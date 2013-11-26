@@ -32,8 +32,8 @@ public:
     pcap_t* openLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf);
 
 private:
-    void        listAllDevs();
     pcap_t*     chooseDev();
+    void        listAllDevs();
 
     pcap_if_t*  mAlldevs;
     char        mErrbuf[PCAP_ERRBUF_SIZE];
@@ -41,4 +41,5 @@ private:
     Grid*       mGrid;
     pcap_t*     mHandle;
 };
+
 #endif /* defined(__libpcapTest__PcapHandler__) */

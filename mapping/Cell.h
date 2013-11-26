@@ -12,7 +12,9 @@
 #include <iostream>
 #include "Input.h"
 #include "OutputsHandler.h"
+
 class Cell{
+
 public:
     Cell(Input* i, OutputsHandler* o, float coeff);
 
@@ -20,9 +22,11 @@ public:
     float           getCoeff();
     Input*          getInput();
     OutputsHandler* getOutput();
+
 private:
     float           mCoeff;
     Input*          mInput;
     OutputsHandler* mOutput;
 };
+
 #endif /* defined(__LibLoAndCap__Cell__) */
