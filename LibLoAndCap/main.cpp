@@ -7,6 +7,7 @@
 //
 
 #include "AppIncludes.h"
+#include "server.hpp"
 #include <pthread.h>
 
 Grid* TheGrid;
@@ -24,6 +25,11 @@ int main(int argc, const char * argv[])
     _pcap.loopThreading();
     
     // Control board
+
+    http::server::server s("0.0.0.0", "80", "./www");
+    s.run();
+
+    std::cout<<"YOUPS";
     int a;
     std::cin>>a;
     return 0;

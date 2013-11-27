@@ -12,6 +12,8 @@
 	<dict>
 		<key>94897679-EB98-4E9E-9BAA-FC4E6FEDAB6B</key>
 		<string>https://bitbucket.org/ludoviclaffineur/libpcapandliblo.git</string>
+		<key>F3371108-4B9F-485D-9413-78EBEE9DB820</key>
+		<string>https://bitbucket.org/ludoviclaffineur/libpcapcrossplatform.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>LibLoAndCap.xcodeproj/project.xcworkspace</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>94897679-EB98-4E9E-9BAA-FC4E6FEDAB6B</key>
 		<string>../..</string>
+		<key>F3371108-4B9F-485D-9413-78EBEE9DB820</key>
+		<string>../../../libpcapTest</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://bitbucket.org/ludoviclaffineur/libpcapandliblo.git</string>
@@ -35,6 +39,14 @@
 			<string>94897679-EB98-4E9E-9BAA-FC4E6FEDAB6B</string>
 			<key>IDESourceControlWCCName</key>
 			<string>LibLoAndCap</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F3371108-4B9F-485D-9413-78EBEE9DB820</string>
+			<key>IDESourceControlWCCName</key>
+			<string>libpcapTest</string>
 		</dict>
 	</array>
 </dict>
