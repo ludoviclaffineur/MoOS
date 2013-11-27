@@ -22,7 +22,7 @@ int main(int argc, const char * argv[])
     TheGrid->addCell("PacketLength", "OSC1", 1.0);
 	_pcap.listAndChooseInterface();
     _pcap.loopThreading();
-
+    
     // Control board
     int a;
     std::cin>>a;

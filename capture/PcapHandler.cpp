@@ -9,7 +9,6 @@
 #include "PcapHandler.h"
 #include "IpHeaderDefinitions.h"
 #include <pthread.h>
-
 #include <iostream>
 
 pthread_t capture_thread;
@@ -22,10 +21,10 @@ void* ThreadReceptionPacket (void* ptr){
     const u_char* datas;
     while(running){
         pcap_next_ex(p->getHandle(), &header, &datas);
-        std::cout<<header->len<<std::endl;
+        //std::cout<<header->len<<std::endl;
         ip_header *ih;
         ih = (ip_header *) (datas + 14);
-        std::cout<<ih->tlen<<std::endl;
+        //std::cout<<ih->tlen<<std::endl;
         Grid* g = p->getGrid();
         g->getInputWithName("PacketLength")->setValue(ih->tlen);
         g->compute();
@@ -47,6 +46,7 @@ PcapHandler::PcapHandler(){
 PcapHandler::PcapHandler(char* filter){
     mFilter = filter;
 }
+
 PcapHandler::PcapHandler(const char* filter, Grid* g){
     mFilter = filter;
     mGrid = g;
@@ -110,7 +110,6 @@ pcap_t* PcapHandler::getHandle(){
 }
 
 pcap_t* PcapHandler::openLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf){
-    
 #ifdef _WIN32
     return pcap_open(device,  // name of the device
                      snaplen,     // portion of the packet to capture.

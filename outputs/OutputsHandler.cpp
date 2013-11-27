@@ -13,10 +13,8 @@ OutputsHandler::OutputsHandler(){
 }
 
 OutputsHandler::OutputsHandler(const char* n){
-    static int i = 0;
     mName = new char [strlen(n) + 1];
     strcpy(mName, n);
-    i++;
 }
 
 bool OutputsHandler::compareName(const char *n){
