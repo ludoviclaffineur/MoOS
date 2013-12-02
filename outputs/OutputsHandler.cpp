@@ -36,3 +36,7 @@ void OutputsHandler::reset(){
 OutputsHandler::~OutputsHandler(){
     delete mName;
 }
+
+const char* OutputsHandler::getName(){
+    return mName;
+}

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0211FD184C70B30096ED35 /* SnfHandler.cpp */; };
 		FE14162018464D3D00F7AF26 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14160F18464D3D00F7AF26 /* connection.cpp */; };
 		FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161118464D3D00F7AF26 /* connection_manager.cpp */; };
 		FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161518464D3D00F7AF26 /* mime_types.cpp */; };
@@ -43,6 +44,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FE0211FD184C70B30096ED35 /* SnfHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnfHandler.cpp; sourceTree = "<group>"; };
+		FE0211FE184C70B30096ED35 /* SnfHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnfHandler.h; sourceTree = "<group>"; };
 		FE14160F18464D3D00F7AF26 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		FE14161018464D3D00F7AF26 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
 		FE14161118464D3D00F7AF26 /* connection_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection_manager.cpp; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 				FE14161D18464D3D00F7AF26 /* request_parser.hpp */,
 				FE14161E18464D3D00F7AF26 /* server.cpp */,
 				FE14161F18464D3D00F7AF26 /* server.hpp */,
+				FE0211FD184C70B30096ED35 /* SnfHandler.cpp */,
+				FE0211FE184C70B30096ED35 /* SnfHandler.h */,
 			);
 			name = server;
 			path = view/server;
@@ -280,6 +285,7 @@
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
 				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,
+				FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */,
 				FE481832182119D00094602C /* OutputsHandler.cpp in Sources */,
 				FE96F4BC183CF48E00C59843 /* Input.cpp in Sources */,
 				FE48183618211AF10094602C /* Converter.cpp in Sources */,

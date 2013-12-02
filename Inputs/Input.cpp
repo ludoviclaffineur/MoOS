@@ -49,6 +49,10 @@ float Input::getExtrapolatedValue(){
     return mValue;
 }
 
+const char* Input::getName(){
+    return mName;
+}
+
 Input::~Input(){
     delete mName;
 }

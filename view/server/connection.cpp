@@ -47,6 +47,7 @@ void connection::do_read()
           std::tie(result, std::ignore) = request_parser_.parse(
               request_, buffer_.data(), buffer_.data() + bytes_transferred);
 
+
           if (result == request_parser::good)
           {
             request_handler_.handle_request(request_, reply_);

@@ -22,6 +22,7 @@ public:
     void    addToValue(float a);
     bool    compareName (const char* n);
     void    extrapolate();
+    const char* getName();
     void    reset();
     virtual bool sendData (int paramNumber, float value){return false;};
     virtual bool sendData (){return false;};

@@ -16,6 +16,7 @@
 #include "connection.hpp"
 #include "connection_manager.hpp"
 #include "request_handler.hpp"
+#include "Grid.h"
 
 namespace http {
 namespace server {
@@ -30,7 +31,7 @@ public:
   /// Construct the server to listen on the specified TCP address and port, and
   /// serve up files from the given directory.
   explicit server(const std::string& address, const std::string& port,
-      const std::string& doc_root);
+      const std::string& doc_root, Grid* g);
 
   /// Run the server's io_service loop.
   void run();

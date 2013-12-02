@@ -26,6 +26,7 @@ void request_parser::reset()
 
 request_parser::result_type request_parser::consume(request& req, char input)
 {
+  //printf("%c",input);
   switch (state_)
   {
   case method_start:

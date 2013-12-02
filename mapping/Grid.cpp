@@ -50,3 +50,15 @@ OutputsHandler* Grid::getOutputWithName(const char* n){
         if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
     return NULL;
 }
+
+size_t Grid::getNbrInputs(){
+    return mInputs.size();
+}
+
+std::vector<Input*>* Grid::getInputs(){
+    return &mInputs;
+}
+
+std::vector<OutputsHandler*>* Grid::getOutputs(){
+    return &mOutputs;
+}
