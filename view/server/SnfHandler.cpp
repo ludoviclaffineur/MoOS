@@ -47,10 +47,27 @@ bool SnfHandler::computeRequest(std::string method, std::string parameters, repl
     else if (method.compare("updateCell")==0){
 
     }
+    else if (method.compare("getCells")==0){
+        for (int i = 0;i<mGrid->getCells()->size();i++){
+            rep.content.append("<cell>\n");
+            std::stringstream s ;
+            s<< mGrid->getCells()->at(i)->getInput()->getName();
+            rep.content.append("<input>"+s.str()+"</input>\n");
+            std::stringstream s1 ;
+            s1<< mGrid->getCells()->at(i)->getOutput()->getName();
+            rep.content.append("<output>"+s1.str()+"</output>\n");
+            std::stringstream s2 ;
+            s2<< mGrid->getCells()->at(i)->getCoeff();
+            rep.content.append("<coeff>"+s2.str()+"</coeff>\n");
+            rep.content.append("</cell>");
+        }
+    }
     else if (method.compare("removeOuput")==0){
 
     }
-    else return rep.status = reply::not_found;
+    else {
+        rep.content.append("<error>Not found</error>\n");
+    }
     rep.content.append("</response>\n");
 
     rep.headers.resize(2);

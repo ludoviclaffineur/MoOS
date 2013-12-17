@@ -30,6 +30,7 @@ public:
     std::vector<Input*>* getInputs();
     size_t  getNbrInputs();
     std::vector<OutputsHandler*>* getOutputs();
+    std::vector<Cell*>* getCells();
 
 private:
     std::vector <Input*> mInputs;

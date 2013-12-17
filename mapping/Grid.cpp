@@ -62,3 +62,7 @@ std::vector<Input*>* Grid::getInputs(){
 std::vector<OutputsHandler*>* Grid::getOutputs(){
     return &mOutputs;
 }
+
+std::vector<Cell*>* Grid::getCells(){
+    return &mCells;
+}
