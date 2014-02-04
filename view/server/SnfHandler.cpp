@@ -8,6 +8,7 @@
 
 #include "SnfHandler.h"
 #include <string.h>
+#include <regex>
 #include "mime_types.hpp"
 
 namespace http {
@@ -21,7 +22,7 @@ bool SnfHandler::computeRequest(std::string method, std::string parameters, repl
     rep.status = reply::ok;
     
     rep.content.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<response>\n");
-    printf("%s \n", method.c_str());
+   // printf("%s \n", method.c_str());
     if( method.compare("addOutput")==0){
         rep.content.append("OK");
     }
@@ -36,7 +37,7 @@ bool SnfHandler::computeRequest(std::string method, std::string parameters, repl
     }
     else if (method.compare("getOutputs")==0){
         rep.content.append("<outputs>\n");
-        for (int i =0; i<mGrid->getNbrInputs(); i++){
+        for (int i =0; i<mGrid->getNbrOutputs(); i++){
             std::stringstream s;
             s<<mGrid->getOutputs()->at(i)->getName();
             rep.content.append("<name>"+ s.str() + "</name>\n");
@@ -45,7 +46,32 @@ bool SnfHandler::computeRequest(std::string method, std::string parameters, repl
 
     }
     else if (method.compare("updateCell")==0){
+        //printf("parametre %s \n",parameters.c_str());
+        std::string s ("coeff=0.7&input=TTL&output=OSC1 0.7&input=TTL&output=OSC1");
+        std::smatch m_coeff;
+        std::regex e ("coeff=([0-9].[0-9]|[0-9]|[0-9].[0-9][0-9])");   // matches words beginning by "sub"
+        std::regex_search (parameters,m_coeff,e);
+        std::cout<< m_coeff[1].str()<<std::endl;
 
+        std::smatch m_input;
+        std::regex e_input ("input=(\\w+)");   // matches words beginning by "sub"
+        std::regex_search (parameters,m_input,e_input);
+        std::cout<< m_input[1].str()<<std::endl;
+
+        std::smatch m_output;
+        std::regex e_output ("output=(\\w+)");   // matches words beginning by "sub"
+        std::regex_search (parameters,m_output,e_output);
+        std::cout<< m_output[1].str()<<std::endl;
+
+        Cell* c = mGrid->getCellWithName(m_input[1], m_output[1]);
+        char* err= nullptr;
+        c->setCoeff(std::strtof(m_coeff[1].str().c_str(),&err));
+        //printf("%s\n ",err);
+        rep.content.append("<status>OK</status>\n");
+
+        
+        //s = m.suffix().str();
+        //}
     }
     else if (method.compare("getCells")==0){
         for (int i = 0;i<mGrid->getCells()->size();i++){

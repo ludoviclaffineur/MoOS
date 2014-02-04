@@ -54,10 +54,16 @@ void request_handler::handle_request(const request& req, reply& rep)
   std::size_t last_slash_pos = request_path.find_last_of("/");
   std::size_t last_dot_pos = request_path.find_last_of(".");
   std::size_t last_interrogation_pos = request_path.find_last_of("?");
+  std::string method_requested = request_path.substr(last_slash_pos,last_interrogation_pos-last_slash_pos);
   std::string extension,parameters;
+
+  //  printf("Method requesed %s \n",method_requested.c_str());
+    //std::string req_without_interrogation = request_path.substr(0,last_interrogation_pos);
   if (last_dot_pos != std::string::npos && last_dot_pos > last_slash_pos)
   {
-    extension = request_path.substr(last_dot_pos + 1,last_interrogation_pos-last_dot_pos-1);
+      //printf("req_without_interrogation %s",req_without_interrogation.c_str())
+      last_dot_pos = method_requested.find_last_of('.');
+    extension = method_requested.substr(last_dot_pos + 1,method_requested.size()-last_dot_pos-1);
   }
   if (last_interrogation_pos != std::string::npos && last_interrogation_pos > last_slash_pos)
   {

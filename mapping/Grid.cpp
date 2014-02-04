@@ -55,6 +55,10 @@ size_t Grid::getNbrInputs(){
     return mInputs.size();
 }
 
+size_t Grid::getNbrOutputs(){
+    return mOutputs.size();
+}
+
 std::vector<Input*>* Grid::getInputs(){
     return &mInputs;
 }
@@ -65,4 +69,15 @@ std::vector<OutputsHandler*>* Grid::getOutputs(){
 
 std::vector<Cell*>* Grid::getCells(){
     return &mCells;
+}
+
+Cell* Grid::getCellWithName(std::string input, std::string output){
+    for(int i=0;i<mCells.size();i++){
+        Cell* c = mCells.at(i);
+        if (c->getInput()->getName() == input && c->getOutput()->getName() == output){
+            return c;
+        }
+    }
+    return  NULL;
+
 }
