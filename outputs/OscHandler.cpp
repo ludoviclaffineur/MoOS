@@ -33,11 +33,11 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     mParamNumber = 0;
     mValueBeforeSending = 0;
 
-    mParameters.push_back(new Parameter<char**>("IP Address", &mIpAddress));
+    mParameters.push_back(new Parameter<char**>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char**>("Port", &mPort));
-    mParameters.push_back(new Parameter<char**>("Osc Address Pattern", &mOscAddress));
-    mParameters.push_back(new Parameter<char**>("Osc Tag", &mOscTag));
-    mParameters.push_back(new Parameter<int*>("tag i value", &mParamNumber));
+    mParameters.push_back(new Parameter<char**>("OscAddressPattern", &mOscAddress));
+    mParameters.push_back(new Parameter<char**>("OscTag", &mOscTag));
+    mParameters.push_back(new Parameter<int*>("TagIValue", &mParamNumber));
 
 }
 

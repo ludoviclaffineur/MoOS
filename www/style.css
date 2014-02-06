@@ -35,9 +35,9 @@ width: 1000px;
 }
 
 #explanation, #participation, #benefits, #requirements {
-	text-align: center;
-	margin: 150px 0 0 260px;
-	width: auto;
+	
+	margin: auto auto 0 360px;
+	/*width: auto;*/
 }
 
 #footer {
@@ -113,7 +113,7 @@ text-decoration: none;
 
 #linkList a:hover {
 text-decoration: underline;
-color: #333;
+color: #333;	
 }
 
 #linkList a.c, #linkList a.c:link, #linkList a.c:visited {
@@ -139,6 +139,14 @@ text-transform: lowercase;
 font-weight: bold;
 text-transform: uppercase;
 text-decoration: none;
+}
+
+#canvas{
+	min-width:200px; 
+	max-height:100%;
+	width:auto;
+	display:block;
+
 }
 
 #footer a:hover {

@@ -23,7 +23,7 @@ int main(int argc, const char * argv[])
     const char* osc3= "OSC3";
 
     TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "if" ));
-    TheGrid->addOutput(new OscHandler(osc2,"127.0.0.1","20001", "/osc", "if" ));
+    TheGrid->addOutput(new OscHandler(osc2,"192.168.1.1","20001", "/osc", "if" ));
     //TheGrid->addOutput(new OscHandler(osc3));
 
     TheGrid->addCell("PacketLength", "OSC1", 1.0);

@@ -10,6 +10,9 @@
 #include <string.h>
 #include <regex>
 #include "mime_types.hpp"
+#include "vector"
+#include "boost/variant.hpp"
+#include "boost/any.hpp"
 
 namespace http {
 namespace server{
@@ -93,6 +96,15 @@ bool SnfHandler::computeRequest(std::string method, std::string parameters, repl
         std::regex e_output ("output=(\\w+)");   // matches words beginning by "sub"
         std::regex_search (parameters,m_output,e_output);
         std::cout<< m_output[1].str()<<std::endl;
+        OutputsHandler* cOutput = mGrid->getOutputWithName(m_output[1].str().c_str());
+        std::vector<IParameter*>* Params = cOutput->getParameters();
+        for (int i=0; i<Params->size(); i++) {
+            std::stringstream s;
+            const char* cName = Params->at(i)->getName();
+            s<<"<"<<cName<<">"<< Params->at(i)->toString()<<"</"<<cName<<">\n";
+            rep.content.append(s.str());
+        }
+
     }
     else if (method.compare("removeOuput")==0){
 

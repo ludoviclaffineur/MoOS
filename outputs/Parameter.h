@@ -10,11 +10,13 @@
 #define __LibLoAndCap__Parameter__
 
 #include <iostream>
+#include <sstream>
 
 class IParameter{
 
 public:
-    void* getValue();
+
+    virtual const char* toString()=0;
     const char* getName(){
         return mName;
     }
@@ -42,9 +44,13 @@ public:
         delete mName;
         delete mData;
     }
-    
-    T getValue(){
-        return *mData;
+
+    const char* toString() {
+        std::stringstream stm;
+        stm << **mData;
+        printf("Impression %s\n", stm.str().c_str());
+        //s<<mGrid->getOutputs()->at(i)->getName();
+        return stm.str().c_str();
     }
 };
 

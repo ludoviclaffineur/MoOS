@@ -16,20 +16,27 @@
 		<div id="preamble">
 			<h3><span>How to use it!</span></h3>
 			<p class="p1"><span>Some explanation about how to use it</span></p>
-			<h3><span>Mapping</span></h3>
-		</br>
+			
+			
 			<form id="myForm" action="updateCell.snf" method="get"> 
+				<h3><span>Mapping</span></h3>
 			    <p> Input Name: <input type="hidden" id="inputHidden" /> <input type="text" id="input" disabled/> </p> 
 				<p>Output Name: <input type="hidden" id="ouputHidden" /> <input type="text" id="output" disabled/> </p>
 			    <p>Coefficient: <input type="text" id="coeff" /> </p>
 			    <INPUT type="button" value="Update" onClick="updateCell(this.form)">
+			</form>
+			
+			<h3><span>Output</span></h3>
+			
+			<form id="Output" action="" method="get"> 
+		
 			</form>
 		</div>
 	</div>
 
 	<div id="supportingText">
 		<div id="explanation">
-			
+			<div id="canvas">
 			
 			
 	        <canvas id="ttt" width="800px" height="400px"/>
@@ -40,6 +47,7 @@
 	   	   		iio.start(mapping,'ttt');
 	          </script>
 	   
+  			</div>
 	   
 		</div>
 		
@@ -55,7 +63,7 @@
 		-->
 
 		<div id="footer">
-Copyright © 2014 <a href="http://www.linkedin.com/in/llaffineur">Ludovic LAFFINEUR</a> - <a href="http://www.laras.be"> LARAS </a>
+Copyright Â© 2014 <a href="http://www.linkedin.com/in/llaffineur">Ludovic LAFFINEUR</a> - <a href="http://www.laras.be"> LARAS </a>
 		</div>
 
 	</div>
