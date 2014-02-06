@@ -11,6 +11,8 @@
 
 #include <iostream>
 #include "Converter.h"
+#include <vector>
+#include "Parameter.h"
 
 class OutputsHandler{
 
@@ -23,15 +25,18 @@ public:
     bool    compareName (const char* n);
     void    extrapolate();
     const char* getName();
+    std::vector<IParameter*>* getParameters();
     void    reset();
     virtual bool sendData (int paramNumber, float value){return false;};
     virtual bool sendData (){return false;};
 
 protected:
+
     float   mValueBeforeSending;
     int     mParamNumber;
     char*   mName;
     Converter mConverter;
+    std::vector<IParameter*> mParameters;
 };
 
 #endif /* defined(__LibLoAndCap__OutputsHandler__) */

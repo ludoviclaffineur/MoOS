@@ -17,13 +17,32 @@ class OscHandler : public OutputsHandler{
 
 public:
     OscHandler();
-    OscHandler(const char* n);
+    //OscHandler(const char* n);
     OscHandler(const char* ipAddress, const char* port);
+    OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag );
     bool sendData (int paramNumber, float value);
     bool sendData ();
 
+    bool setIpAdress(const char* newIp);
+    const char* getIpAdress() const;
+
+    bool setOscAddress(const char* newOscAddress);
+    const char* getOscAddress() const;
+
+    bool setPort(const char* newPort);
+    const char* getPort() const;
+
+    bool setOscTag(const char* newOscTag);
+    const char* getOscTag() const;
+    ~OscHandler();
+
 private:
     lo_address mDistant;
+    char* mIpAddress;
+    char* mPort;
+    char* mOscAddress;
+    char* mOscTag;
+    bool setTabChar(char* newOne, const char* oldOne);
 };
 
 #endif /* defined(__libpcapTest__Osc__) */

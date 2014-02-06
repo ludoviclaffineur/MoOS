@@ -40,3 +40,7 @@ OutputsHandler::~OutputsHandler(){
 const char* OutputsHandler::getName(){
     return mName;
 }
+
+std::vector<IParameter*>* OutputsHandler::getParameters(){
+    return &mParameters;
+}

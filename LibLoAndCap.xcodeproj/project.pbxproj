@@ -85,6 +85,7 @@
 		FE96F4B6183CF42A00C59843 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid.h; path = mapping/Grid.h; sourceTree = "<group>"; };
 		FE96F4BA183CF48E00C59843 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Input.cpp; path = Inputs/Input.cpp; sourceTree = "<group>"; };
 		FE96F4BB183CF48E00C59843 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Input.h; path = Inputs/Input.h; sourceTree = "<group>"; };
+		FE9C26CD18A38FE900E5DC5C /* Parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameter.h; path = outputs/Parameter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +197,7 @@
 				FE48182E182111400094602C /* OscHandler.h */,
 				FE481830182119D00094602C /* OutputsHandler.cpp */,
 				FE481831182119D00094602C /* OutputsHandler.h */,
+				FE9C26CD18A38FE900E5DC5C /* Parameter.h */,
 			);
 			name = ouputs;
 			sourceTree = "<group>";

@@ -88,6 +88,12 @@ bool SnfHandler::computeRequest(std::string method, std::string parameters, repl
             rep.content.append("</cell>");
         }
     }
+    else if (method.compare("getOutput")==0){
+        std::smatch m_output;
+        std::regex e_output ("output=(\\w+)");   // matches words beginning by "sub"
+        std::regex_search (parameters,m_output,e_output);
+        std::cout<< m_output[1].str()<<std::endl;
+    }
     else if (method.compare("removeOuput")==0){
 
     }
