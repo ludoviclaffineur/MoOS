@@ -1,0 +1,77 @@
+
+<head>
+	<title>MoOS Framework</title>
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="scripts/httpget.min.js"></script>
+</head>
+<body>
+
+<div id="container">
+	<div id="intro">
+		<div id="pageHeader">
+			<h1><span>Modular Open Sonification Framework</span></h1>
+			<h2><span> Powered by the <a href="http://sonificationlab.laras.be"> Sonification Laboratory</a></span></h2>
+		</div>
+
+		<div id="preamble">
+			<h3><span>How to use it!</span></h3>
+			<p class="p1"><span>Some explanation about how to use it</span></p>
+			
+			
+			<form id="myForm" action="updateCell.snf" method="get"> 
+				<h3><span>Mapping</span></h3>
+			    <p> Input Name: <input type="hidden" id="inputHidden" /> <input type="text" id="input" disabled/> </p> 
+				<p>Output Name: <input type="hidden" id="ouputHidden" /> <input type="text" id="output" disabled/> </p>
+			    <p>Coefficient: <input type="text" id="coeff" /> </p>
+			    <INPUT type="button" value="Update" onClick="updateCell(this.form)">
+			</form>
+			
+			<h3><span>Output</span></h3>
+			
+			<form id="Output" action="" method="get"> 
+		
+			</form>
+		</div>
+	</div>
+
+	<div id="supportingText">
+		<div id="explanation">
+			<div id="canvas">
+			
+			
+	        <canvas id="ttt" width="800px" height="400px"/>
+	          <script type="text/javascript" src="scripts/iioEngine.min.js"></script>
+	   	   		
+	   	   	 	<script type="text/javascript" src="scripts/mapping.io.js"></script>
+	         	 <script type="text/javascript">
+	   	   		iio.start(mapping,'ttt');
+	          </script>
+	   
+  			</div>
+	   
+		</div>
+		
+	<!--	<div id="participation">
+			<h3><span>Where can I get some?</span></h3>
+			<p class="p1"><span>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</span></p>
+		</div>
+
+		<div id="benefits">
+			<h3><span>Why do we use it?</span></h3>
+			<p class="p1"><span>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</span></p>
+		</div> 
+		-->
+
+		<div id="footer">
+Copyright © 2014 <a href="http://www.linkedin.com/in/llaffineur">Ludovic LAFFINEUR</a> - <a href="http://www.laras.be"> LARAS </a>
+		</div>
+
+	</div>
+
+	
+	
+	
+</div>
+
+</body>
+</html>

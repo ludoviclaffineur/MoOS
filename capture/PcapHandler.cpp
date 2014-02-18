@@ -16,6 +16,7 @@ bool running = true;
 
 void* ThreadReceptionPacket (void* ptr){
     PcapHandler* p = (PcapHandler*) ptr;
+    pthread_setname_np("ThreadPcap");
     //pcap_t* handle = (pcap_t*) ptr;
     struct pcap_pkthdr* header;
     const u_char* datas;
@@ -23,11 +24,13 @@ void* ThreadReceptionPacket (void* ptr){
         pcap_next_ex(p->getHandle(), &header, &datas);
         //std::cout<<header->len<<std::endl;
         ip_header *ih;
-        ih = (ip_header *) (datas + 14);
-        //std::cout<<ih->tlen<<std::endl;
-        Grid* g = p->getGrid();
-        g->getInputWithName("PacketLength")->setValue(ih->tlen);
-        g->compute();
+        if(datas){
+            ih = (ip_header *) (datas + 14);
+            //std::cout<<ih->tlen<<std::endl;
+            Grid* g = p->getGrid();
+            g->getInputWithName("PacketLength")->setValue(ih->tlen);
+            g->compute();
+        }
     }
     return NULL;
 }
@@ -51,6 +54,8 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mFilter = filter;
     mGrid = g;
     mGrid->addInput("PacketLength", 1, 65635, -1, 0, Converter::EXPONENTIAL);
+    mGrid->addInput("TTL", 1, 65635, -1, 0, Converter::EXPONENTIAL);
+    mGrid->addInput("Distance", 1, 65635, -1, 0, Converter::EXPONENTIAL);
 }
 
 int PcapHandler::findAllDevs(pcap_if_t **alldev , char *errbuf){

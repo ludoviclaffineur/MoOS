@@ -8,7 +8,9 @@
 
 #include "Grid.h"
 
-Grid::Grid(){}
+Grid::Grid(){
+    mCurrentOutputId = 0;
+}
 
 void Grid::addInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
     mInputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
@@ -19,6 +21,7 @@ void Grid::addInput(Input* i){
 }
 
 void Grid::addOutput(OutputsHandler* o){
+    o->setId(mCurrentOutputId++);
     mOutputs.push_back(o);
 }
 
@@ -49,4 +52,35 @@ OutputsHandler* Grid::getOutputWithName(const char* n){
     for(int i =0 ;i<mInputs.size();i++)
         if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
     return NULL;
+}
+
+size_t Grid::getNbrInputs(){
+    return mInputs.size();
+}
+
+size_t Grid::getNbrOutputs(){
+    return mOutputs.size();
+}
+
+std::vector<Input*>* Grid::getInputs(){
+    return &mInputs;
+}
+
+std::vector<OutputsHandler*>* Grid::getOutputs(){
+    return &mOutputs;
+}
+
+std::vector<Cell*>* Grid::getCells(){
+    return &mCells;
+}
+
+Cell* Grid::getCellWithName(std::string input, std::string output){
+    for(int i=0;i<mCells.size();i++){
+        Cell* c = mCells.at(i);
+        if (c->getInput()->getName() == input && c->getOutput()->getName() == output){
+            return c;
+        }
+    }
+    return  NULL;
+
 }

@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0211FD184C70B30096ED35 /* SnfHandler.cpp */; };
+		FE14162018464D3D00F7AF26 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14160F18464D3D00F7AF26 /* connection.cpp */; };
+		FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161118464D3D00F7AF26 /* connection_manager.cpp */; };
+		FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161518464D3D00F7AF26 /* mime_types.cpp */; };
+		FE14162418464D3D00F7AF26 /* reply.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161718464D3D00F7AF26 /* reply.cpp */; };
+		FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161A18464D3D00F7AF26 /* request_handler.cpp */; };
+		FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161C18464D3D00F7AF26 /* request_parser.cpp */; };
+		FE14162718464D3D00F7AF26 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161E18464D3D00F7AF26 /* server.cpp */; };
+		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
 		FE4817FE182102680094602C /* LibLoAndCap.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE4817FD182102680094602C /* LibLoAndCap.1 */; };
 		FE481813182108700094602C /* liblo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
 		FE48182518210E070094602C /* PcapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48182318210E070094602C /* PcapHandler.cpp */; };
@@ -35,6 +44,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FE0211FD184C70B30096ED35 /* SnfHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnfHandler.cpp; sourceTree = "<group>"; };
+		FE0211FE184C70B30096ED35 /* SnfHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnfHandler.h; sourceTree = "<group>"; };
+		FE14160F18464D3D00F7AF26 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
+		FE14161018464D3D00F7AF26 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
+		FE14161118464D3D00F7AF26 /* connection_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection_manager.cpp; sourceTree = "<group>"; };
+		FE14161218464D3D00F7AF26 /* connection_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection_manager.hpp; sourceTree = "<group>"; };
+		FE14161318464D3D00F7AF26 /* header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = header.hpp; sourceTree = "<group>"; };
+		FE14161518464D3D00F7AF26 /* mime_types.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mime_types.cpp; sourceTree = "<group>"; };
+		FE14161618464D3D00F7AF26 /* mime_types.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mime_types.hpp; sourceTree = "<group>"; };
+		FE14161718464D3D00F7AF26 /* reply.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = reply.cpp; sourceTree = "<group>"; };
+		FE14161818464D3D00F7AF26 /* reply.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = reply.hpp; sourceTree = "<group>"; };
+		FE14161918464D3D00F7AF26 /* request.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = request.hpp; sourceTree = "<group>"; };
+		FE14161A18464D3D00F7AF26 /* request_handler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = request_handler.cpp; sourceTree = "<group>"; };
+		FE14161B18464D3D00F7AF26 /* request_handler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = request_handler.hpp; sourceTree = "<group>"; };
+		FE14161C18464D3D00F7AF26 /* request_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = request_parser.cpp; sourceTree = "<group>"; };
+		FE14161D18464D3D00F7AF26 /* request_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = request_parser.hpp; sourceTree = "<group>"; };
+		FE14161E18464D3D00F7AF26 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
+		FE14161F18464D3D00F7AF26 /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
+		FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "lib/boost/libboost_system-mt.dylib"; sourceTree = "<group>"; };
 		FE4817F8182102680094602C /* LibLoAndCap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LibLoAndCap; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE4817FB182102680094602C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FE4817FD182102680094602C /* LibLoAndCap.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = LibLoAndCap.1; sourceTree = "<group>"; };
@@ -57,6 +85,7 @@
 		FE96F4B6183CF42A00C59843 /* Grid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grid.h; path = mapping/Grid.h; sourceTree = "<group>"; };
 		FE96F4BA183CF48E00C59843 /* Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Input.cpp; path = Inputs/Input.cpp; sourceTree = "<group>"; };
 		FE96F4BB183CF48E00C59843 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Input.h; path = Inputs/Input.h; sourceTree = "<group>"; };
+		FE9C26CD18A38FE900E5DC5C /* Parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameter.h; path = outputs/Parameter.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +95,7 @@
 			files = (
 				FE48182818210E2A0094602C /* libpcap.A.dylib in Frameworks */,
 				FE48182918210E2A0094602C /* libpcap.dylib in Frameworks */,
+				FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */,
 				FE481813182108700094602C /* liblo.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,9 +103,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE1415F618464C1C00F7AF26 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				FE14160E18464D3D00F7AF26 /* server */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		FE14160E18464D3D00F7AF26 /* server */ = {
+			isa = PBXGroup;
+			children = (
+				FE14160F18464D3D00F7AF26 /* connection.cpp */,
+				FE14161018464D3D00F7AF26 /* connection.hpp */,
+				FE14161118464D3D00F7AF26 /* connection_manager.cpp */,
+				FE14161218464D3D00F7AF26 /* connection_manager.hpp */,
+				FE14161318464D3D00F7AF26 /* header.hpp */,
+				FE14161518464D3D00F7AF26 /* mime_types.cpp */,
+				FE14161618464D3D00F7AF26 /* mime_types.hpp */,
+				FE14161718464D3D00F7AF26 /* reply.cpp */,
+				FE14161818464D3D00F7AF26 /* reply.hpp */,
+				FE14161918464D3D00F7AF26 /* request.hpp */,
+				FE14161A18464D3D00F7AF26 /* request_handler.cpp */,
+				FE14161B18464D3D00F7AF26 /* request_handler.hpp */,
+				FE14161C18464D3D00F7AF26 /* request_parser.cpp */,
+				FE14161D18464D3D00F7AF26 /* request_parser.hpp */,
+				FE14161E18464D3D00F7AF26 /* server.cpp */,
+				FE14161F18464D3D00F7AF26 /* server.hpp */,
+				FE0211FD184C70B30096ED35 /* SnfHandler.cpp */,
+				FE0211FE184C70B30096ED35 /* SnfHandler.h */,
+			);
+			name = server;
+			path = view/server;
+			sourceTree = "<group>";
+		};
 		FE4817EF182102680094602C = {
 			isa = PBXGroup;
 			children = (
+				FE1415F618464C1C00F7AF26 /* view */,
 				FE48182A182110A90094602C /* AppIncludes.h */,
 				FE48181718210A650094602C /* capture */,
 				FE96F4B9183CF47600C59843 /* inputs */,
@@ -108,6 +173,7 @@
 		FE481804182106D50094602C /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */,
 				FE48182618210E2A0094602C /* libpcap.A.dylib */,
 				FE48182718210E2A0094602C /* libpcap.dylib */,
 				FE481812182108700094602C /* liblo.dylib */,
@@ -131,6 +197,7 @@
 				FE48182E182111400094602C /* OscHandler.h */,
 				FE481830182119D00094602C /* OutputsHandler.cpp */,
 				FE481831182119D00094602C /* OutputsHandler.h */,
+				FE9C26CD18A38FE900E5DC5C /* Parameter.h */,
 			);
 			name = ouputs;
 			sourceTree = "<group>";
@@ -216,14 +283,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
+				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
+				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,
+				FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */,
 				FE481832182119D00094602C /* OutputsHandler.cpp in Sources */,
 				FE96F4BC183CF48E00C59843 /* Input.cpp in Sources */,
 				FE48183618211AF10094602C /* Converter.cpp in Sources */,
+				FE14162418464D3D00F7AF26 /* reply.cpp in Sources */,
 				FE96F4B7183CF42A00C59843 /* Cell.cpp in Sources */,
+				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
 				FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */,
 				FE48182518210E070094602C /* PcapHandler.cpp in Sources */,
+				FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */,
+				FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +336,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = ./bin;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -294,6 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INSTALL_PATH = ./bin;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -305,12 +382,17 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
+					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib";
 			};
@@ -321,12 +403,17 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
+					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib";
 			};

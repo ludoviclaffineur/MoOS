@@ -30,8 +30,8 @@ public:
     void    setCModifier(float c);
 
 private:
-    float   linear(float inputValue);
     float   exponential(float inputValue);
+    float   linear(float inputValue);
     float   logarithmic(float inputValue);
     
     int     mCurrentExtrapolation;

@@ -24,6 +24,7 @@ public:
 
     bool    compareName(const char *n);
     float   getExtrapolatedValue();
+    const char* getName();
     void    setValue(float value);
 
 private:

@@ -1,4 +1,4 @@
-//
+    //
 //  Grid.h
 //  LibLoAndCap
 //
@@ -27,8 +27,15 @@ public:
     void    compute();
     Input*  getInputWithName(const char* n);
     OutputsHandler* getOutputWithName(const char* n);
+    std::vector<Input*>* getInputs();
+    size_t  getNbrInputs();
+    size_t  getNbrOutputs();
+    std::vector<OutputsHandler*>* getOutputs();
+    std::vector<Cell*>* getCells();
+    Cell* getCellWithName(std::string input, std::string output);
 
 private:
+    int mCurrentOutputId;
     std::vector <Input*> mInputs;
     std::vector <OutputsHandler*> mOutputs;
     std::vector <Cell*>  mCells;
