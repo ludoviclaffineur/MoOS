@@ -20,6 +20,9 @@ public:
     const char* getName(){
         return mName;
     }
+    ~IParameter(){
+        delete mName;
+    }
 
 protected:
     char* mName;
@@ -41,14 +44,13 @@ public:
     }
 
     ~Parameter(){
-        delete mName;
         delete mData;
     }
 
     const char* toString() {
         std::stringstream stm;
         stm << **mData;
-        printf("Impression %s\n", stm.str().c_str());
+        //printf("Impression %s\n", stm.str().c_str());
         //s<<mGrid->getOutputs()->at(i)->getName();
         return stm.str().c_str();
     }

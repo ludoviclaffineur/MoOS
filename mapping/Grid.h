@@ -35,6 +35,7 @@ public:
     Cell* getCellWithName(std::string input, std::string output);
 
 private:
+    int mCurrentOutputId;
     std::vector <Input*> mInputs;
     std::vector <OutputsHandler*> mOutputs;
     std::vector <Cell*>  mCells;

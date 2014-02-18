@@ -15,6 +15,8 @@ OutputsHandler::OutputsHandler(){
 OutputsHandler::OutputsHandler(const char* n){
     mName = new char [strlen(n) + 1];
     strcpy(mName, n);
+    mParameters.push_back(new Parameter<char**>("Name", &mName));
+    mParameters.push_back(new Parameter<int*>("Identifier", &mId));
 }
 
 bool OutputsHandler::compareName(const char *n){
@@ -37,10 +39,26 @@ OutputsHandler::~OutputsHandler(){
     delete mName;
 }
 
+
 const char* OutputsHandler::getName(){
     return mName;
 }
 
+void OutputsHandler::setName(const char *n){
+    if (mName) {
+        delete mName;
+    }
+    mName = new char [strlen(n) + 1];
+    strcpy(mName, n);
+}
+
+int OutputsHandler::getId(){
+    return mId;
+}
+
+void OutputsHandler::setId(int newId){
+    mId = newId;
+}
 std::vector<IParameter*>* OutputsHandler::getParameters(){
     return &mParameters;
 }

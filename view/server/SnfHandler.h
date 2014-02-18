@@ -19,7 +19,11 @@ namespace server {
     public:
         SnfHandler(Grid* g);
         bool computeRequest(std::string method, std::string parameters, reply& rep);
+        std::vector <std::string> ExtractPamameters(std::string rawParameters);
+
     private:
+        int findIdInListParameters(std::vector<std::string> listParam);
+        int findTypeInListParameters(std::vector<std::string> listParam);
         Grid* mGrid;
     };
 }

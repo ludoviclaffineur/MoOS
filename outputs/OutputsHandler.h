@@ -16,24 +16,34 @@
 
 class OutputsHandler{
 
+
+
 public:
+    enum OutputType{
+        OSC,
+        Total
+    };
     OutputsHandler();
     OutputsHandler(const char* n);
     ~OutputsHandler();
-    
+    void    setId(int newId);
+    int     getId();
     void    addToValue(float a);
     bool    compareName (const char* n);
     void    extrapolate();
     const char* getName();
+    void setName(const char* n);
     std::vector<IParameter*>* getParameters();
     void    reset();
     virtual bool sendData (int paramNumber, float value){return false;};
     virtual bool sendData (){return false;};
-
+    virtual void setParameters(std::vector<std::string> ParameterList)=0;
 protected:
 
+    int     mId;
+    int     mOutputType;
     float   mValueBeforeSending;
-    int     mParamNumber;
+    int     mParamNumber; //pas topitop
     char*   mName;
     Converter mConverter;
     std::vector<IParameter*> mParameters;

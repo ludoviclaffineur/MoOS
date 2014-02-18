@@ -32,16 +32,18 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     mDistant = lo_address_new(mIpAddress, mPort);
     mParamNumber = 0;
     mValueBeforeSending = 0;
-
+    mOutputType = OutputsHandler::OSC;
     mParameters.push_back(new Parameter<char**>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char**>("Port", &mPort));
     mParameters.push_back(new Parameter<char**>("OscAddressPattern", &mOscAddress));
-    mParameters.push_back(new Parameter<char**>("OscTag", &mOscTag));
+    //mParameters.push_back(new Parameter<char**>("OscTag", &mOscTag));
     mParameters.push_back(new Parameter<int*>("TagIValue", &mParamNumber));
+    //mParameters.push_back(new Parameter<int*>("Type", &mOutputType));
 
 }
 
 OscHandler::OscHandler(const char* ipAddress, const char* port){
+
     mDistant = lo_address_new(ipAddress, port);
     mParamNumber = 0;
     mValueBeforeSending = 0;
@@ -57,8 +59,9 @@ bool OscHandler::sendData(int paramNumber, float value){
 }
 
 bool OscHandler::setIpAdress(const char* newIp){
-    setTabChar(mIpAddress, newIp);
+    setTabChar(&mIpAddress, &newIp);
     lo_address osc = mDistant;
+    printf("New IpAddress %s \n", mIpAddress);
     mDistant = NULL;
     lo_address_free(osc);
 	return mDistant = lo_address_new(mIpAddress, mPort);
@@ -69,7 +72,7 @@ const char* OscHandler::getIpAdress() const{
 }
 
 bool OscHandler::setOscAddress(const char* newOscAddress){
-    return setTabChar(mOscAddress, newOscAddress);
+    return setTabChar(&mOscAddress, &newOscAddress);
 }
 
 const char* OscHandler::getOscAddress() const{
@@ -77,7 +80,7 @@ const char* OscHandler::getOscAddress() const{
 }
 
 bool OscHandler::setPort(const char* newPort){
-    setTabChar(mPort, newPort);
+    setTabChar(&mPort, &newPort);
     lo_address osc = mDistant;
     mDistant = NULL;
     lo_address_free(osc);
@@ -88,20 +91,43 @@ const char* OscHandler::getPort() const{
 }
 
 bool OscHandler::setOscTag(const char* newOscTag){
-    return setTabChar(mOscTag, newOscTag);
+    return setTabChar(&mOscTag, &newOscTag);
 }
 
 const char* OscHandler::getOscTag() const{
     return mOscTag;
 }
 
-
-bool OscHandler::setTabChar(char* target, const char* newValue){
-    if(target){
-        delete target;
+void OscHandler::setParameters(std::vector<std::string> ParameterList){
+    for (int i=0; i<ParameterList.size(); i++) {
+        if (ParameterList.at(i).compare("Name")==0) {
+            OutputsHandler::setName(ParameterList.at(i+1).c_str());
+        }
+        else if (ParameterList.at(i).compare("Identifier")==0) {
+            setId(std::atoi(ParameterList.at(i+1).c_str()));
+        }
+        else if (ParameterList.at(i).compare("IPAddress")==0) {
+            setIpAdress(ParameterList.at(i+1).c_str());
+        }
+        else if (ParameterList.at(i).compare("Port")==0) {
+            setPort(ParameterList.at(i+1).c_str());
+        }
+        else if (ParameterList.at(i).compare("OscAddressPattern")==0) {
+            std::replace( ParameterList.at(i+1).begin(), ParameterList.at(i+1).end(), ':', '/' );
+            setOscAddress(ParameterList.at(i+1).c_str());
+        }
+        else if (ParameterList.at(i).compare("TagIValue")==0) {
+            mParamNumber = std::atoi(ParameterList.at(i+1).c_str());
+        }
     }
-    target = new char [strlen(newValue) + 1];
-    return(strcpy(target, newValue));
+
+}
+bool OscHandler::setTabChar(char** target, const char** newValue){
+    if(*target){
+        delete *target;
+    }
+    *target = new char [strlen(*newValue) + 1];
+    return(strcpy(*target, *newValue));
 }
 OscHandler::~OscHandler(){
     delete mOscTag;

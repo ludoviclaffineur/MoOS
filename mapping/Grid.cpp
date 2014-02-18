@@ -8,7 +8,9 @@
 
 #include "Grid.h"
 
-Grid::Grid(){}
+Grid::Grid(){
+    mCurrentOutputId = 0;
+}
 
 void Grid::addInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
     mInputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
@@ -19,6 +21,7 @@ void Grid::addInput(Input* i){
 }
 
 void Grid::addOutput(OutputsHandler* o){
+    o->setId(mCurrentOutputId++);
     mOutputs.push_back(o);
 }
 

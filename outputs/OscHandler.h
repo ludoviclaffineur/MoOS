@@ -32,6 +32,7 @@ public:
     bool setPort(const char* newPort);
     const char* getPort() const;
 
+    void setParameters(std::vector<std::string> ParameterList);
     bool setOscTag(const char* newOscTag);
     const char* getOscTag() const;
     ~OscHandler();
@@ -42,7 +43,7 @@ private:
     char* mPort;
     char* mOscAddress;
     char* mOscTag;
-    bool setTabChar(char* newOne, const char* oldOne);
+    bool setTabChar(char** newOne, const char** oldOne);
 };
 
 #endif /* defined(__libpcapTest__Osc__) */
