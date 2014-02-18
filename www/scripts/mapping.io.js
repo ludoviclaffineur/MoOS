@@ -40,34 +40,38 @@ mapping = function(io){
 		}
 		for (var i = OutputNames.length - 1; i >= 0; i--) {
 			if(OutputNames[i].contains(io.getEventPosition(event))){
-				getOutput(OutputNames[i].objs[0].text);
+				var response = getOutput(OutputNames[i].objs[0].text);
 				var dc = document.getElementById('preamble').children[4];
 				while( dc.hasChildNodes() ){
    			 		dc.removeChild(dc.lastChild);
 				}
-
 				var f = document.createElement("form");
-				f.setAttribute('method',"post");
-				f.setAttribute('action',"submit.php");
-
-				var i = document.createElement("input"); //input element, text
-				i.setAttribute('type',"text");
-				i.setAttribute('name',"username");
-
+				for (var i = response.length - 1; i >= 0; i--) {
+					var paragragh = document.createElement("p");
+					
+					var input1 = document.createElement("input"); //input element, text
+					input1.setAttribute('type',"text");
+					
+					input1.setAttribute('Value', response [i]);
+					paragragh.innerHTML=response[--i]+":";
+					input1.setAttribute('id',response[i]);
+					paragragh.appendChild(input1);
+					f.appendChild(paragragh);
+				};
+				//dc.appendChild(f);
 				var s = document.createElement("input"); //input element, Submit button
 				s.setAttribute('type',"button");
-				s.setAttribute('onClick', "updateOutput()");
+				s.setAttribute('onClick', "updateOutput(this.form)");
 				s.setAttribute('value',"Submit");
 
-				f.appendChild(i);
+				
 				f.appendChild(s);
 
 //and some more input elements here
 //and dont forget to add a submit button
 
-				var dc = document.getElementById('preamble').children[4]; //output Form
-				dc.appendChild(i);
-				dc.appendChild(s);
+				//var dc = document.getElementById('preamble').children[4]; //output Form
+				dc.appendChild(f);
 			}
 		};
 		if (!found){
@@ -95,8 +99,8 @@ function init(){
 	grid.R = Ouputs.length + 1;
 	//document.getElementById('lastname').value=lname[0].firstChild.nodeValue;
 	for (var i = Ouputs.length - 1; i >= 0; i--) {
-		OutputNames[i] = new iio.Rect(43+(InputNames.length*40), originPosY +43 + (40*i), 80,20).setFillStyle('white').setStrokeStyle('white');
-		OutputNames[i].addObj(new iio.Text( Ouputs[i].firstChild.nodeValue, 43+(InputNames.length*40), originPosY +43 + (40*i)).setFont('15px Consolas')
+		OutputNames[i] = new iio.Rect(43+(InputNames.length*40), originPosY +43 + (40*i), 60,20).setFillStyle('white').setStrokeStyle('white');
+		OutputNames[i].addObj(new iio.Text( Ouputs[i].firstChild.nodeValue).setFont('15px Consolas')
         	.setTextAlign('left')
             .setFillStyle('black'));
 	};
