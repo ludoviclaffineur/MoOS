@@ -25,7 +25,7 @@
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
 
 .Trashes
-
+*.xccheckout
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
 
 *.swp
