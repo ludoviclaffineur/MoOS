@@ -19,14 +19,13 @@ int main(int argc, const char * argv[])
     TheGrid = new Grid();
     PcapHandler _pcap = PcapHandler(filter, TheGrid);
     const char* osc1= "OSC1";
-    const char* osc2= "OSC2";
-    const char* osc3= "OSC3";
 
-    TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "if" ));
-    TheGrid->addOutput(new OscHandler(osc2,"192.168.1.1","20001", "/osc", "if" ));
+
+    TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
+    //TheGrid->addOutput(new OscHandler(osc2,"192.168.1.1","20001", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler(osc3));
 
-    TheGrid->addCell("PacketLength", "OSC1", 1.0);
+    /*TheGrid->addCell("PacketLength", "OSC1", 1.0);
     TheGrid->addCell("PacketLength", "OSC2", 0.9);
 
 
@@ -35,7 +34,7 @@ int main(int argc, const char * argv[])
 
 
     TheGrid->addCell("Distance", "OSC1", 0.4);
-    TheGrid->addCell("Distance", "OSC2", 0.3);
+    TheGrid->addCell("Distance", "OSC2", 0.3);*/
 
 
 	_pcap.listAndChooseInterface();

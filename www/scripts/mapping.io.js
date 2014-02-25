@@ -50,11 +50,23 @@ mapping = function(io){
 					var paragragh = document.createElement("p");
 					
 					var input1 = document.createElement("input"); //input element, text
-					input1.setAttribute('type',"text");
 					
 					input1.setAttribute('Value', response [i]);
 					paragragh.innerHTML=response[--i]+":";
 					input1.setAttribute('id',response[i]);
+					input1.setAttribute('type',"text");
+					if (response[i]=="Identifier"){
+						input1.disabled = true;
+						var t = document.createElement("input"); //input element, Submit button
+						t.setAttribute('type',"button");
+						t.setAttribute('onClick', "deleteOutput(this.form)");
+						t.setAttribute('value',"Delete Output");
+
+					}
+					
+					
+					
+						
 					paragragh.appendChild(input1);
 					f.appendChild(paragragh);
 				};
@@ -66,6 +78,8 @@ mapping = function(io){
 
 				
 				f.appendChild(s);
+				f.appendChild(t);
+				
 
 //and some more input elements here
 //and dont forget to add a submit button
@@ -87,6 +101,10 @@ mapping = function(io){
 function init(){
 	var Inputs = getInputs();
     grid.C = Inputs.length + 1;
+    InputNames=[];
+    OutputNames=[]
+    Cells=[];
+    Circles = [];
     for (var i = Inputs.length - 1; i >= 0; i--) {
     	InputNames[i] = new iio.Text( Inputs[i].firstChild.nodeValue, 40+(i*40), originPosY -3).setFont('15px Consolas')
         	.setTextAlign('left')

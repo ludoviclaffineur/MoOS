@@ -27,9 +27,27 @@ namespace http {
             rep.status = reply::ok;
 
             rep.content.append("<?xml version=\"1.0\"  standalone=\"yes\"?>\n<response>\n");
-            // printf("%s \n", method.c_str());
+            //printf("%s \n", method.c_str());
             if( method.compare("addOutput")==0){
-                rep.content.append("OK");
+                std::stringstream ssName,ssPort ;
+                ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
+                ssPort<<200<< mGrid->getOutputs()->size();
+                char* theName = new char[ssName.str().size()];
+                strcpy(theName, ssName.str().c_str());
+                mGrid->addOutput(new OscHandler(theName, "127.0.0.1", ssPort.str().c_str(), "/newOsc", "f"));
+                //mGrid->addCell("PacketLength", theName, 0.0);
+                //mGrid->addCell("TTL", theName, 0.0);
+                //mGrid->addCell("Distance", theName, 0.0);
+                delete theName;
+            }
+            else if( method.compare("deleteOutput")==0){
+                std::smatch m_input;
+                std::regex e_input ("id=([0-9]+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                std::cout<< m_input[1].str()<<std::endl;
+                int id = atoi(m_input[1].str().c_str());
+                mGrid->removeOutput(id);
+
             }
             else if (method.compare("getInputs")==0){
                 rep.content.append("<inputs>\n");
@@ -55,7 +73,6 @@ namespace http {
             else if (method.compare("updateCell")==0){
                 //std::codecvt_utf8<char32_t> converter;
                 //printf("parametre %s \n",parameters.c_str());
-                std::string s ("coeff=0.7&input=TTL&output=OSC1&input=TTL&output=OSC1");
                 std::smatch m_coeff;
                 std::regex e ("coeff=([0-9].[0-9]|[0-9]|[0-9].[0-9][0-9])");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_coeff,e);
