@@ -23,6 +23,13 @@ void Grid::addInput(Input* i){
 void Grid::addOutput(OutputsHandler* o){
     o->setId(mCurrentOutputId++);
     mOutputs.push_back(o);
+    addComplementaryCells(o);
+}
+
+void Grid::addComplementaryCells(OutputsHandler *o){
+    for (int i=0;i< mInputs.size();i++){
+        addCell(mInputs.at(i)->getName(), o->getName(), 0.0);
+    }
 }
 
 void Grid::addCell(const char* inputName, const char* outputName, float corrCoeff){
@@ -41,6 +48,9 @@ void Grid::compute(){
         o->reset();
     }
 }
+int Grid::getCurrentOutputId(){
+    return mCurrentOutputId;
+}
 
 Input* Grid::getInputWithName(const char* n){
     for(int i =0 ;i<mInputs.size();i++)
@@ -49,7 +59,7 @@ Input* Grid::getInputWithName(const char* n){
 }
 
 OutputsHandler* Grid::getOutputWithName(const char* n){
-    for(int i =0 ;i<mInputs.size();i++)
+    for(int i =0 ;i<mOutputs.size();i++)
         if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
     return NULL;
 }
@@ -82,5 +92,23 @@ Cell* Grid::getCellWithName(std::string input, std::string output){
         }
     }
     return  NULL;
+}
+
+void Grid::removeOutput(int id){
+    std::vector<Cell*>::iterator i; 
+    for (i= mCells.begin(); i!=mCells.end(); ) {
+        if ((*i)->getOutput()->getId() == id) {
+            i = mCells.erase(i);
+        }
+        else{
+            i++;
+        }
+    }
+    for (int i =0; i<mOutputs.size(); i++) {
+        if (mOutputs.at(i)->getId()== id) {
+            mOutputs.erase(mOutputs.begin()+i);
+            break;
+        }
+    }
 
 }

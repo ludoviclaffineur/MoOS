@@ -19,7 +19,7 @@ class Grid{
 
 public:
     Grid();
-
+    void    addComplementaryCells(OutputsHandler* o);
     void    addInput(Input* i);
     void    addInput(const char* Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
     void    addOutput(OutputsHandler* o);
@@ -33,6 +33,8 @@ public:
     std::vector<OutputsHandler*>* getOutputs();
     std::vector<Cell*>* getCells();
     Cell* getCellWithName(std::string input, std::string output);
+    int getCurrentOutputId();
+    void removeOutput(int id);
 
 private:
     int mCurrentOutputId;
