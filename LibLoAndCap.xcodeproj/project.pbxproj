@@ -16,6 +16,7 @@
 		FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161C18464D3D00F7AF26 /* request_parser.cpp */; };
 		FE14162718464D3D00F7AF26 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161E18464D3D00F7AF26 /* server.cpp */; };
 		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
+		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
 		FE4817FE182102680094602C /* LibLoAndCap.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE4817FD182102680094602C /* LibLoAndCap.1 */; };
 		FE481813182108700094602C /* liblo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
 		FE48182518210E070094602C /* PcapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48182318210E070094602C /* PcapHandler.cpp */; };
@@ -63,6 +64,8 @@
 		FE14161E18464D3D00F7AF26 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		FE14161F18464D3D00F7AF26 /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
 		FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "lib/boost/libboost_system-mt.dylib"; sourceTree = "<group>"; };
+		FE284E9518BC905300CEC7E9 /* SaveXml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaveXml.cpp; path = save/SaveXml.cpp; sourceTree = "<group>"; };
+		FE284E9618BC905300CEC7E9 /* SaveXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveXml.h; path = save/SaveXml.h; sourceTree = "<group>"; };
 		FE4817F8182102680094602C /* LibLoAndCap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LibLoAndCap; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE4817FB182102680094602C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FE4817FD182102680094602C /* LibLoAndCap.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = LibLoAndCap.1; sourceTree = "<group>"; };
@@ -137,6 +140,15 @@
 			path = view/server;
 			sourceTree = "<group>";
 		};
+		FE284E9418BC8FF100CEC7E9 /* save */ = {
+			isa = PBXGroup;
+			children = (
+				FE284E9518BC905300CEC7E9 /* SaveXml.cpp */,
+				FE284E9618BC905300CEC7E9 /* SaveXml.h */,
+			);
+			name = save;
+			sourceTree = "<group>";
+		};
 		FE4817EF182102680094602C = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +161,7 @@
 				FE4817FA182102680094602C /* LibLoAndCap */,
 				FE96F4AC183CF20D00C59843 /* mapping */,
 				FE48182C182110FE0094602C /* ouputs */,
+				FE284E9418BC8FF100CEC7E9 /* save */,
 				FE4817F9182102680094602C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -284,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
+				FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */,
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
 				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,

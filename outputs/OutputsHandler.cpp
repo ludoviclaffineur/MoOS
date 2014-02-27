@@ -62,3 +62,7 @@ void OutputsHandler::setId(int newId){
 std::vector<IParameter*>* OutputsHandler::getParameters(){
     return &mParameters;
 }
+
+int OutputsHandler::    getOuputType(){
+    return mOutputType;
+}

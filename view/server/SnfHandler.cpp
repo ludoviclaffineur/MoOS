@@ -35,16 +35,13 @@ namespace http {
                 char* theName = new char[ssName.str().size()];
                 strcpy(theName, ssName.str().c_str());
                 mGrid->addOutput(new OscHandler(theName, "127.0.0.1", ssPort.str().c_str(), "/newOsc", "f"));
-                //mGrid->addCell("PacketLength", theName, 0.0);
-                //mGrid->addCell("TTL", theName, 0.0);
-                //mGrid->addCell("Distance", theName, 0.0);
                 delete theName;
             }
             else if( method.compare("deleteOutput")==0){
                 std::smatch m_input;
                 std::regex e_input ("id=([0-9]+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_input,e_input);
-                std::cout<< m_input[1].str()<<std::endl;
+                //std::cout<< m_input[1].str()<<std::endl;
                 int id = atoi(m_input[1].str().c_str());
                 mGrid->removeOutput(id);
 
@@ -117,7 +114,7 @@ namespace http {
                 std::smatch m_output;
                 std::regex e_output ("output=(\\w+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_output,e_output);
-                std::cout<<"REGEX"<< m_output[1].str()<<std::endl;
+                //std::cout<<"REGEX"<< m_output[1].str()<<std::endl;
 
                 OutputsHandler* cOutput = mGrid->getOutputWithName(m_output[1].str().c_str());
                 std::vector<IParameter*>* Params = cOutput->getParameters();
