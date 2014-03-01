@@ -28,6 +28,7 @@ public:
     float   extrapolate(float inputValue);
     void    setDModifier(float d);
     void    setCModifier(float c);
+    void    test();
 
 private:
     float   exponential(float inputValue);

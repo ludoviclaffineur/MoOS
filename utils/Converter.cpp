@@ -88,3 +88,13 @@ void Converter::setDModifier(float d){
 void Converter::setCModifier(float c){
     mYOffset = c;
 }
+
+void Converter::test(){
+    float increment = (mXMaxValue-mXMinValue) / 100.0;
+    for (int i = 0; i<100; i++) {
+
+        std::cout<<mXMinValue + i*increment<<" \t"<< extrapolate(mXMinValue + i*increment) <<std::endl;
+
+    }
+
+}

@@ -7,7 +7,8 @@
 //
 
 #include "SaveXml.h"
-
+#include <boost/foreach.hpp>
+#include <boost/filesystem.hpp>
 SaveXml::SaveXml(const std::string &filename, Grid* g){
     using boost::property_tree::ptree;
     ptree pt;
@@ -69,58 +70,80 @@ SaveXml::SaveXml(const std::string &filename, Grid* g){
 }
 
 void SaveXml::loadXml(const std::string &filename, Grid* g){
+    std::ifstream file (filename);
+    if ( file){
+        g->getOutputs()->clear();
+        //g->getInputs()->clear();
+        g->getCells()->clear();
         // Create an empty property tree object
-    using boost::property_tree::ptree;
-    ptree pt;
+        using boost::property_tree::ptree;
+        ptree pt;
 
-    // Load the XML file into the property tree. If reading fails
-    // (cannot open file, parse error), an exception is thrown.
-    read_xml(filename, pt);
-    // Get the filename and store it in the m_file variable.
-    // Note that we construct the path to the value by separating
-    // the individual keys with dots. If dots appear in the keys,
-    // a path type with a different separator can be used.
-    // If the debug.filename key is not found, an exception is thrown.
-
-    
-    // Get the debug level and store it in the m_level variable.
-    // This is another version of the get method: if the value is
-    // not found, the default value (specified by the second
-    // parameter) is returned instead. The type of the value
-    // extracted is determined by the type of the second parameter,
-    // so we can simply write get(...) instead of get<int>(...).
+        // Load the XML file into the property tree. If reading fails
+        // (cannot open file, parse error), an exception is thrown.
+        read_xml(filename, pt);
+        // Get the filename and store it in the m_file variable.
+        // Note that we construct the path to the value by separating
+        // the individual keys with dots. If dots appear in the keys,
+        // a path type with a different separator can be used.
+        // If the debug.filename key is not found, an exception is thrown.
 
 
-    // Iterate over the debug.modules section and store all found
-    // modules in the m_modules set. The get_child() function
-    // returns a reference to the child at the specified path; if
-    // there is no such child, it throws. Property tree iterators
-    ptree::iterator iter = pt.get_child("save.outputs.output").begin();
-    int type = atoi(iter->second.data().c_str());
-    switch (type) {
-        case OutputsHandler::OSC:
-            g->getOutputs()->push_back(new OscHandler());
-            break;
+        // Get the debug level and store it in the m_level variable.
+        // This is another version of the get method: if the value is
+        // not found, the default value (specified by the second
+        // parameter) is returned instead. The type of the value
+        // extracted is determined by the type of the second parameter,
+        // so we can simply write get(...) instead of get<int>(...).
 
-        default:
-            break;
-    }
 
-    for(ptree::iterator iter = pt.get_child("save.outputs.output").begin(); iter != pt.get_child("save.outputs.output").end(); iter++)
-    {
-        //Factory class for OutputHandler...
+        // Iterate over the debug.modules section and store all found
+        // modules in the m_modules set. The get_child() function
+        // returns a reference to the child at the specified path; if
+        // there is no such child, it throws. Property tree iterators
+        BOOST_FOREACH(ptree::value_type &v, pt.get_child("save.outputs")){
+            const ptree& child = v.second;
+            int type = child.get<int>("type");
+            switch (type) {
+                case OutputsHandler::OSC:
+                    createOsc( g, child);
+                    break;
+                default:
+                    break;
+            }
+        }
 
-        std::cout << iter->first << "," << iter->second.data() << std::endl;
-    }
+        BOOST_FOREACH(ptree::value_type &v, pt.get_child("save.cells")){
+            const ptree& child = v.second;
+            std::string IName = child.get<std::string>("InputName");
+            std::string OName = child.get<std::string>("OutputName");
+            float coeff = child.get<float>("Coefficient");
+            g->getCellWithName(IName, OName)->setCoeff(coeff);
+        }
 
-    for(ptree::iterator iter = pt.get_child("save.inputs.input").begin(); iter != pt.get_child("save.inputs.input").end(); iter++)
-    {
-        std::cout << iter->first << "," << iter->second.data() << std::endl;
-    }
 
-    for(ptree::iterator iter = pt.get_child("save.cells.cell").begin(); iter != pt.get_child("save.cells.cell").end(); iter++)
-    {
-        std::cout << iter->first << "," << iter->second.data() << std::endl;
+        /*for(ptree::iterator iter = pt.get_child("save.inputs.input").begin(); iter != pt.get_child("save.inputs.input").end(); iter++)
+         {
+         std::cout << iter->first << "," << iter->second.data() << std::endl;
+         }
+         
+         for(ptree::iterator iter = pt.get_child("save.cells.cell").begin(); iter != pt.get_child("save.cells.cell").end(); iter++)
+         {
+         std::cout << iter->first << "," << iter->second.data() << std::endl;
+         }*/
+
     }
 
 }
+
+
+void SaveXml::createOsc( Grid* g, const boost::property_tree::ptree& pt){
+    OscHandler* o = new OscHandler();
+    o->setName(pt.get<std::string>("Name").c_str());
+    o->setOscAddress(pt.get<std::string>("OscAddressPattern").c_str());
+    o->setId(pt.get<int>("Identifier"));
+    o->setOscAddress(pt.get<std::string>("OscAddressPattern").c_str());
+    o->setIpAdress(pt.get<std::string>("IPAddress").c_str());
+    g->addOutput(o);
+}
+

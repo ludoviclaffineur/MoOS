@@ -23,7 +23,8 @@ int main(int argc, const char * argv[])
 
 
     TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
-    //TheGrid->addOutput(new OscHandler(osc1,"192.168.1.1","20001", "/osc", "f" ));
+    //TheGrid->addOutput(new OscHandler("OSC3","192.168.1.1","20001", "/osc", "f" ));
+    //TheGrid->addOutput(new OscHandler("OSC4","192.168.1.1","20001", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler(osc3));
 
     /*TheGrid->addCell("PacketLength", "OSC1", 1.0);
@@ -36,8 +37,8 @@ int main(int argc, const char * argv[])
 
     TheGrid->addCell("Distance", "OSC1", 0.4);
     TheGrid->addCell("Distance", "OSC2", 0.3);*/
-    SaveXml("Youplaboum.xml", TheGrid);
-    //SaveXml::loadXml("Youplaboum.xml", TheGrid);
+    //SaveXml("Youplaboum.xml", TheGrid);
+    //SaveXml::loadXml("Test1.xml", TheGrid);
 	_pcap.listAndChooseInterface();
     _pcap.loopThreading();
     

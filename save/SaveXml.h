@@ -22,5 +22,7 @@ class SaveXml{
 public:
     static void loadXml(const std::string &filename, Grid* g);
     SaveXml(const std::string &filename,  Grid* g);
+    static void createOsc( Grid* g, const boost::property_tree::ptree& pt);
+    
 };
 #endif /* defined(__LibLoAndCap__SaveXml__) */

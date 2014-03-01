@@ -16,6 +16,7 @@
 #include "boost/any.hpp"
 #include "OscHandler.h"
 #include "boost/locale.hpp"
+#include "SaveXml.h"
 namespace http {
     namespace server{
 
@@ -29,12 +30,12 @@ namespace http {
             rep.content.append("<?xml version=\"1.0\"  standalone=\"yes\"?>\n<response>\n");
             //printf("%s \n", method.c_str());
             if( method.compare("addOutput")==0){
-                std::stringstream ssName,ssPort ;
+                std::stringstream ssName,ssTag ;
                 ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
-                ssPort<<200<< mGrid->getOutputs()->size();
+                ssTag<<"/"<< mGrid->getCurrentOutputId();
                 char* theName = new char[ssName.str().size()];
                 strcpy(theName, ssName.str().c_str());
-                mGrid->addOutput(new OscHandler(theName, "127.0.0.1", ssPort.str().c_str(), "/newOsc", "f"));
+                mGrid->addOutput(new OscHandler(theName, "127.0.0.1", "20000", ssTag.str().c_str(), "f"));
                 delete theName;
             }
             else if( method.compare("deleteOutput")==0){
@@ -44,6 +45,28 @@ namespace http {
                 //std::cout<< m_input[1].str()<<std::endl;
                 int id = atoi(m_input[1].str().c_str());
                 mGrid->removeOutput(id);
+
+            }
+            else if( method.compare("save")==0){
+                 //std::cout<< "SAVE"<<std::endl;
+                std::smatch m_input;
+                std::regex e_input ("filename=(\\w+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                //std::cout<< m_input[1].str()<<std::endl;
+                std::stringstream ssFilename;
+                ssFilename<<m_input[1].str()<<".xml";
+                SaveXml(ssFilename.str().c_str(), mGrid);
+
+            }
+            else if( method.compare("load")==0){
+                //std::cout<< "LOAD"<<std::endl;
+                std::smatch m_input;
+                std::regex e_input ("filename=(\\w+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                //std::cout<< m_input[1].str()<<std::endl;
+                std::stringstream ssFilename;
+                ssFilename<<m_input[1].str()<<".xml";
+                SaveXml::loadXml(ssFilename.str().c_str(), mGrid);
 
             }
             else if (method.compare("getInputs")==0){
