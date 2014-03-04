@@ -17,6 +17,8 @@
 		FE14162718464D3D00F7AF26 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161E18464D3D00F7AF26 /* server.cpp */; };
 		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
+		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
+		FE30405B18C48BA800CB147E /* CsvRow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* CsvRow.cpp */; };
 		FE4817FE182102680094602C /* LibLoAndCap.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE4817FD182102680094602C /* LibLoAndCap.1 */; };
 		FE481813182108700094602C /* liblo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
 		FE48182518210E070094602C /* PcapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48182318210E070094602C /* PcapHandler.cpp */; };
@@ -66,6 +68,10 @@
 		FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "lib/boost/libboost_system-mt.dylib"; sourceTree = "<group>"; };
 		FE284E9518BC905300CEC7E9 /* SaveXml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaveXml.cpp; path = save/SaveXml.cpp; sourceTree = "<group>"; };
 		FE284E9618BC905300CEC7E9 /* SaveXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveXml.h; path = save/SaveXml.h; sourceTree = "<group>"; };
+		FE30405618C47B5E00CB147E /* CsvImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CsvImporter.cpp; path = utils/CsvImporter.cpp; sourceTree = "<group>"; };
+		FE30405718C47B5E00CB147E /* CsvImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CsvImporter.h; path = utils/CsvImporter.h; sourceTree = "<group>"; };
+		FE30405918C48BA800CB147E /* CsvRow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CsvRow.cpp; path = utils/CsvRow.cpp; sourceTree = "<group>"; };
+		FE30405A18C48BA800CB147E /* CsvRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CsvRow.h; path = utils/CsvRow.h; sourceTree = "<group>"; };
 		FE4817F8182102680094602C /* LibLoAndCap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LibLoAndCap; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE4817FB182102680094602C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FE4817FD182102680094602C /* LibLoAndCap.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = LibLoAndCap.1; sourceTree = "<group>"; };
@@ -218,6 +224,10 @@
 		FE48183318211AB30094602C /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				FE30405618C47B5E00CB147E /* CsvImporter.cpp */,
+				FE30405718C47B5E00CB147E /* CsvImporter.h */,
+				FE30405918C48BA800CB147E /* CsvRow.cpp */,
+				FE30405A18C48BA800CB147E /* CsvRow.h */,
 				FE48183418211AF10094602C /* Converter.cpp */,
 				FE48183518211AF10094602C /* Converter.h */,
 				FE48183718211BFC0094602C /* IpHeaderDefinitions.h */,
@@ -296,10 +306,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */,
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
 				FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */,
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
+				FE30405B18C48BA800CB147E /* CsvRow.cpp in Sources */,
 				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,
 				FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */,
 				FE481832182119D00094602C /* OutputsHandler.cpp in Sources */,
@@ -353,6 +365,7 @@
 				INSTALL_PATH = ./bin;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-D_LIBCPP_INLINE_VISIBILITY=\"\"";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};
@@ -386,6 +399,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INSTALL_PATH = ./bin;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_LDFLAGS = "-D_LIBCPP_INLINE_VISIBILITY=\"\"";
 				SDKROOT = macosx;
 				USER_HEADER_SEARCH_PATHS = "";
 			};

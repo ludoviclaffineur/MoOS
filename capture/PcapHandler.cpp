@@ -54,7 +54,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mFilter = filter;
     mGrid = g;
     mGrid->addInput("PacketLength", 1, 65635, -1, 0, Converter::EXPONENTIAL);
-    mGrid->addInput("Protocol", 1, 65635, -20, -100000, Converter::LOGARITHMIC);
+    //mGrid->addInput("Protocol", 1, 65635, -20, -100000, Converter::LOGARITHMIC);
     //mGrid->addInput("Port Number", 1, 65635, -1, 0, Converter::EXPONENTIAL);
 }
 

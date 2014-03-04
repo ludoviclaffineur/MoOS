@@ -9,7 +9,7 @@
 #include "AppIncludes.h"
 #include "server.hpp"
 #include <pthread.h>
-#include "SaveXml.h"
+#include "CsvImporter.h"
 
 Grid* TheGrid;
 const char* filter ="ip and dst host 172.30.8.13";
@@ -20,7 +20,7 @@ int main(int argc, const char * argv[])
     TheGrid = new Grid();
     PcapHandler _pcap = PcapHandler(filter, TheGrid);
     const char* osc1= "OSC1";
-
+    
 
     TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC3","192.168.1.1","20001", "/osc", "f" ));
@@ -39,6 +39,8 @@ int main(int argc, const char * argv[])
     TheGrid->addCell("Distance", "OSC2", 0.3);*/
     //SaveXml("Youplaboum.xml", TheGrid);
     //SaveXml::loadXml("Test1.xml", TheGrid);
+    std::string csvstring ="IpGps.csv";
+    CsvImporter::importCsv(csvstring);
 	_pcap.listAndChooseInterface();
     _pcap.loopThreading();
     
