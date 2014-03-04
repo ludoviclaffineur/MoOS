@@ -10,7 +10,7 @@
 #define __LibLoAndCap__CsvImporter__
 
 #include <iostream>
-#include "CsvRow.h"
+#include "LocationIp.h"
 #include <regex>
 
 class CsvImporter{

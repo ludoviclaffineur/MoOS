@@ -16,7 +16,7 @@
 void/*CsvRow**/ CsvImporter::importCsv(std::string &file){
     //std::fstream filestream (file);
 
-    CsvRow** importedData = new CsvRow*[1893989];
+    LocationIp** importedData = new LocationIp*[1893989];
 
     std::ifstream filestream (file, std::ifstream::in);
     if (filestream) {
@@ -29,7 +29,7 @@ void/*CsvRow**/ CsvImporter::importCsv(std::string &file){
         short int iLongitude;
         int i = 0;
         auto begin = std::chrono::high_resolution_clock::now() ;
-
+        std::cout<< "Loading...";
         while (filestream.good()) {
             getline(filestream, line, ',');
             IpBegin = strtol(m_output[1].str().c_str(),NULL, 10);
@@ -40,7 +40,7 @@ void/*CsvRow**/ CsvImporter::importCsv(std::string &file){
             getline(filestream, line, '\n');
             iLongitude = atoi(m_output[3].str().c_str());
             //std::cout<< line <<std::endl;
-            importedData[i++] = new CsvRow(IpBegin, iLatitude, iLongitude);
+            importedData[i++] = new LocationIp(IpBegin, iLatitude, iLongitude);
             if (i % (189398) ==0){
                 std::cout<< i /18939 <<"% == " <<std::flush;
             }

@@ -10,10 +10,12 @@
 #define __LibLoAndCap__CsvRow__
 
 #include <iostream>
-class CsvRow{
+class LocationIp{
 public:
-    CsvRow(unsigned long int ipbegin, short int latitude, short int longitude);
+    LocationIp(unsigned long int ipbegin, short int latitude, short int longitude);
     unsigned long int getIpBegin();
+    short int getLongitude();
+    short int getLatitude();
 private:
     unsigned long int mIpBegin;  //need 4 bytes for IP address
     short int mLatitude;
