@@ -15,7 +15,7 @@
 
 class CsvImporter{
 public:
-    static void importCsv(std::string &file);
+    static LocationIp** importCsv(std::string &file);
 };
 
 #endif /* defined(__LibLoAndCap__CsvImporter__) */

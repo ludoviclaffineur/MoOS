@@ -12,7 +12,8 @@
 #include "pcap.h"
 #include "Grid.h"
 #include "Input.h"
-
+#include "LocationIp.h"
+#include "CsvImporter.h"
 class PcapHandler {
     
 public:
@@ -26,10 +27,12 @@ public:
     int     findAllDevs(pcap_if_t **alldev, char* errbuff);
     Grid*   getGrid();
     pcap_t* getHandle();
+    LocationIp** getIpLocations();
     pcap_t* listAndChooseInterface();
     int     loop(pcap_t *p, int cnt, pcap_handler callback, u_char *user);
     int     loopThreading();
     pcap_t* openLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf);
+    static LocationIp* FindLocationFromIpAddress(unsigned long int TargetIp, PcapHandler* p);
 
 private:
     pcap_t*     chooseDev();
@@ -40,6 +43,7 @@ private:
     const char* mFilter;
     Grid*       mGrid;
     pcap_t*     mHandle;
+    LocationIp** mIpLocations;
 };
 
 #endif /* defined(__libpcapTest__PcapHandler__) */

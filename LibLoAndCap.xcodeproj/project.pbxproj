@@ -203,6 +203,8 @@
 		FE48181718210A650094602C /* capture */ = {
 			isa = PBXGroup;
 			children = (
+				FE30405918C48BA800CB147E /* LocationIp.cpp */,
+				FE30405A18C48BA800CB147E /* LocationIp.h */,
 				FE48182318210E070094602C /* PcapHandler.cpp */,
 				FE48182418210E070094602C /* PcapHandler.h */,
 			);
@@ -247,8 +249,6 @@
 		FE96F4B9183CF47600C59843 /* inputs */ = {
 			isa = PBXGroup;
 			children = (
-				FE30405918C48BA800CB147E /* LocationIp.cpp */,
-				FE30405A18C48BA800CB147E /* LocationIp.h */,
 				FE96F4BA183CF48E00C59843 /* Input.cpp */,
 				FE96F4BB183CF48E00C59843 /* Input.h */,
 			);

@@ -28,6 +28,9 @@ void OutputsHandler::addToValue(float a){
 }
 
 void OutputsHandler::extrapolate(){
+    if (mValueBeforeSending > 1 ) {
+        mValueBeforeSending = 1.0;
+    }
 
 }
 
