@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0211FD184C70B30096ED35 /* SnfHandler.cpp */; };
-		FE04038418C632E300DEE0F6 /* libboost_system-mt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
-		FE04038718C632E300DEE0F6 /* liblo.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
-		FE04038818C633AD00DEE0F6 /* liblo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
-		FE04038918C633D200DEE0F6 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
-		FE04038B18C6367E00DEE0F6 /* linkLibScript.sh in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE04038A18C6362200DEE0F6 /* linkLibScript.sh */; };
 		FE14162018464D3D00F7AF26 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14160F18464D3D00F7AF26 /* connection.cpp */; };
 		FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161118464D3D00F7AF26 /* connection_manager.cpp */; };
 		FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161518464D3D00F7AF26 /* mime_types.cpp */; };
@@ -20,14 +15,12 @@
 		FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161A18464D3D00F7AF26 /* request_handler.cpp */; };
 		FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161C18464D3D00F7AF26 /* request_parser.cpp */; };
 		FE14162718464D3D00F7AF26 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161E18464D3D00F7AF26 /* server.cpp */; };
-<<<<<<< HEAD
 		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
-=======
->>>>>>> master
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
 		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
 		FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* LocationIp.cpp */; };
 		FE4817FE182102680094602C /* LibLoAndCap.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE4817FD182102680094602C /* LibLoAndCap.1 */; };
+		FE481813182108700094602C /* liblo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
 		FE48182518210E070094602C /* PcapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48182318210E070094602C /* PcapHandler.cpp */; };
 		FE48182818210E2A0094602C /* libpcap.A.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE48182618210E2A0094602C /* libpcap.A.dylib */; };
 		FE48182918210E2A0094602C /* libpcap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE48182718210E2A0094602C /* libpcap.dylib */; };
@@ -43,23 +36,19 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		FE4817F6182102680094602C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 6;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
 			files = (
-				FE04038B18C6367E00DEE0F6 /* linkLibScript.sh in CopyFiles */,
-				FE04038418C632E300DEE0F6 /* libboost_system-mt.dylib in CopyFiles */,
-				FE04038718C632E300DEE0F6 /* liblo.dylib in CopyFiles */,
 				FE4817FE182102680094602C /* LibLoAndCap.1 in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FE0211FD184C70B30096ED35 /* SnfHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnfHandler.cpp; sourceTree = "<group>"; };
 		FE0211FE184C70B30096ED35 /* SnfHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnfHandler.h; sourceTree = "<group>"; };
-		FE04038A18C6362200DEE0F6 /* linkLibScript.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = linkLibScript.sh; sourceTree = "<group>"; };
 		FE14160F18464D3D00F7AF26 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		FE14161018464D3D00F7AF26 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
 		FE14161118464D3D00F7AF26 /* connection_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection_manager.cpp; sourceTree = "<group>"; };
@@ -113,10 +102,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE04038918C633D200DEE0F6 /* libboost_system-mt.dylib in Frameworks */,
-				FE04038818C633AD00DEE0F6 /* liblo.dylib in Frameworks */,
 				FE48182818210E2A0094602C /* libpcap.A.dylib in Frameworks */,
 				FE48182918210E2A0094602C /* libpcap.dylib in Frameworks */,
+				FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */,
+				FE481813182108700094602C /* liblo.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +196,6 @@
 				FE48182618210E2A0094602C /* libpcap.A.dylib */,
 				FE48182718210E2A0094602C /* libpcap.dylib */,
 				FE481812182108700094602C /* liblo.dylib */,
-				FE04038A18C6362200DEE0F6 /* linkLibScript.sh */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -426,10 +414,9 @@
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					./lib/lo,
-					./lib/pcap,
-					./lib/boost,
+					/Users/ludoviclaffineur/Documents/LibLoAndCap/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/lo,
+					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
@@ -448,10 +435,9 @@
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					./lib/lo,
-					./lib/pcap,
-					./lib/boost,
+					/Users/ludoviclaffineur/Documents/LibLoAndCap/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/lo,
+					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
