@@ -40,8 +40,8 @@
 		FE4817F6182102680094602C /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 6;
 			files = (
 				FE9B541218C638C80080ABCB /* linkLibScript.sh in CopyFiles */,
 				FE9B540F18C638870080ABCB /* libboost_system-mt.dylib in CopyFiles */,
@@ -94,6 +94,15 @@
 		FE48183418211AF10094602C /* Converter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Converter.cpp; path = utils/Converter.cpp; sourceTree = "<group>"; };
 		FE48183518211AF10094602C /* Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Converter.h; path = utils/Converter.h; sourceTree = "<group>"; };
 		FE48183718211BFC0094602C /* IpHeaderDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IpHeaderDefinitions.h; path = utils/IpHeaderDefinitions.h; sourceTree = "<group>"; };
+		FE8F914818C64AFE0047D4BA /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		FE8F916718C64AFE0047D4BA /* MoOS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoOS.png; sourceTree = "<group>"; };
+		FE8F916918C64AFE0047D4BA /* httpget.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = httpget.min.js; sourceTree = "<group>"; };
+		FE8F916A18C64AFE0047D4BA /* iioEngine.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = iioEngine.js; sourceTree = "<group>"; };
+		FE8F916B18C64AFE0047D4BA /* iioEngine.min.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = iioEngine.min.js; sourceTree = "<group>"; };
+		FE8F916C18C64AFE0047D4BA /* mapping.io.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = mapping.io.js; sourceTree = "<group>"; };
+		FE8F916D18C64AFE0047D4BA /* TicTacToe.io.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = TicTacToe.io.js; sourceTree = "<group>"; };
+		FE8F916E18C64AFE0047D4BA /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		FE8F916F18C64AFE0047D4BA /* text.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = text.xml; sourceTree = "<group>"; };
 		FE96F4B3183CF42A00C59843 /* Cell.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cell.cpp; path = mapping/Cell.cpp; sourceTree = "<group>"; };
 		FE96F4B4183CF42A00C59843 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cell.h; path = mapping/Cell.h; sourceTree = "<group>"; };
 		FE96F4B5183CF42A00C59843 /* Grid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grid.cpp; path = mapping/Grid.cpp; sourceTree = "<group>"; };
@@ -165,6 +174,7 @@
 		FE4817EF182102680094602C = {
 			isa = PBXGroup;
 			children = (
+				FE8F914718C64AFE0047D4BA /* www */,
 				FE1415F618464C1C00F7AF26 /* view */,
 				FE48182A182110A90094602C /* AppIncludes.h */,
 				FE48181718210A650094602C /* capture */,
@@ -241,6 +251,38 @@
 				FE48183718211BFC0094602C /* IpHeaderDefinitions.h */,
 			);
 			name = utils;
+			sourceTree = "<group>";
+		};
+		FE8F914718C64AFE0047D4BA /* www */ = {
+			isa = PBXGroup;
+			children = (
+				FE8F914818C64AFE0047D4BA /* index.html */,
+				FE8F916618C64AFE0047D4BA /* pics */,
+				FE8F916818C64AFE0047D4BA /* scripts */,
+				FE8F916E18C64AFE0047D4BA /* style.css */,
+				FE8F916F18C64AFE0047D4BA /* text.xml */,
+			);
+			path = www;
+			sourceTree = "<group>";
+		};
+		FE8F916618C64AFE0047D4BA /* pics */ = {
+			isa = PBXGroup;
+			children = (
+				FE8F916718C64AFE0047D4BA /* MoOS.png */,
+			);
+			path = pics;
+			sourceTree = "<group>";
+		};
+		FE8F916818C64AFE0047D4BA /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				FE8F916918C64AFE0047D4BA /* httpget.min.js */,
+				FE8F916A18C64AFE0047D4BA /* iioEngine.js */,
+				FE8F916B18C64AFE0047D4BA /* iioEngine.min.js */,
+				FE8F916C18C64AFE0047D4BA /* mapping.io.js */,
+				FE8F916D18C64AFE0047D4BA /* TicTacToe.io.js */,
+			);
+			path = scripts;
 			sourceTree = "<group>";
 		};
 		FE96F4AC183CF20D00C59843 /* mapping */ = {
