@@ -1,6 +1,6 @@
 //
 //  IpHeaderDefinition.h
-//  LibLoAndCap
+//  Li/Users/ludoviclaffineur/Documents/LibLoAndCap/utils/IpHeaderDefinitions.hbLoAndCap
 //
 //  Created by Ludovic Laffineur on 30/10/13.
 //  Copyright (c) 2013 Ludovic Laffineur. All rights reserved.
@@ -9,12 +9,17 @@
 #ifndef LibLoAndCap_IpHeaderDefinition_h
 #define LibLoAndCap_IpHeaderDefinition_h
 
-typedef struct ip_address{
+typedef struct ip_address_struct{
 	u_char byte1;
 	u_char byte2;
 	u_char byte3;
 	u_char byte4;
-}ip_address;
+};
+
+typedef union ip_address{
+	ip_address_struct struct_bytes;
+	u_int32_t int_address;
+} ip_address;
 
 typedef struct ip_header{
 	u_char  ver_ihl;        // Version (4 bits) + Internet header length (4 bits)

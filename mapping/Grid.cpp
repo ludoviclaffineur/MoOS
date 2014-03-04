@@ -37,9 +37,15 @@ void Grid::addCell(const char* inputName, const char* outputName, float corrCoef
 }
 
 void Grid::compute(){
+    OutputsHandler* oprime = nullptr;
     for (int i = 0; i<mCells.size(); i++){
         Cell* c = mCells.at(i);
-        c->getOutput()->addToValue(c->getInput()->getExtrapolatedValue());
+        //std::cout<<c->getCoeff()<<std::endl;
+
+        c->getOutput()->addToValue(c->getInput()->getExtrapolatedValue()* c->getCoeff());
+        if (oprime ==nullptr){
+            oprime = c->getOutput();
+        }
     }
     for (int i = 0; i<mOutputs.size(); i++) {
         OutputsHandler* o = mOutputs.at(i);
@@ -61,6 +67,12 @@ Input* Grid::getInputWithName(const char* n){
 OutputsHandler* Grid::getOutputWithName(const char* n){
     for(int i =0 ;i<mOutputs.size();i++)
         if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
+    return NULL;
+}
+
+OutputsHandler* Grid::getOutputWithId(int theId){
+    for(int i =0 ;i<mOutputs.size();i++)
+        if (theId == mOutputs.at(i)->getId()) return mOutputs.at(i);
     return NULL;
 }
 

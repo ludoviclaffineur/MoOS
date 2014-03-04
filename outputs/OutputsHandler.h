@@ -32,6 +32,7 @@ public:
     bool    compareName (const char* n);
     void    extrapolate();
     const char* getName();
+    int     getOuputType();
     void setName(const char* n);
     std::vector<IParameter*>* getParameters();
     void    reset();

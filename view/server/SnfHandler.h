@@ -12,10 +12,13 @@
 #include <iostream>
 #include "Grid.h"
 #include "reply.hpp"
+#include "string.h"
 
 namespace http {
 namespace server {
+    //enum class MONTEST { A,S,C,Q};
     class SnfHandler{
+
     public:
         SnfHandler(Grid* g);
         bool computeRequest(std::string method, std::string parameters, reply& rep);

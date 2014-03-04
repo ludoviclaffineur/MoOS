@@ -27,6 +27,7 @@ public:
     void    compute();
     Input*  getInputWithName(const char* n);
     OutputsHandler* getOutputWithName(const char* n);
+    OutputsHandler* getOutputWithId(int theId);
     std::vector<Input*>* getInputs();
     size_t  getNbrInputs();
     size_t  getNbrOutputs();

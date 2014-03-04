@@ -24,10 +24,15 @@ bool OutputsHandler::compareName(const char *n){
 }
 
 void OutputsHandler::addToValue(float a){
-    mValueBeforeSending += a;
+    mValueBeforeSending =  mValueBeforeSending+ a;
+    //std::cout<< mValueBeforeSending <<std::endl;
 }
 
 void OutputsHandler::extrapolate(){
+    if (mValueBeforeSending > 1 ) {
+        mValueBeforeSending = 1.0;
+    }
+    //std::cout<< mValueBeforeSending <<std::endl;
 
 }
 
@@ -61,4 +66,8 @@ void OutputsHandler::setId(int newId){
 }
 std::vector<IParameter*>* OutputsHandler::getParameters(){
     return &mParameters;
+}
+
+int OutputsHandler::    getOuputType(){
+    return mOutputType;
 }

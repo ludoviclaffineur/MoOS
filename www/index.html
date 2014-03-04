@@ -48,7 +48,17 @@
 	          </script>
 	   
   			</div>
-			<INPUT type="button" value="Add Output" onClick="addOutput()">
+			<INPUT type="button" value="Add Output" onClick="addOutput()"/>
+			<form id="SaveState" action="" method="get"> 
+				<INPUT type="text" id="filename"/>
+				<INPUT type="button" value="Save state" onClick="saveState(this.form)">
+			</form>
+			<form id="LoadState" action="" method="get"> 
+				<INPUT type="text" id="filename"/>
+				<INPUT type="button" value="Load state" onClick="loadState(this.form)">
+			</form>
+			
+			
 	   
 		</div>
 		

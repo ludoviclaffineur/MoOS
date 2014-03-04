@@ -16,6 +16,7 @@
 #include "boost/any.hpp"
 #include "OscHandler.h"
 #include "boost/locale.hpp"
+#include "SaveXml.h"
 namespace http {
     namespace server{
 
@@ -29,24 +30,43 @@ namespace http {
             rep.content.append("<?xml version=\"1.0\"  standalone=\"yes\"?>\n<response>\n");
             //printf("%s \n", method.c_str());
             if( method.compare("addOutput")==0){
-                std::stringstream ssName,ssPort ;
+                std::stringstream ssName,ssTag ;
                 ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
-                ssPort<<200<< mGrid->getOutputs()->size();
+                ssTag<<"/"<< mGrid->getCurrentOutputId();
                 char* theName = new char[ssName.str().size()];
                 strcpy(theName, ssName.str().c_str());
-                mGrid->addOutput(new OscHandler(theName, "127.0.0.1", ssPort.str().c_str(), "/newOsc", "f"));
-                //mGrid->addCell("PacketLength", theName, 0.0);
-                //mGrid->addCell("TTL", theName, 0.0);
-                //mGrid->addCell("Distance", theName, 0.0);
+                mGrid->addOutput(new OscHandler(theName, "127.0.0.1", "20000", ssTag.str().c_str(), "f"));
                 delete theName;
             }
             else if( method.compare("deleteOutput")==0){
                 std::smatch m_input;
                 std::regex e_input ("id=([0-9]+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_input,e_input);
-                std::cout<< m_input[1].str()<<std::endl;
+                //std::cout<< m_input[1].str()<<std::endl;
                 int id = atoi(m_input[1].str().c_str());
                 mGrid->removeOutput(id);
+
+            }
+            else if( method.compare("save")==0){
+                 //std::cout<< "SAVE"<<std::endl;
+                std::smatch m_input;
+                std::regex e_input ("filename=(\\w+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                //std::cout<< m_input[1].str()<<std::endl;
+                std::stringstream ssFilename;
+                ssFilename<<m_input[1].str()<<".xml";
+                SaveXml(ssFilename.str().c_str(), mGrid);
+
+            }
+            else if( method.compare("load")==0){
+                //std::cout<< "LOAD"<<std::endl;
+                std::smatch m_input;
+                std::regex e_input ("filename=(\\w+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                //std::cout<< m_input[1].str()<<std::endl;
+                std::stringstream ssFilename;
+                ssFilename<<m_input[1].str()<<".xml";
+                SaveXml::loadXml(ssFilename.str().c_str(), mGrid);
 
             }
             else if (method.compare("getInputs")==0){
@@ -117,7 +137,7 @@ namespace http {
                 std::smatch m_output;
                 std::regex e_output ("output=(\\w+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_output,e_output);
-                std::cout<<"REGEX"<< m_output[1].str()<<std::endl;
+                //std::cout<<"REGEX"<< m_output[1].str()<<std::endl;
 
                 OutputsHandler* cOutput = mGrid->getOutputWithName(m_output[1].str().c_str());
                 std::vector<IParameter*>* Params = cOutput->getParameters();
@@ -136,7 +156,8 @@ namespace http {
                 std::vector <std::string> listParameters =ExtractPamameters(parameters);
                 int cId = findIdInListParameters(listParameters);
                 //printf("ID %d\n", cId);
-                mGrid->getOutputs()->at(cId)->setParameters(listParameters);
+
+                mGrid->getOutputWithId(cId)->setParameters(listParameters);
             }
             else {
                 rep.content.append("<error>Not found</error>\n");
