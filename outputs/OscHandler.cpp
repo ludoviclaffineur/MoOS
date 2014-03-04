@@ -47,7 +47,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
 
     mDistant = lo_address_new(mIpAddress, mPort);
     mParamNumber = 0;
-    mValueBeforeSending = 0;
+    //mValueBeforeSending = 0;
     mOutputType = OutputsHandler::OSC;
     mParameters.push_back(new Parameter<char**>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char**>("Port", &mPort));
@@ -61,11 +61,12 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
 OscHandler::OscHandler(const char* ipAddress, const char* port){
     mDistant = lo_address_new(ipAddress, port);
     mParamNumber = 0;
-    mValueBeforeSending = 0;
+    //mValueBeforeSending = 0;
 }
 
 bool OscHandler::sendData(){
-    //std::cout<< "Sent value" << _ValueBeforeSending<<std::endl;
+   // std::cout<< mName << " Sent value" << mValueBeforeSending<<std::endl;
+
     return lo_send(mDistant,mOscAddress, "f",mValueBeforeSending);
 }
 

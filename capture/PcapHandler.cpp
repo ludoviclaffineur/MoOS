@@ -38,6 +38,9 @@ void* ThreadReceptionPacket (void* ptr){
             LocationIp* l = PcapHandler::FindLocationFromIpAddress(ntohl(ih->saddr.int_address),p);
             g->getInputWithName("Latitude")->setValue(l->getLatitude());
             g->getInputWithName("Longitude")->setValue(l->getLongitude());
+            //std::cout<< g->getInputWithName("Latitude")->getExtrapolatedValue()<< std::endl;
+
+
             g->compute();
         }
     }
@@ -65,6 +68,11 @@ LocationIp** PcapHandler::getIpLocations(){
 }
 
 LocationIp* PcapHandler::FindLocationFromIpAddress(unsigned long int TargetIp, PcapHandler* p){
+    return PcapHandler::BinaryTree(TargetIp,p);
+    //return PcapHandler::Secante(TargetIp, p);
+}
+
+LocationIp* PcapHandler::BinaryTree(unsigned long int TargetIp, PcapHandler* p){
     LocationIp** ipLoc = p->getIpLocations();
     int min = 0, max = NBR_IP_ADDRESSES-1;
     int middle;
@@ -88,6 +96,28 @@ LocationIp* PcapHandler::FindLocationFromIpAddress(unsigned long int TargetIp, P
     return ipLoc[54];
 }
 
+LocationIp* PcapHandler::Secante(unsigned long int TargetIp, PcapHandler* p){
+    int x_2;
+    int x_1 = 0;
+    int x_0 = NBR_IP_ADDRESSES-1;
+    LocationIp** ipLoc = p->getIpLocations();
+    for (int i=0;i<30;i++){
+        x_2 = (float)x_1 - ((float)(x_1-x_0)/(float)(ipLoc[x_1]->getIpBegin()-ipLoc[x_0]->getIpBegin()))*(float)(ipLoc[x_1]->getIpBegin()-TargetIp);
+
+        if(ipLoc[x_2]->getIpBegin() <=TargetIp &&ipLoc[x_2+1]->getIpBegin() > TargetIp){
+            std::cout<< "range trouvé  "<<ipLoc[x_2]->getIpBegin() << "--"<< ipLoc[x_2+1]->getIpBegin() <<std::endl;
+            std::cout<< "Target  "<<TargetIp <<std::endl;
+            std::cout<< "Nbr iteration  " << i <<std::endl ;
+            return ipLoc[x_2];
+        }
+        else{
+            x_0 = x_1;
+            x_1 = x_2;
+        }
+    }
+    return ipLoc[x_2];
+}
+
 PcapHandler::PcapHandler(char* filter){
     mFilter = filter;
 }
@@ -97,9 +127,9 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mGrid = g;
     std::string csvstring ="IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
-    mGrid->addInput("PacketLength", 1, 65635, -1, 0, Converter::LINEAR);
-    mGrid->addInput("Latitude", -180, 180, -1, 0, Converter::LINEAR);
-    mGrid->addInput("Longitude", -90, 90, -1, 0, Converter::LINEAR);
+    mGrid->addInput("PacketLength", 1, 65535, -1, 0, Converter::LINEAR);
+    mGrid->addInput("Latitude", 90, -90, -1, 0, Converter::LINEAR);
+    mGrid->addInput("Longitude", -180, 180, -1, 0, Converter::LINEAR);
     //mGrid->addInput("Protocol", 1, 65635, -20, -100000, Converter::LOGARITHMIC);
     //mGrid->addInput("Port Number", 1, 65635, -1, 0, Converter::EXPONENTIAL);
 }

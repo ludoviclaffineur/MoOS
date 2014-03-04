@@ -141,9 +141,10 @@ void SaveXml::createOsc( Grid* g, const boost::property_tree::ptree& pt){
     OscHandler* o = new OscHandler();
     o->setName(pt.get<std::string>("Name").c_str());
     o->setOscAddress(pt.get<std::string>("OscAddressPattern").c_str());
-    o->setId(pt.get<int>("Identifier"));
-    o->setOscAddress(pt.get<std::string>("OscAddressPattern").c_str());
+    //o->setId(pt.get<int>("Identifier"));
+    //o->setOscAddress(pt.get<std::string>("OscAddressPattern").c_str());
     o->setIpAdress(pt.get<std::string>("IPAddress").c_str());
+    o->setPort(pt.get<std::string>("Port").c_str());
     g->addOutput(o);
 }
 

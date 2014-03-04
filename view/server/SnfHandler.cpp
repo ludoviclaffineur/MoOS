@@ -156,7 +156,8 @@ namespace http {
                 std::vector <std::string> listParameters =ExtractPamameters(parameters);
                 int cId = findIdInListParameters(listParameters);
                 //printf("ID %d\n", cId);
-                mGrid->getOutputs()->at(cId)->setParameters(listParameters);
+
+                mGrid->getOutputWithId(cId)->setParameters(listParameters);
             }
             else {
                 rep.content.append("<error>Not found</error>\n");
