@@ -42,4 +42,11 @@ typedef struct udp_header{
 	u_short crc;            // Checksum
 }udp_header;
 
+
+const long int TEN_ZERO_ZERO_ZERO  = 167772160;
+const long int TEN_FIFTY_TWO  = 184549375;
+const long int ONE_SEVENTY_TWO_MIN = 2886729728;
+const long int ONE_SEVENTY_TWO_MAX = 2887778303;
+const long int ONE_NINETY_TWO_MIN = 3232235520;
+const long int ONE_NINETY_TWO_MAX = 3232301055;
 #endif

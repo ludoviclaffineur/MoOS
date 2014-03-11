@@ -33,6 +33,7 @@ public:
     int     loopThreading();
     pcap_t* openLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf);
     static LocationIp* FindLocationFromIpAddress(unsigned long int TargetIp, PcapHandler* p);
+    static void* ThreadReceptionPacket (void* ptr);
 
 
 

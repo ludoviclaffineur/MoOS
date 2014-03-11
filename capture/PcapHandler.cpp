@@ -18,30 +18,47 @@ bool running = true;
 
 
 
-void* ThreadReceptionPacket (void* ptr){
+void* PcapHandler::ThreadReceptionPacket (void* ptr){
     PcapHandler* p = (PcapHandler*) ptr;
     pthread_setname_np("ThreadPcap");
     //pcap_t* handle = (pcap_t*) ptr;
     struct pcap_pkthdr* header;
     const u_char* datas;
+    int res;
     while(running){
-        pcap_next_ex(p->getHandle(), &header, &datas);
+        res = pcap_next_ex(p->getHandle(), &header, &datas);
+        if (res >0){
+            ip_header *ih;
+            if(datas){
+                ih = (ip_header *) (datas + 14);
+                //std::cout<<ih->tlen<<std::endl;
+                Grid* g = p->getGrid();
+                g->getInputWithName("PacketLength")->setValue(ih->tlen);
+                //std::cout<< "Ip dest :" << <<std::endl;
+                long int ipadd =ntohl(ih->saddr.int_address);
+                if( (ipadd > TEN_ZERO_ZERO_ZERO && ipadd <= TEN_FIFTY_TWO) || (ipadd > ONE_SEVENTY_TWO_MIN && ipadd <= ONE_SEVENTY_TWO_MAX) || (ipadd > ONE_NINETY_TWO_MIN && ipadd <= ONE_NINETY_TWO_MAX) ){
+                    g->getInputWithName("Latitude")->setValue(51);
+                    g->getInputWithName("Longitude")->setValue(4);
+                    //std::cout<< "LOCAL NETWORK"<< std::endl;
+                }
+                else{
+                    LocationIp* l = PcapHandler::FindLocationFromIpAddress(ntohl(ih->saddr.int_address),p);
+                    if(l){
+                        g->getInputWithName("Latitude")->setValue(l->getLatitude());
+                        g->getInputWithName("Longitude")->setValue(l->getLongitude());
+                        //std::cout<< "EXTERNAL NETWORK"<< std::endl;
+                    }
+
+                }
+
+
+                //std::cout<< g->getInputWithName("Latitude")->getExtrapolatedValue()<< std::endl;
+                
+                
+                g->compute();
+            }
         //std::cout<<header->len<<std::endl;
-        ip_header *ih;
-        if(datas){
-            ih = (ip_header *) (datas + 14);
-            //std::cout<<ih->tlen<<std::endl;
-            Grid* g = p->getGrid();
-            g->getInputWithName("PacketLength")->setValue(ih->tlen);
-            //std::cout<< "Ip dest :" << <<std::endl;
-            
-            LocationIp* l = PcapHandler::FindLocationFromIpAddress(ntohl(ih->saddr.int_address),p);
-            g->getInputWithName("Latitude")->setValue(l->getLatitude());
-            g->getInputWithName("Longitude")->setValue(l->getLongitude());
-            //std::cout<< g->getInputWithName("Latitude")->getExtrapolatedValue()<< std::endl;
 
-
-            g->compute();
         }
     }
     return NULL;
@@ -93,7 +110,7 @@ LocationIp* PcapHandler::BinaryTree(unsigned long int TargetIp, PcapHandler* p){
         }
     }
 
-    return ipLoc[54];
+    return NULL;
 }
 
 LocationIp* PcapHandler::Secante(unsigned long int TargetIp, PcapHandler* p){
@@ -115,7 +132,7 @@ LocationIp* PcapHandler::Secante(unsigned long int TargetIp, PcapHandler* p){
             x_1 = x_2;
         }
     }
-    return ipLoc[x_2];
+    return NULL;
 }
 
 PcapHandler::PcapHandler(char* filter){
@@ -130,6 +147,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mGrid->addInput("PacketLength", 1, 65535, -1, 0, Converter::LINEAR);
     mGrid->addInput("Latitude", 90, -90, -1, 0, Converter::LINEAR);
     mGrid->addInput("Longitude", -180, 180, -1, 0, Converter::LINEAR);
+
     //mGrid->addInput("Protocol", 1, 65635, -20, -100000, Converter::LOGARITHMIC);
     //mGrid->addInput("Port Number", 1, 65635, -1, 0, Converter::EXPONENTIAL);
 }
