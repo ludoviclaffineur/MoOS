@@ -39,14 +39,14 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
                 if( (ipadd > TEN_ZERO_ZERO_ZERO && ipadd <= TEN_FIFTY_TWO) || (ipadd > ONE_SEVENTY_TWO_MIN && ipadd <= ONE_SEVENTY_TWO_MAX) || (ipadd > ONE_NINETY_TWO_MIN && ipadd <= ONE_NINETY_TWO_MAX) ){
                     g->getInputWithName("Latitude")->setValue(51);
                     g->getInputWithName("Longitude")->setValue(4);
-                    std::cout<< "LOCAL NETWORK"<< std::endl;
+                    //std::cout<< "LOCAL NETWORK"<< std::endl;
                 }
                 else{
                     LocationIp* l = PcapHandler::FindLocationFromIpAddress(ntohl(ih->saddr.int_address),p);
                     if(l){
                         g->getInputWithName("Latitude")->setValue(l->getLatitude());
                         g->getInputWithName("Longitude")->setValue(l->getLongitude());
-                        std::cout<< "EXTERNAL NETWORK"<< std::endl;
+                        //std::cout<< "EXTERNAL NETWORK"<< std::endl;
                     }
 
                 }
