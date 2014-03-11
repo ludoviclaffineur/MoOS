@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Ludovic Laffineur. All rights reserved.
 //
 
-#ifndef __LibLoAndCap__CsvRow__
-#define __LibLoAndCap__CsvRow__
+#ifndef __LibLoAndCap__LocationIp__
+#define __LibLoAndCap__LocationIp__
 
 #include <iostream>
 class LocationIp{

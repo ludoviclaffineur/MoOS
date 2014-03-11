@@ -37,15 +37,12 @@ void Grid::addCell(const char* inputName, const char* outputName, float corrCoef
 }
 
 void Grid::compute(){
-    OutputsHandler* oprime = nullptr;
+    //OutputsHandler* oprime = nullptr;
     for (int i = 0; i<mCells.size(); i++){
         Cell* c = mCells.at(i);
         //std::cout<<c->getCoeff()<<std::endl;
 
         c->getOutput()->addToValue(c->getInput()->getExtrapolatedValue()* c->getCoeff());
-        if (oprime ==nullptr){
-            oprime = c->getOutput();
-        }
     }
     for (int i = 0; i<mOutputs.size(); i++) {
         OutputsHandler* o = mOutputs.at(i);
