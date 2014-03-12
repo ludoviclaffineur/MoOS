@@ -7,6 +7,7 @@
 //
 
 #include "Grid.h"
+#include <ctime>
 
 Grid::Grid(){
     mCurrentOutputId = 0;
@@ -37,18 +38,16 @@ void Grid::addCell(const char* inputName, const char* outputName, float corrCoef
 }
 
 void Grid::compute(){
-    //OutputsHandler* oprime = nullptr;
-    for (int i = 0; i<mCells.size(); i++){
-        Cell* c = mCells.at(i);
-        //std::cout<<c->getCoeff()<<std::endl;
-
-        c->getOutput()->addToValue(c->getInput()->getExtrapolatedValue()* c->getCoeff());
+    std::vector<Cell*>::iterator i;
+    for (i= mCells.begin(); i!=mCells.end();i++ ) {
+        (*i)->getOutput()->addToValue((*i)->getInput()->getExtrapolatedValue()* (*i)->getCoeff());
     }
-    for (int i = 0; i<mOutputs.size(); i++) {
-        OutputsHandler* o = mOutputs.at(i);
-        o->extrapolate();
-        o->sendData();
-        o->reset();
+
+    std::vector<OutputsHandler*>::iterator j;
+    for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
+        (*j)->extrapolate();
+        (*j)->sendData(); //COST A MAX
+        (*j)->reset();
     }
 }
 int Grid::getCurrentOutputId(){
@@ -56,20 +55,25 @@ int Grid::getCurrentOutputId(){
 }
 
 Input* Grid::getInputWithName(const char* n){
-    for(int i =0 ;i<mInputs.size();i++)
-        if (mInputs.at(i)->compareName(n)) return mInputs.at(i);
+    std::vector<Input*>::iterator j;
+    for (j= mInputs.begin(); j!=mInputs.end();j++ ) {
+        if ((*j)->compareName(n)) return (*j);
+    }
     return NULL;
 }
 
 OutputsHandler* Grid::getOutputWithName(const char* n){
-    for(int i =0 ;i<mOutputs.size();i++)
-        if (mOutputs.at(i)->compareName(n)) return mOutputs.at(i);
+    std::vector<OutputsHandler*>::iterator j;
+    for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
+        if ((*j)->compareName(n)) return (*j);
+    }
     return NULL;
 }
 
 OutputsHandler* Grid::getOutputWithId(int theId){
-    for(int i =0 ;i<mOutputs.size();i++)
-        if (theId == mOutputs.at(i)->getId()) return mOutputs.at(i);
+    std::vector<OutputsHandler*>::iterator j;
+    for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) 
+        if (theId == (*j)->getId()) return (*j);
     return NULL;
 }
 
