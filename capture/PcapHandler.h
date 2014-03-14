@@ -17,6 +17,9 @@
 #include "IpHeaderDefinitions.h"
 #include "AppIncludes.h"
 
+#include "PcapLocationProcessing.h"
+#include "PcapIpProcessing.h"
+
 class PcapHandler {
     
 public:
@@ -30,20 +33,15 @@ public:
     int     findAllDevs(pcap_if_t **alldev, char* errbuff);
     Grid*   getGrid();
     pcap_t* getHandle();
-    LocationIp** getIpLocations();
     pcap_t* listAndChooseInterface();
     int     loop(pcap_t *p, int cnt, pcap_handler callback, u_char *user);
     int     loopThreading();
     pcap_t* openLive(const char *device, int snaplen,int promisc, int to_ms, char *errbuf);
-    static LocationIp* FindLocationFromIpAddress(unsigned long int TargetIp, PcapHandler* p);
+
     static void* ThreadReceptionPacket (void* ptr);
-    static bool isLocalAddress(long int ipadd);
-    static void setLocalisation(PcapHandler* p, ip_header* ih);
 
 
 private:
-    static LocationIp* BinaryTree(unsigned long int TargetIp, PcapHandler* p);
-    static LocationIp* Secante(unsigned long int TargetIp, PcapHandler* p);
     pcap_t*     chooseDev();
     void        listAllDevs();
 
@@ -52,7 +50,8 @@ private:
     const char* mFilter;
     Grid*       mGrid;
     pcap_t*     mHandle;
-    LocationIp** mIpLocations;
+
+    std::vector <PcapProcessings*> mProcessings;
 };
 
 #endif /* defined(__libpcapTest__PcapHandler__) */

@@ -17,6 +17,6 @@
 #include "Grid.h"
 
 
-const int NBR_IP_ADDRESSES = 1893989;
+
 
 #endif

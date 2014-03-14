@@ -42,7 +42,6 @@ void Grid::compute(){
     for (i= mCells.begin(); i!=mCells.end();i++ ) {
         (*i)->getOutput()->addToValue((*i)->getInput()->getExtrapolatedValue()* (*i)->getCoeff());
     }
-
     std::vector<OutputsHandler*>::iterator j;
     for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
         (*j)->extrapolate();
