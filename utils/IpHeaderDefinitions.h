@@ -49,4 +49,6 @@ const long int ONE_SEVENTY_TWO_MIN = 2886729728;
 const long int ONE_SEVENTY_TWO_MAX = 2887778303;
 const long int ONE_NINETY_TWO_MIN = 3232235520;
 const long int ONE_NINETY_TWO_MAX = 3232301055;
+
+const int NBR_IP_ADDRESSES = 1893989;
 #endif
