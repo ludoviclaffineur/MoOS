@@ -12,6 +12,9 @@
 PcapLocationProcessing::PcapLocationProcessing(Grid* g){
     std::string csvstring ="IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
+    if(!mIpLocations){
+        mActive = false;
+    }
     mGrid = g;
     mGrid->addInput("SourceLatitude", 90, -90, -1, 0, Converter::LINEAR);
     mGrid->addInput("SourceLongitude", -180, 180, -1, 0, Converter::LINEAR);
@@ -22,6 +25,7 @@ PcapLocationProcessing::PcapLocationProcessing(Grid* g){
 void PcapLocationProcessing::setActive(bool active){
     mActive = active;
 }
+
 PcapLocationProcessing::~PcapLocationProcessing(){
     for (int i = 0; i<NBR_IP_ADDRESSES; i++) {
         delete mIpLocations[i];
