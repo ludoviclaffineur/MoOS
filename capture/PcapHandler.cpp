@@ -22,14 +22,14 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
     pthread_setname_np("ThreadPcap");
     //pcap_t* handle = (pcap_t*) ptr;
     struct pcap_pkthdr* header;
-    const u_char* datas;
+    const u_char* data;
     int res;
     while(running){
-        res = pcap_next_ex(p->getHandle(), &header, &datas);
-        if (res >0 && datas){
+        res = pcap_next_ex(p->getHandle(), &header, &data);
+        if (res >0 && data ){
             std::vector<Processings*>::iterator i;
             for (i= p->mProcessings.begin(); i!=p->mProcessings.end();i++ ) {
-                (*i)->process(&datas);
+                (*i)->process(&data);
             }
             p->getGrid()->compute();
 
@@ -58,7 +58,7 @@ PcapHandler::PcapHandler(char* filter){
 
 PcapHandler::PcapHandler(const char* filter, Grid* g){
     mFilter = filter;
-    mGrid =g;
+    mGrid = g;
     mProcessings.push_back(new PcapLocationProcessing(g));
     mProcessings.push_back(new PcapIpProcessing(g));
 

@@ -19,7 +19,7 @@ public:
     //virtual void process(const u_char* datas) = 0;
     virtual void process (const u_char* data) =0;
     void process(void* vdata){
-        process ((const u_char*) vdata);
+        process (*((const u_char**) vdata));
     };
 
     //virtual void process();

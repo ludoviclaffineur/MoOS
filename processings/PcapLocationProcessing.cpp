@@ -12,14 +12,17 @@
 PcapLocationProcessing::PcapLocationProcessing(Grid* g){
     std::string csvstring ="IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
-    if(!mIpLocations){
+    if (mIpLocations == NULL){
         mActive = false;
     }
-    mGrid = g;
-    mGrid->addInput("SourceLatitude", 90, -90, -1, 0, Converter::LINEAR);
-    mGrid->addInput("SourceLongitude", -180, 180, -1, 0, Converter::LINEAR);
-    mGrid->addInput("DestLatitude", 90, -90, -1, 0, Converter::LINEAR);
-    mGrid->addInput("DestLongitude", -180, 180, -1, 0, Converter::LINEAR);
+    else{
+        mActive = true;
+        mGrid = g;
+        mGrid->addInput("SourceLatitude", 90, -90, -1, 0, Converter::LINEAR);
+        mGrid->addInput("SourceLongitude", -180, 180, -1, 0, Converter::LINEAR);
+        mGrid->addInput("DestLatitude", 90, -90, -1, 0, Converter::LINEAR);
+        mGrid->addInput("DestLongitude", -180, 180, -1, 0, Converter::LINEAR);
+    }
 }
 
 void PcapLocationProcessing::setActive(bool active){
@@ -40,7 +43,9 @@ void PcapLocationProcessing::process(const u_char *data){
         ip_header *ih;
         ih = (ip_header *) (data + 14);
         long int ipadd =ntohl(ih->saddr.int_address);
+        //std::cout<<"Adresse IP "<<ipadd <<std::endl;
         if(isLocalAddress(ipadd)){
+            //std::cout<<"Je suis dedans" <<std::endl;
             mGrid->getInputWithName("SourceLatitude")->setValue(51);
             mGrid->getInputWithName("SourceLongitude")->setValue(4);
             ipadd = ntohl(ih->daddr.int_address);
@@ -49,7 +54,7 @@ void PcapLocationProcessing::process(const u_char *data){
                 mGrid->getInputWithName("DestLongitude")->setValue(4);
             }
             else{
-                LocationIp* l = findLocationFromIpAddress(ntohl(ih->daddr.int_address));
+                LocationIp* l = findLocationFromIpAddress(ipadd);
                 if(l){
                     mGrid->getInputWithName("DestLatitude")->setValue(l->getLatitude());
                     mGrid->getInputWithName("DestLongitude")->setValue(l->getLongitude());
@@ -71,7 +76,7 @@ void PcapLocationProcessing::process(const u_char *data){
 }
 
 bool PcapLocationProcessing::isLocalAddress(long int ipadd){
-    return (ipadd > TEN_ZERO_ZERO_ZERO && ipadd <= TEN_FIFTY_TWO) || (ipadd > ONE_SEVENTY_TWO_MIN && ipadd <= ONE_SEVENTY_TWO_MAX) || (ipadd > ONE_NINETY_TWO_MIN && ipadd <= ONE_NINETY_TWO_MAX);
+    return ((ipadd > TEN_ZERO_ZERO_ZERO && ipadd <= TEN_FIFTY_TWO) || (ipadd > ONE_SEVENTY_TWO_MIN && ipadd <= ONE_SEVENTY_TWO_MAX) || (ipadd > ONE_NINETY_TWO_MIN && ipadd <= ONE_NINETY_TWO_MAX));
 }
 
 

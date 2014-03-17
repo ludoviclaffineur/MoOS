@@ -65,12 +65,13 @@ OscHandler::OscHandler(const char* ipAddress, const char* port){
 }
 
 bool OscHandler::sendData(){
-   // std::cout<< mName << " Sent value" << mValueBeforeSending<<std::endl;
+    //std::cout<< mName << " Sent value" << mValueBeforeSending<<std::endl;
 
     return lo_send(mDistant,mOscAddress, "f",mValueBeforeSending);
 }
 
 bool OscHandler::sendData(int paramNumber, float value){
+
     return lo_send(mDistant,mOscAddress, "f",value);
 }
 
