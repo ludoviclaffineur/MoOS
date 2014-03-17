@@ -20,7 +20,9 @@ public:
     PcapLocationProcessing(Grid* g);
     ~PcapLocationProcessing();
     void setActive(bool active);
-    void process(const u_char* datas);
+    //void process(const u_char* datas);
+    void process(const u_char* data);
+    //void process();
 
 
 private:

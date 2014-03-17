@@ -17,6 +17,7 @@
 #include "IpHeaderDefinitions.h"
 #include "AppIncludes.h"
 
+#include "Processings.h"
 #include "PcapLocationProcessing.h"
 #include "PcapIpProcessing.h"
 
@@ -50,7 +51,7 @@ private:
     Grid*       mGrid;
     pcap_t*     mHandle;
 
-    std::vector <PcapProcessings*> mProcessings;
+    std::vector <Processings*> mProcessings;
 };
 
 #endif /* defined(__libpcapTest__PcapHandler__) */

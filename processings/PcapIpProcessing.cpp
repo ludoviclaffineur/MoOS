@@ -18,8 +18,9 @@ void PcapIpProcessing::setActive(bool active){
     mActive = active;
 
 }
-void PcapIpProcessing::process(const u_char *datas){
+void PcapIpProcessing::process(const u_char* data){
+    //const u_char *data = (const u_char *) vdata;
     ip_header *ih;
-    ih = (ip_header *) (datas + 14);
+    ih = (ip_header *) (data + 14);
     mGrid->getInputWithName("PacketLength")->setValue(ih->tlen);
 }
