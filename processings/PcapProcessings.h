@@ -12,11 +12,17 @@
 #include <iostream>
 #include "Processings.h"
 
-class PcapProcessings : public Processings{
+class PcapProcessings : public Processings {
 public:
     PcapProcessings(){};
     virtual void setActive(bool active) = 0;
-    virtual void process(const u_char* datas) = 0;
+    //virtual void process(const u_char* datas) = 0;
+    virtual void process (const u_char* data) =0;
+    void process(void* vdata){
+        process ((const u_char*) vdata);
+    };
+
+    //virtual void process();
 };
 
 #endif /* defined(__LibLoAndCap__PcapProcessings__) */

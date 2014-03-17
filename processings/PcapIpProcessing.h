@@ -17,7 +17,9 @@ class PcapIpProcessing : public PcapProcessings{
 public:
     PcapIpProcessing(Grid* g);
     void setActive(bool active);
-    void process(const u_char* datas);
+    //void process(const u_char* datas);
+    void process(const u_char* data);
+    //void process();
 
 private:
     Grid* mGrid;
