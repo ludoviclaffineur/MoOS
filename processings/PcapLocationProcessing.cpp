@@ -34,10 +34,11 @@ PcapLocationProcessing::~PcapLocationProcessing(){
 }
 
 
-void PcapLocationProcessing::process(const u_char *datas){
+//void PcapLocationProcessing::process(const u_char *datas){
+void PcapLocationProcessing::process(const u_char *data){
     if(isActive()) {
         ip_header *ih;
-        ih = (ip_header *) (datas + 14);
+        ih = (ip_header *) (data + 14);
         long int ipadd =ntohl(ih->saddr.int_address);
         if(isLocalAddress(ipadd)){
             mGrid->getInputWithName("SourceLatitude")->setValue(51);
