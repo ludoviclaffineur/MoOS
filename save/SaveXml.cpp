@@ -9,6 +9,7 @@
 #include "SaveXml.h"
 #include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
+
 SaveXml::SaveXml(const std::string &filename, Grid* g){
     using boost::property_tree::ptree;
     ptree pt;

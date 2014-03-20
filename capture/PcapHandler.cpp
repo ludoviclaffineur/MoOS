@@ -32,7 +32,6 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
                 (*i)->process(&data);
             }
             p->getGrid()->compute();
-
         }
     }
     return NULL;
