@@ -36,6 +36,7 @@ public:
     Cell* getCellWithName(std::string input, std::string output);
     int getCurrentOutputId();
     void removeOutput(int id);
+    float* getCoeffs();
 
 private:
     int mCurrentOutputId;

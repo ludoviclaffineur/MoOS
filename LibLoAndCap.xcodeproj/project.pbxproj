@@ -19,6 +19,9 @@
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
 		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
 		FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* LocationIp.cpp */; };
+		FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1EA18DC50DC00742A0C /* Genetic.cpp */; };
+		FE43C1EF18DC52B300742A0C /* Chromosome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1ED18DC52B300742A0C /* Chromosome.cpp */; };
+		FE43C1F218DC917400742A0C /* SerialHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1F018DC917400742A0C /* SerialHandler.cpp */; };
 		FE4817FE182102680094602C /* LibLoAndCap.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE4817FD182102680094602C /* LibLoAndCap.1 */; };
 		FE481813182108700094602C /* liblo.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
 		FE48182518210E070094602C /* PcapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48182318210E070094602C /* PcapHandler.cpp */; };
@@ -81,6 +84,12 @@
 		FE30405718C47B5E00CB147E /* CsvImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CsvImporter.h; path = utils/CsvImporter.h; sourceTree = "<group>"; };
 		FE30405918C48BA800CB147E /* LocationIp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LocationIp.cpp; path = utils/LocationIp.cpp; sourceTree = "<group>"; };
 		FE30405A18C48BA800CB147E /* LocationIp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationIp.h; path = utils/LocationIp.h; sourceTree = "<group>"; };
+		FE43C1EA18DC50DC00742A0C /* Genetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Genetic.cpp; path = mapping/Genetic.cpp; sourceTree = "<group>"; };
+		FE43C1EB18DC50DC00742A0C /* Genetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Genetic.h; path = mapping/Genetic.h; sourceTree = "<group>"; };
+		FE43C1ED18DC52B300742A0C /* Chromosome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Chromosome.cpp; path = mapping/Chromosome.cpp; sourceTree = "<group>"; };
+		FE43C1EE18DC52B300742A0C /* Chromosome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chromosome.h; path = mapping/Chromosome.h; sourceTree = "<group>"; };
+		FE43C1F018DC917400742A0C /* SerialHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SerialHandler.cpp; path = capture/SerialHandler.cpp; sourceTree = "<group>"; };
+		FE43C1F118DC917400742A0C /* SerialHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerialHandler.h; path = capture/SerialHandler.h; sourceTree = "<group>"; };
 		FE4817F8182102680094602C /* LibLoAndCap */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LibLoAndCap; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE4817FB182102680094602C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FE4817FD182102680094602C /* LibLoAndCap.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = LibLoAndCap.1; sourceTree = "<group>"; };
@@ -237,6 +246,8 @@
 				FE30405A18C48BA800CB147E /* LocationIp.h */,
 				FE48182318210E070094602C /* PcapHandler.cpp */,
 				FE48182418210E070094602C /* PcapHandler.h */,
+				FE43C1F018DC917400742A0C /* SerialHandler.cpp */,
+				FE43C1F118DC917400742A0C /* SerialHandler.h */,
 			);
 			name = capture;
 			sourceTree = "<group>";
@@ -304,6 +315,10 @@
 				FE96F4B4183CF42A00C59843 /* Cell.h */,
 				FE96F4B5183CF42A00C59843 /* Grid.cpp */,
 				FE96F4B6183CF42A00C59843 /* Grid.h */,
+				FE43C1EA18DC50DC00742A0C /* Genetic.cpp */,
+				FE43C1EB18DC50DC00742A0C /* Genetic.h */,
+				FE43C1ED18DC52B300742A0C /* Chromosome.cpp */,
+				FE43C1EE18DC52B300742A0C /* Chromosome.h */,
 			);
 			name = mapping;
 			sourceTree = "<group>";
@@ -391,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */,
 				FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */,
 				FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */,
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
@@ -399,8 +415,10 @@
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
 				FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */,
 				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,
+				FE43C1F218DC917400742A0C /* SerialHandler.cpp in Sources */,
 				FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */,
 				FE481832182119D00094602C /* OutputsHandler.cpp in Sources */,
+				FE43C1EF18DC52B300742A0C /* Chromosome.cpp in Sources */,
 				FE96F4BC183CF48E00C59843 /* Input.cpp in Sources */,
 				FEA9FB2618D1E00F00DB4811 /* PcapIpProcessing.cpp in Sources */,
 				FE48183618211AF10094602C /* Converter.cpp in Sources */,

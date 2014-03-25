@@ -13,6 +13,17 @@ Grid::Grid(){
     mCurrentOutputId = 0;
 }
 
+float* Grid::getCoeffs(){
+    float* coeffs = new float[mCells.size()];
+    std::vector<Cell*>::iterator i;
+    int j=0;
+    for (i= mCells.begin(); i!=mCells.end();i++,j++ ) {
+        coeffs[j] = (*i)->getCoeff();
+    }
+    return coeffs;
+}
+
+
 void Grid::addInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
     mInputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
 }
