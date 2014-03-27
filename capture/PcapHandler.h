@@ -20,6 +20,7 @@
 #include "Processings.h"
 #include "PcapLocationProcessing.h"
 #include "PcapIpProcessing.h"
+#include "PcapRawToAudioProcessing.h"
 
 class PcapHandler {
     

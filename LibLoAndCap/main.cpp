@@ -24,11 +24,10 @@ int main(int argc, const char * argv[])
     PcapHandler _pcap = PcapHandler(NULL, TheGrid);
     const char* osc1= "OSC1";
     TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
-	_pcap.listAndChooseInterface();
-    _pcap.loopThreading();
+	
     // Control board
 
-    Genetic theGeneticAlgorithm = Genetic(TheGrid, false, 0.5, 0.2, 0.5,5);
+   /* Genetic theGeneticAlgorithm = Genetic(TheGrid, false, 0.5, 0.2, 0.5,5);
 
     theGeneticAlgorithm.evalPop();
 	cout << endl << endl << "Evolution de la population..." << endl;
@@ -39,7 +38,7 @@ int main(int argc, const char * argv[])
 
     for (int i = 0; i<TheGrid->getCells()->size();i++){
         cout<< "The best \t"<<best[i] << "\t" << flush;
-    }
+    }*/
 
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
     http::server::server s("0.0.0.0", "80", "./www", TheGrid);
