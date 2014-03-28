@@ -122,11 +122,11 @@ void PcapRawToAudioProcessing::process(const u_char *data){
     while (*data != '\0') {
         int32_t* a  = (int32_t*) data;
         data += 4;
-       // std::cout<< (float)(*a)/INT32_MAX << std::endl;
+       //std::cout<< (float)(*a)/INT32_MAX << std::endl;
         music->push_back((float)(*a)/INT32_MAX);
 
 
-        std::cout<< bitCount(data)<< std::endl;
+        //std::cout<< bitCount(data)<< std::endl;
     }
 }
 

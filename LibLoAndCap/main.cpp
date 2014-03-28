@@ -39,7 +39,6 @@ int main(int argc, const char * argv[])
     for (int i = 0; i<TheGrid->getCells()->size();i++){
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
-
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
     http::server::server s("0.0.0.0", "80", "./www", TheGrid);
     s.run();
