@@ -26,26 +26,35 @@ Genetic::Genetic (Grid* g, bool isRandom, float crossoverRatio, float elitismRat
 }
 
 
-void Genetic::evaluateAndEvolve(){
-    while (mChromosomes.back()->getRate() != 100) {
-        mGrid->setCoeffs(mChromosomes.back()->getCoeffs());
-        mChromosomes.back()->rate();
-        for(int i=0;i<mChromosomes.size();i++){
-            for(int j=0;j<i;j++){
-                if(mChromosomes[i]->getRate() > mChromosomes[j]->getRate()){
-                    std::swap(mChromosomes[i],mChromosomes[j]);
-                }
+void Genetic::evaluateAndEvolve(int rate){
+    //while (mChromosomes.back()->getRate() != 100) {
+    if(mChromosomes.back()->getSize()!= mGrid->getCells()->size()){
+        reinit();
+    }
+    mChromosomes.back()->setRate(rate);
+    for(int i=0;i<mChromosomes.size();i++){
+        for(int j=0;j<i;j++){
+            if(mChromosomes[i]->getRate() > mChromosomes[j]->getRate()){
+                std::swap(mChromosomes[i],mChromosomes[j]);
             }
         }
-        Chromosome* mateChrom = getAParent();
-        Chromosome* C = mChromosomes.back()->mate(mateChrom);
-        mChromosomes.push_back(C);
-        //std::cout<< getBest()->getRate() <<std::endl;
-        printRates();
-        //delete mateChrom;
     }
+    Chromosome* mateChrom = getAParent();
+    Chromosome* C = mChromosomes.back()->mate(mateChrom);
+    mChromosomes.push_back(C);
+    //std::cout<< getBest()->getRate() <<std::endl;
+    mGrid->setCoeffs(mChromosomes.back()->getCoeffs());
+    printRates();
+    //delete mateChrom;
+    //}
 }
 
+void Genetic::reinit(){
+    mChromosomes.clear();
+    Chromosome* c = new Chromosome(mGrid);
+    c->generateRandom();
+    mChromosomes.push_back(c);
+}
 
 void Genetic::printRates(){
     for (int i = 0 ; i<mChromosomes.size(); i++) {

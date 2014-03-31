@@ -27,7 +27,7 @@ void Grid::setCoeffs(float *coeffs){
     std::vector<Cell*>::iterator i;
     int j=0;
     for (i= mCells.begin(); i!=mCells.end();i++,j++ ) {
-        (*i)->setCoeff(coeffs[j]);
+        (*i)->setCoeff(((int)(coeffs[j]*100))/100.0f);
     }
 
 }

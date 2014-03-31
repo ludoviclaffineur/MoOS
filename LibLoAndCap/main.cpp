@@ -28,8 +28,8 @@ int main(int argc, const char * argv[])
     _pcap.loopThreading();
     // Control board
 
-    Genetic theGeneticAlgorithm = Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
-    theGeneticAlgorithm.evaluateAndEvolve();
+    Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
+    theGeneticAlgorithm->evaluateAndEvolve(0.1);
     /*theGeneticAlgorithm.evalPop();
 	cout << endl << endl << "Evolution de la population..." << endl;
 	theGeneticAlgorithm.evolve();
@@ -42,7 +42,7 @@ int main(int argc, const char * argv[])
     }*/
 
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "./www", TheGrid);
+    http::server::server s("0.0.0.0", "80", "./www", TheGrid, theGeneticAlgorithm);
     s.run();
     std::cout<<"Shuting down Web server..."<<std::endl;
     return 0;

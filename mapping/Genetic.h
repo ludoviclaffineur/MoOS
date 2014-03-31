@@ -18,9 +18,10 @@ class Genetic {
 public:
     Genetic (Grid* g, bool isRandom, float crossoverRatio, float elitismRatio, float mutationRatio, int size);
 
-    void evaluateAndEvolve();
+    void evaluateAndEvolve(int rate);
     void evalPop();
     void evolve();
+    void reinit();
     Chromosome** selectParents();
     Chromosome* getBest(){
          return mChromosomes.front();
