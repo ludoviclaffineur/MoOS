@@ -28,9 +28,9 @@ int main(int argc, const char * argv[])
     _pcap.loopThreading();
     // Control board
 
- /*   Genetic theGeneticAlgorithm = Genetic(TheGrid, false, 0.5, 0.2, 0.5,5);
-
-    theGeneticAlgorithm.evalPop();
+    Genetic theGeneticAlgorithm = Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
+    theGeneticAlgorithm.evaluateAndEvolve();
+    /*theGeneticAlgorithm.evalPop();
 	cout << endl << endl << "Evolution de la population..." << endl;
 	theGeneticAlgorithm.evolve();
 	cout << "Population generation 2" << endl << endl << "Evaluation de la deuxieme generation";

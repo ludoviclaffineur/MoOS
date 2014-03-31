@@ -33,10 +33,11 @@ public:
     size_t  getNbrOutputs();
     std::vector<OutputsHandler*>* getOutputs();
     std::vector<Cell*>* getCells();
-    Cell* getCellWithName(std::string input, std::string output);
-    int getCurrentOutputId();
-    void removeOutput(int id);
-    float* getCoeffs();
+    Cell*   getCellWithName(std::string input, std::string output);
+    int     getCurrentOutputId();
+    void    removeOutput(int id);
+    float*  getCoeffs();
+    void    setCoeffs(float* coeffs);
 
 private:
     int mCurrentOutputId;

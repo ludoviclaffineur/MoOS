@@ -17,10 +17,15 @@
 class Genetic {
 public:
     Genetic (Grid* g, bool isRandom, float crossoverRatio, float elitismRatio, float mutationRatio, int size);
+
+    void evaluateAndEvolve();
     void evalPop();
     void evolve();
     Chromosome** selectParents();
-    Chromosome* getBest();
+    Chromosome* getBest(){
+         return mChromosomes.front();
+    }
+    Chromosome* getAParent();
 
     float getElitism(){
 		return mElitism;
@@ -59,6 +64,8 @@ private:
 	float   mMutation;
 	float   mCrossover;
 	int     mSizePop;
+    Grid*   mGrid;
+    void printRates();
 };
 
 #endif /* defined(__LibLoAndCap__Genetic__) */

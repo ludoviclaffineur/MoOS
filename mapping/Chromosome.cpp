@@ -21,6 +21,8 @@ Chromosome::Chromosome(Grid* g){
 Chromosome::Chromosome(float* coeffs, long int size){
     mCoeffs = new float[size];
     setCoeffs(coeffs, size);
+    mSize = size;
+    mRate = -1;
 }
 
 void Chromosome::rate(){
@@ -66,24 +68,14 @@ Chromosome* Chromosome::mutate(){
     return ret;
 }
 
-Chromosome** Chromosome::mate(Chromosome* father){
-    int ptmilieu = rand() % mSize;
-    float* child1 = new float [mSize];
-    float* child2 = new float [mSize];
-    for(int i = 0; i < ptmilieu; i++){
-        child1[i] = mCoeffs[i];
-        child2[i] = father->getCoeffs()[i];
+Chromosome* Chromosome::mate(Chromosome* random){
+    float* newCoeffs = new float[mSize];
+    float* randomCoeffs = random->getCoeffs();
+    for(int i=0 ; i<mSize ; i++){
+        newCoeffs[i] = ((mCoeffs[i]*(float)mRate) + randomCoeffs[i]*(100.0-(float)mRate))/100.0;
     }
-    for(int i = ptmilieu; i < mSize; i++){
-        child2[i] = mCoeffs[i];
-        child1[i] = father->getCoeffs()[i];
-    }
-    Chromosome* ch1 = new Chromosome(child1, mSize);
-    Chromosome* ch2 = new Chromosome(child2, mSize);
-    Chromosome** ret= new Chromosome*[2];
-    ret[0] = ch1;
-    ret[1] = ch2;
-    return ret;
+    return (new Chromosome ( newCoeffs, mSize));
+
 }
 
 void Chromosome::generateRandom(){
