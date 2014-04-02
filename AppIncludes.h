@@ -12,11 +12,20 @@
 #include <iostream>
 #include "OscHandler.h"
 #include "PcapHandler.h"
+#include "CaptureDevice.h"
 #include "Converter.h"
 #include "IpHeaderDefinitions.h"
 #include "Grid.h"
 
 
 
+
+enum CaptureDeviceType{
+    PCAP_HANDLER ,
+    SERIAL_HANDLER,
+    TOTAL,
+};
+
+const std::string CaptureDeviceList [CaptureDeviceType::TOTAL] = {"Pcap Handler", "Serial Handler"};
 
 #endif

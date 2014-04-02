@@ -50,6 +50,10 @@ PcapHandler::PcapHandler(){
     mFilter = NULL;
 }
 
+void PcapHandler::init(){
+    listAndChooseInterface();
+    loopThreading();
+}
 
 PcapHandler::PcapHandler(char* filter){
     mFilter = filter;
@@ -152,7 +156,4 @@ void PcapHandler::freeAllDevs(pcap_if_t *alldevs){
     pcap_freealldevs(alldevs);
 }
 
-Grid* PcapHandler::getGrid(){
-    return mGrid;
-}
 
