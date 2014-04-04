@@ -11,27 +11,30 @@
 
 
 #include "SerialProcessings.h"
+#include "Grid.h"
 #include <iostream>
 
 struct commandData{
-    char control_zero;
-    char command;
-    char upper_x;
-    char lower_x;
-    char upper_y;
-    char lower_y;
-    char zeroByte;
-    char checkSum;
+    u_int8_t control_zero;
+    u_int8_t command;
+    u_int8_t upper_x;
+    u_int8_t lower_x;
+    u_int8_t upper_y;
+    u_int8_t lower_y;
+    u_int8_t zeroByte;
+    u_int8_t checkSum;
 };
 class SerialToucheProcessing : public SerialProcessings{
 public:
-    SerialToucheProcessing();
+    SerialToucheProcessing(Grid* g);
     void process(size_char_tab data);
     void setActive(bool active);
 private:
+    bool isCheckSumOk(commandData* strucData);
     commandData* strucData;
     size_t mSize;
-    int mSerialCount;
     short unsigned int  mReceivedData [8];
+    Grid* mGrid;
+    void formatDataAndSetInput( commandData* strucData);
 };
 #endif /* defined(__LibLoAndCap__SerialToucheProcessing__) */

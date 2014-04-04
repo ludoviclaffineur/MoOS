@@ -16,6 +16,7 @@ Chromosome::Chromosome(Grid* g){
     mRate = -1;
     mCoeffs = g->getCoeffs();
     mSize = g->getCells()->size();
+    mNbrInputs = g->getInputs()->size();
 }
 
 Chromosome::Chromosome(float* coeffs, long int size){
@@ -80,7 +81,7 @@ Chromosome* Chromosome::mate(Chromosome* random){
 
 void Chromosome::generateRandom(){
     for(int j = 0; j<mSize; ++j){
-        mCoeffs[j] = (float)(rand()%100+1) / 100.0;
+        mCoeffs[j] = (float)(rand()%100+1) / (10.0*(float)mNbrInputs) ;
     }
 }
 

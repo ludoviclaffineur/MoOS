@@ -44,6 +44,7 @@ private:
     int     mRate;
     long int   mSize;
     float*  mCoeffs;
+    size_t     mNbrInputs;
 };
 
 #endif /* defined(__LibLoAndCap__Chromosome__) */

@@ -22,7 +22,7 @@ SerialHandler::SerialHandler(Grid* g, const char *dev_name, int baudrate): m_io(
     boost::asio::serial_port_base::baud_rate baud_option(baudrate);
     m_port.set_option(baud_option);
     mReadMsg.tab = new char[512];
-    mProcessings.push_back(new SerialToucheProcessing());
+    mProcessings.push_back(new SerialToucheProcessing(g));
     //mReadMsg.tab[512];
     read_some();
     // run the IO service as a separate thread, so the main thread can do others
@@ -38,6 +38,7 @@ void SerialHandler::handler(const boost::system::error_code& error, size_t bytes
         (*i)->process(&mReadMsg);
     }
     read_some();
+    
 }
 
 void SerialHandler::read_some()

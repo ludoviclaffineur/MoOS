@@ -7,66 +7,90 @@
 //
 
 #include "SerialToucheProcessing.h"
+#include <sstream>
 
-SerialToucheProcessing::SerialToucheProcessing(){
-
+SerialToucheProcessing::SerialToucheProcessing(Grid* g){
+    mGrid = g;
+    for (int i = 0; i<=159; i++) {
+        std::stringstream name;
+        name<< i ;
+        mGrid->addInput(name.str().c_str(), 0, 1024, -1, 0, Converter::LINEAR);
+    }
 }
 
 void SerialToucheProcessing::process(size_char_tab data){
     for (int i =0;i<data.size;i++){
-
         if (*data.tab ==0){
-
             strucData = (commandData*) data.tab;
-            //std::cout<<std::endl;
-            char checksum=1;
-
-            checksum+= strucData->command;
-            checksum+= strucData->upper_x;
-            checksum+= strucData->upper_y;
-            checksum+= strucData->lower_x;
-            checksum+= strucData->lower_y;
-            checksum+= strucData->zeroByte;
-            checksum = checksum%255;
-            if(checksum == strucData->checkSum){
-                printf("%hhX , %hhX \n", checksum,strucData->checkSum);;
-                mSerialCount=0;
-                //for(int j = 0; j<8; j++){
-                // printf("%hhX , %hhx , %hhX\n",strucData->command, strucData->lower_x , strucData->zeroByte );            //}
-                //std::cout<<std::endl;
-                data.tab += 7 ;
-
-                u_int16_t x = 0;
-                x = strucData->upper_x<<8 | strucData->lower_x;
-
-                int soustracX=0, soustracY=0;
-                if ((strucData->zeroByte & 0x08) == 0x08){
-                    soustracX += 256;
-                }
-                if ((strucData->zeroByte & 0x04) == 0x04){
-                    soustracX += 1;
-                }
-                if ((strucData->zeroByte & 0x02) == 0x02){
-                    soustracY += 256;
-                }
-                if ((strucData->zeroByte & 0x01) == 0x01){
-                    soustracY += 1;
-                }
-                x-=soustracX;
-                
-                printf("%d , %hhX \n", x, strucData->zeroByte);
-                i+=7;
+            //printf("DAAAR BEN IK, %d \n", strucData->command);
+            switch (strucData->command) {
+                case 1:
+                    if(isCheckSumOk(strucData)){
+                        formatDataAndSetInput( strucData);
+                    }
+                    break;
+                case 2:
+                    mGrid->compute();
+                default:
+                    break;
             }
+            data.tab += 7 ;
+            i+=7;
+
         }
         data.tab++;
-        //2data.tab++;
-       // mReceivedData[mSerialCount++] = (short unsigned int) data.tab[i];
-       //printf("%hhX ", *data.tab);
         
     }
 
 }
 
+bool SerialToucheProcessing::isCheckSumOk(commandData* strucData){
+    u_int8_t checksum=0;
+    checksum+= (strucData->control_zero +
+                strucData->command +
+                strucData->upper_x +
+                strucData->lower_x +
+                strucData->upper_y +
+                strucData->lower_y +
+                strucData->zeroByte)%255;
+    return (checksum == strucData->checkSum);
+}
+
 void SerialToucheProcessing::setActive( bool active ) {
     mActive = active;
+}
+
+void SerialToucheProcessing::formatDataAndSetInput( commandData* strucData){
+    //printf("%hhX , %hhX \n", checksum,strucData->checkSum);;
+    //for(int j = 0; j<8; j++){
+    // printf("%hhX , %hhx , %hhX\n",strucData->command, strucData->lower_x , strucData->zeroByte );            //}
+    //std::cout<<std::endl;
+
+
+    u_int16_t x = 0;
+    u_int16_t y = 0;
+    //strucData->upper_x = 0;
+
+    if (((u_int8_t)strucData->zeroByte & 0x08) == 0x08){
+        strucData->upper_y = 0;
+    }
+    if (((u_int8_t)strucData->zeroByte & 0x04) == 0x04){
+        strucData->lower_y = 0;
+    }
+    if (((u_int8_t)strucData->zeroByte & 0x02) == 0x02){
+        strucData->upper_x = 0;
+    }
+    if (((u_int8_t)strucData->zeroByte & 0x01) == 0x01){
+        strucData->lower_x = 0;
+    }
+    //x= x - soustracX;
+    x = (u_int16_t) (strucData->upper_x<<8 | strucData->lower_x);
+    y = (u_int16_t) (strucData->upper_y<<8 | strucData->lower_y);
+    std::stringstream name;
+    name<< x ;
+    Input* input = mGrid->getInputWithName(name.str().c_str());
+    if (input){
+        input->setValue(y);
+    }
+
 }
