@@ -36,12 +36,9 @@ void SerialToucheProcessing::process(size_char_tab data){
             }
             data.tab += 7 ;
             i+=7;
-
         }
         data.tab++;
-        
     }
-
 }
 
 bool SerialToucheProcessing::isCheckSumOk(commandData* strucData){
@@ -61,15 +58,8 @@ void SerialToucheProcessing::setActive( bool active ) {
 }
 
 void SerialToucheProcessing::formatDataAndSetInput( commandData* strucData){
-    //printf("%hhX , %hhX \n", checksum,strucData->checkSum);;
-    //for(int j = 0; j<8; j++){
-    // printf("%hhX , %hhx , %hhX\n",strucData->command, strucData->lower_x , strucData->zeroByte );            //}
-    //std::cout<<std::endl;
-
-
     u_int16_t x = 0;
     u_int16_t y = 0;
-    //strucData->upper_x = 0;
 
     if (((u_int8_t)strucData->zeroByte & 0x08) == 0x08){
         strucData->upper_y = 0;
@@ -83,7 +73,7 @@ void SerialToucheProcessing::formatDataAndSetInput( commandData* strucData){
     if (((u_int8_t)strucData->zeroByte & 0x01) == 0x01){
         strucData->lower_x = 0;
     }
-    //x= x - soustracX;
+
     x = (u_int16_t) (strucData->upper_x<<8 | strucData->lower_x);
     y = (u_int16_t) (strucData->upper_y<<8 | strucData->lower_y);
     std::stringstream name;
