@@ -17,11 +17,50 @@ Genetic::Genetic (Grid* g, bool isRandom, float crossoverRatio, float elitismRat
     mElitism = elitismRatio;
     mMutation = mutationRatio;
     mSizePop = size;
-    for (int i = 0; i < mSizePop; ++i) {
-        Chromosome* c =new Chromosome(g);
+    mGrid = g;
+    Chromosome* c = new Chromosome(g);
+    if (isRandom){
         c->generateRandom();
-        mChromosomes.push_back( c);
     }
+    mChromosomes.push_back(c);
+}
+
+
+void Genetic::evaluateAndEvolve(int rate){
+    //while (mChromosomes.back()->getRate() != 100) {
+    if(mChromosomes.back()->getSize()!= mGrid->getCells()->size()){
+        reinit();
+    }
+    mChromosomes.back()->setRate(rate);
+    for(int i=0;i<mChromosomes.size();i++){
+        for(int j=0;j<i;j++){
+            if(mChromosomes[i]->getRate() > mChromosomes[j]->getRate()){
+                std::swap(mChromosomes[i],mChromosomes[j]);
+            }
+        }
+    }
+    Chromosome* mateChrom = getAParent();
+    Chromosome* C = mChromosomes.back()->mate(mateChrom);
+    mChromosomes.push_back(C);
+    //std::cout<< getBest()->getRate() <<std::endl;
+    mGrid->setCoeffs(mChromosomes.back()->getCoeffs());
+    printRates();
+    //delete mateChrom;
+    //}
+}
+
+void Genetic::reinit(){
+    mChromosomes.clear();
+    Chromosome* c = new Chromosome(mGrid);
+    c->generateRandom();
+    mChromosomes.push_back(c);
+}
+
+void Genetic::printRates(){
+    for (int i = 0 ; i<mChromosomes.size(); i++) {
+        std::cout<<mChromosomes[i]->getRate() << " -- ";
+    }
+    std::cout << std::endl;
 }
 
 void Genetic::evalPop(){
@@ -37,65 +76,16 @@ void Genetic::evalPop(){
     }
 }
 
-void Genetic::evolve(){
-    Chromosome** temp = new Chromosome*[mSizePop];
-
-    int cur = (int)ceil(mSizePop * mElitism);
-    for(int i = 0; i < cur; ++i){
-        temp[i] = new Chromosome(mChromosomes[i]->getCoeffs(),mChromosomes[i]->getSize());
+Chromosome* Genetic::getAParent(){
+    Chromosome* c = new Chromosome(mGrid);
+    c->generateRandom();
+    if (mChromosomes.size() <3) {
+        return c;
     }
-
-    while(cur<mSizePop){
-        if ((rand()%100) <= mCrossover*100) {
-            Chromosome** parents = this->selectParents();
-            Chromosome** children = parents[0]->mate(parents[1]);
-
-            if ((rand()%RAND_MAX) <= mMutation) {
-                temp[cur++] = children[0]->mutate();
-            } else {
-                temp[cur++] = new Chromosome (children[0]->getCoeffs(),children[0]->getSize());
-            }
-
-            if (cur < mSizePop) {
-                if ((rand()%RAND_MAX) <= mMutation) {
-                    temp[cur] = children[1]->mutate();
-                } else {
-                    temp[cur] = children[1];
-                }
-            }
-        }
-        else{
-            if ((rand()%100) <= mMutation*100) {
-                temp[cur] = mChromosomes[cur]->mutate();
-            } else {
-                temp[cur] = new Chromosome(mChromosomes[cur]->getCoeffs(), mChromosomes[cur]->getSize());
-            }
-        }
-        ++cur;
+    else {
+        Chromosome* p1 = getBest()->mate(c);
+        c->generateRandom();
+        Chromosome* p2 = mChromosomes[1]->mate(c);
+        return p1->mate(p2);
     }
-    for(int i = 0; i < mSizePop; ++i){
-        mChromosomes.clear();
-        mChromosomes.push_back(temp[i]);
-    }
-    //delete[] temp;
-}
-
-Chromosome** Genetic::selectParents(){
-    Chromosome** parents = new Chromosome*[2];
-    for (int i = 0; i < 2; ++i) {
-        parents[i] = mChromosomes[rand() % (mSizePop-1)];
-        for (int j = 0; j < TOURNAMENT_SIZE; j++) {
-            int cur = rand() % (mSizePop-1);
-            if (*mChromosomes[cur] < *parents[i]) {
-                parents[i] = mChromosomes[cur];
-            }
-        }
-    }
-    return parents;
-
-}
-
-Chromosome* Genetic::getBest(){
-    return mChromosomes[0];
-
 }

@@ -13,6 +13,7 @@
 #include "Grid.h"
 #include "reply.hpp"
 #include "string.h"
+#include "Genetic.h"
 
 namespace http {
 namespace server {
@@ -20,7 +21,7 @@ namespace server {
     class SnfHandler{
 
     public:
-        SnfHandler(Grid* g);
+        SnfHandler(Grid* g, Genetic* algoGen);
         bool computeRequest(std::string method, std::string parameters, reply& rep);
         std::vector <std::string> ExtractPamameters(std::string rawParameters);
 
@@ -28,6 +29,7 @@ namespace server {
         int findIdInListParameters(std::vector<std::string> listParam);
         int findTypeInListParameters(std::vector<std::string> listParam);
         Grid* mGrid;
+        Genetic* mAlgoGen;
     };
 }
 }

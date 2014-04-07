@@ -19,7 +19,7 @@ public:
     Chromosome (Grid* g);
     Chromosome(float* coeffs, long int size);
     void rate();
-    Chromosome** mate(Chromosome* c);
+    Chromosome* mate(Chromosome* c);
     Chromosome* mutate();
     void generateRandom();
     Grid* getGrid();
@@ -44,6 +44,7 @@ private:
     int     mRate;
     long int   mSize;
     float*  mCoeffs;
+    size_t     mNbrInputs;
 };
 
 #endif /* defined(__LibLoAndCap__Chromosome__) */

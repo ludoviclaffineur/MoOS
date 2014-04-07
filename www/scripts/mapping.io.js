@@ -132,7 +132,9 @@ function init(){
 		var cInputId = idFromInputName(InputNames, cInputName);
 		var cOutputId = idFromOutputName(OutputNames, cOuputName);
 
-
+		var weight = Cells[i].children[2].firstChild.nodeValue;
+		//var colorVal = "rgb(" + weight + "," + weight + "," + weight +")";
+		var colorVal = "rgb(54,93,142)";
 		Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,43+originPosY + (40*cOutputId),15).setFillStyle('white').setStrokeStyle('white');
 		Circles[cOutputId*InputNames.length+cInputId].addObj(new iio.Text(Cells[i].children[2].firstChild.nodeValue)
 			.setFont('15px Consolas')
