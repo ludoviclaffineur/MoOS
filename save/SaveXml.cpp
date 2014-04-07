@@ -49,24 +49,8 @@ SaveXml::SaveXml(const std::string &filename, Grid* g){
         node.put("InputName", (*c)->getInput()->getName());
         node.put("OutputName", (*c)->getOutput()->getName());
         node.put("Coefficient", (*c)->getCoeff());
-
     }
 
-    //pt.put("save.outputs.oschandler", filename);
-    // Put debug level in property tree
-    //pt.put("debug.level", 2);
-
-    // Iterate over the modules in the set and put them in the
-    // property tree. Note that the put function places the new
-    // key at the end of the list of keys. This is fine most of
-    // the time. If you want to place an item at some other place
-    // (i.e. at the front or somewhere in the middle), this can
-    // be achieved using a combination of the insert and put_own
-    // functions.
-/*    BOOST_FOREACH(const std::string &name, m_modules)
-    pt.put("debug.modules.module", name, true);*/
-
-    // Write the property tree to the XML file.
     write_xml(filename, pt);
 }
 

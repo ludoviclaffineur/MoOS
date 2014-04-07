@@ -20,8 +20,9 @@
 namespace http {
     namespace server{
 
-        SnfHandler::SnfHandler(Grid* g){
+        SnfHandler::SnfHandler(Grid* g, Genetic* algoGen){
             mGrid = g;
+            mAlgoGen = algoGen;
         }
 
         bool SnfHandler::computeRequest(std::string method, std::string parameters, reply &rep){
@@ -56,6 +57,17 @@ namespace http {
                 std::stringstream ssFilename;
                 ssFilename<<m_input[1].str()<<".xml";
                 SaveXml(ssFilename.str().c_str(), mGrid);
+
+            }
+            else if( method.compare("rateGrid")==0){
+                //std::cout<< "SAVE"<<std::endl;
+                std::smatch m_input;
+                std::regex e_input ("rate=([0-9]+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                std::cout<< m_input[1].str()<<std::endl;
+
+                mAlgoGen->evaluateAndEvolve(atoi(m_input[1].str().c_str()));
+                //saveXml(ssFilename.str().c_str(), mGrid);
 
             }
             else if( method.compare("load")==0){

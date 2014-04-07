@@ -30,7 +30,7 @@ public:
 private:
     float   mValue;
     char*   mName;
-    Converter mConverter;
+    Converter* mConverter;
 };
 
 #endif /* defined(__LibLoAndCap__Input__) */

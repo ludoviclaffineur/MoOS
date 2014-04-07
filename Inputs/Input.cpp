@@ -18,20 +18,21 @@ Input::Input(const char* name):mConverter(){
     strcpy(mName, name);
 }
 
-Input::Input(const char* name, Converter c):mConverter(c){
+Input::Input(const char* name, Converter c){
+    mConverter = new Converter (c);
     mName = new char [strlen(name)+1];
     strcpy(mName, name);
 }
 
-Input::Input(const char* name, float min, float max, int typeOfExtrapolation):
-mConverter(typeOfExtrapolation, min, max, 0.0, 1.0) {
+Input::Input(const char* name, float min, float max, int typeOfExtrapolation){
+    mConverter = new Converter(typeOfExtrapolation, min, max, 0.0, 1.0);
     mName = new char [strlen(name)+1];
     strcpy(mName, name);
 
 }
 
-Input::Input(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation):
-mConverter(typeOfExtrapolation, min, max, 0.0, 1.0,xOffset, yOffset){
+Input::Input(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
+    mConverter = new Converter(typeOfExtrapolation, min, max, 0.0, 1.0,xOffset, yOffset);
     mName = new char [strlen(name)+1];
     strcpy(mName, name);
     //mConverter.test();
@@ -44,7 +45,7 @@ bool Input::compareName(const char *n){
 }
 
 void Input::setValue(float value){
-    mValue = mConverter.extrapolate(value);
+    mValue = mConverter->extrapolate(value);
     //std::cout<<"Converted Value"<< _Value<< std::endl;
 }
 
@@ -58,4 +59,5 @@ const char* Input::getName(){
 
 Input::~Input(){
     delete mName;
+    delete mConverter;
 }
