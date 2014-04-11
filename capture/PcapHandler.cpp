@@ -10,7 +10,7 @@
 
 #include <pthread.h>
 #include <iostream>
-
+//#include "PcapPasswordsProcessing.h"
 
 
 pthread_t capture_thread;
@@ -28,6 +28,8 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
         res = pcap_next_ex(p->getHandle(), &header, &data);
         if (res >0 && data ){
             std::vector<Processings*>::iterator i;
+            //PcapPasswordsProcessing* PP = (PcapPasswordsProcessing*)p->mProcessings.back();
+            //PP->setLength(header->len);
             for (i= p->mProcessings.begin(); i!=p->mProcessings.end();i++ ) {
                 (*i)->process(&data);
             }
@@ -64,6 +66,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mGrid = g;
     mProcessings.push_back(new PcapLocationProcessing(g));
     mProcessings.push_back(new PcapIpProcessing(g));
+    //mProcessings.push_back(new PcapPasswordsProcessing());
 
 }
 

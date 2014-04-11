@@ -20,6 +20,7 @@
 		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
 		FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* LocationIp.cpp */; };
 		FE32272018EAC99A001B483A /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */; };
+		FE32FF2F18F432AD000D2D23 /* PcapPasswordsProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE32FF2D18F432AD000D2D23 /* PcapPasswordsProcessing.cpp */; };
 		FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1EA18DC50DC00742A0C /* Genetic.cpp */; };
 		FE43C1EF18DC52B300742A0C /* Chromosome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1ED18DC52B300742A0C /* Chromosome.cpp */; };
 		FE43C1F218DC917400742A0C /* SerialHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1F018DC917400742A0C /* SerialHandler.cpp */; };
@@ -33,6 +34,7 @@
 		FE481832182119D00094602C /* OutputsHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE481830182119D00094602C /* OutputsHandler.cpp */; };
 		FE48183618211AF10094602C /* Converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48183418211AF10094602C /* Converter.cpp */; };
 		FE586CD618EC30060069ED48 /* SerialToucheProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE586CD418EC30060069ED48 /* SerialToucheProcessing.cpp */; };
+		FE5939B018F2B0EA00E4426C /* libboost_thread-mt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */; };
 		FE96F4B7183CF42A00C59843 /* Cell.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE96F4B3183CF42A00C59843 /* Cell.cpp */; };
 		FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE96F4B5183CF42A00C59843 /* Grid.cpp */; };
 		FE96F4BC183CF48E00C59843 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE96F4BA183CF48E00C59843 /* Input.cpp */; };
@@ -51,6 +53,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				FE5939B018F2B0EA00E4426C /* libboost_thread-mt.dylib in CopyFiles */,
 				FE9B541218C638C80080ABCB /* linkLibScript.sh in CopyFiles */,
 				FE9B540F18C638870080ABCB /* libboost_system-mt.dylib in CopyFiles */,
 				FE9B541018C638870080ABCB /* liblo.dylib in CopyFiles */,
@@ -88,6 +91,8 @@
 		FE30405A18C48BA800CB147E /* LocationIp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationIp.h; path = utils/LocationIp.h; sourceTree = "<group>"; };
 		FE32271D18EAB8A2001B483A /* CaptureDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaptureDevice.h; path = capture/CaptureDevice.h; sourceTree = "<group>"; };
 		FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "lib/boost/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
+		FE32FF2D18F432AD000D2D23 /* PcapPasswordsProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapPasswordsProcessing.cpp; path = processings/PcapPasswordsProcessing.cpp; sourceTree = "<group>"; };
+		FE32FF2E18F432AD000D2D23 /* PcapPasswordsProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapPasswordsProcessing.h; path = processings/PcapPasswordsProcessing.h; sourceTree = "<group>"; };
 		FE43C1EA18DC50DC00742A0C /* Genetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Genetic.cpp; path = mapping/Genetic.cpp; sourceTree = "<group>"; };
 		FE43C1EB18DC50DC00742A0C /* Genetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Genetic.h; path = mapping/Genetic.h; sourceTree = "<group>"; };
 		FE43C1ED18DC52B300742A0C /* Chromosome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Chromosome.cpp; path = mapping/Chromosome.cpp; sourceTree = "<group>"; };
@@ -372,6 +377,8 @@
 				FEA9FB2418D1E00F00DB4811 /* PcapLocationProcessing.cpp */,
 				FEA9FB2518D1E00F00DB4811 /* PcapLocationProcessing.h */,
 				FEA9FB2D18D1E1E500DB4811 /* PcapProcessings.h */,
+				FE32FF2D18F432AD000D2D23 /* PcapPasswordsProcessing.cpp */,
+				FE32FF2E18F432AD000D2D23 /* PcapPasswordsProcessing.h */,
 			);
 			name = pcap;
 			sourceTree = "<group>";
@@ -450,6 +457,7 @@
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
 				FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */,
+				FE32FF2F18F432AD000D2D23 /* PcapPasswordsProcessing.cpp in Sources */,
 				FE48182518210E070094602C /* PcapHandler.cpp in Sources */,
 				FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */,
 				FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */,
