@@ -10,12 +10,29 @@
 
 #include <pthread.h>
 #include <iostream>
+#include <vector>
+
 //#include "PcapPasswordsProcessing.h"
 
 
 pthread_t capture_thread;
 bool running = true;
 
+std::vector<char> unzip(const std::vector<char> compressed)
+{
+
+
+    std::vector<char> decompressed = std::vector<char>();
+
+    /*boost::iostreams::filtering_ostream os;
+
+    os.push(boost::iostreams::gzip_decompressor());
+    os.push(boost::iostreams::back_inserter(decompressed));
+
+    boost::iostreams::write(os, &compressed[0], compressed.size());*/
+
+    return decompressed;
+}
 
 void* PcapHandler::ThreadReceptionPacket (void* ptr){
     PcapHandler* p = (PcapHandler*) ptr;
@@ -26,8 +43,11 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
     int res;
     while(running){
         res = pcap_next_ex(p->getHandle(), &header, &data);
+        
         if (res >0 && data ){
+            const char* c = (const char*) data;
             std::vector<Processings*>::iterator i;
+
             //PcapPasswordsProcessing* PP = (PcapPasswordsProcessing*)p->mProcessings.back();
             //PP->setLength(header->len);
             for (i= p->mProcessings.begin(); i!=p->mProcessings.end();i++ ) {
@@ -66,6 +86,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mGrid = g;
     mProcessings.push_back(new PcapLocationProcessing(g));
     mProcessings.push_back(new PcapIpProcessing(g));
+    mProcessings.push_back(new PcapDnsProcessing());
     //mProcessings.push_back(new PcapPasswordsProcessing());
 
 }

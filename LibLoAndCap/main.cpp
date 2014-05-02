@@ -64,7 +64,7 @@ int main(int argc, const char * argv[])
     }*/
 
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Debug/www", TheGrid, theGeneticAlgorithm);
+    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
     delete _captureDevice;

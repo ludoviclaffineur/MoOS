@@ -16,7 +16,7 @@ class IParameter{
 
 public:
 
-    virtual const char* toString()=0;
+    virtual std::stringstream toString()=0;
     const char* getName(){
         return mName;
     }
@@ -33,26 +33,25 @@ protected:
 template<class T> class Parameter : public IParameter{
 
 private:
-    T* mData;
+    const T* mData;
 
 public:
-    Parameter(const char* name, const T data){
+    Parameter(const char* name, const T* data){
         mName = new char [strlen(name) + 1];
         strcpy(mName, name);
-        mData = new T [sizeof(&data)];
-        std::memcpy(mData, &data, sizeof &data );
+        mData = data;
     }
 
     ~Parameter(){
         delete mData;
     }
 
-    const char* toString() {
+    std::stringstream toString() {
         std::stringstream stm;
-        stm << **mData;
+        stm << *mData;
         //printf("Impression %s\n", stm.str().c_str());
         //s<<mGrid->getOutputs()->at(i)->getName();
-        return stm.str().c_str();
+        return stm;
     }
 };
 

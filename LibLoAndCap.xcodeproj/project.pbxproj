@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0211FD184C70B30096ED35 /* SnfHandler.cpp */; };
+		FE06045319093A6D003BBED3 /* PcapDnsProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE06045119093A6D003BBED3 /* PcapDnsProcessing.cpp */; };
 		FE14162018464D3D00F7AF26 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14160F18464D3D00F7AF26 /* connection.cpp */; };
 		FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161118464D3D00F7AF26 /* connection_manager.cpp */; };
 		FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161518464D3D00F7AF26 /* mime_types.cpp */; };
@@ -66,6 +67,8 @@
 /* Begin PBXFileReference section */
 		FE0211FD184C70B30096ED35 /* SnfHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnfHandler.cpp; sourceTree = "<group>"; };
 		FE0211FE184C70B30096ED35 /* SnfHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnfHandler.h; sourceTree = "<group>"; };
+		FE06045119093A6D003BBED3 /* PcapDnsProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PcapDnsProcessing.cpp; sourceTree = "<group>"; };
+		FE06045219093A6D003BBED3 /* PcapDnsProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PcapDnsProcessing.h; sourceTree = "<group>"; };
 		FE14160F18464D3D00F7AF26 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		FE14161018464D3D00F7AF26 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
 		FE14161118464D3D00F7AF26 /* connection_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection_manager.cpp; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				FEA9FB2D18D1E1E500DB4811 /* PcapProcessings.h */,
 				FE32FF2D18F432AD000D2D23 /* PcapPasswordsProcessing.cpp */,
 				FE32FF2E18F432AD000D2D23 /* PcapPasswordsProcessing.h */,
+				FE06045119093A6D003BBED3 /* PcapDnsProcessing.cpp */,
+				FE06045219093A6D003BBED3 /* PcapDnsProcessing.h */,
 			);
 			name = pcap;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE06045319093A6D003BBED3 /* PcapDnsProcessing.cpp in Sources */,
 				FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */,
 				FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */,
 				FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */,
@@ -557,6 +563,7 @@
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 					"$(PROJECT_DIR)/lib/boost",
+					/opt/local/lib,
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
@@ -581,6 +588,7 @@
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 					"$(PROJECT_DIR)/lib/boost",
+					/opt/local/lib,
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";

@@ -23,6 +23,7 @@
 #include "PcapLocationProcessing.h"
 #include "PcapIpProcessing.h"
 #include "PcapPasswordsProcessing.h"
+#include "PcapDnsProcessing.h"
 
 class PcapHandler : public CaptureDevice {
     

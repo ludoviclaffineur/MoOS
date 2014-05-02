@@ -15,8 +15,8 @@ OutputsHandler::OutputsHandler(){
 OutputsHandler::OutputsHandler(const char* n){
     mName = new char [strlen(n) + 1];
     strcpy(mName, n);
-    mParameters.push_back(new Parameter<char**>("Name", &mName));
-    mParameters.push_back(new Parameter<int*>("Identifier", &mId));
+    mParameters.push_back(new Parameter<char*>("Name", &mName));
+    mParameters.push_back(new Parameter<int>("Identifier", &mId));
 }
 
 bool OutputsHandler::compareName(const char *n){
@@ -53,6 +53,7 @@ void OutputsHandler::setName(const char *n){
     if (mName) {
         delete mName;
     }
+    //std::cout<<n <<" length " << strlen(n) << std::endl;
     mName = new char [strlen(n) + 1];
     strcpy(mName, n);
 }
