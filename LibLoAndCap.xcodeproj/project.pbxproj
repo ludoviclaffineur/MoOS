@@ -17,6 +17,7 @@
 		FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161C18464D3D00F7AF26 /* request_parser.cpp */; };
 		FE14162718464D3D00F7AF26 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161E18464D3D00F7AF26 /* server.cpp */; };
 		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
+		FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2361921917ABDC0050B430 /* KymaHandler.cpp */; };
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
 		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
 		FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* LocationIp.cpp */; };
@@ -86,6 +87,8 @@
 		FE14161E18464D3D00F7AF26 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		FE14161F18464D3D00F7AF26 /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
 		FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "lib/boost/libboost_system-mt.dylib"; sourceTree = "<group>"; };
+		FE2361921917ABDC0050B430 /* KymaHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KymaHandler.cpp; path = utils/KymaHandler.cpp; sourceTree = "<group>"; };
+		FE2361931917ABDC0050B430 /* KymaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KymaHandler.h; path = utils/KymaHandler.h; sourceTree = "<group>"; };
 		FE284E9518BC905300CEC7E9 /* SaveXml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaveXml.cpp; path = save/SaveXml.cpp; sourceTree = "<group>"; };
 		FE284E9618BC905300CEC7E9 /* SaveXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveXml.h; path = save/SaveXml.h; sourceTree = "<group>"; };
 		FE30405618C47B5E00CB147E /* CsvImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CsvImporter.cpp; path = utils/CsvImporter.cpp; sourceTree = "<group>"; };
@@ -290,6 +293,8 @@
 				FE48183418211AF10094602C /* Converter.cpp */,
 				FE48183518211AF10094602C /* Converter.h */,
 				FE48183718211BFC0094602C /* IpHeaderDefinitions.h */,
+				FE2361921917ABDC0050B430 /* KymaHandler.cpp */,
+				FE2361931917ABDC0050B430 /* KymaHandler.h */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -462,6 +467,7 @@
 				FE96F4B7183CF42A00C59843 /* Cell.cpp in Sources */,
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
+				FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */,
 				FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */,
 				FE32FF2F18F432AD000D2D23 /* PcapPasswordsProcessing.cpp in Sources */,
 				FE48182518210E070094602C /* PcapHandler.cpp in Sources */,

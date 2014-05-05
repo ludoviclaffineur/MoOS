@@ -35,6 +35,7 @@ public:
     void setParameters(std::vector<std::string> ParameterList);
     bool setOscTag(const char* newOscTag);
     const char* getOscTag() const;
+    OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max);
     ~OscHandler();
 
 private:
@@ -43,6 +44,7 @@ private:
     char* mPort;
     char* mOscAddress;
     char* mOscTag;
+    int mIdController;
     bool setTabChar(char** newOne, const char** oldOne);
 };
 
