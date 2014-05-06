@@ -63,7 +63,7 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    KymaHandler* kyma= new KymaHandler("172.30.8.16","8000",TheGrid);
+    //KymaHandler* kyma= new KymaHandler("172.30.8.16","8000",TheGrid);
 
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
     http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);

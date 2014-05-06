@@ -17,6 +17,7 @@
 #include "OscHandler.h"
 #include "boost/locale.hpp"
 #include "SaveXml.h"
+#include "KymaHandler.h"
 namespace http {
     namespace server{
 
@@ -29,7 +30,7 @@ namespace http {
             rep.status = reply::ok;
 
             rep.content.append("<?xml version=\"1.0\"  standalone=\"yes\"?>\n<response>\n");
-            //printf("%s \n", method.c_str());
+            printf("%s \n", method.c_str());
             if( method.compare("addOutput")==0){
                 std::stringstream ssName,ssTag ;
                 ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
@@ -46,6 +47,12 @@ namespace http {
                 //std::cout<< m_input[1].str()<<std::endl;
                 int id = atoi(m_input[1].str().c_str());
                 mGrid->removeOutput(id);
+
+            }
+            else if (method.compare("kymaOutput")==0){
+                std::vector <std::string> listParameters = ExtractPamameters(parameters);
+                KymaHandler(listParameters[1].c_str(), "8000", mGrid);
+                std::cout<< listParameters[0] <<std::endl;
 
             }
             else if( method.compare("save")==0){
@@ -171,9 +178,11 @@ namespace http {
 
                 mGrid->getOutputWithId(cId)->setParameters(listParameters);
             }
+
             else {
                 rep.content.append("<error>Not found</error>\n");
             }
+            
             rep.content.append("</response>\n");
 
             rep.headers.resize(2);
