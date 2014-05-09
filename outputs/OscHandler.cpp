@@ -100,6 +100,7 @@ bool OscHandler::sendData(){
         return lo_send(mDistant,mOscAddress, "f",mValueBeforeSending);
     }
     else{
+        //printf("%f \n", mValueBeforeSending);
         return lo_send(mDistant,mOscAddress, "if",mIdController,mValueBeforeSending);
     }
 
