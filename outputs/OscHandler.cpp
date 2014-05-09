@@ -24,11 +24,11 @@ OscHandler::OscHandler(): OutputsHandler("OscNew"){
 
     mOscTag = new char [strlen("f") + 1];
     strcpy(mOscTag , "f");
-
+    mIdController = -1;
     mOutputType = OutputsHandler::OSC;
-    mParameters.push_back(new Parameter<char**>("IPAddress", &mIpAddress));
-    mParameters.push_back(new Parameter<char**>("Port", &mPort));
-    mParameters.push_back(new Parameter<char**>("OscAddressPattern", &mOscAddress));
+    mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
+    mParameters.push_back(new Parameter<char*>("Port", &mPort));
+    mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
 }
 
 OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag ):OutputsHandler(n){
@@ -49,13 +49,43 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     mParamNumber = 0;
     //mValueBeforeSending = 0;
     mOutputType = OutputsHandler::OSC;
-    mParameters.push_back(new Parameter<char**>("IPAddress", &mIpAddress));
-    mParameters.push_back(new Parameter<char**>("Port", &mPort));
-    mParameters.push_back(new Parameter<char**>("OscAddressPattern", &mOscAddress));
+    mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
+    mParameters.push_back(new Parameter<char*>("Port", &mPort));
+    mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
+    mIdController = -1;
     //mParameters.push_back(new Parameter<char**>("OscTag", &mOscTag));
     //mParameters.push_back(new Parameter<int*>("TagIValue", &mParamNumber));
     //mParameters.push_back(new Parameter<int*>("Type", &mOutputType));
 
+}
+
+OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag , int idController, float min, float max):OutputsHandler(n,min,max){
+    mIdController = idController;
+    mIpAddress = new char [strlen(ipAddress) + 1];
+    strcpy(mIpAddress, ipAddress);
+
+    mPort = new char [strlen(port) + 1];
+    strcpy(mPort, port);
+
+    mOscAddress = new char [strlen(oscAddress) + 1];
+    strcpy(mOscAddress, oscAddress);
+
+    mOscTag = new char [strlen(oscTag) + 1];
+    strcpy(mOscTag , oscTag);
+
+    mDistant = lo_address_new(mIpAddress, mPort);
+    mParamNumber = 0;
+    //mValueBeforeSending = 0;
+
+
+    mOutputType = OutputsHandler::OSC;
+    mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
+    mParameters.push_back(new Parameter<char*>("Port", &mPort));
+    mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
+    //mParameters.push_back(new Parameter<char**>("OscTag", &mOscTag));
+    //mParameters.push_back(new Parameter<int*>("TagIValue", &mParamNumber));
+    //mParameters.push_back(new Parameter<int*>("Type", &mOutputType));
+    
 }
 
 OscHandler::OscHandler(const char* ipAddress, const char* port){
@@ -66,8 +96,15 @@ OscHandler::OscHandler(const char* ipAddress, const char* port){
 
 bool OscHandler::sendData(){
     //std::cout<< mName << " Sent value" << mValueBeforeSending<<std::endl;
+    if (mIdController == -1){
+        return lo_send(mDistant,mOscAddress, "f",mValueBeforeSending);
+    }
+    else{
+        //printf("%f \n", mValueBeforeSending);
+        return lo_send(mDistant,mOscAddress, "if",mIdController,mValueBeforeSending);
+    }
 
-    return lo_send(mDistant,mOscAddress, "f",mValueBeforeSending);
+
 }
 
 bool OscHandler::sendData(int paramNumber, float value){
@@ -144,6 +181,7 @@ bool OscHandler::setTabChar(char** target, const char** newValue){
     if(*target){
         delete[] *target;
     }
+    //std::cout<< *newValue <<" length " << strlen(*newValue) <<std::endl;
     *target = new char [strlen(*newValue) + 1];
     return(strcpy(*target, *newValue));
 }

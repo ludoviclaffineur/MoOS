@@ -117,7 +117,7 @@ function init(){
 	grid.R = Ouputs.length + 1;
 	//document.getElementById('lastname').value=lname[0].firstChild.nodeValue;
 	for (var i = Ouputs.length - 1; i >= 0; i--) {
-		OutputNames[i] = new iio.Rect(43+(InputNames.length*40), originPosY +43 + (40*i), 60,20).setFillStyle('white').setStrokeStyle('white');
+		OutputNames[i] = new iio.Rect(63+(InputNames.length*40), originPosY +43 + (40*i), 60,20).setFillStyle('white').setStrokeStyle('white');
 		OutputNames[i].addObj(new iio.Text( Ouputs[i].firstChild.nodeValue).setFont('15px Consolas')
         	.setTextAlign('left')
             .setFillStyle('black'));
@@ -135,11 +135,12 @@ function init(){
 		var weight = Cells[i].children[2].firstChild.nodeValue;
 		//var colorVal = "rgb(" + weight + "," + weight + "," + weight +")";
 		var colorVal = "rgb(54,93,142)";
-		Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,43+originPosY + (40*cOutputId),15).setFillStyle('white').setStrokeStyle('white');
-		Circles[cOutputId*InputNames.length+cInputId].addObj(new iio.Text(Cells[i].children[2].firstChild.nodeValue)
-			.setFont('15px Consolas')
-       		.setTextAlign('center')
-       		.setFillStyle('black'));
+
+		Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,40+originPosY + (40*cOutputId),2+(parseFloat(weight*8))).setFillStyle(colorVal).setStrokeStyle('white');
+		Circles[cOutputId*InputNames.length+cInputId].addObj(new iio.Text(Cells[i].children[2].firstChild.nodeValue));
+			//.setFont('15px Consolas')
+       		//.setTextAlign('center')
+       		//.setFillStyle('black'));
 				//Circles[i].addObj(cInputId);
 				//Circles[i].addObj(cOutputId);
 	};

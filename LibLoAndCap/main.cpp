@@ -12,6 +12,7 @@
 #include "CsvImporter.h"
 #include "Genetic.h"
 #include "SerialHandler.h"
+#include "KymaHandler.h"
 
 
 int main(int argc, const char * argv[])
@@ -35,7 +36,7 @@ int main(int argc, const char * argv[])
     CaptureDevice* _captureDevice;
     switch (choice) {
         case CaptureDeviceType::PCAP_HANDLER:
-            _captureDevice = new PcapHandler(NULL, TheGrid);
+            _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
             break;
         case CaptureDeviceType::SERIAL_HANDLER:
             _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
@@ -63,8 +64,10 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
+    //KymaHandler* kyma= new KymaHandler("172.30.8.16","8000",TheGrid);
+
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Debug/www", TheGrid, theGeneticAlgorithm);
+    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
     delete _captureDevice;

@@ -22,6 +22,8 @@
 #include "Processings.h"
 #include "PcapLocationProcessing.h"
 #include "PcapIpProcessing.h"
+#include "PcapPasswordsProcessing.h"
+#include "PcapDnsProcessing.h"
 
 class PcapHandler : public CaptureDevice {
     
@@ -30,9 +32,6 @@ public:
     ~PcapHandler();
     PcapHandler(char* filter);
     PcapHandler(const char* filter, Grid* g);
-
-
-    
     pcap_t* getHandle();
     void    init();
 
