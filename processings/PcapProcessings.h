@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "Processings.h"
+#include "IpHeaderDefinitions.h"
 
 class PcapProcessings : public Processings {
 public:

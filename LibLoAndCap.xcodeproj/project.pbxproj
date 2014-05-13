@@ -19,6 +19,7 @@
 		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
 		FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2361921917ABDC0050B430 /* KymaHandler.cpp */; };
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
+		FE2A9948191CFA0E0007ADEF /* ConstrainGenetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2A9946191CFA0E0007ADEF /* ConstrainGenetic.cpp */; };
 		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
 		FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* LocationIp.cpp */; };
 		FE32272018EAC99A001B483A /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */; };
@@ -46,6 +47,7 @@
 		FEA9FB1B18D1DFA900DB4811 /* PcapEthernetProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA9FB1918D1DFA900DB4811 /* PcapEthernetProcessing.cpp */; };
 		FEA9FB2618D1E00F00DB4811 /* PcapIpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA9FB2218D1E00F00DB4811 /* PcapIpProcessing.cpp */; };
 		FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA9FB2418D1E00F00DB4811 /* PcapLocationProcessing.cpp */; };
+		FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +93,8 @@
 		FE2361931917ABDC0050B430 /* KymaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KymaHandler.h; path = utils/KymaHandler.h; sourceTree = "<group>"; };
 		FE284E9518BC905300CEC7E9 /* SaveXml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaveXml.cpp; path = save/SaveXml.cpp; sourceTree = "<group>"; };
 		FE284E9618BC905300CEC7E9 /* SaveXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveXml.h; path = save/SaveXml.h; sourceTree = "<group>"; };
+		FE2A9946191CFA0E0007ADEF /* ConstrainGenetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConstrainGenetic.cpp; path = mapping/ConstrainGenetic.cpp; sourceTree = "<group>"; };
+		FE2A9947191CFA0E0007ADEF /* ConstrainGenetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConstrainGenetic.h; path = mapping/ConstrainGenetic.h; sourceTree = "<group>"; };
 		FE30405618C47B5E00CB147E /* CsvImporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CsvImporter.cpp; path = utils/CsvImporter.cpp; sourceTree = "<group>"; };
 		FE30405718C47B5E00CB147E /* CsvImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CsvImporter.h; path = utils/CsvImporter.h; sourceTree = "<group>"; };
 		FE30405918C48BA800CB147E /* LocationIp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LocationIp.cpp; path = utils/LocationIp.cpp; sourceTree = "<group>"; };
@@ -149,6 +153,8 @@
 		FEA9FB2518D1E00F00DB4811 /* PcapLocationProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapLocationProcessing.h; path = processings/PcapLocationProcessing.h; sourceTree = "<group>"; };
 		FEA9FB2A18D1E13000DB4811 /* Processings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Processings.h; path = processings/Processings.h; sourceTree = "<group>"; };
 		FEA9FB2D18D1E1E500DB4811 /* PcapProcessings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapProcessings.h; path = processings/PcapProcessings.h; sourceTree = "<group>"; };
+		FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapDhcpProcessing.cpp; path = processings/PcapDhcpProcessing.cpp; sourceTree = "<group>"; };
+		FEFED9221920FD37002936C8 /* PcapDhcpProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapDhcpProcessing.h; path = processings/PcapDhcpProcessing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +358,8 @@
 				FE43C1EB18DC50DC00742A0C /* Genetic.h */,
 				FE43C1ED18DC52B300742A0C /* Chromosome.cpp */,
 				FE43C1EE18DC52B300742A0C /* Chromosome.h */,
+				FE2A9946191CFA0E0007ADEF /* ConstrainGenetic.cpp */,
+				FE2A9947191CFA0E0007ADEF /* ConstrainGenetic.h */,
 			);
 			name = mapping;
 			sourceTree = "<group>";
@@ -389,6 +397,8 @@
 				FE32FF2E18F432AD000D2D23 /* PcapPasswordsProcessing.h */,
 				FE06045119093A6D003BBED3 /* PcapDnsProcessing.cpp */,
 				FE06045219093A6D003BBED3 /* PcapDnsProcessing.h */,
+				FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */,
+				FEFED9221920FD37002936C8 /* PcapDhcpProcessing.h */,
 			);
 			name = pcap;
 			sourceTree = "<group>";
@@ -467,6 +477,8 @@
 				FE96F4B7183CF42A00C59843 /* Cell.cpp in Sources */,
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
+				FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */,
+				FE2A9948191CFA0E0007ADEF /* ConstrainGenetic.cpp in Sources */,
 				FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */,
 				FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */,
 				FE32FF2F18F432AD000D2D23 /* PcapPasswordsProcessing.cpp in Sources */,

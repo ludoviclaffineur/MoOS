@@ -16,6 +16,11 @@ PcapDnsProcessing::PcapDnsProcessing(){
     mOscIpAddress = lo_address_new("127.0.0.1", "20000");
 }
 
+PcapDnsProcessing::~PcapDnsProcessing(){
+    lo_address_free(mOscIpAddress);
+    mOscIpAddress = NULL;
+}
+
 void PcapDnsProcessing::process(const u_char *data){
     ip_header *ih;
     ih = (ip_header *) (data + 14);
@@ -122,7 +127,7 @@ DnsClient::DnsClient(long int ipAddress){
 bool DnsClient::isParentNode(){
     time_t timer;
     time(&timer);
-    std::cout << mIpAddress <<" time "<< difftime(mFirstRequestTime, timer) << std::endl;
+    //std::cout << mIpAddress <<" time "<< difftime(mFirstRequestTime, timer) << std::endl;
     return (difftime(mFirstRequestTime, timer) < -1.0);
 }
 

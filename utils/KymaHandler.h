@@ -19,7 +19,7 @@
 class KymaHandler{
 public:
     KymaHandler(const char* ipAddress, const char* port, Grid* g);
-
+    ~KymaHandler();
 private:
     lo_server mServerOsc;
     lo_address mAddress;

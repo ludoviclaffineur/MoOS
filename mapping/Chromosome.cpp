@@ -81,7 +81,7 @@ Chromosome* Chromosome::mate(Chromosome* random){
 
 void Chromosome::generateRandom(){
     for(int j = 0; j<mSize; ++j){
-        mCoeffs[j] = (float)(rand()%100+1) / (10.0*(float)mNbrInputs) ;
+        mCoeffs[j] = (float)(50.0 - rand()%100) / (10.0*(float)mNbrInputs) ;
     }
 }
 

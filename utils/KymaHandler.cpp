@@ -82,4 +82,9 @@ int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **ar
     printf("\n");
     return 1;
 }
+KymaHandler::~KymaHandler(){
+    lo_server_thread_stop(mServerOsc);
+    lo_server_thread_free(mServerOsc);
+    //lo_server_free(mServerOsc);
+}
 

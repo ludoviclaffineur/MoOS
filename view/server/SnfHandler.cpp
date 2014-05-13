@@ -113,7 +113,7 @@ namespace http {
                 //std::codecvt_utf8<char32_t> converter;
                 //printf("parametre %s \n",parameters.c_str());
                 std::smatch m_coeff;
-                std::regex e ("coeff=([0-9].[0-9]|[0-9]|[0-9].[0-9][0-9])");   // matches words beginning by "sub"
+                std::regex e ("coeff=([0-9].[0-9]|[0-9]|[0-9].[0-9][0-9]\\-[0-9].[0-9]|\\-[0-9]|\\-[0-9].[0-9][0-9])");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_coeff,e);
                 std::cout<< m_coeff[1].str()<<std::endl;
 

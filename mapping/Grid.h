@@ -38,6 +38,7 @@ public:
     void    removeOutput(int id);
     float*  getCoeffs();
     void    setCoeffs(float* coeffs);
+    void    setCoeffs(float **coeffs);
 
 private:
     int mCurrentOutputId;

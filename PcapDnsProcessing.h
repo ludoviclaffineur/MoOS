@@ -36,6 +36,7 @@ private:
 class PcapDnsProcessing : public PcapProcessings{
 public:
     PcapDnsProcessing();
+    ~PcapDnsProcessing();
     void process(const u_char* data);
     void setActive (bool active);
     const char* rleDecompress(const u_char* payload);
