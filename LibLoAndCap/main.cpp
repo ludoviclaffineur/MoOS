@@ -27,8 +27,8 @@ int main(int argc, const char * argv[])
     using namespace std;
     pthread_setname_np("Main");
     std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\nPlease choose your capture device in the list below:" <<std::endl;
-    for(int  i =0 ;i<CaptureDeviceType::TOTAL; i++){
-        std::cout<<i+1<<".\t"<< CaptureDeviceList[i]<<std::endl;
+    for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
+        std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
     }
     int choice;
     std::cout<<"Your choice:"<<std::flush;
@@ -60,11 +60,11 @@ int main(int argc, const char * argv[])
 
     CaptureDevice* _captureDevice;
     switch (choice) {
-        case CaptureDeviceType::PCAP_HANDLER:
+        case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
             _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
             break;
-        case CaptureDeviceType::SERIAL_HANDLER:
-            _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1431", 115200);
+        case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
+            _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
             break;
         default:
             _captureDevice = NULL;
@@ -79,7 +79,7 @@ int main(int argc, const char * argv[])
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
-    KymaHandler* k= new KymaHandler("172.30.8.16","8000",TheGrid);
+    KymaHandler* k= new KymaHandler("172.30.8.11","8000",TheGrid);
     std::cin>>a;
 
     theConstrainAlgo->setConstrain();
@@ -104,7 +104,7 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    delete k;
+    //delete k;
 
     std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
     http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);

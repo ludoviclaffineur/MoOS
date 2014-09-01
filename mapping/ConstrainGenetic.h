@@ -16,6 +16,10 @@
 #include <boost/numeric/ublas/lu.hpp>
 #include <boost/numeric/ublas/io.hpp>
 
+#include <gecode/driver.hh>
+#include <gecode/int.hh>
+#include <gecode/minimodel.hh>
+
 class Constrain{
 public:
     Constrain(std::vector<float>* inputsValues, std::vector<float>* outputsValues);
@@ -33,6 +37,7 @@ public:
     void setConstrain(std::vector<float> inputsValues, std::vector<float> outputsValues);
     void triangularMatrix();
     void computeGrid();
+    void computeGridOld();
     void setConstrain();
     bool invertMatrix(const boost::numeric::ublas::matrix<float>& input, boost::numeric::ublas::matrix<float>& inverse);
 

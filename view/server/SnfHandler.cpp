@@ -30,7 +30,7 @@ namespace http {
             rep.status = reply::ok;
 
             rep.content.append("<?xml version=\"1.0\"  standalone=\"yes\"?>\n<response>\n");
-            printf("%s \n", method.c_str());
+            //printf("%s \n", method.c_str());
             if( method.compare("addOutput")==0){
                 std::stringstream ssName,ssTag ;
                 ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
@@ -52,7 +52,7 @@ namespace http {
             else if (method.compare("kymaOutput")==0){
                 std::vector <std::string> listParameters = ExtractPamameters(parameters);
                 KymaHandler(listParameters[1].c_str(), "8000", mGrid);
-                std::cout<< listParameters[0] <<std::endl;
+                //std::cout<< listParameters[0] <<std::endl;
 
             }
             else if( method.compare("save")==0){
@@ -71,7 +71,7 @@ namespace http {
                 std::smatch m_input;
                 std::regex e_input ("rate=([0-9]+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_input,e_input);
-                std::cout<< m_input[1].str()<<std::endl;
+                //std::cout<< m_input[1].str()<<std::endl;
 
                 mAlgoGen->evaluateAndEvolve(atoi(m_input[1].str().c_str()));
                 //saveXml(ssFilename.str().c_str(), mGrid);
@@ -115,17 +115,17 @@ namespace http {
                 std::smatch m_coeff;
                 std::regex e ("coeff=([0-9].[0-9]|[0-9]|[0-9].[0-9][0-9]\\-[0-9].[0-9]|\\-[0-9]|\\-[0-9].[0-9][0-9])");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_coeff,e);
-                std::cout<< m_coeff[1].str()<<std::endl;
+                //std::cout<< m_coeff[1].str()<<std::endl;
 
                 std::smatch m_input;
                 std::regex e_input ("input=(\\w+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_input,e_input);
-                std::cout<< m_input[1].str()<<std::endl;
+               // std::cout<< m_input[1].str()<<std::endl;
 
                 std::smatch m_output;
                 std::regex e_output ("output=(\\w+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_output,e_output);
-                std::cout<< m_output[1].str()<<std::endl;
+                //std::cout<< m_output[1].str()<<std::endl;
 
                 Cell* c = mGrid->getCellWithName(m_input[1], m_output[1]);
                 char* err= nullptr;

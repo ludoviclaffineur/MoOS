@@ -1,0 +1,40 @@
+FILE(REMOVE_RECURSE
+  "CMakeFiles/MoOS.dir/LibLoAndCap/main.cpp.o"
+  "CMakeFiles/MoOS.dir/capture/PcapHandler.cpp.o"
+  "CMakeFiles/MoOS.dir/capture/SerialHandler.cpp.o"
+  "CMakeFiles/MoOS.dir/Inputs/Input.cpp.o"
+  "CMakeFiles/MoOS.dir/mapping/Cell.cpp.o"
+  "CMakeFiles/MoOS.dir/mapping/Chromosome.cpp.o"
+  "CMakeFiles/MoOS.dir/mapping/ConstrainGenetic.cpp.o"
+  "CMakeFiles/MoOS.dir/mapping/Genetic.cpp.o"
+  "CMakeFiles/MoOS.dir/mapping/Grid.cpp.o"
+  "CMakeFiles/MoOS.dir/outputs/OscHandler.cpp.o"
+  "CMakeFiles/MoOS.dir/outputs/OutputsHandler.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/PcapDhcpProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/PcapDnsProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/PcapEthernetProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/PcapIpProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/PcapLocationProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/PcapPasswordsProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/processings/SerialToucheProcessing.cpp.o"
+  "CMakeFiles/MoOS.dir/save/SaveXml.cpp.o"
+  "CMakeFiles/MoOS.dir/utils/Converter.cpp.o"
+  "CMakeFiles/MoOS.dir/utils/CsvImporter.cpp.o"
+  "CMakeFiles/MoOS.dir/utils/KymaHandler.cpp.o"
+  "CMakeFiles/MoOS.dir/utils/LocationIp.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/connection.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/connection_manager.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/mime_types.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/reply.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/request_handler.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/request_parser.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/server.cpp.o"
+  "CMakeFiles/MoOS.dir/view/server/SnfHandler.cpp.o"
+  "MoOS.pdb"
+  "MoOS"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang CXX)
+  INCLUDE(CMakeFiles/MoOS.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

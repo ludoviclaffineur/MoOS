@@ -23,13 +23,16 @@ void ConstrainGenetic::setConstrain(){
     std::vector<float> input;
     std::vector<float> output;
     for (int i =0 ; i<mGrid->getOutputs()->size(); i++) {
-        std::cout<< 0.4+ ((float)(mListContrain.size())*0.1) << std::endl;
-        output.push_back(0.1+ ((float)(mListContrain.size())*0.3));
+        std::cout<< 0.1+ ((float)(mListContrain.size())*0.7) << std::endl;
+        output.push_back(0.1+ ((float)(mListContrain.size())*0.7));
     }
     
     for (int i=0; i<mGrid->getNbrInputs(); i++) {
         input.push_back(mGrid->getInputs()->at(i)->getValue());
+        std::cout<<mGrid->getInputs()->at(i)->getValue()<< "\t";
     }
+    std::cout<<std::endl;
+    std::cout<<std::endl;
     mListContrain.push_back(new Constrain(new std::vector<float>(input), new std::vector<float>(output)));
 }
 
@@ -60,13 +63,21 @@ bool ConstrainGenetic::invertMatrix(const boost::numeric::ublas::matrix<float>& 
     return true;
 }
 
+void ConstrainGenetic::computeGridOld(){
+   /* using namespace Gecode;
+    FloatVarArray coeffs = ;*/
+
+}
+
+
+
 
 
 void ConstrainGenetic::computeGrid(){
     using namespace boost::numeric::ublas;
     //using namespace std;
     for (int j = 0; j< mListContrain.size() ; j++) {
-        for (int i = 0; i< 160 ; i++) {
+        for (int i = 0; i< mGrid->getNbrInputs() ; i++) {
             std::cout<<mListContrain.at(j)->mInputsValues->at(i) << "\t";
         }
         std::cout<<std::endl;

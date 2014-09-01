@@ -17,7 +17,7 @@
 #include "OscHandler.h"
 #include <ctime>
 #include <vector>
-#include "lo.h"
+#include <lo/lo.h>
 
 class DnsClient{
 public:
