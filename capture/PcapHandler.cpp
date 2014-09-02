@@ -36,7 +36,7 @@ std::vector<char> unzip(const std::vector<char> compressed)
 
 void* PcapHandler::ThreadReceptionPacket (void* ptr){
     PcapHandler* p = (PcapHandler*) ptr;
-    pthread_setname_np("ThreadPcap");
+//    pthread_setname_np("ThreadPcap");
     //pcap_t* handle = (pcap_t*) ptr;
     struct pcap_pkthdr* header;
     const u_char* data;

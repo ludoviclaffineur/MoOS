@@ -7,6 +7,7 @@
 //
 
 #include "OutputsHandler.h"
+#include <string.h>
 
 OutputsHandler::OutputsHandler(){
     mValueBeforeSending = 0;

@@ -7,7 +7,7 @@
 //
 
 #include "Chromosome.h"
-
+#include <limits>
 Chromosome::Chromosome(){
 
 }

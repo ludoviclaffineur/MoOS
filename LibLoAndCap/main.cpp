@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
     Grid* TheGrid;
     using namespace boost::numeric::ublas;
     using namespace std;
-    pthread_setname_np("Main");
+//    pthread_setname_np("Main");
     std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\nPlease choose your capture device in the list below:" <<std::endl;
     for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
         std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
