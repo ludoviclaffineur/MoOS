@@ -16,7 +16,7 @@ class IParameter{
 
 public:
 
-    virtual std::stringstream toString()=0;
+    virtual std::stringstream* toString()=0;
     const char* getName(){
         return mName;
     }
@@ -46,9 +46,9 @@ public:
         delete mData;
     }
 
-    std::stringstream toString() {
-        std::stringstream stm;
-        stm << *mData;
+    std::stringstream* toString() {
+        std::stringstream * stm = new std::stringstream();
+        (*stm )<< *mData;
         //printf("Impression %s\n", stm.str().c_str());
         //s<<mGrid->getOutputs()->at(i)->getName();
         return stm;

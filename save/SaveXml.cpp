@@ -30,7 +30,7 @@ SaveXml::SaveXml(const std::string &filename, Grid* g){
             std::stringstream ss1,ss2;
             ss1 << (*currentParam)->getName();
             //std::cout<<(*currentParam)->toString()<<std::endl;
-            ss2 <<(*currentParam)->toString().str();
+            ss2 <<(*currentParam)->toString()->str();
             node.put(ss1.str().c_str(), ss2.str());
         }
     }
