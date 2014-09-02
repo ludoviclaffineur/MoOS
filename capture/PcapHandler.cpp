@@ -98,7 +98,8 @@ int PcapHandler::findAllDevs(pcap_if_t **alldev , char *errbuf){
 		fprintf(stderr,"Error in pcap_findalldevs: %s\n", errbuf);
 		return -1;
 	}
-#elif defined __APPLE__
+#else
+//#elif defined __APPLE__
     if (pcap_findalldevs(alldev, errbuf)==-1){
         fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
         return -1;
@@ -158,8 +159,8 @@ pcap_t* PcapHandler::openLive(const char *device, int snaplen,int promisc, int t
                      NULL,      // remote authentication
                      errbuf     // error bufferqsdqsdqsd
                      )  ;
-    
-#elif defined __APPLE__
+#else
+//#elif defined __APPLE__
     return(pcap_open_live(device, snaplen, promisc, to_ms, errbuf));
 #endif
 }

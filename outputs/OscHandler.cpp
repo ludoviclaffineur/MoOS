@@ -7,7 +7,8 @@
 //
 
 #include "OscHandler.h"
-
+#include <string.h>
+#include <algorithm>
 OscHandler::OscHandler(): OutputsHandler("OscNew",0,1){
     mDistant = lo_address_new("127.0.0.1", "57120");
     mParamNumber = 0;

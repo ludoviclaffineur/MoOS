@@ -12,7 +12,7 @@
 #include <iostream>
 #include "Processings.h"
 #include "IpHeaderDefinitions.h"
-
+#include <arpa/inet.h>
 class PcapProcessings : public Processings {
 public:
     PcapProcessings(){};

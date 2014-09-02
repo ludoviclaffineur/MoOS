@@ -80,10 +80,10 @@ int main(int argc, const char * argv[])
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
     KymaHandler* k= new KymaHandler("172.30.8.11","8000",TheGrid);
-    std::cin>>a;
+//    std::cin>>a;
 
-    theConstrainAlgo->setConstrain();
-    while (a>0){
+ /*   theConstrainAlgo->setConstrain();
+   while (a>0){
         std::cin>>a;
         theConstrainAlgo->setConstrain();
 
@@ -106,8 +106,8 @@ int main(int argc, const char * argv[])
 
     //delete k;
 
-    std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
+    std::cout<<"Lauching Web server..."<<std::endl;
+    http::server::server s("0.0.0.0", "80", "./www", TheGrid, theGeneticAlgorithm);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
 

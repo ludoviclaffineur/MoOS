@@ -6,7 +6,7 @@ project(MOOS)
 
 
 SET( Boost_USE_MULTITHREAD ON )
-SET( Boost_USE_STATIC_LIBS ON )
+SET( Boost_USE_STATIC_LIBS FALSE )
 SET(BOOST_MIN_VERSION "1.53.0")
 
 FIND_PACKAGE(Liblo)
@@ -39,7 +39,7 @@ ENDIF(PCAP_FOUND)
         SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fpermissive")
 
 
-FIND_PACKAGE( Boost REQUIRED thread system)
+FIND_PACKAGE( Boost REQUIRED thread system serialization)
 
 IF(Boost_FOUND)
 	message ("ok boost found")

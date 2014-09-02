@@ -23,23 +23,32 @@ Boost_INCLUDE_DIR:PATH=/usr/include
 //Boost library directory
 Boost_LIBRARY_DIRS:FILEPATH=/usr/lib
 
+//The Boost SERIALIZATION library
+Boost_SERIALIZATION_LIBRARY:FILEPATH=/usr/lib/libboost_serialization-mt.a
+
+//Boost serialization library (debug)
+Boost_SERIALIZATION_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_serialization-mt.so
+
+//Boost serialization library (release)
+Boost_SERIALIZATION_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_serialization-mt.so
+
 //The Boost SYSTEM library
 Boost_SYSTEM_LIBRARY:FILEPATH=/usr/lib/libboost_system-mt.a
 
 //Boost system library (debug)
-Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_system-mt.a
+Boost_SYSTEM_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_system-mt.so
 
 //Boost system library (release)
-Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_system-mt.a
+Boost_SYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_system-mt.so
 
 //The Boost THREAD library
 Boost_THREAD_LIBRARY:FILEPATH=/usr/lib/libboost_thread-mt.a
 
 //Boost thread library (debug)
-Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_thread-mt.a
+Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/libboost_thread-mt.so
 
 //Boost thread library (release)
-Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_thread-mt.a
+Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/libboost_thread-mt.so
 
 //Path to a program.
 CMAKE_AR:FILEPATH=/usr/bin/ar
@@ -256,6 +265,14 @@ Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
 Boost_LIBRARY_DIRS-ADVANCED:INTERNAL=1
 //The library version string for boost libraries
 Boost_LIB_VERSION:INTERNAL=1_49
+//Whether the Boost SERIALIZATION library found
+Boost_SERIALIZATION_FOUND:INTERNAL=ON
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY
+Boost_SERIALIZATION_LIBRARY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY_DEBUG
+Boost_SERIALIZATION_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_SERIALIZATION_LIBRARY_RELEASE
+Boost_SERIALIZATION_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //Whether the Boost SYSTEM library found
 Boost_SYSTEM_FOUND:INTERNAL=ON
 //ADVANCED property for variable: Boost_SYSTEM_LIBRARY

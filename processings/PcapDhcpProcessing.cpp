@@ -7,7 +7,7 @@
 //
 
 #include "PcapDhcpProcessing.h"
-
+#include <arpa/inet.h>
 PcapDhcpProcessing::PcapDhcpProcessing(Grid* g){
     mGrid = g;
     mInput = new Input("DhcpRequest", 0,1,0, 1, Converter::TypeOfExtrapolation::LINEAR);
