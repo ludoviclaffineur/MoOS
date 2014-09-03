@@ -79,8 +79,8 @@ int main(int argc, const char * argv[])
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
-    KymaHandler* k= new KymaHandler("172.30.8.11","8000",TheGrid);
-//    std::cin>>a;
+    KymaHandler* k= new KymaHandler("172.30.8.16","8000",TheGrid);
+    std::cin>>a;
 
  /*   theConstrainAlgo->setConstrain();
    while (a>0){
