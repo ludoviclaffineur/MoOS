@@ -104,7 +104,7 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    //delete k;
+    delete k;
 
     std::cout<<"Lauching Web server..."<<std::endl;
     http::server::server s("0.0.0.0", "80", "./www", TheGrid, theGeneticAlgorithm);
