@@ -11,7 +11,8 @@
 
 #include <iostream>
 #include "Grid.h"
-#include "lo.h"
+
+#include <lo/lo.h>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/foreach.hpp>
@@ -19,7 +20,7 @@
 class KymaHandler{
 public:
     KymaHandler(const char* ipAddress, const char* port, Grid* g);
-
+    ~KymaHandler();
 private:
     lo_server mServerOsc;
     lo_address mAddress;

@@ -26,6 +26,9 @@ public:
     float   getExtrapolatedValue();
     const char* getName();
     void    setValue(float value);
+    float   getValue(){
+        return mValue;
+    }
 
 private:
     float   mValue;

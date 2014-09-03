@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Install script for directory: /Users/ludoviclaffineur/Documents/LibLoAndCap
+=======
+# Install script for directory: /home/pi/libpcapandliblo
+>>>>>>> development
 
 # Set the install prefix
 IF(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,13 +31,27 @@ IF(NOT CMAKE_INSTALL_COMPONENT)
   ENDIF(COMPONENT)
 ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
+<<<<<<< HEAD
+=======
+# Install shared libraries without execute permission?
+IF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  SET(CMAKE_INSTALL_SO_NO_EXE "1")
+ENDIF(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+
+>>>>>>> development
 IF(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest_${CMAKE_INSTALL_COMPONENT}.txt")
 ELSE(CMAKE_INSTALL_COMPONENT)
   SET(CMAKE_INSTALL_MANIFEST "install_manifest.txt")
 ENDIF(CMAKE_INSTALL_COMPONENT)
 
+<<<<<<< HEAD
 FILE(WRITE "/Users/ludoviclaffineur/Documents/LibLoAndCap/${CMAKE_INSTALL_MANIFEST}" "")
 FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
   FILE(APPEND "/Users/ludoviclaffineur/Documents/LibLoAndCap/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+=======
+FILE(WRITE "/home/pi/libpcapandliblo/${CMAKE_INSTALL_MANIFEST}" "")
+FOREACH(file ${CMAKE_INSTALL_MANIFEST_FILES})
+  FILE(APPEND "/home/pi/libpcapandliblo/${CMAKE_INSTALL_MANIFEST}" "${file}\n")
+>>>>>>> development
 ENDFOREACH(file)

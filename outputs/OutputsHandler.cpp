@@ -7,6 +7,7 @@
 //
 
 #include "OutputsHandler.h"
+#include <string.h>
 
 OutputsHandler::OutputsHandler(){
     mValueBeforeSending = 0;
@@ -23,7 +24,7 @@ OutputsHandler::OutputsHandler(const char* n, float min, float max){
     mName = new char [strlen(n) + 1];
     strcpy(mName, n);
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 1.0);
-    mConverter.test();
+    //mConverter.test();
     mParameters.push_back(new Parameter<char*>("Name", &mName));
     mParameters.push_back(new Parameter<int>("Identifier", &mId));
 }
@@ -41,7 +42,9 @@ void OutputsHandler::extrapolate(){
     if (mValueBeforeSending > 1 ) {
         mValueBeforeSending = 1.0;
     }
-
+    else if (mValueBeforeSending <0.0){
+        mValueBeforeSending = 0.0;
+    }
     mValueBeforeSending = mConverter.extrapolate(mValueBeforeSending);
     //std::cout<< mValueBeforeSending <<std::endl;
 

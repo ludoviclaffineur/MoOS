@@ -8,6 +8,7 @@
 
 #include "Converter.h"
 #include <math.h>
+#include <string.h>
 
 Converter::Converter(){}
 

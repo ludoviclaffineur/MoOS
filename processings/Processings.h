@@ -16,6 +16,8 @@ public:
     virtual void setActive(bool active) = 0;
     //virtual void process () = 0;
     bool isActive(){return mActive;}
+
+
     virtual void process (void* vdata) = 0;
 protected:
     bool mActive;

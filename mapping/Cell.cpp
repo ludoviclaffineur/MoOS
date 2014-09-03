@@ -15,7 +15,7 @@ Cell::Cell(Input* i, OutputsHandler* o, float coeff){
 }
 
 void Cell:: setCoeff(float coeff){
-    if(coeff >=0 && coeff <=1 ){
+    if(coeff >=-1 && coeff <=1 ){
         mCoeff = coeff;
     }
 }

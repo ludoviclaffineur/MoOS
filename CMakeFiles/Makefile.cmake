@@ -7,6 +7,7 @@ SET(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+<<<<<<< HEAD
   "/Applications/CMake 2.8-12.app/Contents/share/cmake-2.8/Modules/CMakeCInformation.cmake"
   "/Applications/CMake 2.8-12.app/Contents/share/cmake-2.8/Modules/CMakeCXXInformation.cmake"
   "/Applications/CMake 2.8-12.app/Contents/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake"
@@ -25,6 +26,35 @@ SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/2.8.12/CMakeCXXCompiler.cmake"
   "CMakeFiles/2.8.12/CMakeSystem.cmake"
   "CMakeLists.txt"
+=======
+  "CMakeFiles/CMakeCCompiler.cmake"
+  "CMakeFiles/CMakeCXXCompiler.cmake"
+  "CMakeFiles/CMakeSystem.cmake"
+  "CMakeLists.txt"
+  "/usr/share/cmake-2.8/Modules/CMakeCInformation.cmake"
+  "/usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake"
+  "/usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake"
+  "/usr/share/cmake-2.8/Modules/CMakeExpandImportedTargets.cmake"
+  "/usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake"
+  "/usr/share/cmake-2.8/Modules/CMakeParseArguments.cmake"
+  "/usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake"
+  "/usr/share/cmake-2.8/Modules/CheckCSourceCompiles.cmake"
+  "/usr/share/cmake-2.8/Modules/CheckFunctionExists.cmake"
+  "/usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake"
+  "/usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake"
+  "/usr/share/cmake-2.8/Modules/Compiler/GNU.cmake"
+  "/usr/share/cmake-2.8/Modules/FindBoost.cmake"
+  "/usr/share/cmake-2.8/Modules/FindGecode.cmake"
+  "/usr/share/cmake-2.8/Modules/FindLiblo.cmake"
+  "/usr/share/cmake-2.8/Modules/FindPackageHandleStandardArgs.cmake"
+  "/usr/share/cmake-2.8/Modules/FindPackageMessage.cmake"
+  "/usr/share/cmake-2.8/Modules/FindPcap.cmake"
+  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake"
+  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake"
+  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake"
+  "/usr/share/cmake-2.8/Modules/Platform/Linux.cmake"
+  "/usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake"
+>>>>>>> development
   )
 
 # The corresponding makefile is:
@@ -40,5 +70,9 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 SET(CMAKE_DEPEND_INFO_FILES
+<<<<<<< HEAD
   "CMakeFiles/bin/MoOS.dir/DependInfo.cmake"
+=======
+  "CMakeFiles/MoOS.dir/DependInfo.cmake"
+>>>>>>> development
   )

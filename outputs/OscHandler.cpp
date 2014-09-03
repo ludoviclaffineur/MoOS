@@ -7,8 +7,9 @@
 //
 
 #include "OscHandler.h"
-
-OscHandler::OscHandler(): OutputsHandler("OscNew"){
+#include <string.h>
+#include <algorithm>
+OscHandler::OscHandler(): OutputsHandler("OscNew",0,1){
     mDistant = lo_address_new("127.0.0.1", "57120");
     mParamNumber = 0;
     mValueBeforeSending = 0;
@@ -31,7 +32,7 @@ OscHandler::OscHandler(): OutputsHandler("OscNew"){
     mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
 }
 
-OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag ):OutputsHandler(n){
+OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, const char* oscAddress, const char* oscTag ):OutputsHandler(n,0,1){
 
     mIpAddress = new char [strlen(ipAddress) + 1];
     strcpy(mIpAddress, ipAddress);

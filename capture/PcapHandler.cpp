@@ -36,7 +36,7 @@ std::vector<char> unzip(const std::vector<char> compressed)
 
 void* PcapHandler::ThreadReceptionPacket (void* ptr){
     PcapHandler* p = (PcapHandler*) ptr;
-    pthread_setname_np("ThreadPcap");
+//    pthread_setname_np("ThreadPcap");
     //pcap_t* handle = (pcap_t*) ptr;
     struct pcap_pkthdr* header;
     const u_char* data;
@@ -87,6 +87,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mProcessings.push_back(new PcapLocationProcessing(g));
     mProcessings.push_back(new PcapIpProcessing(g));
     mProcessings.push_back(new PcapDnsProcessing());
+    mProcessings.push_back(new PcapDhcpProcessing(g));
     //mProcessings.push_back(new PcapPasswordsProcessing());
 
 }
@@ -97,7 +98,8 @@ int PcapHandler::findAllDevs(pcap_if_t **alldev , char *errbuf){
 		fprintf(stderr,"Error in pcap_findalldevs: %s\n", errbuf);
 		return -1;
 	}
-#elif defined __APPLE__
+#else
+//#elif defined __APPLE__
     if (pcap_findalldevs(alldev, errbuf)==-1){
         fprintf(stderr, "Couldn't find default device: %s\n", errbuf);
         return -1;
@@ -157,8 +159,8 @@ pcap_t* PcapHandler::openLive(const char *device, int snaplen,int promisc, int t
                      NULL,      // remote authentication
                      errbuf     // error bufferqsdqsdqsd
                      )  ;
-    
-#elif defined __APPLE__
+#else
+//#elif defined __APPLE__
     return(pcap_open_live(device, snaplen, promisc, to_ms, errbuf));
 #endif
 }

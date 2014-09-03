@@ -10,7 +10,7 @@
 #define __libpcapTest__OscHandler__
 
 #include <iostream>
-#include "lo.h"
+#include <lo/lo.h>
 #include "OutputsHandler.h"
 
 class OscHandler : public OutputsHandler{

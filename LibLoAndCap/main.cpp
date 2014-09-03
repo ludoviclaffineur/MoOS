@@ -13,16 +13,24 @@
 #include "Genetic.h"
 #include "SerialHandler.h"
 #include "KymaHandler.h"
+#include "ConstrainGenetic.h"
+
+#include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/lu.hpp>
+#include <boost/numeric/ublas/io.hpp>
+//#include "storage_adaptors.hpp"
 
 
 int main(int argc, const char * argv[])
 {
     Grid* TheGrid;
+
+    using namespace boost::numeric::ublas;
     using namespace std;
-    pthread_setname_np("Main");
+//    pthread_setname_np("Main");
     std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\nPlease choose your capture device in the list below:" <<std::endl;
-    for(int  i =0 ;i<CaptureDeviceType::TOTAL; i++){
-        std::cout<<i+1<<".\t"<< CaptureDeviceList[i]<<std::endl;
+    for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
+        std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
     }
     int choice;
     std::cout<<"Your choice:"<<std::flush;
@@ -32,13 +40,32 @@ int main(int argc, const char * argv[])
 
     TheGrid = new Grid();
 
+    ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
+
+
+//	matrix<float> A(3, 3), Z(3, 3);
+//    A(0, 0) = 1;
+//    A(0,1) = 2;
+//    A(0,2) = 3;
+//
+//    A(1,0) = 5;
+//    A(1,1) = 1;
+//    A(1,2) = 4;
+//
+//    A(2,0) = 6;
+//    A(2,1) = 7;
+//    A(2,2) = 1;
+//
+//	theConstrainAlgo->invertMatrix(A, Z);
+//
+//	cout << "A=" << A << endl << "Z=" << Z <<"IDENTITY" << prod(A, Z)<< endl;
 
     CaptureDevice* _captureDevice;
     switch (choice) {
-        case CaptureDeviceType::PCAP_HANDLER:
+        case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
             _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
             break;
-        case CaptureDeviceType::SERIAL_HANDLER:
+        case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
             _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
             break;
         default:
@@ -53,6 +80,23 @@ int main(int argc, const char * argv[])
 
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     theGeneticAlgorithm->evaluateAndEvolve(0.1);
+    //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
+    int a;
+    KymaHandler* k= new KymaHandler("172.30.8.16","8000",TheGrid);
+    std::cin>>a;
+
+ /*   theConstrainAlgo->setConstrain();
+   while (a>0){
+        std::cin>>a;
+        theConstrainAlgo->setConstrain();
+
+    }
+    theConstrainAlgo->computeGrid();
+
+
+
+    //theGeneticAlgorithm->evaluateAndEvolve(0.1);
+>>>>>>> development
     /*theGeneticAlgorithm.evalPop();
 	cout << endl << endl << "Evolution de la population..." << endl;
 	theGeneticAlgorithm.evolve();
@@ -64,12 +108,13 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    //KymaHandler* kyma= new KymaHandler("172.30.8.16","8000",TheGrid);
+    delete k;
 
-    std::cout<<"Lauching Web server http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
+    std::cout<<"Lauching Web server..."<<std::endl;
+    http::server::server s("0.0.0.0", "80", "./www", TheGrid, theGeneticAlgorithm);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
+
     delete _captureDevice;
     delete TheGrid;
     delete theGeneticAlgorithm;

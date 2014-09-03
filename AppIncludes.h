@@ -20,12 +20,14 @@
 
 
 
-enum CaptureDeviceType{
-    PCAP_HANDLER ,
-    SERIAL_HANDLER,
-    TOTAL,
-};
+namespace CONSTANCES {
+    const std::string CaptureDeviceList [2] = {"Pcap Handler", "Serial Handler"};
+    enum CaptureDeviceType{
+        PCAP_HANDLER ,
+        SERIAL_HANDLER,
+        TOTAL,
+    };
+}
 
-const std::string CaptureDeviceList [CaptureDeviceType::TOTAL] = {"Pcap Handler", "Serial Handler"};
 
 #endif
