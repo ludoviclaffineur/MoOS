@@ -138,6 +138,7 @@ void ConstrainGenetic::computeGrid(){
             
         }
         while (!isCorrectSolution(solution) );
+        std::cout<<"Output "<< j <<" OK" <<std::endl;
         for (int i =0 ; i<solution.size() ; i++){
             gridCoeff[mGrid->getNbrInputs() - mListContrain.size()+i][j] = solution(i);
         }

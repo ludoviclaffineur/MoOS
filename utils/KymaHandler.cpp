@@ -79,7 +79,6 @@ int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **ar
         std::cerr << e.what() << std::endl;
     }
 
-
     printf("\n");
     return 1;
 }
