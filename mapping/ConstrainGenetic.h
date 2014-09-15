@@ -17,18 +17,10 @@
 #include <boost/numeric/ublas/io.hpp>
 
 #include <gecode/driver.hh>
-#include <gecode/int.hh>
-#include <gecode/minimodel.hh>
+#include "MagicGrid.h"
+#include "Converter.h"
+#include "GrilleOptions.h"
 
-class Constrain{
-public:
-    Constrain(std::vector<float>* inputsValues, std::vector<float>* outputsValues);
-    std::vector<float>* mInputsValues;
-    std::vector<float>* mOutputsValues;
-private:
-
-    //float mOutputsValue;
-};
 
 
 class ConstrainGenetic{
@@ -40,11 +32,11 @@ public:
     void computeGridOld();
     void setConstrain();
     bool invertMatrix(const boost::numeric::ublas::matrix<float>& input, boost::numeric::ublas::matrix<float>& inverse);
-
+   
 private:
     bool isCorrectSolution(boost::numeric::ublas::vector<float> solution);
     Grid* mGrid;
-    std::vector<Constrain*> mListContrain;
+    std::vector<IA::Constrain*>* mListContrain;
 
 
 };
