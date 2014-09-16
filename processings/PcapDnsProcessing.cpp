@@ -53,7 +53,30 @@ void PcapDnsProcessing::process(const u_char *data){
             //std::cout<< token.find_last_of(delimiter)<< " size: " << token.length()<<std::endl;
 
             token = token.substr(token.find_last_of('.')+1,token.length());
-            //std::cout<< "FINAL = " <<token<<std::endl;
+
+
+            if (std::strcmp(token.c_str(), "facebook") ==0) {
+                std::cout<<"Facebook"<<std::endl;
+            }
+            else if (std::strcmp(token.c_str(), "google") ==0) {
+                std::cout<<"google"<<std::endl;
+            }
+            else if (std::strcmp(token.c_str(), "bing") ==0) {
+                std::cout<<"bing"<<std::endl;
+            }
+            else if (std::strcmp(token.c_str(), "twitter") ==0) {
+                std::cout<<"twitter"<<std::endl;
+            }
+            else if (std::strcmp(token.c_str(), "gmail") ==0) {
+                std::cout<<"gmail"<<std::endl;
+            }
+            else if (std::strcmp(token.c_str(), "snapchat") ==0) {
+                std::cout<<"snapchat"<<std::endl;
+            }
+            else if (std::strcmp(token.c_str(), "instagram") ==0) {
+                std::cout<<"instagram"<<std::endl;
+            }
+            std::cout<< "FINAL = " <<token<<std::endl;
             DnsClient* client=clientExists(ipadd);
             if (!client) {
                 client = new DnsClient(ipadd);

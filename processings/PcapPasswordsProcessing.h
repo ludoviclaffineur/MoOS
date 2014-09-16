@@ -12,7 +12,9 @@
 #include <iostream>
 #include "PcapProcessings.h"
 
-class PcapPasswordsProcessing : public PcapProcessings{
+
+
+class PcapPasswordsProcessing : public PcapProcessings {
 public:
     PcapPasswordsProcessing();
     void setActive(bool active);

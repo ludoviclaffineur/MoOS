@@ -23,7 +23,7 @@ public:
     //void process(const u_char* datas);
     void process(const u_char* data);
     //void process();
-
+    static float haversine (LocationIp* home, LocationIp* server);
 
 private:
     LocationIp** mIpLocations;

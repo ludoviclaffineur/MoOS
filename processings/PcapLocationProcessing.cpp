@@ -8,6 +8,12 @@
 
 #include "PcapLocationProcessing.h"
 #include "IpHeaderDefinitions.h"
+#include <math.h>
+
+/// @brief The usual PI/180 constant
+static const double DEG_TO_RAD = 0.017453292519943295769236907684886;
+/// @brief Earth's quatratic mean radius for WGS-84
+static const double EARTH_RADIUS_IN_METERS = 6372797.560856;
 
 PcapLocationProcessing::PcapLocationProcessing(Grid* g){
     std::string csvstring ="IpGps.csv";
@@ -24,6 +30,8 @@ PcapLocationProcessing::PcapLocationProcessing(Grid* g){
         mGrid->addInput("DestLongitude", -180, 180, -1, 0, Converter::LINEAR);
     }
 }
+
+
 
 void PcapLocationProcessing::setActive(bool active){
     mActive = active;
@@ -127,4 +135,16 @@ LocationIp* PcapLocationProcessing::secante(unsigned long int TargetIp){
         }
     }
     return NULL;
+}
+
+
+float PcapLocationProcessing::haversine (LocationIp* from, LocationIp* to){
+    double latitudeArc  = (from->getLatitude() - to->getLatitude()) * DEG_TO_RAD;
+    double longitudeArc = (from->getLongitude() - to->getLongitude()) * DEG_TO_RAD;
+    double latitudeH = sin(latitudeArc * 0.5);
+    latitudeH *= latitudeH;
+    double lontitudeH = sin(longitudeArc * 0.5);
+    lontitudeH *= lontitudeH;
+    double tmp = cos(from->getLatitude()*DEG_TO_RAD) * cos(to->getLatitude()*DEG_TO_RAD);
+    return 2.0 * asin(sqrt(latitudeH + tmp*lontitudeH));
 }

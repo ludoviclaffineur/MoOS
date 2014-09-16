@@ -61,7 +61,7 @@ int main(int argc, const char * argv[])
     CaptureDevice* _captureDevice;
     switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
-            _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
+            _captureDevice = new PcapHandler("TCP and UDP and ICMP and !udp port 8000", TheGrid);
             break;
         case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
             _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);

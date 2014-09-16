@@ -25,6 +25,7 @@
 #include "PcapPasswordsProcessing.h"
 #include "PcapDnsProcessing.h"
 #include "PcapDhcpProcessing.h"
+#include "PcapKissProcessing.h"
 
 class PcapHandler : public CaptureDevice {
     
