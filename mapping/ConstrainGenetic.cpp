@@ -24,8 +24,8 @@ void ConstrainGenetic::setConstrain(){
     std::vector<float> input;
     std::vector<float> output;
     for (int i =0 ; i<mGrid->getOutputs()->size(); i++) {
-        std::cout<< 0.1+ ((float)(mListContrain->size())*0.3) << std::endl;
-        output.push_back(0.1+ ((float)(mListContrain->size())*0.3));
+        std::cout<< 0.0+ ((float)(mListContrain->size())*0.3) << std::endl;
+        output.push_back(0.0+ ((float)(mListContrain->size())*0.3));
     }
     
     for (int i=0; i<mGrid->getNbrInputs(); i++) {

@@ -72,18 +72,18 @@ int main(int argc, const char * argv[])
     }
     const char* osc1= "OSC1";
 
-    TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
-    TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
-    TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
-    TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
+   // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
+    //TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
+    //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
+    //TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
 	_captureDevice->init();
     // Control board
 
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
-    //KymaHandler* k= new KymaHandler("172.30.8.16", "8000", TheGrid);
-   /* std::cin>>a;
+    KymaHandler* k= new KymaHandler("172.30.8.16", "8000", TheGrid);
+    std::cin>>a;
 
    theConstrainAlgo->setConstrain();
    while (a>0){ 
@@ -92,7 +92,7 @@ int main(int argc, const char * argv[])
 
     }
     theConstrainAlgo->computeGrid();
-*/
+
 
 
     //theGeneticAlgorithm->evaluateAndEvolve(0.1);
@@ -107,7 +107,7 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    //delete k;
+    delete k;
 
     std::cout<<"Lauching Web server..."<<std::endl;
     http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
