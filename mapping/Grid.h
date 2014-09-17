@@ -39,12 +39,16 @@ public:
     float*  getCoeffs();
     void    setCoeffs(float* coeffs);
     void    setCoeffs(float **coeffs);
+    void    switchActive(){
+        mActive = !mActive;
+    }
 
 private:
     int mCurrentOutputId;
     std::vector <Input*> mInputs;
     std::vector <OutputsHandler*> mOutputs;
     std::vector <Cell*>  mCells;
+    bool mActive;
 };
 
 #endif /* defined(__LibLoAndCap__Grid__) */

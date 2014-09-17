@@ -14,14 +14,14 @@
 #include "reply.hpp"
 #include "string.h"
 #include "Genetic.h"
-
+#include "ConstrainGenetic.h"
 namespace http {
 namespace server {
     //enum class MONTEST { A,S,C,Q};
     class SnfHandler{
 
     public:
-        SnfHandler(Grid* g, Genetic* algoGen);
+        SnfHandler(Grid* g, Genetic* algoGen, ConstrainGenetic* constrainGene);
         bool computeRequest(std::string method, std::string parameters, reply& rep);
         std::vector <std::string> ExtractPamameters(std::string rawParameters);
 
@@ -30,6 +30,7 @@ namespace server {
         int findTypeInListParameters(std::vector<std::string> listParam);
         Grid* mGrid;
         Genetic* mAlgoGen;
+        ConstrainGenetic*  mConstrainGene;
     };
 }
 }

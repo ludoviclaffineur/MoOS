@@ -24,8 +24,8 @@ void ConstrainGenetic::setConstrain(){
     std::vector<float> input;
     std::vector<float> output;
     for (int i =0 ; i<mGrid->getOutputs()->size(); i++) {
-        std::cout<< 0.0+ ((float)(mListContrain->size())*0.3) << std::endl;
-        output.push_back(0.0+ ((float)(mListContrain->size())*0.3));
+        std::cout<< mGrid->getOutputs()->at(i)->getValue() << std::endl;
+        output.push_back(mGrid->getOutputs()->at(i)->getValue());
     }
     
     for (int i=0; i<mGrid->getNbrInputs(); i++) {
@@ -35,6 +35,9 @@ void ConstrainGenetic::setConstrain(){
     std::cout<<std::endl;
     std::cout<<std::endl;
     mListContrain->push_back(new IA::Constrain(new std::vector<float>(input), new std::vector<float>(output)));
+    if (mListContrain->size() ==2){
+        computeGrid();
+    }
 }
 
 
@@ -83,7 +86,7 @@ void ConstrainGenetic::computeGridOld(){
     }
     //GrilleOptions opt("options Grilles",mListContrain->size() +2 ,mGrid->getNbrOutputs(),mListContrain);
 
-    //terGecode::Script::run<MagicGrid,DFS,GrilleOptions>(opt);
+    //Gecode::Script::run<MagicGrid,DFS,GrilleOptions>(opt);
 }
 
 

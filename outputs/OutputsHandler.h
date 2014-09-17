@@ -37,6 +37,10 @@ public:
     void setName(const char* n);
     std::vector<IParameter*>* getParameters();
     void    reset();
+    void setValue(float newValue);
+    float getValue(){
+        return mValueBeforeSending;
+    };
     virtual bool sendData (int paramNumber, float value){return false;};
     virtual bool sendData (){return false;};
     virtual void setParameters(std::vector<std::string> ParameterList)=0;

@@ -70,13 +70,13 @@ int main(int argc, const char * argv[])
             _captureDevice = NULL;
             break;
     }
-    const char* osc1= "OSC1";
-
+    //const char* osc1= "OSC1";
+    _captureDevice->init();
    // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
-	_captureDevice->init();
+
     // Control board
 
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
@@ -85,13 +85,13 @@ int main(int argc, const char * argv[])
     KymaHandler* k= new KymaHandler("172.30.8.16", "8000", TheGrid);
     std::cin>>a;
 
-   theConstrainAlgo->setConstrain();
+   /*theConstrainAlgo->setConstrain();
    while (a>0){ 
         std::cin>>a;
         theConstrainAlgo->setConstrain();
 
     }
-    theConstrainAlgo->computeGrid();
+    theConstrainAlgo->computeGrid();*/
 
 
 
@@ -110,7 +110,7 @@ int main(int argc, const char * argv[])
     delete k;
 
     std::cout<<"Lauching Web server..."<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
+    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
 
