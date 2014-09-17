@@ -17,7 +17,7 @@
 #include <boost/numeric/ublas/io.hpp>
 
 #include <gecode/driver.hh>
-#include "MagicGrid.h"
+//#include "MagicGrid.h"
 #include "Converter.h"
 #include "GrilleOptions.h"
 

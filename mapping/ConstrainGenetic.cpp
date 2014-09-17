@@ -81,9 +81,9 @@ void ConstrainGenetic::computeGridOld(){
         //printf("Input value %f ", mListContrain.at(0)->mInputsValues->at(i));
         }
     }
-    GrilleOptions opt("options Grilles",mListContrain->size() +2 ,mGrid->getNbrOutputs(),mListContrain);
+    //GrilleOptions opt("options Grilles",mListContrain->size() +2 ,mGrid->getNbrOutputs(),mListContrain);
 
-    Gecode::Script::run<MagicGrid,DFS,GrilleOptions>(opt);
+    //terGecode::Script::run<MagicGrid,DFS,GrilleOptions>(opt);
 }
 
 
