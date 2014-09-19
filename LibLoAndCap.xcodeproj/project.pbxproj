@@ -57,6 +57,13 @@
 		FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90619BDA469000A281E /* MagicGrid.cpp */; };
 		FEAED90A19BDAA7A000A281E /* libgecodefloat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */; };
 		FEAED90D19BDE7DB000A281E /* Constrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90B19BDE7DB000A281E /* Constrain.cpp */; };
+		FEC0AA9419CADF730090191B /* libgecodefloat.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */; };
+		FEC0AA9519CADF730090191B /* libgecodeminimodel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90419BDA0CF000A281E /* libgecodeminimodel.dylib */; };
+		FEC0AA9619CADF730090191B /* libgecodedriver.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90219BDA0CA000A281E /* libgecodedriver.dylib */; };
+		FEC0AA9719CADF730090191B /* libgecodesupport.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90019BDA0C1000A281E /* libgecodesupport.dylib */; };
+		FEC0AA9819CADF730090191B /* libgecodesearch.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FE19BDA0BD000A281E /* libgecodesearch.dylib */; };
+		FEC0AA9919CADF730090191B /* libgecodeint.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FC19BDA0B5000A281E /* libgecodeint.dylib */; };
+		FEC0AA9A19CADF730090191B /* libgecodekernel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FA19BDA082000A281E /* libgecodekernel.dylib */; };
 		FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */; };
 /* End PBXBuildFile section */
 
@@ -65,8 +72,15 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
 			dstPath = "";
-			dstSubfolderSpec = 6;
+			dstSubfolderSpec = 7;
 			files = (
+				FEC0AA9419CADF730090191B /* libgecodefloat.dylib in CopyFiles */,
+				FEC0AA9519CADF730090191B /* libgecodeminimodel.dylib in CopyFiles */,
+				FEC0AA9619CADF730090191B /* libgecodedriver.dylib in CopyFiles */,
+				FEC0AA9719CADF730090191B /* libgecodesupport.dylib in CopyFiles */,
+				FEC0AA9819CADF730090191B /* libgecodesearch.dylib in CopyFiles */,
+				FEC0AA9919CADF730090191B /* libgecodeint.dylib in CopyFiles */,
+				FEC0AA9A19CADF730090191B /* libgecodekernel.dylib in CopyFiles */,
 				FE5939B018F2B0EA00E4426C /* libboost_thread-mt.dylib in CopyFiles */,
 				FE9B541218C638C80080ABCB /* linkLibScript.sh in CopyFiles */,
 				FE9B540F18C638870080ABCB /* libboost_system-mt.dylib in CopyFiles */,
