@@ -13,6 +13,10 @@
 #include "PcapProcessings.h"
 #include "LocationIp.h"
 #include <vector>
+#include <lo/lo.h>
+#include <string.h>
+#include <regex>
+#include "string.h"
 
 namespace KISS {
 
@@ -36,7 +40,11 @@ public:
     }
 
     float getMeanDistance(){
-        return mDistance/(float)mCountPacket;
+        if (mCountPacket>0) {
+            return mDistance/(float)mCountPacket;
+        }
+        return 0;
+
     };
 
     float getBandwidthIn(){
@@ -90,6 +98,7 @@ private:
     int mInterval;
     long int mIpAdress;
     std::time_t mLastTick;
+
 };
 
 
@@ -103,6 +112,7 @@ public:
     void process(const u_char* data);
 
 private:
+    std::time_t mLastTick;
     Spectator*    SpectatorWithIpAddress(long int ipadd);
     LocationIp**        mIpLocations;
     bool isLocalAddress(long int ipadd);
@@ -111,6 +121,9 @@ private:
     float getDistance(const u_char* data);
     float haversine (LocationIp* home, LocationIp* server);
     std::vector<Spectator*> audience;
+    lo_address mDistant;
+    char* mIpAddress;
+    char* mPort;
 };
 
 

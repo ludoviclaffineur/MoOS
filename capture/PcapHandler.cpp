@@ -50,6 +50,7 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
 
             //PcapPasswordsProcessing* PP = (PcapPasswordsProcessing*)p->mProcessings.back();
             //PP->setLength(header->len);
+            
             for (i= p->mProcessings.begin(); i!=p->mProcessings.end();i++ ) {
                 (*i)->process(&data);
             }

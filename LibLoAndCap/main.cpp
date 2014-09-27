@@ -72,19 +72,23 @@ int main(int argc, const char * argv[])
     }
     const char* osc1= "OSC1";
 
-    TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
-    TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
-    TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
-    TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
+    TheGrid->addOutput(new OscHandler("sposx","127.0.0.1","12000", "/sposx", "f" ));
+    TheGrid->addOutput(new OscHandler("sposy","127.0.0.1","12000", "/sposy", "f" ));
+    TheGrid->addOutput(new OscHandler("dposx","127.0.0.1","12000", "/dposx", "f" ));
+    TheGrid->addOutput(new OscHandler("dposy","127.0.0.1","12000", "/dposy", "f" ));
+    TheGrid->addOutput(new OscHandler("density","127.0.0.1","12000", "/density", "f" ));
+    TheGrid->addOutput(new OscHandler("DHCP","127.0.0.1","12000", "/dhcp", "f" ));
 	_captureDevice->init();
-    // Control board
+    // Control board //
+
+    //192.168.240.89
 
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
-    //KymaHandler* k= new KymaHandler("172.30.8.16", "8000", TheGrid);
-   /* std::cin>>a;
-
+    //KymaHandler* k= new KymaHandler("192.168.240.53", "8000", TheGrid);
+    std::cin>>a;
+/*
    theConstrainAlgo->setConstrain();
    while (a>0){ 
         std::cin>>a;

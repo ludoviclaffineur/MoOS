@@ -9,6 +9,7 @@
 #include "PcapKissProcessing.h"
 #include "CsvImporter.h"
 #include <math.h>
+#include <sstream>
 
 /// @brief The usual PI/180 constant
 static const double DEG_TO_RAD = 0.017453292519943295769236907684886;
@@ -18,20 +19,34 @@ static const double EARTH_RADIUS_IN_METERS = 6372797.560856;
 PcapKissProcessing::PcapKissProcessing(){
     std::string csvstring ="/Users/ludoviclaffineur/Documents/LibLoAndCap/CMAKE/IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
+    mLastTick = time(NULL);
     if (mIpLocations == NULL){
         mActive = false;
     }
     else{
         mActive = true;
     }
+    mDistant = lo_address_new("192.168.240.89", "8000");
 }
 
 void PcapKissProcessing::process(const u_char *data){
     if (mActive) {
         ip_header *ih;
         ih = (ip_header *) (data + 14);
+        u_char ihl = ih->ver_ihl>>4;
+        ihl = ihl<<4;
+        ihl = ih->ver_ihl - ihl;
+
+        tcp_header* tcp;
+        tcp  = (tcp_header*)(data + 14 + sizeof(ip_header) - sizeof(u_int));
+        u_short dport = ntohs(tcp->dport);
+        //std::cout<<"TOS " << (u_short)ihl << " PORT " << dport <<std::endl;
+
+        if(ih->proto == 6 && (dport == 993 || dport == 995 || dport == 110 || dport == 143)){
+            std::cout<<"MAIL " << std::endl;
+        }
         long int ipadd =ntohl(ih->saddr.int_address);
-        ip_address i = ih->saddr;
+        ip_address ipAdressSt = ih->saddr;
         float distance = getDistance(data);
         int InOrOut;
         if( isLocalAddress(ipadd)){
@@ -42,7 +57,7 @@ void PcapKissProcessing::process(const u_char *data){
         else{
             InOrOut = KISS::TRAFFIC::IN;
             ipadd = ntohl(ih->daddr.int_address);
-            i = ih->daddr;
+            ipAdressSt = ih->daddr;
         }
 
         if(isLocalAddress(ipadd)){
@@ -52,13 +67,43 @@ void PcapKissProcessing::process(const u_char *data){
 
             s->addPacket(InOrOut, ih->tlen, distance);
 
-            if (s->getTime() +2 < time(NULL)) {
-                std::cout<<"USERS " << (int)i.struct_bytes.byte1 <<"." << (int)i.struct_bytes.byte2 <<"." <<(int) i.struct_bytes.byte3 << "." <<(int) i.struct_bytes.byte4 <<" \tDISTANCE " << s->getMeanDistance() << "\t BANDWITH IN " << s->getBandwidthIn()/1024.0 << "\t BANDWITH OUT "<< s->getBandwidthOut()/ 1024.0<<std::endl;
+            if (mLastTick+2 < time(NULL)) {
+                for (int i =0; i<audience.size(); i++) {
+
+                    std::cout<<"USERS " << audience[i]->getId() <<" \tDISTANCE " << audience[i]->getMeanDistance() << "\t BANDWITH IN " << audience[i]->getBandwidthIn()/1024.0 << "\t BANDWITH OUT "<< audience[i]->getBandwidthOut()/ 1024.0/1024.0<<std::endl;
+
+
+                    std::stringstream bandwidthOutString ;
+                    bandwidthOutString << "/bandwidthOut/";
+                    std::stringstream bandwidthInString ;
+                    bandwidthInString << "/bandwidthIn/" ;
+                    std::stringstream meanDistanceString ;
+                    meanDistanceString << "/meanDistance/";
+                    if(audience[i]->getId() < 9){
+                        bandwidthOutString<< 0;
+                        bandwidthInString << 0;
+                        meanDistanceString << 0;
+
+                    }
+                    bandwidthOutString  <<audience[i]->getId()+1;
+                    bandwidthInString  <<audience[i]->getId()+1;
+                    meanDistanceString << audience[i]->getId()+1;
+
+
+                    lo_send(mDistant, bandwidthOutString.str().c_str(), "f", audience[i]->getBandwidthOut()/ 8.0 / 10.0 /1024.0/1024.0);
+                    lo_send(mDistant, bandwidthInString.str().c_str(), "f", audience[i]->getBandwidthIn()/ 8.0/ 10.0/1024.0/1024.0);
+                    lo_send(mDistant, meanDistanceString.str().c_str(), "f", audience[i]->getMeanDistance());
+
+                    std::cout << meanDistanceString.str().c_str()<< std::endl;
+                    audience[i]->reset();
+                    mLastTick = time(NULL);
+                }
+
 
                 
                 //i->struct_bytes.byte1;
                 
-                s->reset();
+
             }
         }
 
@@ -74,8 +119,10 @@ Spectator* PcapKissProcessing::SpectatorWithIpAddress(long int ipadd){
             return audience[i];
         }
     }
+
     Spectator* s= new Spectator((int)audience.size(),ipadd);
     audience.push_back(s);
+    lo_send(mDistant, "/newUser", "f", (float)s->getId());
     return s;
 }
 

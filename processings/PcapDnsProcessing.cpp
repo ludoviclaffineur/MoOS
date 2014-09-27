@@ -10,10 +10,10 @@
 
 
 PcapDnsProcessing::PcapDnsProcessing(){
-    OscOutputParent = new OscHandler("DNS Parent ouputs","127.0.0.1", "20000", "/parentNode", "is");
-    OscOutputChild = new OscHandler("DNS Child ouputs","127.0.0.1", "20000", "/childNode", "is");
+    //OscOutputParent = new OscHandler("DNS Parent ouputs","127.0.0.1", "20000", "/parentNode", "is");
+    //OscOutputChild = new OscHandler("DNS Child ouputs","127.0.0.1", "20000", "/childNode", "is");
     mCurrentIdNode= 0;
-    mOscIpAddress = lo_address_new("127.0.0.1", "20000");
+    mOscIpAddress = lo_address_new("192.168.240.89", "8000");
 }
 
 PcapDnsProcessing::~PcapDnsProcessing(){
@@ -57,24 +57,31 @@ void PcapDnsProcessing::process(const u_char *data){
 
             if (std::strcmp(token.c_str(), "facebook") ==0) {
                 std::cout<<"Facebook"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             else if (std::strcmp(token.c_str(), "google") ==0) {
                 std::cout<<"google"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             else if (std::strcmp(token.c_str(), "bing") ==0) {
                 std::cout<<"bing"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             else if (std::strcmp(token.c_str(), "twitter") ==0) {
                 std::cout<<"twitter"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             else if (std::strcmp(token.c_str(), "gmail") ==0) {
                 std::cout<<"gmail"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             else if (std::strcmp(token.c_str(), "snapchat") ==0) {
                 std::cout<<"snapchat"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             else if (std::strcmp(token.c_str(), "instagram") ==0) {
                 std::cout<<"instagram"<<std::endl;
+                lo_send(mOscIpAddress, "/facebook", "i", rand());
             }
             std::cout<< "FINAL = " <<token<<std::endl;
             DnsClient* client=clientExists(ipadd);

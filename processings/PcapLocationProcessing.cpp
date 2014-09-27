@@ -16,7 +16,7 @@ static const double DEG_TO_RAD = 0.017453292519943295769236907684886;
 static const double EARTH_RADIUS_IN_METERS = 6372797.560856;
 
 PcapLocationProcessing::PcapLocationProcessing(Grid* g){
-    std::string csvstring ="IpGps.csv";
+    std::string csvstring ="/Users/ludoviclaffineur/Documents/LibLoAndCap/CMAKE/IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
     if (mIpLocations == NULL){
         mActive = false;
@@ -54,12 +54,12 @@ void PcapLocationProcessing::process(const u_char *data){
         //std::cout<<"Adresse IP "<<ipadd <<std::endl;
         if(isLocalAddress(ipadd)){
             //std::cout<<"Je suis dedans" <<std::endl;
-            mGrid->getInputWithName("SourceLatitude")->setValue(51);
-            mGrid->getInputWithName("SourceLongitude")->setValue(4);
+            mGrid->getInputWithName("SourceLatitude")->setValue(54);
+            mGrid->getInputWithName("SourceLongitude")->setValue(11);
             ipadd = ntohl(ih->daddr.int_address);
             if( isLocalAddress(ipadd) ){
-                mGrid->getInputWithName("DestLatitude")->setValue(51);
-                mGrid->getInputWithName("DestLongitude")->setValue(4);
+                mGrid->getInputWithName("DestLatitude")->setValue(54);
+                mGrid->getInputWithName("DestLongitude")->setValue(11);
             }
             else{
                 LocationIp* l = findLocationFromIpAddress(ipadd);
@@ -75,8 +75,8 @@ void PcapLocationProcessing::process(const u_char *data){
             if(l){
                 mGrid->getInputWithName("SourceLatitude")->setValue(l->getLatitude());
                 mGrid->getInputWithName("SourceLongitude")->setValue(l->getLongitude());
-                mGrid->getInputWithName("DestLatitude")->setValue(51);
-                mGrid->getInputWithName("DestLongitude")->setValue(4);
+                mGrid->getInputWithName("DestLatitude")->setValue(54);
+                mGrid->getInputWithName("DestLongitude")->setValue(11);
                 //std::cout<< "EXTERNAL NETWORK"<< std::endl;
             }
         }
