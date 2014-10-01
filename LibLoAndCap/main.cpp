@@ -26,14 +26,14 @@ int main(int argc, const char * argv[])
     using namespace boost::numeric::ublas;
     using namespace std;
 //    pthread_setname_np("Main");
-    std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\nPlease choose your capture device in the list below:" <<std::endl;
-    for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
+    std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\nSelect the correct serial device:";
+   /* for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
         std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
     }
     int choice;
     std::cout<<"Your choice:"<<std::flush;
     std::cin>>choice;
-    choice--;
+    choice--;*/
 
 
     TheGrid = new Grid();
@@ -59,7 +59,7 @@ int main(int argc, const char * argv[])
 //	cout << "A=" << A << endl << "Z=" << Z <<"IDENTITY" << prod(A, Z)<< endl;
 
     CaptureDevice* _captureDevice;
-    switch (choice) {
+/*    switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
             _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
             break;
@@ -69,29 +69,38 @@ int main(int argc, const char * argv[])
         default:
             _captureDevice = NULL;
             break;
-    }
-    const char* osc1= "OSC1";
-
+    }*/
+    system("ls /dev/tty.usb*");
+    string serialName;
+    std::cin>>serialName;
+    _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);
+    //const char* osc1= "OSC1";
+    _captureDevice->init();
    // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
-	_captureDevice->init();
+
     // Control board
 
     Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
-    KymaHandler* k= new KymaHandler("172.30.8.16", "8000", TheGrid);
+    std::string KymaAddress;
+
+    std::cout<<"Insert the IP address of your Pacarana device: "<<std::flush;
+    std::cin>>KymaAddress;
+    KymaHandler* k= new KymaHandler(KymaAddress.c_str(), "8000", TheGrid);
+   // std::cout<< ""<<std::endl;
     std::cin>>a;
 
-   theConstrainAlgo->setConstrain();
+   /*theConstrainAlgo->setConstrain();
    while (a>0){ 
         std::cin>>a;
         theConstrainAlgo->setConstrain();
 
     }
-    theConstrainAlgo->computeGrid();
+    theConstrainAlgo->computeGrid();*/
 
 
 
@@ -109,8 +118,8 @@ int main(int argc, const char * argv[])
 
     delete k;
 
-    std::cout<<"Lauching Web server..."<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm);
+    std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
+    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
 

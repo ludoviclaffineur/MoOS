@@ -19,8 +19,8 @@
 namespace http {
     namespace server {
 
-        request_handler::request_handler(const std::string& doc_root, Grid* g, Genetic* algoGen)
-        : doc_root_(doc_root), snf(g,algoGen)
+        request_handler::request_handler(const std::string& doc_root, Grid* g, Genetic* algoGen, ConstrainGenetic* constrainAlgo )
+        : doc_root_(doc_root), snf(g,algoGen,constrainAlgo)
         {
 
         }

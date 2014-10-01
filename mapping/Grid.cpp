@@ -11,6 +11,7 @@
 
 Grid::Grid(){
     mCurrentOutputId = 0;
+    mActive=false;
 }
 
 float* Grid::getCoeffs(){
@@ -68,15 +69,17 @@ void Grid::addCell(const char* inputName, const char* outputName, float corrCoef
 }
 
 void Grid::compute(){
-    std::vector<Cell*>::iterator i;
-    for (i= mCells.begin(); i!=mCells.end();i++ ) {
-        (*i)->getOutput()->addToValue((*i)->getInput()->getExtrapolatedValue()* (*i)->getCoeff());
-    }
-    std::vector<OutputsHandler*>::iterator j;
-    for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
-        (*j)->extrapolate();
-        (*j)->sendData(); //COST A MAX
-        (*j)->reset();
+    if (mActive) {
+        std::vector<Cell*>::iterator i;
+        for (i= mCells.begin(); i!=mCells.end();i++ ) {
+            (*i)->getOutput()->addToValue((*i)->getInput()->getExtrapolatedValue()* (*i)->getCoeff());
+        }
+        std::vector<OutputsHandler*>::iterator j;
+        for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
+            (*j)->extrapolate();
+            (*j)->sendData(); //COST A MAX
+            (*j)->reset();
+        }
     }
 }
 int Grid::getCurrentOutputId(){

@@ -20,7 +20,9 @@ void error(int num, const char *m, const char *path){
 
 KymaHandler::KymaHandler(const char* ipAddress, const char* port, Grid* g){
     mAddress = lo_address_new(ipAddress,port);
-    mServerOsc = lo_server_thread_new ("4500", error);
+    mIpAdress = new char [strlen(ipAddress)+1];
+    strcpy(mIpAdress, ipAddress);
+    mServerOsc = lo_server_thread_new ("12345", error);
     mGrid = g;
     widgetId = 0;
     if (mServerOsc) {
@@ -29,7 +31,7 @@ KymaHandler::KymaHandler(const char* ipAddress, const char* port, Grid* g){
 
         lo_server_thread_start(mServerOsc);
     }
-    lo_send(mAddress, "/osc/respond_to_default", "i", 4500);
+    lo_send(mAddress, "/osc/respond_to_default", "i", 12345);
 
 }
 
@@ -58,7 +60,7 @@ int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **ar
     catch (std::exception const& e)
     {
         //finished
-        std::cerr << e.what() << "OK FINISHED"<<std::endl;
+        std::cout<< "OK patch parameters are now set up! \nPress 1 to continue!"<<std::endl;
         return 0;
     }
     try
@@ -69,7 +71,7 @@ int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **ar
         int concreteEventID = pt.get<int>("concreteEventID");
 
         printf("minimum = %d, maximum = %d, name = %s , concreteID =%d \n", minimum, maximum, label.c_str(), concreteEventID);
-        k->mGrid->addOutput(new OscHandler(label.c_str(), "172.30.8.16", "8000", "/vcs", "if",concreteEventID, minimum,maximum));
+        k->mGrid->addOutput(new OscHandler(label.c_str(), k->mIpAdress, "8000", "/vcs", "if",concreteEventID, minimum,maximum));
         lo_send(k->mAddress, "/osc/widget", "i", k->widgetId++);
     }
     catch (std::exception const& e)

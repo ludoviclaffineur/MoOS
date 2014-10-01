@@ -18,12 +18,14 @@
 #include "boost/locale.hpp"
 #include "SaveXml.h"
 #include "KymaHandler.h"
+
 namespace http {
     namespace server{
 
-        SnfHandler::SnfHandler(Grid* g, Genetic* algoGen){
+        SnfHandler::SnfHandler(Grid* g, Genetic* algoGen, ConstrainGenetic* constrainGene){
             mGrid = g;
             mAlgoGen = algoGen;
+            mConstrainGene = constrainGene;
         }
 
         bool SnfHandler::computeRequest(std::string method, std::string parameters, reply &rep){
@@ -177,6 +179,27 @@ namespace http {
                 //printf("ID %d\n", cId);
 
                 mGrid->getOutputWithId(cId)->setParameters(listParameters);
+            }
+            else if( method.compare("setConstain")==0){
+                mConstrainGene->setConstrain();
+
+            }
+            else if( method.compare("setOutputValue")==0){
+                std::smatch m_input;
+                std::regex e_input ("value=(([0-9].[0-9][0-9])|([0-9].[0-9][0-9][0-9])|([0-9].[0-9])|([0-9]))");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+
+                std::smatch m_name;
+                std::regex e_name ("name=(\\w+)");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_name,e_name);
+                //std::cout<<"SetOUTPUT : " <<m_name[1] <<std::endl;
+                mGrid->getOutputWithName(m_name[1].str().c_str())->setValue(std::atof(m_input[1].str().c_str()));
+                mGrid->getOutputWithName(m_name[1].str().c_str())->sendData();
+
+
+            }
+            else if( method.compare("setActiveGrid")==0){
+                mGrid->switchActive();
             }
 
             else {

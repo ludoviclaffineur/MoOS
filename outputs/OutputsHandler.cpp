@@ -50,6 +50,10 @@ void OutputsHandler::extrapolate(){
 
 }
 
+void OutputsHandler::setValue(float newValue){
+    mValueBeforeSending = newValue;
+}
+
 void OutputsHandler::reset(){
     mValueBeforeSending = 0;
 }

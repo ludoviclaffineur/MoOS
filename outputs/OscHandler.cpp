@@ -53,6 +53,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char*>("Port", &mPort));
     mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
+    mValueBeforeSending = 0;
     mIdController = -1;
     //mParameters.push_back(new Parameter<char**>("OscTag", &mOscTag));
     //mParameters.push_back(new Parameter<int*>("TagIValue", &mParamNumber));
@@ -64,7 +65,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     mIdController = idController;
     mIpAddress = new char [strlen(ipAddress) + 1];
     strcpy(mIpAddress, ipAddress);
-
+    mValueBeforeSending = 0;
     mPort = new char [strlen(port) + 1];
     strcpy(mPort, port);
 
@@ -92,6 +93,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
 OscHandler::OscHandler(const char* ipAddress, const char* port){
     mDistant = lo_address_new(ipAddress, port);
     mParamNumber = 0;
+    mValueBeforeSending = 0;
     //mValueBeforeSending = 0;
 }
 
