@@ -61,7 +61,7 @@ int main(int argc, const char * argv[])
     CaptureDevice* _captureDevice;
 /*    switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
-            _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
+            _captureDevice = new PcapHandler("TCP and UDP and ICMP and !udp port 8000", TheGrid);
             break;
         case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
             _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
@@ -83,7 +83,7 @@ int main(int argc, const char * argv[])
     //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
 
-    // Control board
+
 
    Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
@@ -97,6 +97,13 @@ int main(int argc, const char * argv[])
     std::cin>>a;*/
 
    /*theConstrainAlgo->setConstrain();
+=======
+    int a;
+    //KymaHandler* k= new KymaHandler("192.168.240.53", "8000", TheGrid);
+    std::cin>>a;
+/*
+   theConstrainAlgo->setConstrain();
+>>>>>>> kiss_live
    while (a>0){ 
         std::cin>>a;
         theConstrainAlgo->setConstrain();

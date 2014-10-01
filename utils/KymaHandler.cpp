@@ -71,8 +71,7 @@ int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **ar
         int concreteEventID = pt.get<int>("concreteEventID");
 
         printf("minimum = %d, maximum = %d, name = %s , concreteID =%d \n", minimum, maximum, label.c_str(), concreteEventID);
-        k->mGrid->addOutput(new OscHandler(label.c_str(), k->mIpAdress, "8000", "/vcs", "if",concreteEventID, minimum,maximum));
-        lo_send(k->mAddress, "/osc/widget", "i", k->widgetId++);
+        k->mGrid->addOutput(new OscHandler(label.c_str(), k->mIpAdress, "8000", "/vcs", "if",concreteEventID, minimum,maximum));        lo_send(k->mAddress, "/osc/widget", "i", k->widgetId++);
     }
     catch (std::exception const& e)
     {

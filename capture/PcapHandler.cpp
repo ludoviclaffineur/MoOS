@@ -50,6 +50,7 @@ void* PcapHandler::ThreadReceptionPacket (void* ptr){
 
             //PcapPasswordsProcessing* PP = (PcapPasswordsProcessing*)p->mProcessings.back();
             //PP->setLength(header->len);
+            
             for (i= p->mProcessings.begin(); i!=p->mProcessings.end();i++ ) {
                 (*i)->process(&data);
             }
@@ -88,6 +89,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     //mProcessings.push_back(new PcapIpProcessing(g));
     //mProcessings.push_back(new PcapDnsProcessing());
     //mProcessings.push_back(new PcapDhcpProcessing(g));
+    //mProcessings.push_back(new PcapKissProcessing());
     //mProcessings.push_back(new PcapPasswordsProcessing());
 
 }

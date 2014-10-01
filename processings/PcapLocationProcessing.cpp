@@ -8,9 +8,15 @@
 
 #include "PcapLocationProcessing.h"
 #include "IpHeaderDefinitions.h"
+#include <math.h>
+
+/// @brief The usual PI/180 constant
+static const double DEG_TO_RAD = 0.017453292519943295769236907684886;
+/// @brief Earth's quatratic mean radius for WGS-84
+static const double EARTH_RADIUS_IN_METERS = 6372797.560856;
 
 PcapLocationProcessing::PcapLocationProcessing(Grid* g){
-    std::string csvstring ="IpGps.csv";
+    std::string csvstring ="/Users/ludoviclaffineur/Documents/LibLoAndCap/CMAKE/IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
     if (mIpLocations == NULL){
         mActive = false;
@@ -24,6 +30,8 @@ PcapLocationProcessing::PcapLocationProcessing(Grid* g){
         mGrid->addInput("DestLongitude", -180, 180, -1, 0, Converter::LINEAR);
     }
 }
+
+
 
 void PcapLocationProcessing::setActive(bool active){
     mActive = active;
@@ -46,12 +54,12 @@ void PcapLocationProcessing::process(const u_char *data){
         //std::cout<<"Adresse IP "<<ipadd <<std::endl;
         if(isLocalAddress(ipadd)){
             //std::cout<<"Je suis dedans" <<std::endl;
-            mGrid->getInputWithName("SourceLatitude")->setValue(51);
-            mGrid->getInputWithName("SourceLongitude")->setValue(4);
+            mGrid->getInputWithName("SourceLatitude")->setValue(54);
+            mGrid->getInputWithName("SourceLongitude")->setValue(11);
             ipadd = ntohl(ih->daddr.int_address);
             if( isLocalAddress(ipadd) ){
-                mGrid->getInputWithName("DestLatitude")->setValue(51);
-                mGrid->getInputWithName("DestLongitude")->setValue(4);
+                mGrid->getInputWithName("DestLatitude")->setValue(54);
+                mGrid->getInputWithName("DestLongitude")->setValue(11);
             }
             else{
                 LocationIp* l = findLocationFromIpAddress(ipadd);
@@ -67,8 +75,8 @@ void PcapLocationProcessing::process(const u_char *data){
             if(l){
                 mGrid->getInputWithName("SourceLatitude")->setValue(l->getLatitude());
                 mGrid->getInputWithName("SourceLongitude")->setValue(l->getLongitude());
-                mGrid->getInputWithName("DestLatitude")->setValue(51);
-                mGrid->getInputWithName("DestLongitude")->setValue(4);
+                mGrid->getInputWithName("DestLatitude")->setValue(54);
+                mGrid->getInputWithName("DestLongitude")->setValue(11);
                 //std::cout<< "EXTERNAL NETWORK"<< std::endl;
             }
         }
@@ -127,4 +135,16 @@ LocationIp* PcapLocationProcessing::secante(unsigned long int TargetIp){
         }
     }
     return NULL;
+}
+
+
+float PcapLocationProcessing::haversine (LocationIp* from, LocationIp* to){
+    double latitudeArc  = (from->getLatitude() - to->getLatitude()) * DEG_TO_RAD;
+    double longitudeArc = (from->getLongitude() - to->getLongitude()) * DEG_TO_RAD;
+    double latitudeH = sin(latitudeArc * 0.5);
+    latitudeH *= latitudeH;
+    double lontitudeH = sin(longitudeArc * 0.5);
+    lontitudeH *= lontitudeH;
+    double tmp = cos(from->getLatitude()*DEG_TO_RAD) * cos(to->getLatitude()*DEG_TO_RAD);
+    return 2.0 * asin(sqrt(latitudeH + tmp*lontitudeH));
 }
