@@ -27,6 +27,7 @@ private:
     static int responseFrom(const char *path, const char *types, lo_arg **argv, int argc,void *data, void *user_data);
     static int receivedWidget(const char *path, const char *types, lo_arg **argv, int argc,void *data, void *user_data);
     int widgetId;
+    char* mIpAdress;
 };
 
 #endif /* defined(__LibLoAndCap__KymaHandler__) */

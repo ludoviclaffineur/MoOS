@@ -192,7 +192,7 @@ namespace http {
                 std::smatch m_name;
                 std::regex e_name ("name=(\\w+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_name,e_name);
-                std::cout<<"SetOUTPUT : " <<m_name[1] <<std::endl;
+                //std::cout<<"SetOUTPUT : " <<m_name[1] <<std::endl;
                 mGrid->getOutputWithName(m_name[1].str().c_str())->setValue(std::atof(m_input[1].str().c_str()));
                 mGrid->getOutputWithName(m_name[1].str().c_str())->sendData();
 

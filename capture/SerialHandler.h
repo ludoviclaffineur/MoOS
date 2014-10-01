@@ -26,9 +26,9 @@
 
 class SerialHandler : public CaptureDevice{
 public:
-    SerialHandler(Grid* g, const char *dev_name, int baudrate);
     void init();
-
+    SerialHandler(Grid* g, const char *dev_name, int baudrate);
+    //void read_some();
 
 
 private:

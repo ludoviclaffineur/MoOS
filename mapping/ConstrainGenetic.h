@@ -34,9 +34,12 @@ public:
     bool invertMatrix(const boost::numeric::ublas::matrix<float>& input, boost::numeric::ublas::matrix<float>& inverse);
    
 private:
-    bool isCorrectSolution(boost::numeric::ublas::vector<float> solution);
+    bool isCorrectSolution(std::vector<float> solution);
     Grid* mGrid;
     std::vector<IA::Constrain*>* mListContrain;
+    void printSystem(boost::numeric::ublas::matrix<float> A, std::vector<float> b);
+    void printSolution(std::vector<float> x);
+    std::vector<float> gauss (boost::numeric::ublas::matrix<float> input, std::vector<float>& x, std::vector<float> b);
 
 
 };
