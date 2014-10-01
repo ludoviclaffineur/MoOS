@@ -97,13 +97,6 @@ int main(int argc, const char * argv[])
     std::cin>>a;*/
 
    /*theConstrainAlgo->setConstrain();
-=======
-    int a;
-    //KymaHandler* k= new KymaHandler("192.168.240.53", "8000", TheGrid);
-    std::cin>>a;
-/*
-   theConstrainAlgo->setConstrain();
->>>>>>> kiss_live
    while (a>0){ 
         std::cin>>a;
         theConstrainAlgo->setConstrain();

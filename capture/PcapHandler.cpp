@@ -91,6 +91,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     //mProcessings.push_back(new PcapDhcpProcessing(g));
     //mProcessings.push_back(new PcapKissProcessing());
     //mProcessings.push_back(new PcapPasswordsProcessing());
+    mProcessings.push_back(new PcapGrapAndStorePictures());
 
 }
 
