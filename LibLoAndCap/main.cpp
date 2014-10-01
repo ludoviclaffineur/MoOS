@@ -26,7 +26,7 @@ int main(int argc, const char * argv[])
     using namespace boost::numeric::ublas;
     using namespace std;
 //    pthread_setname_np("Main");
-    std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\nSelect the correct serial device:";
+    std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\n";
    /* for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
         std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
     }
@@ -70,10 +70,12 @@ int main(int argc, const char * argv[])
             _captureDevice = NULL;
             break;
     }*/
-    system("ls /dev/tty.usb*");
+    /*system("ls /dev/tty.usb*");
     string serialName;
     std::cin>>serialName;
-    _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);
+    _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);*/
+    _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
+
     //const char* osc1= "OSC1";
     _captureDevice->init();
    // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
@@ -83,16 +85,16 @@ int main(int argc, const char * argv[])
 
     // Control board
 
-    Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
+   Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
-    int a;
+   /* int a;
     std::string KymaAddress;
 
     std::cout<<"Insert the IP address of your Pacarana device: "<<std::flush;
     std::cin>>KymaAddress;
     KymaHandler* k= new KymaHandler(KymaAddress.c_str(), "8000", TheGrid);
    // std::cout<< ""<<std::endl;
-    std::cin>>a;
+    std::cin>>a;*/
 
    /*theConstrainAlgo->setConstrain();
    while (a>0){ 
@@ -116,7 +118,7 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    delete k;
+    //delete k;
 
     std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
     http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);

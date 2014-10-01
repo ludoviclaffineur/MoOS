@@ -25,6 +25,7 @@
 		FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405918C48BA800CB147E /* LocationIp.cpp */; };
 		FE32272018EAC99A001B483A /* libboost_thread-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */; };
 		FE32FF2F18F432AD000D2D23 /* PcapPasswordsProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE32FF2D18F432AD000D2D23 /* PcapPasswordsProcessing.cpp */; };
+		FE34166819DC2A1900845704 /* PcapGrabAndStorePictures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE34166619DC2A1900845704 /* PcapGrabAndStorePictures.cpp */; };
 		FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1EA18DC50DC00742A0C /* Genetic.cpp */; };
 		FE43C1EF18DC52B300742A0C /* Chromosome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1ED18DC52B300742A0C /* Chromosome.cpp */; };
 		FE43C1F218DC917400742A0C /* SerialHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE43C1F018DC917400742A0C /* SerialHandler.cpp */; };
@@ -131,6 +132,8 @@
 		FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_thread-mt.dylib"; path = "lib/boost/libboost_thread-mt.dylib"; sourceTree = "<group>"; };
 		FE32FF2D18F432AD000D2D23 /* PcapPasswordsProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapPasswordsProcessing.cpp; path = processings/PcapPasswordsProcessing.cpp; sourceTree = "<group>"; };
 		FE32FF2E18F432AD000D2D23 /* PcapPasswordsProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapPasswordsProcessing.h; path = processings/PcapPasswordsProcessing.h; sourceTree = "<group>"; };
+		FE34166619DC2A1900845704 /* PcapGrabAndStorePictures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapGrabAndStorePictures.cpp; path = processings/PcapGrabAndStorePictures.cpp; sourceTree = "<group>"; };
+		FE34166719DC2A1900845704 /* PcapGrabAndStorePictures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapGrabAndStorePictures.h; path = processings/PcapGrabAndStorePictures.h; sourceTree = "<group>"; };
 		FE43C1EA18DC50DC00742A0C /* Genetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Genetic.cpp; path = mapping/Genetic.cpp; sourceTree = "<group>"; };
 		FE43C1EB18DC50DC00742A0C /* Genetic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Genetic.h; path = mapping/Genetic.h; sourceTree = "<group>"; };
 		FE43C1ED18DC52B300742A0C /* Chromosome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Chromosome.cpp; path = mapping/Chromosome.cpp; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 				FE26FEEE19B49D800096EBCE /* PcapDnsProcessing.h */,
 				FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */,
 				FEFED9221920FD37002936C8 /* PcapDhcpProcessing.h */,
+				FE34166619DC2A1900845704 /* PcapGrabAndStorePictures.cpp */,
+				FE34166719DC2A1900845704 /* PcapGrabAndStorePictures.h */,
 			);
 			name = pcap;
 			sourceTree = "<group>";
@@ -530,6 +535,7 @@
 				FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */,
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
 				FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */,
+				FE34166819DC2A1900845704 /* PcapGrabAndStorePictures.cpp in Sources */,
 				FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */,
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,

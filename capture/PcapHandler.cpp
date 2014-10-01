@@ -84,10 +84,10 @@ PcapHandler::PcapHandler(char* filter){
 PcapHandler::PcapHandler(const char* filter, Grid* g){
     mFilter = filter;
     mGrid = g;
-    mProcessings.push_back(new PcapLocationProcessing(g));
-    mProcessings.push_back(new PcapIpProcessing(g));
-    mProcessings.push_back(new PcapDnsProcessing());
-    mProcessings.push_back(new PcapDhcpProcessing(g));
+    //mProcessings.push_back(new PcapLocationProcessing(g));
+    //mProcessings.push_back(new PcapIpProcessing(g));
+    //mProcessings.push_back(new PcapDnsProcessing());
+    //mProcessings.push_back(new PcapDhcpProcessing(g));
     //mProcessings.push_back(new PcapPasswordsProcessing());
 
 }
