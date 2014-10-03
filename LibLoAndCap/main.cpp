@@ -18,6 +18,8 @@
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
 #include <boost/numeric/ublas/io.hpp>
+
+
 //#include "storage_adaptors.hpp"
 
 int main(int argc, const char * argv[])
@@ -119,6 +121,11 @@ int main(int argc, const char * argv[])
     }*/
 
     //delete k;
+
+
+
+
+
 
     std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
     http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);

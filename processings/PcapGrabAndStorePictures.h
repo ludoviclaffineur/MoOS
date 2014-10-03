@@ -14,6 +14,7 @@
 #include <string.h>
 #include <regex>
 #include <sstream>
+#include "HttpClient.h"
 
 class PcapGrapAndStorePictures : public PcapProcessings {
 public:
@@ -24,6 +25,10 @@ private:
     void printPayload(const u_char *payload, int len);
     void printHexAsciiLine(const u_char *payload, int len, int offset);
     std::string convertPayloadToString(const u_char* payload, int size_payload);
+    bool getPictureUrl(u_char* dataIn, int size_payload, std::string typeOfRequest, std::string &host, std::string &path, std::string &fileName);
+    void startConnection();
+
+    unsigned short int picturesNumber;
 };
 
 #endif /* defined(__LibLoAndCap__PcapGrabAndStorePictures__) */

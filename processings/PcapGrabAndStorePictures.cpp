@@ -11,7 +11,7 @@
 
 PcapGrapAndStorePictures::PcapGrapAndStorePictures(){
     mActive = true;
-
+    picturesNumber = 0;
 }
 
 
@@ -19,7 +19,7 @@ void PcapGrapAndStorePictures::process (const u_char* data){
     if (mActive) {
         ip_header *ih;
         ih = (ip_header *) (data + 14);
-        if(ih->proto == 6){
+        if(ih->proto == 6 ){
             tcp_header* tcp;
             tcp  = (tcp_header*)(data + 14 + sizeof(ip_header) - sizeof(u_int));
             if (ntohs(tcp->dport) == 80) {
@@ -30,27 +30,27 @@ void PcapGrapAndStorePictures::process (const u_char* data){
                 //printPayload(dataIn, size_payload);
                 /*
                 }*/
-                std::string dataInString = convertPayloadToString(dataIn, size_payload);
-                std::smatch m_output;
-                std::regex e_output ("GET ([^ ]*)");   // matches words beginning by "sub"
-                std::regex_search (dataInString,m_output,e_output);
-                if (!m_output.empty()) {m_output[1].str();
-                    std::smatch m_output_png;
-                    std::regex e_output_png ("(png|jpeg|jpg|gif|tiff|tif)");
+                std::string path,host, fileName;
+                bool foundPicture = getPictureUrl(dataIn, size_payload, "http", host, path, fileName);
+                if (foundPicture){
+                    try
+                    {
+                        boost::asio::io_service io_service;
 
-                    if (std::regex_search (m_output[1].str(),m_output_png,e_output_png)){
+                        std::stringstream fileNameSS;
+                        fileNameSS <<"/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www/images/"<< ++picturesNumber;
+                        client c(io_service, host, path, fileNameSS.str());
 
-
-                        std::cout<<"IMAGE "<< m_output[1].str()<<std::endl <<std::endl;
-                        /*for(int i = 0; i < size_payload; i++) {
-                            if (isprint(*dataIn))
-                                printf("%c", *dataIn);
-                            else
-                                printf(".");
-                            dataIn++;
-                        }*/
+                        io_service.run();
+                        /*int a;
+                        std::cin>>a;*/
+                    }
+                    catch (std::exception& e)
+                    {
+                        std::cout << "Exception: " << e.what() << "\n";
                     }
                 }
+
 
 
                 //std::cout<< dataInString <<std::endl;
@@ -59,6 +59,43 @@ void PcapGrapAndStorePictures::process (const u_char* data){
         }
         
     }
+}
+
+void PcapGrapAndStorePictures::startConnection(){
+    
+
+}
+
+bool PcapGrapAndStorePictures::getPictureUrl(u_char* dataIn, int size_payload, std::string typeOfRequest, std::string &host, std::string &path, std::string &fileName){
+    std::string dataInString = convertPayloadToString(dataIn, size_payload);
+    std::smatch m_output;
+    std::regex e_output ("GET ([^ ]*)");   // matches words beginning by "sub"
+    std::regex_search (dataInString,m_output,e_output);
+    std::stringstream ss;
+
+    if (!m_output.empty()) {m_output[1].str();
+        ss<<typeOfRequest<<"://";
+        std::smatch m_output_png;
+        std::regex e_output_png ("(png|jpeg|jpg|gif|tiff|tif)$");
+
+        if (std::regex_search (m_output[1].str(),m_output_png,e_output_png)){
+
+
+            //std::cout<<"IMAGE "<< m_output[1].str()<<std::endl <<std::endl;
+            std::smatch m_output_host;
+            std::regex e_output_host ("Host: ([^ ]*)");
+            std::regex_search (dataInString,m_output_host,e_output_host);
+            //std::cout<<"Host: "<< m_output_host[1].str()<<std::endl <<std::endl;
+            //printf("%c \n", m_output_png[0].str().c_str()[0]);
+            //std::cout<<"name: "<< m_output_png[0].str()<<std::endl <<std::endl;
+            ss<< m_output_host[1]<<m_output[1];
+            std::cout<< ss.str() <<std::endl;
+            host.append(m_output_host[1]);
+            path.append(m_output[1]);
+            return true;
+        }
+    }
+    return false;
 }
 
 void PcapGrapAndStorePictures::setActive (bool active){
@@ -74,7 +111,7 @@ std::string PcapGrapAndStorePictures::convertPayloadToString(const u_char* paylo
         }
         else{
             //printf(".");
-            ss<<'.';
+            ss<<' ';
 
         }
         payload++;
