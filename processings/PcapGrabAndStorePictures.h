@@ -15,6 +15,7 @@
 #include <regex>
 #include <sstream>
 #include "HttpClient.h"
+#include "ThreadHttpRequest.h"
 
 class PcapGrapAndStorePictures : public PcapProcessings {
 public:
@@ -29,6 +30,10 @@ private:
     void startConnection();
 
     unsigned short int picturesNumber;
+
+    const unsigned short int TOTAL_PICTURE_ALLOWED = 300;
+
+    ThreadHttpRequest clientThread;
 };
 
 #endif /* defined(__LibLoAndCap__PcapGrabAndStorePictures__) */

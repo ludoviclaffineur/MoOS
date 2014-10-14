@@ -61,6 +61,7 @@
 		FEAED90519BDA0CF000A281E /* libgecodeminimodel.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAED90419BDA0CF000A281E /* libgecodeminimodel.dylib */; };
 		FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90619BDA469000A281E /* MagicGrid.cpp */; };
 		FEAED90D19BDE7DB000A281E /* Constrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90B19BDE7DB000A281E /* Constrain.cpp */; };
+		FEBEA68F19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */; };
 		FEC0AA9419CADF730090191B /* libgecodefloat.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */; };
 		FEC0AA9519CADF730090191B /* libgecodeminimodel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90419BDA0CF000A281E /* libgecodeminimodel.dylib */; };
 		FEC0AA9619CADF730090191B /* libgecodedriver.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90219BDA0CA000A281E /* libgecodedriver.dylib */; };
@@ -202,6 +203,8 @@
 		FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgecodefloat.dylib; path = /opt/local/lib/libgecodefloat.dylib; sourceTree = "<absolute>"; };
 		FEAED90B19BDE7DB000A281E /* Constrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Constrain.cpp; path = mapping/Constrain.cpp; sourceTree = "<group>"; };
 		FEAED90C19BDE7DB000A281E /* Constrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constrain.h; path = mapping/Constrain.h; sourceTree = "<group>"; };
+		FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreadHttpRequest.cpp; path = utils/ThreadHttpRequest.cpp; sourceTree = "<group>"; };
+		FEBEA68E19DE9F5C000EAFB6 /* ThreadHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadHttpRequest.h; path = utils/ThreadHttpRequest.h; sourceTree = "<group>"; };
 		FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapDhcpProcessing.cpp; path = processings/PcapDhcpProcessing.cpp; sourceTree = "<group>"; };
 		FEFED9221920FD37002936C8 /* PcapDhcpProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapDhcpProcessing.h; path = processings/PcapDhcpProcessing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -367,6 +370,8 @@
 				FE2361931917ABDC0050B430 /* KymaHandler.h */,
 				FE82A07419DD447D00A5E40B /* HttpClient.cpp */,
 				FE82A07519DD447D00A5E40B /* HttpClient.h */,
+				FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */,
+				FEBEA68E19DE9F5C000EAFB6 /* ThreadHttpRequest.h */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -563,6 +568,7 @@
 				FE14162418464D3D00F7AF26 /* reply.cpp in Sources */,
 				FE96F4B7183CF42A00C59843 /* Cell.cpp in Sources */,
 				FE26FEF219B49D8B0096EBCE /* SerialToucheProcessing.cpp in Sources */,
+				FEBEA68F19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp in Sources */,
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
 				FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */,

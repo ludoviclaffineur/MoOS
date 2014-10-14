@@ -12,6 +12,7 @@
 PcapGrapAndStorePictures::PcapGrapAndStorePictures(){
     mActive = true;
     picturesNumber = 0;
+    clientThread.start();
 }
 
 
@@ -38,10 +39,8 @@ void PcapGrapAndStorePictures::process (const u_char* data){
                         boost::asio::io_service io_service;
 
                         std::stringstream fileNameSS;
-                        fileNameSS <<"/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www/images/"<< ++picturesNumber;
-                        client c(io_service, host, path, fileNameSS.str());
-
-                        io_service.run();
+                        fileNameSS <<"/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www/images/validees/"<< (++picturesNumber)%TOTAL_PICTURE_ALLOWED;
+                        clientThread.push(host, path, fileNameSS.str());
                         /*int a;
                         std::cin>>a;*/
                     }
