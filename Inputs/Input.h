@@ -11,8 +11,9 @@
 
 #include <iostream>
 #include "Converter.h"
+#include "Setter.h"
 
-class Input{
+class Input : public Setter<float>{
 
 public:
     Input();

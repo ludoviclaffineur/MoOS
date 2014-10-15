@@ -176,6 +176,7 @@
 		FE96F4BB183CF48E00C59843 /* Input.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Input.h; path = Inputs/Input.h; sourceTree = "<group>"; };
 		FE9B541118C638C10080ABCB /* linkLibScript.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = linkLibScript.sh; sourceTree = "<group>"; };
 		FE9C26CD18A38FE900E5DC5C /* Parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameter.h; path = outputs/Parameter.h; sourceTree = "<group>"; };
+		FE9CB27619ED6083001CDFB8 /* Setter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Setter.h; path = processings/Setter.h; sourceTree = "<group>"; };
 		FEA2055419D6BDF400EAD3F3 /* libgecodeset.35.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgecodeset.35.0.dylib; sourceTree = "<group>"; };
 		FEA9FB1918D1DFA900DB4811 /* PcapEthernetProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapEthernetProcessing.cpp; path = processings/PcapEthernetProcessing.cpp; sourceTree = "<group>"; };
 		FEA9FB1A18D1DFA900DB4811 /* PcapEthernetProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapEthernetProcessing.h; path = processings/PcapEthernetProcessing.h; sourceTree = "<group>"; };
@@ -451,6 +452,7 @@
 				FEA9FB2A18D1E13000DB4811 /* Processings.h */,
 				FEA9FB2818D1E01B00DB4811 /* pcap */,
 				FE586CD218EC19730069ED48 /* serial */,
+				FE9CB27619ED6083001CDFB8 /* Setter.h */,
 			);
 			name = processings;
 			sourceTree = "<group>";

@@ -22,6 +22,9 @@ public:
     void process(void* vdata){
         process (*((const u_char**) vdata));
     };
+    virtual void setSetter(int nbrSetter,...){
+
+    }
 
     //virtual void process();
 };

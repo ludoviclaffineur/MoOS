@@ -27,6 +27,9 @@ public:
     void process(void* vdata){
         process ((*(size_char_tab*) vdata));
     };
+    virtual void setSetter(int nbrSetter,...){
+
+    }
 
     //virtual void process();
 };

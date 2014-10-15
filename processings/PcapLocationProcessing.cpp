@@ -10,7 +10,7 @@
 #include "IpHeaderDefinitions.h"
 
 PcapLocationProcessing::PcapLocationProcessing(Grid* g){
-    std::string csvstring ="IpGps.csv";
+    std::string csvstring ="/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/IpGps.csv";
     mIpLocations = CsvImporter::importCsv(csvstring);
     if (mIpLocations == NULL){
         mActive = false;
@@ -22,11 +22,33 @@ PcapLocationProcessing::PcapLocationProcessing(Grid* g){
         mGrid->addInput("SourceLongitude", -180, 180, -1, 0, Converter::LINEAR);
         mGrid->addInput("DestLatitude", 90, -90, -1, 0, Converter::LINEAR);
         mGrid->addInput("DestLongitude", -180, 180, -1, 0, Converter::LINEAR);
+
+        //mSetDestinationLattitude = &Input::setValue;
+        mSetterSourceLat = mGrid->getInputWithName("SourceLatitude");
+        mSetterSourceLong = mGrid->getInputWithName("SourceLongitude");
+        mSetterDestLat= mGrid->getInputWithName("DestLatitude");
+        mSetterDestLong = mGrid->getInputWithName("DestLongitude");
+        //mSetDestinationLattitude(*mSetterSourceLat, 0.2);
+       // mSetterSourceLat->setValue(0.2);
     }
 }
 
 void PcapLocationProcessing::setActive(bool active){
     mActive = active;
+}
+
+
+void PcapLocationProcessing::setSetter(int nbrSetter,...){
+    va_list ap;
+    va_start(ap, nbrSetter);
+
+    mSetterSourceLat = va_arg(ap, Setter<float>*);
+    mSetterSourceLong = va_arg(ap, Setter<float>*);
+    mSetterDestLat = va_arg(ap, Setter<float>*);
+    mSetterDestLong = va_arg(ap, Setter<float>*);
+    //mSetDestinationLongitude = va_arg(ap, SetterFct);
+    
+    va_end(ap);
 }
 
 PcapLocationProcessing::~PcapLocationProcessing(){
@@ -46,18 +68,18 @@ void PcapLocationProcessing::process(const u_char *data){
         //std::cout<<"Adresse IP "<<ipadd <<std::endl;
         if(isLocalAddress(ipadd)){
             //std::cout<<"Je suis dedans" <<std::endl;
-            mGrid->getInputWithName("SourceLatitude")->setValue(51);
-            mGrid->getInputWithName("SourceLongitude")->setValue(4);
+            mSetterSourceLat->setValue(51);
+            mSetterSourceLong->setValue(4);
             ipadd = ntohl(ih->daddr.int_address);
             if( isLocalAddress(ipadd) ){
-                mGrid->getInputWithName("DestLatitude")->setValue(51);
-                mGrid->getInputWithName("DestLongitude")->setValue(4);
+                mSetterDestLat->setValue(51);
+                mSetterDestLong->setValue(4);
             }
             else{
                 LocationIp* l = findLocationFromIpAddress(ipadd);
                 if(l){
-                    mGrid->getInputWithName("DestLatitude")->setValue(l->getLatitude());
-                    mGrid->getInputWithName("DestLongitude")->setValue(l->getLongitude());
+                    mSetterDestLat->setValue(l->getLatitude());
+                    mSetterDestLong->setValue(l->getLongitude());
                 }
             }
             //std::cout<< "LOCAL NETWORK"<< std::endl;
@@ -65,10 +87,10 @@ void PcapLocationProcessing::process(const u_char *data){
         else{
             LocationIp* l = findLocationFromIpAddress(ntohl(ih->saddr.int_address));
             if(l){
-                mGrid->getInputWithName("SourceLatitude")->setValue(l->getLatitude());
-                mGrid->getInputWithName("SourceLongitude")->setValue(l->getLongitude());
-                mGrid->getInputWithName("DestLatitude")->setValue(51);
-                mGrid->getInputWithName("DestLongitude")->setValue(4);
+                mSetterSourceLat->setValue(l->getLatitude());
+                mSetterSourceLong->setValue(l->getLongitude());
+                mSetterDestLat->setValue(51);
+                mSetterDestLong->setValue(4);
                 //std::cout<< "EXTERNAL NETWORK"<< std::endl;
             }
         }

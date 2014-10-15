@@ -29,6 +29,7 @@ public:
     SerialToucheProcessing(Grid* g);
     void process(size_char_tab data);
     void setActive(bool active);
+    
 private:
     bool isCheckSumOk(commandData* strucData);
     commandData* strucData;
