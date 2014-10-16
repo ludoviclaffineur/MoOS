@@ -7,11 +7,13 @@
 //
 
 #include "AppIncludes.h"
+#include "CaptureDevice.h"
 #include "server.hpp"
 #include <pthread.h>
 #include "CsvImporter.h"
 #include "Genetic.h"
 #include "SerialHandler.h"
+#include "PcapHandler.h"
 #include "KymaHandler.h"
 #include "ConstrainGenetic.h"
 
@@ -27,13 +29,13 @@ int main(int argc, const char * argv[])
     using namespace std;
 //    pthread_setname_np("Main");
     std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\n";
-   /* for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
+    for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
         std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
     }
     int choice;
     std::cout<<"Your choice:"<<std::flush;
     std::cin>>choice;
-    choice--;*/
+    choice--;
 
 
     TheGrid = new Grid();
@@ -59,7 +61,7 @@ int main(int argc, const char * argv[])
 //	cout << "A=" << A << endl << "Z=" << Z <<"IDENTITY" << prod(A, Z)<< endl;
 
     CaptureDevice* _captureDevice;
-/*    switch (choice) {
+    switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
             _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
             break;
@@ -69,12 +71,12 @@ int main(int argc, const char * argv[])
         default:
             _captureDevice = NULL;
             break;
-    }*/
+    }
     /*system("ls /dev/tty.usb*");
     string serialName;
     std::cin>>serialName;
     _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);*/
-    _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
+    //_captureDevice = new PcapHandler("!udp port 8000", TheGrid);
 
     //const char* osc1= "OSC1";
     _captureDevice->init();
