@@ -31,6 +31,7 @@ namespace server {
         Grid* mGrid;
         Genetic* mAlgoGen;
         ConstrainGenetic*  mConstrainGene;
+        int mCurrentIdPicture;
     };
 }
 }

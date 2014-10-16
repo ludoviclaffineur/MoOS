@@ -33,7 +33,7 @@ private:
 
 };
 
-class PcapDnsProcessing : public PcapProcessings{
+class PcapDnsProcessing : public PcapProcessings {
 public:
     PcapDnsProcessing();
     ~PcapDnsProcessing();

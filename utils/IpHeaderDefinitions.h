@@ -14,7 +14,7 @@ typedef struct ip_address_struct{
 	u_char byte2;
 	u_char byte3;
 	u_char byte4;
-};
+}ip_address_struct;
 
 typedef union ip_address{
 	ip_address_struct struct_bytes;
@@ -41,6 +41,15 @@ typedef struct udp_header{
 	u_short len;            // Datagram length
 	u_short crc;            // Checksum
 }udp_header;
+
+typedef struct tcp_header{
+	u_short sport;          // Source port
+	u_short dport;          // Destination port
+	u_short len;            // Datagram length
+	u_short crc;            // Checksum
+}tcp_header;
+
+
 
 
 const long int TEN_ZERO_ZERO_ZERO  = 167772160;

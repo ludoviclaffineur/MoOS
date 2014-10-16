@@ -37,8 +37,7 @@ public:
     void setSetter(Setter<float>* setSourceLattitude, Setter<float>*  setSourceLongitude, Setter<float>*  setDestinationLattitude, Setter<float> *setDestinationLongitude){
         setSetter(4, setSourceLattitude,setSourceLongitude,setDestinationLattitude,setDestinationLongitude);
     }
-
-
+    static float haversine (LocationIp* home, LocationIp* server);
 
 private:
     LocationIp** mIpLocations;

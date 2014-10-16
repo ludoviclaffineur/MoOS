@@ -26,6 +26,7 @@ namespace http {
             mGrid = g;
             mAlgoGen = algoGen;
             mConstrainGene = constrainGene;
+            mCurrentIdPicture = 0;
         }
 
         bool SnfHandler::computeRequest(std::string method, std::string parameters, reply &rep){
@@ -200,6 +201,64 @@ namespace http {
             }
             else if( method.compare("setActiveGrid")==0){
                 mGrid->switchActive();
+            }
+            else if( method.compare("getPictureToCheck")==0){
+                if (mCurrentIdPicture >=100){
+                    mCurrentIdPicture = 0;
+                }
+                bool trouve = false;
+                while (mCurrentIdPicture < 100) {
+                    std::stringstream ss;
+                    ss<< "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www/images/" << mCurrentIdPicture;
+                    std::ifstream f(ss.str());
+
+                    if (f.good()) {
+                        f.close();
+                        std::string nameValidated;
+                        std::stringstream nameToSend;
+                        nameValidated.append(ss.str()).append(("-invalidation"));
+                        nameToSend << mCurrentIdPicture<< "-invalidation";
+                        std::rename(ss.str().c_str(), nameValidated.c_str());
+                        rep.content.append("<pictureName>\n");
+                        rep.content.append(nameToSend.str());
+                        rep.content.append("</pictureName>\n");
+                        trouve = true;
+                        break;
+                    } else {
+                        f.close();
+
+                        mCurrentIdPicture++;
+                    }
+
+                }
+                if (!trouve){
+                    rep.content.append("<pictureName>\n");
+                    rep.content.append("NONE");
+                    rep.content.append("</pictureName>\n");
+                }
+                //
+                
+            }
+
+            else if( method.compare("setPictureValided")==0){
+                std::smatch m_input;
+                std::regex e_input ("OK=([0-1])");   // matches words beginning by "sub"
+                std::regex_search (parameters,m_input,e_input);
+                std::stringstream ss;
+                ss<< "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www/images/" << mCurrentIdPicture << "-invalidation";
+
+                if (std::atoi(m_input[1].str().c_str()) == 0) {
+                    std::remove(ss.str().c_str());
+
+                }
+                else{
+                    std::stringstream ss_validated;
+                    ss_validated<< "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www/images/validees/"<<mCurrentIdPicture;
+                    std::rename(ss.str().c_str(), ss_validated.str().c_str());
+                }
+                mCurrentIdPicture++;
+                mCurrentIdPicture = mCurrentIdPicture%100;
+
             }
 
             else {
