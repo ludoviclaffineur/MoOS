@@ -9,7 +9,6 @@
 #ifndef __LibLoAndCap__PcapProcessings__
 #define __LibLoAndCap__PcapProcessings__
 
-#include <iostream>
 #include "Processings.h"
 #include "IpHeaderDefinitions.h"
 #include <arpa/inet.h>

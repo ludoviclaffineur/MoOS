@@ -9,18 +9,24 @@
 #ifndef __LibLoAndCap__Processings__
 #define __LibLoAndCap__Processings__
 
-#include <iostream>
-
+//! Mother Class of all the processings
 class Processings{
-public:
-    virtual void setActive(bool active) = 0;
-    //virtual void process (void* vdata) = 0;
-    bool isActive(){return mActive;}
-    virtual void setSetter(int nbrSetter,...)=0;
 
+public:
+    //! activate the processing or not
+    virtual void setActive(bool active) = 0;
+    //! return if the processing is active
+    bool isActive(){return mActive;}
+    //! where the process will take part
     virtual void process (void* vdata) = 0;
+
 protected:
+    //! processing active
     bool mActive;
+    //! permit user to give setter for computed values of the processing
+    //! @param nbrSetter amount of setters,
+    //! @param ... setters
+    virtual void setSetter(int nbrSetter,...) = 0;
 };
 
 

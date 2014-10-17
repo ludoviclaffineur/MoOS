@@ -10,7 +10,14 @@
 #define LibLoAndCap_Setter_h
 template<class T> class Setter{
 public:
-    virtual void setValue(T t) = 0;
+    virtual void setValue(T t){
+        mValue = t;
+    }
+    virtual T getValue(){
+        return mValue;
+    }
+protected:
+    T   mValue;
 };
 
 #endif

@@ -49,10 +49,10 @@ private:
     LocationIp* binaryTree(unsigned long int TargetIp);
     LocationIp* secante(unsigned long int TargetIp);
     //SetterFct mSetSourceLattitude,mSetSourceLongitude,mSetDestinationLattitude,mSetDestinationLongitude;
-    Setter<float> * mSetterSourceLat;
-    Setter<float> * mSetterSourceLong;
-    Setter<float> * mSetterDestLat;
-    Setter<float> * mSetterDestLong;
+    Setter<float> * mSourceLat;
+    Setter<float> * mSourceLong;
+    Setter<float> * mDestLat;
+    Setter<float> * mDestLong;
     void setSetter(int nbrSetter,...);
 
 };

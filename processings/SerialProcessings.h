@@ -11,7 +11,7 @@
 #include "Processings.h"
 
 struct size_char_tab{
-    size_t size;
+    int size;
     char* tab;
 };
 
@@ -27,10 +27,7 @@ public:
     void process(void* vdata){
         process ((*(size_char_tab*) vdata));
     };
-    virtual void setSetter(int nbrSetter,...){
-
-    }
-
+    virtual void setSetter(int nbrSetter,...)=0;
     //virtual void process();
 };
 

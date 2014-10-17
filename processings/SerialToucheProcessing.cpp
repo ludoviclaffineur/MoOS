@@ -15,7 +15,19 @@ SerialToucheProcessing::SerialToucheProcessing(Grid* g){
         std::stringstream name;
         name<< i ;
         mGrid->addInput(name.str().c_str(), 0, 1024, -1, 0, Converter::LINEAR);
+        frequencies[i] = mGrid->getInputWithName(name.str().c_str());
     }
+}
+
+void SerialToucheProcessing::setSetter(int nbrSetter, ...){
+    va_list ap;
+    va_start(ap, nbrSetter);
+    for (int i = 0; i< nbrSetter; i++){
+        frequencies[i] = va_arg(ap, Setter<float>*);
+    }
+    //mSetDestinationLongitude = va_arg(ap, SetterFct);
+
+    va_end(ap);
 }
 
 void SerialToucheProcessing::process(size_char_tab data){
@@ -78,9 +90,12 @@ void SerialToucheProcessing::formatDataAndSetInput( commandData* strucData){
     y = (u_int16_t) (strucData->upper_y<<8 | strucData->lower_y);
     std::stringstream name;
     name<< x ;
-    Input* input = mGrid->getInputWithName(name.str().c_str());
-    if (input){
-        input->setValue(y);
+    if(x>=0 && x<160){
+        frequencies[x]->setValue(y);
     }
+//    Input* input = mGrid->getInputWithName(name.str().c_str());
+//    if (input){
+//        input->setValue(y);
+//    }
 
 }

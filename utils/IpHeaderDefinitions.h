@@ -8,6 +8,7 @@
 
 #ifndef LibLoAndCap_IpHeaderDefinition_h
 #define LibLoAndCap_IpHeaderDefinition_h
+#include "pcap.h"
 
 typedef struct ip_address_struct{
 	u_char byte1;

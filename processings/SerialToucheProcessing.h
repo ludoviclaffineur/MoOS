@@ -31,11 +31,14 @@ public:
     void setActive(bool active);
     
 private:
+    Setter<float>* frequencies[160] ;
     bool isCheckSumOk(commandData* strucData);
     commandData* strucData;
     size_t mSize;
     short unsigned int  mReceivedData [8];
     Grid* mGrid;
     void formatDataAndSetInput( commandData* strucData);
+    void setSetter(int nbrSetter, ...);
+
 };
 #endif /* defined(__LibLoAndCap__SerialToucheProcessing__) */
