@@ -14,6 +14,7 @@
 #include "SerialHandler.h"
 #include "KymaHandler.h"
 #include "ConstrainGenetic.h"
+#include "LeapMotionHandler.h"
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
@@ -76,7 +77,7 @@ int main(int argc, const char * argv[])
     string serialName;
     std::cin>>serialName;
     _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);*/
-    _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
+    _captureDevice = new LeapMotionHandler(TheGrid);
 
     //const char* osc1= "OSC1";
     _captureDevice->init();

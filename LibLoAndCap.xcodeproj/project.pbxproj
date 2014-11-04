@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0211FD184C70B30096ED35 /* SnfHandler.cpp */; };
+		FE0678F11A08E05800E4729F /* LeapMotionHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0678EF1A08E05800E4729F /* LeapMotionHandler.cpp */; };
+		FE0678FA1A08E81700E4729F /* LeapHandsProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE0678F81A08E81700E4729F /* LeapHandsProcessing.cpp */; };
+		FE0678FC1A09050F00E4729F /* libLeap.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE0678FB1A09050F00E4729F /* libLeap.dylib */; };
 		FE14162018464D3D00F7AF26 /* connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14160F18464D3D00F7AF26 /* connection.cpp */; };
 		FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161118464D3D00F7AF26 /* connection_manager.cpp */; };
 		FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161518464D3D00F7AF26 /* mime_types.cpp */; };
@@ -100,6 +103,12 @@
 /* Begin PBXFileReference section */
 		FE0211FD184C70B30096ED35 /* SnfHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SnfHandler.cpp; sourceTree = "<group>"; };
 		FE0211FE184C70B30096ED35 /* SnfHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnfHandler.h; sourceTree = "<group>"; };
+		FE0678EF1A08E05800E4729F /* LeapMotionHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LeapMotionHandler.cpp; path = capture/LeapMotionHandler.cpp; sourceTree = "<group>"; };
+		FE0678F01A08E05800E4729F /* LeapMotionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeapMotionHandler.h; path = capture/LeapMotionHandler.h; sourceTree = "<group>"; };
+		FE0678F61A08E66400E4729F /* LeapProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeapProcessing.h; path = processings/LeapProcessing.h; sourceTree = "<group>"; };
+		FE0678F81A08E81700E4729F /* LeapHandsProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LeapHandsProcessing.cpp; path = processings/LeapHandsProcessing.cpp; sourceTree = "<group>"; };
+		FE0678F91A08E81700E4729F /* LeapHandsProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeapHandsProcessing.h; path = processings/LeapHandsProcessing.h; sourceTree = "<group>"; };
+		FE0678FB1A09050F00E4729F /* libLeap.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLeap.dylib; path = build/Release/libLeap.dylib; sourceTree = "<group>"; };
 		FE14160F18464D3D00F7AF26 /* connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection.cpp; sourceTree = "<group>"; };
 		FE14161018464D3D00F7AF26 /* connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = connection.hpp; sourceTree = "<group>"; };
 		FE14161118464D3D00F7AF26 /* connection_manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = connection_manager.cpp; sourceTree = "<group>"; };
@@ -221,6 +230,7 @@
 				FEAED90519BDA0CF000A281E /* libgecodeminimodel.dylib in Frameworks */,
 				FEAED8FD19BDA0B5000A281E /* libgecodeint.dylib in Frameworks */,
 				FEAED90119BDA0C1000A281E /* libgecodesupport.dylib in Frameworks */,
+				FE0678FC1A09050F00E4729F /* libLeap.dylib in Frameworks */,
 				FEAED8FB19BDA082000A281E /* libgecodekernel.dylib in Frameworks */,
 				FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */,
 				FEAED8FF19BDA0BD000A281E /* libgecodesearch.dylib in Frameworks */,
@@ -232,6 +242,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FE0678F41A08E64200E4729F /* leap */ = {
+			isa = PBXGroup;
+			children = (
+				FE0678F61A08E66400E4729F /* LeapProcessing.h */,
+				FE0678F81A08E81700E4729F /* LeapHandsProcessing.cpp */,
+				FE0678F91A08E81700E4729F /* LeapHandsProcessing.h */,
+			);
+			name = leap;
+			sourceTree = "<group>";
+		};
 		FE1415F618464C1C00F7AF26 /* view */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +298,7 @@
 		FE4817EF182102680094602C = {
 			isa = PBXGroup;
 			children = (
+				FE0678FB1A09050F00E4729F /* libLeap.dylib */,
 				FEA2055419D6BDF400EAD3F3 /* libgecodeset.35.0.dylib */,
 				FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */,
 				FEA9FB1818D1DF4700DB4811 /* processings */,
@@ -342,6 +363,8 @@
 				FE43C1F018DC917400742A0C /* SerialHandler.cpp */,
 				FE43C1F118DC917400742A0C /* SerialHandler.h */,
 				FE32271D18EAB8A2001B483A /* CaptureDevice.h */,
+				FE0678EF1A08E05800E4729F /* LeapMotionHandler.cpp */,
+				FE0678F01A08E05800E4729F /* LeapMotionHandler.h */,
 			);
 			name = capture;
 			sourceTree = "<group>";
@@ -461,6 +484,7 @@
 		FEA9FB1818D1DF4700DB4811 /* processings */ = {
 			isa = PBXGroup;
 			children = (
+				FE0678F41A08E64200E4729F /* leap */,
 				FEA9FB2A18D1E13000DB4811 /* Processings.h */,
 				FEA9FB2818D1E01B00DB4811 /* pcap */,
 				FE586CD218EC19730069ED48 /* serial */,
@@ -555,6 +579,8 @@
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
 				FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */,
+				FE0678F11A08E05800E4729F /* LeapMotionHandler.cpp in Sources */,
+				FE0678FA1A08E81700E4729F /* LeapHandsProcessing.cpp in Sources */,
 				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,
 				FE43C1F218DC917400742A0C /* SerialHandler.cpp in Sources */,
 				FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */,
@@ -680,6 +706,8 @@
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 					"$(PROJECT_DIR)/lib/boost",
 					/opt/local/lib,
+					"/opt/local/lib/leap/libc++",
+					"$(PROJECT_DIR)/build/Release",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
@@ -705,6 +733,8 @@
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 					"$(PROJECT_DIR)/lib/boost",
 					/opt/local/lib,
+					"/opt/local/lib/leap/libc++",
+					"$(BUILT_PRODUCTS_DIR)",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
