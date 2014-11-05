@@ -19,10 +19,11 @@ PcapGrapAndStorePictures::PcapGrapAndStorePictures(){
 void PcapGrapAndStorePictures::process (const u_char* data){
     if (mActive) {
         ip_header *ih;
-        ih = (ip_header *) (data + 14);
+        ih = (ip_header *) (data + 18);
+        //printf("%i \n", ih->proto) ;
         if(ih->proto == 6 ){
             tcp_header* tcp;
-            tcp  = (tcp_header*)(data + 14 + sizeof(ip_header) - sizeof(u_int));
+            tcp  = (tcp_header*)(data + 18 + sizeof(ip_header) - sizeof(u_int));
             if (ntohs(tcp->dport) == 80) {
                 u_char* dataIn = (u_char*) (data + 14 + sizeof(ip_header) - sizeof(u_int)+sizeof(tcp_header));
                 // std::cout<< dataIn << std::endl;
