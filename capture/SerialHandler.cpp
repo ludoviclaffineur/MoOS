@@ -32,8 +32,9 @@ SerialHandler::SerialHandler(Grid* g, const char *dev_name, int baudrate): m_io(
 
 void SerialHandler::handler(const boost::system::error_code& error, size_t bytes_transferred)
 {
-    std::vector<Processings*>::iterator i = mProcessings.begin();
+
     mReadMsg.size=bytes_transferred;
+    std::vector<Processings*>::iterator i = mProcessings.begin();
     for (i= mProcessings.begin(); i!=mProcessings.end();i++ ) {
         (*i)->process(&mReadMsg);
     }
