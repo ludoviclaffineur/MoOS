@@ -30,7 +30,13 @@ void* ThreadHttpRequest::run(void *user_data){
         if (!ht->requestDataAndStore.empty()){
             httpReqAndData* h = ht->requestDataAndStore.front();
             ht->requestDataAndStore.erase(ht->requestDataAndStore.begin());
-            client c(io_service, h->server, h->path, h->name);
+            try{
+                client c(io_service, h->server, h->path, h->name);
+            }
+            catch(boost::exception& ex){
+
+            }
+
 
         }
         else{
