@@ -51,10 +51,6 @@ void SerialHandler::read_some()
 
 }
 
-
-
 void SerialHandler::init(){
 
 }
-
-

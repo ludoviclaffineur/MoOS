@@ -60,7 +60,7 @@ namespace http {
             else if( method.compare("save")==0){
                  //std::cout<< "SAVE"<<std::endl;
                 std::smatch m_input;
-                std::regex e_input ("filename=(\\w+)");   // matches words beginning by "sub"
+                std::regex e_input ("filename=(\\w+)", std::regex_constants::ECMAScript);   // matches words beginning by "sub"
                 std::regex_search (parameters,m_input,e_input);
                 //std::cout<< m_input[1].str()<<std::endl;
                 std::stringstream ssFilename;

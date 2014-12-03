@@ -20,6 +20,8 @@
 #include <boost/numeric/ublas/io.hpp>
 //#include "storage_adaptors.hpp"
 
+#include "SaveXml.h"
+
 int main(int argc, const char * argv[])
 {
     Grid* TheGrid;
@@ -40,7 +42,7 @@ int main(int argc, const char * argv[])
 
     ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
 
-
+    
 //	matrix<float> A(3, 3), Z(3, 3);
 //    A(0, 0) = 1;
 //    A(0,1) = 2;
@@ -76,7 +78,7 @@ int main(int argc, const char * argv[])
     _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);
     //const char* osc1= "OSC1";
     _captureDevice->init();
-   // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
+    TheGrid->addOutput(new OscHandler("POSY","172.30.4.62","20000", "/posY", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
@@ -87,12 +89,12 @@ int main(int argc, const char * argv[])
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
     int a;
     std::string KymaAddress;
-
-    std::cout<<"Insert the IP address of your Pacarana device: "<<std::flush;
-    std::cin>>KymaAddress;
-    KymaHandler* k= new KymaHandler(KymaAddress.c_str(), "8000", TheGrid);
+    
+   // std::cout<<"Insert the IP address of your Pacarana device: "<<std::flush;
+    //std::cin>>KymaAddress;
+    //KymaHandler* k= new KymaHandler(KymaAddress.c_str(), "8000", TheGrid);
    // std::cout<< ""<<std::endl;
-    std::cin>>a;
+    //std::cin>>a;
 
    /*theConstrainAlgo->setConstrain();
    while (a>0){ 
@@ -116,11 +118,19 @@ int main(int argc, const char * argv[])
         cout<< "The best \t"<<best[i] << "\t" << flush;
     }*/
 
-    delete k;
+   // delete k;
 
     std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);
-    s.run();
+    try {
+        http::server::server s("0.0.0.0", "6400", "./www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);
+        s.run();
+    } catch (boost::exception &e) {
+        http::server::server s("0.0.0.0", "6401", "./www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);
+        s.run();
+
+    }
+
+
     std::cout<<"\nShuting down Web server..."<<std::endl;
 
     delete _captureDevice;

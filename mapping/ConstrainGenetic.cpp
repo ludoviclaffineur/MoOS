@@ -35,7 +35,7 @@ void ConstrainGenetic::setConstrain(){
     std::cout<<std::endl;
     //std::cout<<std::endl;
     mListContrain->push_back(new IA::Constrain(new std::vector<float>(input), new std::vector<float>(output)));
-    if (mListContrain->size() ==3){
+    if (mListContrain->size() ==2){
         computeGrid();
     }
 }
