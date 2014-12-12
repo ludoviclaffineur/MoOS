@@ -18,15 +18,12 @@
 #include "Grid.h"
 
 
-
-
-
-
 namespace CONSTANCES {
-    const std::string CaptureDeviceList [2] = {"Pcap Handler", "Serial Handler"};
+    const std::string CaptureDeviceList [3] = {"Pcap Handler", "Serial Handler", "LeapMotion Handler"};
     enum CaptureDeviceType{
         PCAP_HANDLER ,
         SERIAL_HANDLER,
+        LEAPMOTION_HANDLER,
         TOTAL,
     };
 }

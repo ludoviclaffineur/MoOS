@@ -22,7 +22,7 @@
 #include <boost/numeric/ublas/lu.hpp>
 #include <boost/numeric/ublas/io.hpp>
 
-
+#include "GranularSyntheziser.h"
 //#include "storage_adaptors.hpp"
 
 int main(int argc, const char * argv[])
@@ -71,6 +71,9 @@ int main(int argc, const char * argv[])
         case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
             _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
             break;
+        case CONSTANCES::CaptureDeviceType::LEAPMOTION_HANDLER:
+            _captureDevice = new LeapMotionHandler(TheGrid);
+            break;
         default:
             _captureDevice = NULL;
             break;
@@ -80,7 +83,7 @@ int main(int argc, const char * argv[])
     std::cin>>serialName;
     _captureDevice = new SerialHandler(TheGrid, serialName.c_str() , 115200);*/
 
-    _captureDevice = new LeapMotionHandler(TheGrid);
+    //_captureDevice =
 
     //const char* osc1= "OSC1";
     _captureDevice->init();
@@ -110,7 +113,7 @@ int main(int argc, const char * argv[])
     }
     theConstrainAlgo->computeGrid();*/
 
-
+    GranularSyntheziser *gs = new GranularSyntheziser(TheGrid);
 
     //theGeneticAlgorithm->evaluateAndEvolve(0.1);
     /*theGeneticAlgorithm.evalPop();
@@ -139,6 +142,7 @@ int main(int argc, const char * argv[])
     delete _captureDevice;
     delete TheGrid;
     delete theGeneticAlgorithm;
+    delete gs;
     return 0;
 }
 
