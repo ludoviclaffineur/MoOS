@@ -22,7 +22,7 @@ Grain::Grain(std::vector<float>* audioFile, int duration,int blank){
 float Grain::getSample(){
     float sample = 0.0f;
     if (mCurrentPostion <mDuration) {
-        float hanningCoeff = 0.5 + 0.5* cosf(2*M_PI *(float)mCurrentPostion/(float)(mDuration));
+        float hanningCoeff = 0.5 - 0.5* cosf(2*M_PI *(float)mCurrentPostion/(float)(mDuration));
         sample = mAudioFile->at(mInitPostion+mCurrentPostion)*hanningCoeff;
     }
     else if(mCurrentPostion< mDuration+ mBlank){

@@ -25,7 +25,7 @@ class GranularSyntheziser{
 
 public:
 
-    GranularSyntheziser(Grid* g);
+    GranularSyntheziser();
     ~GranularSyntheziser();
     int getDuration();
     void setDuration(int duration);
@@ -36,11 +36,16 @@ public:
     float getVolume();
     void setVolume(float volume);
 
+    void setBlank(int blank);
     paTestData *data;
     float getSample();
     std::vector <float>* music;
-    std::vector <short>mAudioWave ;
+    std::vector <float>* mAudioWave ;
      std::vector <Grain*>mGrains ;
+    static float reverb(std::vector <float>* mAudioWave, float sample, int delay, float decay );
+    static float echo(std::vector <float>* mAudioWave, float sample, int delay, float decay );
+    static float lowPassFilter(std::vector <float>* mAudioWave, float sample, float cutoff );
+
     
 
 private:

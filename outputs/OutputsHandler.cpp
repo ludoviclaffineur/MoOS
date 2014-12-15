@@ -18,6 +18,7 @@ OutputsHandler::OutputsHandler(const char* n){
     strcpy(mName, n);
     mParameters.push_back(new Parameter<char*>("Name", &mName));
     mParameters.push_back(new Parameter<int>("Identifier", &mId));
+    mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 1.0);
 }
 
 OutputsHandler::OutputsHandler(const char* n, float min, float max){

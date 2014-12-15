@@ -23,6 +23,9 @@
 #include <boost/numeric/ublas/io.hpp>
 
 #include "GranularSyntheziser.h"
+#include "GSDurationHandler.h"
+#include "GSOverlapHandler.h"
+#include "GSBlankHandler.h"
 //#include "storage_adaptors.hpp"
 
 int main(int argc, const char * argv[])
@@ -66,7 +69,7 @@ int main(int argc, const char * argv[])
     CaptureDevice* _captureDevice;
     switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
-            _captureDevice = new PcapHandler("TCP and UDP and ICMP and !udp port 8000", TheGrid);
+            _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
             break;
         case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
             _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
@@ -113,8 +116,10 @@ int main(int argc, const char * argv[])
     }
     theConstrainAlgo->computeGrid();*/
 
-    GranularSyntheziser *gs = new GranularSyntheziser(TheGrid);
-
+    GranularSyntheziser *gs = new GranularSyntheziser();
+    TheGrid->addOutput(new GSDurationHandler(gs));
+    TheGrid->addOutput(new GSOverlapHandler(gs));
+    TheGrid->addOutput(new GSBlankHandler(gs));
     //theGeneticAlgorithm->evaluateAndEvolve(0.1);
     /*theGeneticAlgorithm.evalPop();
 	cout << endl << endl << "Evolution de la population..." << endl;
