@@ -9,12 +9,13 @@
 #include "Grain.h"
 #include <iostream>
 #include <math.h>
-Grain::Grain(std::vector<float>* audioFile, int duration){
+Grain::Grain(std::vector<float>* audioFile, int duration,int blank){
     mDuration = duration;
     mCurrentPostion=0;
     mEnvelope = ENVELOPE::ATTACK;
     mAudioFile = audioFile;
     mInitPostion = rand()%(audioFile->size()-mDuration);
+    mBlank = blank;
     done = false;
 }
 
@@ -24,9 +25,14 @@ float Grain::getSample(){
         float hanningCoeff = 0.5 + 0.5* cosf(2*M_PI *(float)mCurrentPostion/(float)(mDuration));
         sample = mAudioFile->at(mInitPostion+mCurrentPostion)*hanningCoeff;
     }
+    else if(mCurrentPostion< mDuration+ mBlank){
+        sample = 0.0f;
+    }
     else{
-        mCurrentPostion =0.0f;
-        mInitPostion = rand()%(mAudioFile->size()-mDuration);
+
+//        mCurrentPostion =0.0f;
+//        mInitPostion = rand()%(mAudioFile->size()-mDuration);
+        done = true;
     }
     mCurrentPostion++;
 

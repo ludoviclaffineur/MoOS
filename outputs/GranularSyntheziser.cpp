@@ -28,50 +28,15 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
     for( i=0; i<framesPerBuffer; i++ )
     {
 
-        //*out++ = data->left_phase;  /* left */
-        //*out++ = data->right_phase;  /* right */
-
         *out++ = (float) ptr->data->left_phase;
         *out++ = (float) ptr->data->right_phase;
 
         float sample = ptr->getSample();
 
-        //std::cout<< ptr->music->at(parcour) <<std::endl;
-        /*if(parcour >= ptr->music->size()){
-            ptr->data->right_phase = 0;
-            ptr->data->left_phase = 0;
-        }
-        else{
-            ptr->data->right_phase = ptr->music->at(parcour);
-            ptr->data->left_phase = ptr->music->at(parcour++);
-        }*/
-        /* left */
-
-
-        //ptr->data->right_phase = ptr->music->at(parcour++);  /* right */
-        //parcour++;
-        //std::cout<< "Elements: "<<  << std::endl ;
-
-
-        //float sampleFromeFile = *ptr->music.begin();
-
-        // ptr->data->right_phase = sampleFromeFile;
-        // ptr->data->left_phase = sampleFromeFile;
-
-        //data->right_phase = 1.0-(rand()%200/200.0) ;
-        //data->left_phase = 1.0-(rand()%200/200.0);
-        //std::cout<<sample <<std::endl;
         ptr->data->left_phase = sample;
         ptr->data->right_phase = sample;
 
-        //ptr->music->erase(ptr->music->begin());
-        /* Generate simple sawtooth phaser that ranges between -1.0 and 1.0. */
-        /*ptr->data->left_phase += 0.01f;*/
-        /* When signal reaches top, drop back down. */
-        //if(  ptr->data->left_phase >= 1.0f )  ptr->data->left_phase -= 2.0f;
-        /* higher pitch so we can distinguish left and right. */
-         //ptr->data->right_phase += 0.03f;
-        //if(  ptr->data->right_phase >= 1.0f ) ptr-> data->right_phase -= 2.0f;
+
     }
     return 0;
 }
@@ -95,8 +60,8 @@ GranularSyntheziser::GranularSyntheziser(Grid* g){
      music->push_back(a);
      //printf(" %f ", (float)byte);
      }*/
-
-
+    mOverlap = 3000.0f;
+    mPosition = 0.0f;
     data = new paTestData;
 
     printf("PortAudio Test: output sawtooth wave.\n");
@@ -105,8 +70,8 @@ GranularSyntheziser::GranularSyntheziser(Grid* g){
     /* Initialize library before making any other calls. */
     loadWave("/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sound5.wav");
 
-        mGrains.push_back(new Grain(music, 2000 ));
-    mGrains.push_back(new Grain(music, 3000 ));
+    mGrains.push_back(new Grain(music, 2000 ,500));
+    mGrains.push_back(new Grain(music, 3000,500 ));
     err = Pa_Initialize();
 
     printf("Erreur : %s", Pa_GetErrorText(err));
@@ -135,9 +100,27 @@ GranularSyntheziser::~GranularSyntheziser(){
 }
 
 float GranularSyntheziser::getSample(){
+    float sampleResult = 0.0f;
+    if(mPosition++ > (*mGrains.end())->mDuration - mOverlap){
+        mGrains.push_back(new Grain(music, 4000, 2000));
+        mPosition = 0.0f;
+    }
 
-    //if pos > mGrain[0].duration - OVERLAP
-    return mGrains[0]->getSample()+mGrains[1]->getSample();
+    if (mGrains.size()!=0) {
+        if (mGrains[0]->isDone()){
+            mGrains.erase(mGrains.begin());
+        }
+
+        for(int i =0; i<mGrains.size();i++) {
+            sampleResult += mGrains[i]->getSample();
+        }
+
+    }
+    else{
+        sampleResult=  0.0f;
+    }
+    return sampleResult;
+
     //return mGrains.front()->getSample();
 }
 

@@ -392,10 +392,7 @@
 				FE481830182119D00094602C /* OutputsHandler.cpp */,
 				FE481831182119D00094602C /* OutputsHandler.h */,
 				FE9C26CD18A38FE900E5DC5C /* Parameter.h */,
-				FEA134391A3B279700A87897 /* GranularSyntheziser.cpp */,
-				FEA1343A1A3B279700A87897 /* GranularSyntheziser.h */,
-				FEA134431A3B3DA600A87897 /* Grain.cpp */,
-				FEA134441A3B3DA600A87897 /* Grain.h */,
+				FEFA7EDD1A3ED65400C49022 /* Audio */,
 			);
 			name = ouputs;
 			sourceTree = "<group>";
@@ -534,6 +531,25 @@
 				FE7BD65119C6DA4400B9BF14 /* PcapKissProcessing.h */,
 			);
 			name = pcap;
+			sourceTree = "<group>";
+		};
+		FEFA7EDD1A3ED65400C49022 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				FEFA7EDE1A3ED66D00C49022 /* GranularSynth */,
+			);
+			name = Audio;
+			sourceTree = "<group>";
+		};
+		FEFA7EDE1A3ED66D00C49022 /* GranularSynth */ = {
+			isa = PBXGroup;
+			children = (
+				FEA134391A3B279700A87897 /* GranularSyntheziser.cpp */,
+				FEA1343A1A3B279700A87897 /* GranularSyntheziser.h */,
+				FEA134431A3B3DA600A87897 /* Grain.cpp */,
+				FEA134441A3B3DA600A87897 /* Grain.h */,
+			);
+			name = GranularSynth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -45,7 +45,8 @@ public:
 
 private:
     int mDuration;
-
+    int mBlank;
+    int mPosition;
     int mOverlap;
     float mVolume;
     PaStream *stream;
