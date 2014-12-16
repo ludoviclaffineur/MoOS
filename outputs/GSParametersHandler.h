@@ -16,7 +16,7 @@ class GSParametersHandler: public OutputsHandler{
 public:
     GSParametersHandler(const char* n,GranularSyntheziser* GS);
     virtual bool sendData ()=0;
-    virtual void setParameters(std::vector<std::string> ParameterList)=0;
+    virtual void setParameters(std::vector<std::string> ParameterList);
 protected:
     GranularSyntheziser* mGranularSynth;
 };

@@ -15,15 +15,10 @@ GSBlankHandler::GSBlankHandler(GranularSyntheziser* GS) : GSParametersHandler("G
 }
 
 void GSBlankHandler::setParameters(std::vector<std::string> ParameterList){
-    for (int i=0; i<ParameterList.size(); i++) {
-        if (ParameterList.at(i).compare("Name")==0) {
-            OutputsHandler::setName(ParameterList.at(i+1).c_str());
-        }
-    }
+    GSParametersHandler::setParameters(ParameterList);
 }
 
 bool GSBlankHandler::sendData(){
-
     mGranularSynth->setBlank((1-mValueBeforeSending)*GS_MAX_BLANK);
     return true;
 }

@@ -14,11 +14,7 @@ GSOverlapHandler::GSOverlapHandler(GranularSyntheziser* GS) : GSParametersHandle
 }
 
 void GSOverlapHandler::setParameters(std::vector<std::string> ParameterList){
-    for (int i=0; i<ParameterList.size(); i++) {
-        if (ParameterList.at(i).compare("Name")==0) {
-            OutputsHandler::setName(ParameterList.at(i+1).c_str());
-        }
-    }
+    GSParametersHandler::setParameters(ParameterList);
 }
 
 bool GSOverlapHandler::sendData(){

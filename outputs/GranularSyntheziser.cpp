@@ -28,30 +28,21 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
     static int parcour = 0;
     for( i=0; i<framesPerBuffer; i++ )
     {
-
         *out++ = (float) ptr->data->left_phase;
         *out++ = (float) ptr->data->right_phase;
-
         float sample = ptr->getSample();
-
-
         float reverbLevel = 0.2;
-
-
-        sample = GranularSyntheziser::reverb(ptr->mAudioWave, sample, 100, reverbLevel);
-        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, 3000);
+        //sample = GranularSyntheziser::reverb(ptr->mAudioWave, sample, 100, reverbLevel);
+        sample = GranularSyntheziser::echo(ptr->mAudioWave, sample, ptr->getDelay(), ptr->getDecay());
+        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, 10000);
         sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, 10000);
         ptr->mAudioWave->push_back(sample);
-
         //std::cout<<sample<<std::endl;
-
+        ptr->flushAudioWave();
 
         ptr->data->left_phase = sample;
         ptr->data->right_phase = sample;
         //
-
-
-
     }
     //ptr->setDuration(ptr->getDuration()-5);
 
@@ -63,7 +54,12 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
 
 
 
+void GranularSyntheziser::flushAudioWave(){
+    if (mAudioWave->size()>=400*44.1){
+        mAudioWave->erase(mAudioWave->begin()); //cost 15% CPU
+    }
 
+}
 
 GranularSyntheziser::GranularSyntheziser(){
     PaStream *stream;
@@ -79,15 +75,16 @@ GranularSyntheziser::GranularSyntheziser(){
      music->push_back(a);
      //printf(" %f ", (float)byte);
      }*/
-    mOverlap = 3000.0f;
-    mPosition = 0.0;
+    mOverlap    = 3000.0f;
+    mPosition   = 0.0;
+    mDecay      = 0.0f;
     data = new paTestData;
 
     printf("PortAudio Test: output sawtooth wave.\n");
     /* Initialize our data for use by callback. */
     data->left_phase = data->right_phase = 0.0;
     /* Initialize library before making any other calls. */
-    loadWave("/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sound6.wav");
+    loadWave("/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sound7.wav");
 
  //   mGrains.push_back(Grain(music, 2000 ,500));
    // mGrains.push_back(Grain(music, 3000,500 ));
@@ -125,7 +122,6 @@ float GranularSyntheziser::getSample(){
         if(mDuration >mOverlap){
             mGrains.push_back(new Grain(music, mDuration, mBlank));
         }
-
         mPosition = 0.0f;
     }
 
@@ -145,7 +141,6 @@ float GranularSyntheziser::getSample(){
         sampleResult=  0.0f;
     }
     return sampleResult;
-
     //return mGrains.front()->getSample();
 }
 
@@ -157,7 +152,6 @@ float GranularSyntheziser::reverb(std::vector <float>* mAudioWave,float sample, 
 
     for (int i = 0; i<200; i++) {
         returnSample = echo(mAudioWave,returnSample,(i*30)+delay,decay*exp(-(float)i));
-
     }
     //std::cout<<mAudioWave->size()<< " " << delaySamples<<std::endl<<std::flush;
     /*if(mAudioWave->size()>delaySamples){
@@ -183,7 +177,6 @@ float GranularSyntheziser::lowPassFilter(std::vector<float> *mAudioWave, float s
     return filteredValue;
 }
 
-
 float GranularSyntheziser::echo(std::vector <float>* mAudioWave,float sample, int delay, float decay ){
     int delaySamples = (int)((float)delay*44.1f);
     float returnSample = sample;
@@ -202,6 +195,8 @@ float GranularSyntheziser::echo(std::vector <float>* mAudioWave,float sample, in
     //std::cout<<returnSample<<std::endl;
     return returnSample;
 }
+
+
 
 bool GranularSyntheziser::loadWave(std::string path){
     std::ifstream myfile(path);
@@ -226,12 +221,30 @@ bool GranularSyntheziser::loadWave(std::string path){
         myfile.close();
         return true;
     }
-
     else {
         std::cout << "Unable to open file";
         return false;
     }
 }
+
+void GranularSyntheziser::setDecay(float decay){
+    if (decay >= 0.0f && decay <= 1.0f) {
+        mDecay = decay;
+    }
+}
+
+float GranularSyntheziser::getDecay(){
+    return mDecay;
+}
+
+void GranularSyntheziser::setDelay(int delay){
+    mDelay = delay;
+}
+
+int GranularSyntheziser::getDelay(){
+    return mDelay;
+}
+
 int GranularSyntheziser::getDuration(){
     return mDuration;
 }
@@ -240,7 +253,6 @@ void GranularSyntheziser::setDuration(int duration){
     if(duration>0){
         mDuration = duration;
     }
-
 }
 
 int GranularSyntheziser::getOverlap(){

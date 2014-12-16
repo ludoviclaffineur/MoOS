@@ -12,7 +12,8 @@
 #include <stdio.h>
 #include "Grid.h"
 #include "portaudio.h"
-#include "Grain.h";
+#include "Grain.h"
+#include <deque>
 typedef struct
 {
     float left_phase;
@@ -21,7 +22,6 @@ typedef struct
 paTestData;
 
 class GranularSyntheziser{
-
 
 public:
 
@@ -37,16 +37,21 @@ public:
     void setVolume(float volume);
 
     void setBlank(int blank);
+    void setDecay(float decay);
+    inline float getDecay();
+
+    void setDelay(int delay);
+    inline int getDelay();
+
     paTestData *data;
     float getSample();
     std::vector <float>* music;
-    std::vector <float>* mAudioWave ;
-     std::vector <Grain*>mGrains ;
+    std::vector <float>* mAudioWave;
+    std::vector <Grain*>mGrains ;
+    inline void flushAudioWave();
     static float reverb(std::vector <float>* mAudioWave, float sample, int delay, float decay );
     static float echo(std::vector <float>* mAudioWave, float sample, int delay, float decay );
     static float lowPassFilter(std::vector <float>* mAudioWave, float sample, float cutoff );
-
-    
 
 private:
     int mDuration;
@@ -54,13 +59,11 @@ private:
     int mPosition;
     int mOverlap;
     float mVolume;
+    float mDecay;
+    int mDelay;
     PaStream *stream;
+
     bool loadWave(std::string path);
-
-
-
-
-
 };
 
 

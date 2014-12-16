@@ -20,7 +20,8 @@ class OutputsHandler{
 
 public:
     enum OutputType{
-        OSC,
+        OSC =0,
+        GRANULAR_SYNTH,
         Total
     };
     OutputsHandler();
