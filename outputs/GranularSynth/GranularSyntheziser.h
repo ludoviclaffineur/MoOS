@@ -40,27 +40,34 @@ public:
     void setDecay(float decay);
     inline float getDecay();
 
-    void setDelay(int delay);
-    inline int getDelay();
+    void setDelay(float delay);
+    inline float getDelay();
+
+    void setInitPosition(int delay);
+    inline int getInitPosition();
 
     paTestData *data;
     float getSample();
     std::vector <float>* music;
-    std::vector <float>* mAudioWave;
+    std::deque <float>* mAudioWave;
     std::vector <Grain*>mGrains ;
+    void    setCutoff(float cutoff);
+    float   getCutoff();
     inline void flushAudioWave();
-    static float reverb(std::vector <float>* mAudioWave, float sample, int delay, float decay );
-    static float echo(std::vector <float>* mAudioWave, float sample, int delay, float decay );
-    static float lowPassFilter(std::vector <float>* mAudioWave, float sample, float cutoff );
+    static float reverb(std::deque <float>*mAudioWave, float sample, float delay, float decay );
+    static float echo(std::deque <float>* mAudioWave, float sample, float delay, float decay );
+    static float lowPassFilter(std::deque <float>* mAudioWave, float sample, float cutoff );
 
 private:
     int mDuration;
     int mBlank;
     int mPosition;
     int mOverlap;
+    float mCutoff;
     float mVolume;
     float mDecay;
-    int mDelay;
+    float mDelay;
+    int mInitPos;
     PaStream *stream;
 
     bool loadWave(std::string path);

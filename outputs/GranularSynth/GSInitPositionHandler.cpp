@@ -1,0 +1,24 @@
+//
+//  GSInitPositionHandler.cpp
+//  LibLoAndCap
+//
+//  Created by Ludovic Laffineur on 16/12/14.
+//  Copyright (c) 2014 Ludovic Laffineur. All rights reserved.
+//
+
+#include "GSInitPositionHandler.h"
+GSInitPositionHandler::GSInitPositionHandler(GranularSyntheziser* GS) : GSParametersHandler("GSInitPosition",GS){
+    //GS_MAX_DURATION = 4000;
+    //OutputsHandler::setName("GS_Duration");
+    GS_MAX_POSITION = GS->music->size();
+}
+
+void GSInitPositionHandler::setParameters(std::vector<std::string> ParameterList){
+    GSParametersHandler::setParameters(ParameterList);
+}
+
+bool GSInitPositionHandler::sendData(){
+    //std::cout<<mValueBeforeSending << "      "<< GS_MAX_POSITION << std::endl;
+    mGranularSynth->setInitPosition(mValueBeforeSending*GS_MAX_POSITION);
+    return true;
+}

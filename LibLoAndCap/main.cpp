@@ -28,6 +28,8 @@
 #include "GSBlankHandler.h"
 #include "GSReverbDecayHandler.h"
 #include "GSReverbDelayHandler.h"
+#include "GSLowPassCutoffHandler.h"
+#include "GSInitPositionHandler.h"
 //#include "storage_adaptors.hpp"
 
 int main(int argc, const char * argv[])
@@ -124,6 +126,8 @@ int main(int argc, const char * argv[])
     TheGrid->addOutput(new GSBlankHandler(gs));
     TheGrid->addOutput(new GSReverbDecayHandler(gs));
     TheGrid->addOutput(new GSReverbDelayHandler(gs));
+    TheGrid->addOutput(new GSLowPassCutoffHandler(gs));
+    TheGrid->addOutput(new GSInitPositionHandler(gs));
     //theGeneticAlgorithm->evaluateAndEvolve(0.1);
     /*theGeneticAlgorithm.evalPop();
 	cout << endl << endl << "Evolution de la population..." << endl;

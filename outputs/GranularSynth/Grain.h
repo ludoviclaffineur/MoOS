@@ -13,7 +13,7 @@
 #include <vector>
 class Grain{
 public:
-    Grain(std::vector<float>* audioFile, int duration, int blank);
+    Grain(std::vector<float>* audioFile, int duration, int blank,int initPos);
     float getSample();
     enum ENVELOPE{
         ATTACK=0,
@@ -32,5 +32,6 @@ public:
     }
     bool done;
     int mBlank;
+    int mWindowSize;
 };
 #endif /* defined(__LibLoAndCap__Grain__) */

@@ -34,8 +34,8 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
         float reverbLevel = 0.2;
         //sample = GranularSyntheziser::reverb(ptr->mAudioWave, sample, 100, reverbLevel);
         sample = GranularSyntheziser::echo(ptr->mAudioWave, sample, ptr->getDelay(), ptr->getDecay());
-        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, 10000);
-        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, 10000);
+        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
+        sample = GranularSyntheziser::lowPassFilter(ptr->mAudioWave, sample, ptr->getCutoff());
         ptr->mAudioWave->push_back(sample);
         //std::cout<<sample<<std::endl;
         ptr->flushAudioWave();
@@ -50,7 +50,12 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
     return 0;
 }
 
-
+void GranularSyntheziser::setCutoff(float cutoff){
+    mCutoff = cutoff;
+}
+float GranularSyntheziser::getCutoff(){
+    return mCutoff;
+}
 
 
 
@@ -64,10 +69,11 @@ void GranularSyntheziser::flushAudioWave(){
 GranularSyntheziser::GranularSyntheziser(){
     PaStream *stream;
     PaError err;
+    mCutoff = 0.0f;
     //mEnvelope = 0;
     //std::ifstream file(s, std::ifstream::in);
     music = new std::vector <float>();
-    mAudioWave = new std::vector <float>();
+    mAudioWave = new std::deque <float>();
     //char byte;
     /* while (file.good()) {
      byte = file.get();
@@ -75,6 +81,7 @@ GranularSyntheziser::GranularSyntheziser(){
      music->push_back(a);
      //printf(" %f ", (float)byte);
      }*/
+    mInitPos = 0;
     mOverlap    = 3000.0f;
     mPosition   = 0.0;
     mDecay      = 0.0f;
@@ -120,7 +127,7 @@ float GranularSyntheziser::getSample(){
 
     if(mGrains.size()==0 || mPosition++ > (mGrains[mGrains.size()-1]->mDuration+ mGrains[mGrains.size()-1]->mBlank- mOverlap)){
         if(mDuration >mOverlap){
-            mGrains.push_back(new Grain(music, mDuration, mBlank));
+            mGrains.push_back(new Grain(music, mDuration, mBlank, mInitPos));
         }
         mPosition = 0.0f;
     }
@@ -144,7 +151,7 @@ float GranularSyntheziser::getSample(){
     //return mGrains.front()->getSample();
 }
 
-float GranularSyntheziser::reverb(std::vector <float>* mAudioWave,float sample, int delay, float decay ){
+float GranularSyntheziser::reverb(std::deque <float>* mAudioWave,float sample, float delay, float decay ){
     float returnSample = sample;
     int rdelay;
     float rdecay;
@@ -166,7 +173,7 @@ float GranularSyntheziser::reverb(std::vector <float>* mAudioWave,float sample, 
     return returnSample;
 }
 
-float GranularSyntheziser::lowPassFilter(std::vector<float> *mAudioWave, float sample, float cutoff){
+float GranularSyntheziser::lowPassFilter(std::deque <float>* mAudioWave, float sample, float cutoff){
     float RC = 1.0/(cutoff*2*3.14);
     float dt = 1.0/SAMPLE_RATE;
     float alpha = dt/(RC+dt);
@@ -177,7 +184,7 @@ float GranularSyntheziser::lowPassFilter(std::vector<float> *mAudioWave, float s
     return filteredValue;
 }
 
-float GranularSyntheziser::echo(std::vector <float>* mAudioWave,float sample, int delay, float decay ){
+float GranularSyntheziser::echo(std::deque <float>* mAudioWave,float sample, float delay, float decay ){
     int delaySamples = (int)((float)delay*44.1f);
     float returnSample = sample;
     if (mAudioWave->size()>=delaySamples) {
@@ -237,11 +244,11 @@ float GranularSyntheziser::getDecay(){
     return mDecay;
 }
 
-void GranularSyntheziser::setDelay(int delay){
+void GranularSyntheziser::setDelay(float delay){
     mDelay = delay;
 }
 
-int GranularSyntheziser::getDelay(){
+float GranularSyntheziser::getDelay(){
     return mDelay;
 }
 
@@ -273,4 +280,12 @@ float GranularSyntheziser::getVolume(){
 
 void GranularSyntheziser::setVolume(float volume){
     mVolume = volume;
+}
+
+void GranularSyntheziser::setInitPosition(int initPos){
+    //std::cout<<initPos<<std::endl;
+    mInitPos = initPos;
+}
+int GranularSyntheziser::getInitPosition(){
+    return mInitPos;
 }

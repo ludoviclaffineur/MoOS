@@ -42,6 +42,16 @@
 		FE481832182119D00094602C /* OutputsHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE481830182119D00094602C /* OutputsHandler.cpp */; };
 		FE48183618211AF10094602C /* Converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48183418211AF10094602C /* Converter.cpp */; };
 		FE5939B018F2B0EA00E4426C /* libboost_thread-mt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */; };
+		FE7059711A419DD30020DEA7 /* Grain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70595D1A419DD30020DEA7 /* Grain.cpp */; };
+		FE7059721A419DD30020DEA7 /* GranularSyntheziser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70595F1A419DD30020DEA7 /* GranularSyntheziser.cpp */; };
+		FE7059731A419DD30020DEA7 /* GSBlankHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE7059611A419DD30020DEA7 /* GSBlankHandler.cpp */; };
+		FE7059741A419DD30020DEA7 /* GSDurationHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE7059631A419DD30020DEA7 /* GSDurationHandler.cpp */; };
+		FE7059751A419DD30020DEA7 /* GSInitPositionHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE7059651A419DD30020DEA7 /* GSInitPositionHandler.cpp */; };
+		FE7059761A419DD30020DEA7 /* GSLowPassCutoffHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE7059671A419DD30020DEA7 /* GSLowPassCutoffHandler.cpp */; };
+		FE7059771A419DD30020DEA7 /* GSOverlapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE7059691A419DD30020DEA7 /* GSOverlapHandler.cpp */; };
+		FE7059781A419DD30020DEA7 /* GSParametersHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70596B1A419DD30020DEA7 /* GSParametersHandler.cpp */; };
+		FE7059791A419DD30020DEA7 /* GSReverbDecayHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70596D1A419DD30020DEA7 /* GSReverbDecayHandler.cpp */; };
+		FE70597A1A419DD30020DEA7 /* GSReverbDelayHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70596F1A419DD30020DEA7 /* GSReverbDelayHandler.cpp */; };
 		FE7BD64F19C6D15F00B9BF14 /* libgecodefloat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */; };
 		FE7BD65219C6DA4400B9BF14 /* PcapKissProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE7BD65019C6DA4400B9BF14 /* PcapKissProcessing.cpp */; };
 		FE82A07619DD447D00A5E40B /* HttpClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE82A07419DD447D00A5E40B /* HttpClient.cpp */; };
@@ -52,10 +62,8 @@
 		FE9B540F18C638870080ABCB /* libboost_system-mt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
 		FE9B541018C638870080ABCB /* liblo.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE481812182108700094602C /* liblo.dylib */; };
 		FE9B541218C638C80080ABCB /* linkLibScript.sh in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE9B541118C638C10080ABCB /* linkLibScript.sh */; };
-		FEA1343B1A3B279700A87897 /* GranularSyntheziser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA134391A3B279700A87897 /* GranularSyntheziser.cpp */; };
 		FEA1343F1A3B2E0300A87897 /* libportaudio.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEA1343E1A3B2E0300A87897 /* libportaudio.dylib */; };
 		FEA134411A3B2E0A00A87897 /* libportaudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEA134401A3B2E0A00A87897 /* libportaudio.a */; };
-		FEA134451A3B3DA600A87897 /* Grain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA134431A3B3DA600A87897 /* Grain.cpp */; };
 		FEA2055519D6BDF400EAD3F3 /* libgecodeset.35.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEA2055419D6BDF400EAD3F3 /* libgecodeset.35.0.dylib */; };
 		FEA9FB1B18D1DFA900DB4811 /* PcapEthernetProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA9FB1918D1DFA900DB4811 /* PcapEthernetProcessing.cpp */; };
 		FEA9FB2618D1E00F00DB4811 /* PcapIpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEA9FB2218D1E00F00DB4811 /* PcapIpProcessing.cpp */; };
@@ -76,12 +84,6 @@
 		FEC0AA9819CADF730090191B /* libgecodesearch.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FE19BDA0BD000A281E /* libgecodesearch.dylib */; };
 		FEC0AA9919CADF730090191B /* libgecodeint.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FC19BDA0B5000A281E /* libgecodeint.dylib */; };
 		FEC0AA9A19CADF730090191B /* libgecodekernel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FA19BDA082000A281E /* libgecodekernel.dylib */; };
-		FEF8C2FF1A4027F70093C53C /* GSReverbDecayHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEF8C2FD1A4027F70093C53C /* GSReverbDecayHandler.cpp */; };
-		FEF8C3021A4028110093C53C /* GSReverbDelayHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEF8C3001A4028110093C53C /* GSReverbDelayHandler.cpp */; };
-		FEFA7EE11A3ED77600C49022 /* GSParametersHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFA7EDF1A3ED77600C49022 /* GSParametersHandler.cpp */; };
-		FEFA7EE41A3ED95F00C49022 /* GSDurationHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFA7EE21A3ED95F00C49022 /* GSDurationHandler.cpp */; };
-		FEFA7EE71A3EDE5100C49022 /* GSOverlapHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFA7EE51A3EDE5100C49022 /* GSOverlapHandler.cpp */; };
-		FEFA7EEA1A3EEC6000C49022 /* GSBlankHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFA7EE81A3EEC6000C49022 /* GSBlankHandler.cpp */; };
 		FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +181,26 @@
 		FE48183518211AF10094602C /* Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Converter.h; path = utils/Converter.h; sourceTree = "<group>"; };
 		FE48183718211BFC0094602C /* IpHeaderDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IpHeaderDefinitions.h; path = utils/IpHeaderDefinitions.h; sourceTree = "<group>"; };
 		FE586CD318EC1A5F0069ED48 /* SerialProcessings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SerialProcessings.h; path = processings/SerialProcessings.h; sourceTree = "<group>"; };
+		FE70595D1A419DD30020DEA7 /* Grain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grain.cpp; path = outputs/GranularSynth/Grain.cpp; sourceTree = "<group>"; };
+		FE70595E1A419DD30020DEA7 /* Grain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grain.h; path = outputs/GranularSynth/Grain.h; sourceTree = "<group>"; };
+		FE70595F1A419DD30020DEA7 /* GranularSyntheziser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GranularSyntheziser.cpp; path = outputs/GranularSynth/GranularSyntheziser.cpp; sourceTree = "<group>"; };
+		FE7059601A419DD30020DEA7 /* GranularSyntheziser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GranularSyntheziser.h; path = outputs/GranularSynth/GranularSyntheziser.h; sourceTree = "<group>"; };
+		FE7059611A419DD30020DEA7 /* GSBlankHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBlankHandler.cpp; path = outputs/GranularSynth/GSBlankHandler.cpp; sourceTree = "<group>"; };
+		FE7059621A419DD30020DEA7 /* GSBlankHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBlankHandler.h; path = outputs/GranularSynth/GSBlankHandler.h; sourceTree = "<group>"; };
+		FE7059631A419DD30020DEA7 /* GSDurationHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSDurationHandler.cpp; path = outputs/GranularSynth/GSDurationHandler.cpp; sourceTree = "<group>"; };
+		FE7059641A419DD30020DEA7 /* GSDurationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSDurationHandler.h; path = outputs/GranularSynth/GSDurationHandler.h; sourceTree = "<group>"; };
+		FE7059651A419DD30020DEA7 /* GSInitPositionHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSInitPositionHandler.cpp; path = outputs/GranularSynth/GSInitPositionHandler.cpp; sourceTree = "<group>"; };
+		FE7059661A419DD30020DEA7 /* GSInitPositionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSInitPositionHandler.h; path = outputs/GranularSynth/GSInitPositionHandler.h; sourceTree = "<group>"; };
+		FE7059671A419DD30020DEA7 /* GSLowPassCutoffHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSLowPassCutoffHandler.cpp; path = outputs/GranularSynth/GSLowPassCutoffHandler.cpp; sourceTree = "<group>"; };
+		FE7059681A419DD30020DEA7 /* GSLowPassCutoffHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSLowPassCutoffHandler.h; path = outputs/GranularSynth/GSLowPassCutoffHandler.h; sourceTree = "<group>"; };
+		FE7059691A419DD30020DEA7 /* GSOverlapHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSOverlapHandler.cpp; path = outputs/GranularSynth/GSOverlapHandler.cpp; sourceTree = "<group>"; };
+		FE70596A1A419DD30020DEA7 /* GSOverlapHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSOverlapHandler.h; path = outputs/GranularSynth/GSOverlapHandler.h; sourceTree = "<group>"; };
+		FE70596B1A419DD30020DEA7 /* GSParametersHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSParametersHandler.cpp; path = outputs/GranularSynth/GSParametersHandler.cpp; sourceTree = "<group>"; };
+		FE70596C1A419DD30020DEA7 /* GSParametersHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSParametersHandler.h; path = outputs/GranularSynth/GSParametersHandler.h; sourceTree = "<group>"; };
+		FE70596D1A419DD30020DEA7 /* GSReverbDecayHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSReverbDecayHandler.cpp; path = outputs/GranularSynth/GSReverbDecayHandler.cpp; sourceTree = "<group>"; };
+		FE70596E1A419DD30020DEA7 /* GSReverbDecayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSReverbDecayHandler.h; path = outputs/GranularSynth/GSReverbDecayHandler.h; sourceTree = "<group>"; };
+		FE70596F1A419DD30020DEA7 /* GSReverbDelayHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSReverbDelayHandler.cpp; path = outputs/GranularSynth/GSReverbDelayHandler.cpp; sourceTree = "<group>"; };
+		FE7059701A419DD30020DEA7 /* GSReverbDelayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSReverbDelayHandler.h; path = outputs/GranularSynth/GSReverbDelayHandler.h; sourceTree = "<group>"; };
 		FE7BD65019C6DA4400B9BF14 /* PcapKissProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapKissProcessing.cpp; path = processings/PcapKissProcessing.cpp; sourceTree = "<group>"; };
 		FE7BD65119C6DA4400B9BF14 /* PcapKissProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapKissProcessing.h; path = processings/PcapKissProcessing.h; sourceTree = "<group>"; };
 		FE82A07419DD447D00A5E40B /* HttpClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HttpClient.cpp; path = utils/HttpClient.cpp; sourceTree = "<group>"; };
@@ -203,12 +225,8 @@
 		FE9B541118C638C10080ABCB /* linkLibScript.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = linkLibScript.sh; sourceTree = "<group>"; };
 		FE9C26CD18A38FE900E5DC5C /* Parameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameter.h; path = outputs/Parameter.h; sourceTree = "<group>"; };
 		FE9CB27619ED6083001CDFB8 /* Setter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Setter.h; path = processings/Setter.h; sourceTree = "<group>"; };
-		FEA134391A3B279700A87897 /* GranularSyntheziser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GranularSyntheziser.cpp; path = outputs/GranularSyntheziser.cpp; sourceTree = "<group>"; };
-		FEA1343A1A3B279700A87897 /* GranularSyntheziser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GranularSyntheziser.h; path = outputs/GranularSyntheziser.h; sourceTree = "<group>"; };
 		FEA1343E1A3B2E0300A87897 /* libportaudio.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libportaudio.dylib; path = ../../../../opt/local/lib/libportaudio.dylib; sourceTree = "<group>"; };
 		FEA134401A3B2E0A00A87897 /* libportaudio.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libportaudio.a; path = ../../../../opt/local/lib/libportaudio.a; sourceTree = "<group>"; };
-		FEA134431A3B3DA600A87897 /* Grain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grain.cpp; path = outputs/Grain.cpp; sourceTree = "<group>"; };
-		FEA134441A3B3DA600A87897 /* Grain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grain.h; path = outputs/Grain.h; sourceTree = "<group>"; };
 		FEA2055419D6BDF400EAD3F3 /* libgecodeset.35.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libgecodeset.35.0.dylib; sourceTree = "<group>"; };
 		FEA9FB1918D1DFA900DB4811 /* PcapEthernetProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapEthernetProcessing.cpp; path = processings/PcapEthernetProcessing.cpp; sourceTree = "<group>"; };
 		FEA9FB1A18D1DFA900DB4811 /* PcapEthernetProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapEthernetProcessing.h; path = processings/PcapEthernetProcessing.h; sourceTree = "<group>"; };
@@ -231,18 +249,6 @@
 		FEAED90C19BDE7DB000A281E /* Constrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constrain.h; path = mapping/Constrain.h; sourceTree = "<group>"; };
 		FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreadHttpRequest.cpp; path = utils/ThreadHttpRequest.cpp; sourceTree = "<group>"; };
 		FEBEA68E19DE9F5C000EAFB6 /* ThreadHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadHttpRequest.h; path = utils/ThreadHttpRequest.h; sourceTree = "<group>"; };
-		FEF8C2FD1A4027F70093C53C /* GSReverbDecayHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSReverbDecayHandler.cpp; sourceTree = "<group>"; };
-		FEF8C2FE1A4027F70093C53C /* GSReverbDecayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSReverbDecayHandler.h; sourceTree = "<group>"; };
-		FEF8C3001A4028110093C53C /* GSReverbDelayHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GSReverbDelayHandler.cpp; sourceTree = "<group>"; };
-		FEF8C3011A4028110093C53C /* GSReverbDelayHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSReverbDelayHandler.h; sourceTree = "<group>"; };
-		FEFA7EDF1A3ED77600C49022 /* GSParametersHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSParametersHandler.cpp; path = outputs/GSParametersHandler.cpp; sourceTree = "<group>"; };
-		FEFA7EE01A3ED77600C49022 /* GSParametersHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSParametersHandler.h; path = outputs/GSParametersHandler.h; sourceTree = "<group>"; };
-		FEFA7EE21A3ED95F00C49022 /* GSDurationHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSDurationHandler.cpp; path = outputs/GSDurationHandler.cpp; sourceTree = "<group>"; };
-		FEFA7EE31A3ED95F00C49022 /* GSDurationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSDurationHandler.h; path = outputs/GSDurationHandler.h; sourceTree = "<group>"; };
-		FEFA7EE51A3EDE5100C49022 /* GSOverlapHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSOverlapHandler.cpp; path = outputs/GSOverlapHandler.cpp; sourceTree = "<group>"; };
-		FEFA7EE61A3EDE5100C49022 /* GSOverlapHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSOverlapHandler.h; path = outputs/GSOverlapHandler.h; sourceTree = "<group>"; };
-		FEFA7EE81A3EEC6000C49022 /* GSBlankHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GSBlankHandler.cpp; path = outputs/GSBlankHandler.cpp; sourceTree = "<group>"; };
-		FEFA7EE91A3EEC6000C49022 /* GSBlankHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GSBlankHandler.h; path = outputs/GSBlankHandler.h; sourceTree = "<group>"; };
 		FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapDhcpProcessing.cpp; path = processings/PcapDhcpProcessing.cpp; sourceTree = "<group>"; };
 		FEFED9221920FD37002936C8 /* PcapDhcpProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapDhcpProcessing.h; path = processings/PcapDhcpProcessing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -405,24 +411,12 @@
 		FE48182C182110FE0094602C /* ouputs */ = {
 			isa = PBXGroup;
 			children = (
+				FE70595C1A419DBC0020DEA7 /* GranularSynth */,
 				FE48182D182111400094602C /* OscHandler.cpp */,
 				FE48182E182111400094602C /* OscHandler.h */,
 				FE481830182119D00094602C /* OutputsHandler.cpp */,
 				FE481831182119D00094602C /* OutputsHandler.h */,
 				FE9C26CD18A38FE900E5DC5C /* Parameter.h */,
-				FEFA7EDD1A3ED65400C49022 /* Audio */,
-				FEFA7EDF1A3ED77600C49022 /* GSParametersHandler.cpp */,
-				FEFA7EE01A3ED77600C49022 /* GSParametersHandler.h */,
-				FEFA7EE81A3EEC6000C49022 /* GSBlankHandler.cpp */,
-				FEFA7EE91A3EEC6000C49022 /* GSBlankHandler.h */,
-				FEFA7EE21A3ED95F00C49022 /* GSDurationHandler.cpp */,
-				FEFA7EE31A3ED95F00C49022 /* GSDurationHandler.h */,
-				FEF8C2FD1A4027F70093C53C /* GSReverbDecayHandler.cpp */,
-				FEF8C2FE1A4027F70093C53C /* GSReverbDecayHandler.h */,
-				FEFA7EE51A3EDE5100C49022 /* GSOverlapHandler.cpp */,
-				FEFA7EE61A3EDE5100C49022 /* GSOverlapHandler.h */,
-				FEF8C3001A4028110093C53C /* GSReverbDelayHandler.cpp */,
-				FEF8C3011A4028110093C53C /* GSReverbDelayHandler.h */,
 			);
 			name = ouputs;
 			sourceTree = "<group>";
@@ -453,6 +447,33 @@
 				FE26FEF119B49D8B0096EBCE /* SerialToucheProcessing.h */,
 			);
 			name = serial;
+			sourceTree = "<group>";
+		};
+		FE70595C1A419DBC0020DEA7 /* GranularSynth */ = {
+			isa = PBXGroup;
+			children = (
+				FE70595D1A419DD30020DEA7 /* Grain.cpp */,
+				FE70595E1A419DD30020DEA7 /* Grain.h */,
+				FE70595F1A419DD30020DEA7 /* GranularSyntheziser.cpp */,
+				FE7059601A419DD30020DEA7 /* GranularSyntheziser.h */,
+				FE7059611A419DD30020DEA7 /* GSBlankHandler.cpp */,
+				FE7059621A419DD30020DEA7 /* GSBlankHandler.h */,
+				FE7059631A419DD30020DEA7 /* GSDurationHandler.cpp */,
+				FE7059641A419DD30020DEA7 /* GSDurationHandler.h */,
+				FE7059651A419DD30020DEA7 /* GSInitPositionHandler.cpp */,
+				FE7059661A419DD30020DEA7 /* GSInitPositionHandler.h */,
+				FE7059671A419DD30020DEA7 /* GSLowPassCutoffHandler.cpp */,
+				FE7059681A419DD30020DEA7 /* GSLowPassCutoffHandler.h */,
+				FE7059691A419DD30020DEA7 /* GSOverlapHandler.cpp */,
+				FE70596A1A419DD30020DEA7 /* GSOverlapHandler.h */,
+				FE70596B1A419DD30020DEA7 /* GSParametersHandler.cpp */,
+				FE70596C1A419DD30020DEA7 /* GSParametersHandler.h */,
+				FE70596D1A419DD30020DEA7 /* GSReverbDecayHandler.cpp */,
+				FE70596E1A419DD30020DEA7 /* GSReverbDecayHandler.h */,
+				FE70596F1A419DD30020DEA7 /* GSReverbDelayHandler.cpp */,
+				FE7059701A419DD30020DEA7 /* GSReverbDelayHandler.h */,
+			);
+			name = GranularSynth;
 			sourceTree = "<group>";
 		};
 		FE84597719BEE998006804FF /* ConstrainProgramming */ = {
@@ -563,25 +584,6 @@
 			name = pcap;
 			sourceTree = "<group>";
 		};
-		FEFA7EDD1A3ED65400C49022 /* Audio */ = {
-			isa = PBXGroup;
-			children = (
-				FEFA7EDE1A3ED66D00C49022 /* GranularSynth */,
-			);
-			name = Audio;
-			sourceTree = "<group>";
-		};
-		FEFA7EDE1A3ED66D00C49022 /* GranularSynth */ = {
-			isa = PBXGroup;
-			children = (
-				FEA134391A3B279700A87897 /* GranularSyntheziser.cpp */,
-				FEA1343A1A3B279700A87897 /* GranularSyntheziser.h */,
-				FEA134431A3B3DA600A87897 /* Grain.cpp */,
-				FEA134441A3B3DA600A87897 /* Grain.h */,
-			);
-			name = GranularSynth;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -637,50 +639,52 @@
 				FEAED90D19BDE7DB000A281E /* Constrain.cpp in Sources */,
 				FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */,
 				FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */,
+				FE7059781A419DD30020DEA7 /* GSParametersHandler.cpp in Sources */,
 				FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */,
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
 				FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */,
-				FEA1343B1A3B279700A87897 /* GranularSyntheziser.cpp in Sources */,
-				FEFA7EE41A3ED95F00C49022 /* GSDurationHandler.cpp in Sources */,
 				FE34166819DC2A1900845704 /* PcapGrabAndStorePictures.cpp in Sources */,
+				FE7059741A419DD30020DEA7 /* GSDurationHandler.cpp in Sources */,
 				FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */,
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
+				FE7059751A419DD30020DEA7 /* GSInitPositionHandler.cpp in Sources */,
 				FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */,
 				FE0678F11A08E05800E4729F /* LeapMotionHandler.cpp in Sources */,
 				FE0678FA1A08E81700E4729F /* LeapHandsProcessing.cpp in Sources */,
-				FEF8C2FF1A4027F70093C53C /* GSReverbDecayHandler.cpp in Sources */,
+				FE7059731A419DD30020DEA7 /* GSBlankHandler.cpp in Sources */,
 				FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */,
 				FE43C1F218DC917400742A0C /* SerialHandler.cpp in Sources */,
 				FE0211FF184C70B30096ED35 /* SnfHandler.cpp in Sources */,
+				FE7059711A419DD30020DEA7 /* Grain.cpp in Sources */,
 				FE481832182119D00094602C /* OutputsHandler.cpp in Sources */,
-				FEA134451A3B3DA600A87897 /* Grain.cpp in Sources */,
-				FEF8C3021A4028110093C53C /* GSReverbDelayHandler.cpp in Sources */,
 				FE43C1EF18DC52B300742A0C /* Chromosome.cpp in Sources */,
+				FE7059721A419DD30020DEA7 /* GranularSyntheziser.cpp in Sources */,
 				FE96F4BC183CF48E00C59843 /* Input.cpp in Sources */,
+				FE70597A1A419DD30020DEA7 /* GSReverbDelayHandler.cpp in Sources */,
 				FE84597A19BEE9E5006804FF /* GrilleOptions.cpp in Sources */,
 				FEA9FB2618D1E00F00DB4811 /* PcapIpProcessing.cpp in Sources */,
 				FE48183618211AF10094602C /* Converter.cpp in Sources */,
 				FEA9FB1B18D1DFA900DB4811 /* PcapEthernetProcessing.cpp in Sources */,
-				FEFA7EE71A3EDE5100C49022 /* GSOverlapHandler.cpp in Sources */,
+				FE7059791A419DD30020DEA7 /* GSReverbDecayHandler.cpp in Sources */,
 				FE14162418464D3D00F7AF26 /* reply.cpp in Sources */,
 				FE96F4B7183CF42A00C59843 /* Cell.cpp in Sources */,
 				FE26FEF219B49D8B0096EBCE /* SerialToucheProcessing.cpp in Sources */,
 				FEBEA68F19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp in Sources */,
+				FE7059771A419DD30020DEA7 /* GSOverlapHandler.cpp in Sources */,
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
 				FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */,
 				FE2A9948191CFA0E0007ADEF /* ConstrainGenetic.cpp in Sources */,
 				FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */,
 				FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */,
-				FEFA7EE11A3ED77600C49022 /* GSParametersHandler.cpp in Sources */,
 				FE32FF2F18F432AD000D2D23 /* PcapPasswordsProcessing.cpp in Sources */,
 				FE82A07619DD447D00A5E40B /* HttpClient.cpp in Sources */,
 				FE7BD65219C6DA4400B9BF14 /* PcapKissProcessing.cpp in Sources */,
 				FE48182518210E070094602C /* PcapHandler.cpp in Sources */,
-				FEFA7EEA1A3EEC6000C49022 /* GSBlankHandler.cpp in Sources */,
 				FE14162118464D3D00F7AF26 /* connection_manager.cpp in Sources */,
 				FE14162318464D3D00F7AF26 /* mime_types.cpp in Sources */,
+				FE7059761A419DD30020DEA7 /* GSLowPassCutoffHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

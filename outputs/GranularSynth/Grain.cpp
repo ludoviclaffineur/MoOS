@@ -9,12 +9,14 @@
 #include "Grain.h"
 #include <iostream>
 #include <math.h>
-Grain::Grain(std::vector<float>* audioFile, int duration,int blank){
+Grain::Grain(std::vector<float>* audioFile, int duration,int blank, int initPos){
     mDuration = duration;
+    mWindowSize = 10000;
     mCurrentPostion=0;
     mEnvelope = ENVELOPE::ATTACK;
     mAudioFile = audioFile;
-    mInitPostion = rand()%(audioFile->size()-mDuration);
+    //std::cout<<initPos<<std::endl;
+    mInitPostion = (initPos + rand()%mWindowSize)%(audioFile->size()-mDuration);
     mBlank = blank;
     done = false;
 }
