@@ -91,7 +91,7 @@ GranularSyntheziser::GranularSyntheziser(){
     /* Initialize our data for use by callback. */
     data->left_phase = data->right_phase = 0.0;
     /* Initialize library before making any other calls. */
-    loadWave("/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sound7.wav");
+    loadWave("/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sound18.wav"); //15 OK
 
  //   mGrains.push_back(Grain(music, 2000 ,500));
    // mGrains.push_back(Grain(music, 3000,500 ));
@@ -153,23 +153,9 @@ float GranularSyntheziser::getSample(){
 
 float GranularSyntheziser::reverb(std::deque <float>* mAudioWave,float sample, float delay, float decay ){
     float returnSample = sample;
-    int rdelay;
-    float rdecay;
-
-
     for (int i = 0; i<200; i++) {
         returnSample = echo(mAudioWave,returnSample,(i*30)+delay,decay*exp(-(float)i));
     }
-    //std::cout<<mAudioWave->size()<< " " << delaySamples<<std::endl<<std::flush;
-    /*if(mAudioWave->size()>delaySamples){
-     for (int i = 0; i< delaySamples; i++) {
-     returnSample += mAudioWave->at(mAudioWave->size()-2-i)*decay;
-     }
-     for (int i = 0; i<mAudioWave->size()-delaySamples; i++) {
-     mAudioWave->erase(mAudioWave->begin());
-     }
-     }*/
-    //std::cout<<returnSample<<std::endl;
     return returnSample;
 }
 
@@ -190,16 +176,6 @@ float GranularSyntheziser::echo(std::deque <float>* mAudioWave,float sample, flo
     if (mAudioWave->size()>=delaySamples) {
         returnSample += decay*mAudioWave->at(mAudioWave->size()-delaySamples);
     }
-    //std::cout<<mAudioWave->size()<< " " << delaySamples<<std::endl<<std::flush;
-    /*if(mAudioWave->size()>delaySamples){
-        for (int i = 0; i< delaySamples; i++) {
-            returnSample += mAudioWave->at(mAudioWave->size()-2-i)*decay;
-        }
-        for (int i = 0; i<mAudioWave->size()-delaySamples; i++) {
-            mAudioWave->erase(mAudioWave->begin());
-        }
-    }*/
-    //std::cout<<returnSample<<std::endl;
     return returnSample;
 }
 

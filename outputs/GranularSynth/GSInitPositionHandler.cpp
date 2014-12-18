@@ -10,7 +10,7 @@
 GSInitPositionHandler::GSInitPositionHandler(GranularSyntheziser* GS) : GSParametersHandler("GSInitPosition",GS){
     //GS_MAX_DURATION = 4000;
     //OutputsHandler::setName("GS_Duration");
-    GS_MAX_POSITION = GS->music->size();
+    GS_MAX_POSITION = (int)GS->music->size();
 }
 
 void GSInitPositionHandler::setParameters(std::vector<std::string> ParameterList){
