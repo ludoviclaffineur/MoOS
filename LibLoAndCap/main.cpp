@@ -17,6 +17,7 @@
 #include "KymaHandler.h"
 #include "ConstrainGenetic.h"
 #include "LeapMotionHandler.h"
+#include "ReadWavFileHandler.h"
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
@@ -30,6 +31,7 @@
 #include "GSReverbDelayHandler.h"
 #include "GSLowPassCutoffHandler.h"
 #include "GSInitPositionHandler.h"
+
 //#include "storage_adaptors.hpp"
 
 int main(int argc, const char * argv[])
@@ -81,6 +83,9 @@ int main(int argc, const char * argv[])
         case CONSTANCES::CaptureDeviceType::LEAPMOTION_HANDLER:
             _captureDevice = new LeapMotionHandler(TheGrid);
             break;
+        case CONSTANCES::CaptureDeviceType::READWAVHANDLER_HANDLER:
+            _captureDevice = new ReadWavFileHandler(TheGrid,"/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sinus440_1000.wav");
+            break;
         default:
             _captureDevice = NULL;
             break;
@@ -102,6 +107,7 @@ int main(int argc, const char * argv[])
 
 
    Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
+    theGeneticAlgorithm->reinit();
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
    /* int a;
     std::string KymaAddress;

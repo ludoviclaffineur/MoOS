@@ -18,7 +18,7 @@ void GSDurationHandler::setParameters(std::vector<std::string> ParameterList){
 }
 
 bool GSDurationHandler::sendData(){
-    std::cout<<mValueBeforeSending<<std::endl;
+    //std::cout<<mValueBeforeSending<<std::endl;
     mGranularSynth->setDuration(mValueBeforeSending*GS_MAX_DURATION);
     return true;
 }
