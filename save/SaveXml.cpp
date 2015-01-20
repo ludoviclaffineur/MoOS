@@ -93,6 +93,9 @@ void SaveXml::loadXml(const std::string &filename, Grid* g){
                 case OutputsHandler::OSC:
                     createOsc( g, child);
                     break;
+                case OutputsHandler::GRANULAR_SYNTH:
+                //    createOsc( g, child);
+                    break;
                 default:
                     break;
             }
@@ -120,6 +123,8 @@ void SaveXml::loadXml(const std::string &filename, Grid* g){
     }
 
 }
+
+
 
 
 void SaveXml::createOsc( Grid* g, const boost::property_tree::ptree& pt){

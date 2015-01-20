@@ -17,6 +17,7 @@ SerialToucheProcessing::SerialToucheProcessing(Grid* g){
         mGrid->addInput(name.str().c_str(), 0, 1024, -1, 0, Converter::LINEAR);
         frequencies[i] = mGrid->getInputWithName(name.str().c_str());
     }
+    isMonitored = true;
 }
 
 void SerialToucheProcessing::setSetter(int nbrSetter, ...){
@@ -43,6 +44,7 @@ void SerialToucheProcessing::process(size_char_tab data){
                     break;
                 case 2:
                     mGrid->compute();
+
                 default:
                     break;
             }

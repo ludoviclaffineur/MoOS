@@ -19,6 +19,7 @@
 #include "Grid.h"
 #include "Genetic.h"
 #include "ConstrainGenetic.h"
+#include "OdbcHandler.h"
 
 namespace http {
 namespace server {
@@ -33,7 +34,7 @@ public:
   /// Construct the server to listen on the specified TCP address and port, and
   /// serve up files from the given directory.
   explicit server(const std::string& address, const std::string& port,
-      const std::string& doc_root, Grid* g,Genetic* algoGen,ConstrainGenetic* constrainAlgo);
+      const std::string& doc_root, Grid* g,Genetic* algoGen,ConstrainGenetic* constrainAlgo, OdbcHandler* database);
 
   /// Run the server's io_service loop.
   void run();

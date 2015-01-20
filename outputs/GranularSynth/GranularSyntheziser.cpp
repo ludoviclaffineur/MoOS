@@ -40,7 +40,7 @@ int patestCallback( const void *inputBuffer, void *outputBuffer,
         //std::cout<<sample<<std::endl;
         ptr->flushAudioWave();
 
-        ptr->data->left_phase = sample;
+        ptr->data->left_phase  = sample;
         ptr->data->right_phase = sample;
         //
     }

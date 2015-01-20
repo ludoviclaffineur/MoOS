@@ -39,6 +39,6 @@ private:
     Grid* mGrid;
     void formatDataAndSetInput( commandData* strucData);
     void setSetter(int nbrSetter, ...);
-
+    bool isMonitored;
 };
 #endif /* defined(__LibLoAndCap__SerialToucheProcessing__) */

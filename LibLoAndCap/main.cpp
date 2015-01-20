@@ -18,6 +18,7 @@
 #include "ConstrainGenetic.h"
 #include "LeapMotionHandler.h"
 #include "ReadWavFileHandler.h"
+#include "OdbcHandler.h"
 
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/lu.hpp>
@@ -32,11 +33,15 @@
 #include "GSLowPassCutoffHandler.h"
 #include "GSInitPositionHandler.h"
 
+#include "MidiHandler.h"
+
+#include "WebSocketServer.h"
+
 //#include "storage_adaptors.hpp"
 
 int main(int argc, const char * argv[])
 {
-    Grid* TheGrid;
+    Grid* theGrid;
     using namespace boost::numeric::ublas;
     using namespace std;
 //    pthread_setname_np("Main");
@@ -50,9 +55,9 @@ int main(int argc, const char * argv[])
     choice--;
 
 
-    TheGrid = new Grid();
+    theGrid = new Grid();
 
-    ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
+    ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(theGrid);
 
 
 //	matrix<float> A(3, 3), Z(3, 3);
@@ -71,25 +76,31 @@ int main(int argc, const char * argv[])
 //	theConstrainAlgo->invertMatrix(A, Z);
 //
 //	cout << "A=" << A << endl << "Z=" << Z <<"IDENTITY" << prod(A, Z)<< endl;
-
-    CaptureDevice* _captureDevice;
+    OdbcHandler* p = NULL;
+    CaptureDevice* theCaptureDevice;
     switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
-            _captureDevice = new PcapHandler("!udp port 8000", TheGrid);
+            theCaptureDevice = new PcapHandler("!udp port 8000", theGrid);
             break;
         case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
-            _captureDevice = new SerialHandler(TheGrid, "/dev/tty.usbmodem1411", 115200);
+            theCaptureDevice = new SerialHandler(theGrid, "/dev/tty.usbmodem1411", 115200);
             break;
         case CONSTANCES::CaptureDeviceType::LEAPMOTION_HANDLER:
-            _captureDevice = new LeapMotionHandler(TheGrid);
+            theCaptureDevice = new LeapMotionHandler(theGrid);
             break;
-        case CONSTANCES::CaptureDeviceType::READWAVHANDLER_HANDLER:
-            _captureDevice = new ReadWavFileHandler(TheGrid,"/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sinus440_1000.wav");
+        case CONSTANCES::CaptureDeviceType::READWAV_HANDLER:
+            theCaptureDevice = new ReadWavFileHandler(theGrid,"/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sinus440_1000.wav");
+            break;
+        case CONSTANCES::CaptureDeviceType::ODBC_HANDLER:
+            theCaptureDevice = new OdbcHandler(theGrid,"filedsn=/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/psql.dsn");
+            p = (OdbcHandler*) theCaptureDevice;
             break;
         default:
-            _captureDevice = NULL;
+            theCaptureDevice = NULL;
             break;
     }
+
+    MidiHandler();
     /*system("ls /dev/tty.usb*");
     string serialName;
     std::cin>>serialName;
@@ -98,7 +109,7 @@ int main(int argc, const char * argv[])
     //_captureDevice =
 
     //const char* osc1= "OSC1";
-    _captureDevice->init();
+    theCaptureDevice->init();
    // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
@@ -106,8 +117,8 @@ int main(int argc, const char * argv[])
 
 
 
-   Genetic* theGeneticAlgorithm = new Genetic(TheGrid, true, 0.5, 0.2, 0.5,5);
-    theGeneticAlgorithm->reinit();
+
+
     //ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(TheGrid);
    /* int a;
     std::string KymaAddress;
@@ -127,39 +138,42 @@ int main(int argc, const char * argv[])
     theConstrainAlgo->computeGrid();*/
 
     GranularSyntheziser *gs = new GranularSyntheziser();
-    TheGrid->addOutput(new GSDurationHandler(gs));
-    TheGrid->addOutput(new GSOverlapHandler(gs));
-    TheGrid->addOutput(new GSBlankHandler(gs));
-    TheGrid->addOutput(new GSReverbDecayHandler(gs));
-    TheGrid->addOutput(new GSReverbDelayHandler(gs));
-    TheGrid->addOutput(new GSLowPassCutoffHandler(gs));
-    TheGrid->addOutput(new GSInitPositionHandler(gs));
+    theGrid->addOutput(new GSDurationHandler(gs));
+    theGrid->addOutput(new GSOverlapHandler(gs));
+    theGrid->addOutput(new GSBlankHandler(gs));
+    theGrid->addOutput(new GSReverbDecayHandler(gs));
+    theGrid->addOutput(new GSReverbDelayHandler(gs));
+    theGrid->addOutput(new GSLowPassCutoffHandler(gs));
+    theGrid->addOutput(new GSInitPositionHandler(gs));
+    Genetic* theGeneticAlgorithm = new Genetic(theGrid, true, 0.5, 0.2, 0.5,5);
+     //theGeneticAlgorithm->reinit();
     //theGeneticAlgorithm->evaluateAndEvolve(0.1);
-    /*theGeneticAlgorithm.evalPop();
-	cout << endl << endl << "Evolution de la population..." << endl;
-	theGeneticAlgorithm.evolve();
-	cout << "Population generation 2" << endl << endl << "Evaluation de la deuxieme generation";
-    theGeneticAlgorithm.evalPop();
-    float* best = theGeneticAlgorithm.getBest()->getCoeffs();
-
-    for (int i = 0; i<TheGrid->getCells()->size();i++){
-        cout<< "The best \t"<<best[i] << "\t" << flush;
-    }*/
+//    theGeneticAlgorithm->evalPop();
+//	cout << endl << endl << "Evolution de la population..." << endl;
+//	theGeneticAlgorithm->evolve();
+//	cout << "Population generation 2" << endl << endl << "Evaluation de la deuxieme generation";
+//    theGeneticAlgorithm->evalPop();
+//    float* best = theGeneticAlgorithm->getBest()->getCoeffs();
+//
+//    for (int i = 0; i<theGrid->getCells()->size();i++){
+//        cout<< "The best \t"<<best[i] << "\t" << flush;
+//    }
 
     //delete k;
 
 
 
 
+   // WebSocketServer serverSoc(9002);
 
 
     std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", TheGrid, theGeneticAlgorithm,theConstrainAlgo);
+    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", theGrid, theGeneticAlgorithm,theConstrainAlgo, p);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
 
-    delete _captureDevice;
-    delete TheGrid;
+    delete theCaptureDevice;
+    delete theGrid;
     delete theGeneticAlgorithm;
     delete gs;
     return 0;

@@ -19,7 +19,17 @@
 		FE14162618464D3D00F7AF26 /* request_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161C18464D3D00F7AF26 /* request_parser.cpp */; };
 		FE14162718464D3D00F7AF26 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE14161E18464D3D00F7AF26 /* server.cpp */; };
 		FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */; };
+		FE15DE4E1A6565850045F4F5 /* OdbcHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE15DE4C1A6565850045F4F5 /* OdbcHandler.cpp */; };
+		FE15DE511A6569EA0045F4F5 /* libsoci_core.3.2 2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE15DE4F1A6569EA0045F4F5 /* libsoci_core.3.2 2.dylib */; };
+		FE15DE521A6569EA0045F4F5 /* libsoci_odbc.3.2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE15DE501A6569EA0045F4F5 /* libsoci_odbc.3.2.2.dylib */; };
 		FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2361921917ABDC0050B430 /* KymaHandler.cpp */; };
+		FE23710B1A6E44B3002D1B92 /* MidiHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371091A6E44B3002D1B92 /* MidiHandler.cpp */; };
+		FE23710D1A6E473D002D1B92 /* librtmidi.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE23710C1A6E473D002D1B92 /* librtmidi.2.1.0.dylib */; };
+		FE23710F1A6E4934002D1B92 /* librtmidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE23710E1A6E4934002D1B92 /* librtmidi.a */; };
+		FE2371131A6E6B43002D1B92 /* NoteFactoryClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371111A6E6B43002D1B92 /* NoteFactoryClass.cpp */; };
+		FE2371161A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371141A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp */; };
+		FE2371191A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371171A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp */; };
+		FE23711C1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE23711A1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp */; };
 		FE26FEEF19B49D800096EBCE /* PcapDnsProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE26FEED19B49D800096EBCE /* PcapDnsProcessing.cpp */; };
 		FE26FEF219B49D8B0096EBCE /* SerialToucheProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE26FEF019B49D8B0096EBCE /* SerialToucheProcessing.cpp */; };
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
@@ -78,6 +88,7 @@
 		FEAED90519BDA0CF000A281E /* libgecodeminimodel.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEAED90419BDA0CF000A281E /* libgecodeminimodel.dylib */; };
 		FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90619BDA469000A281E /* MagicGrid.cpp */; };
 		FEAED90D19BDE7DB000A281E /* Constrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90B19BDE7DB000A281E /* Constrain.cpp */; };
+		FEB9B0E71A6683490022F074 /* ScalingProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB9B0E51A6683490022F074 /* ScalingProcessing.cpp */; };
 		FEBEA68F19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */; };
 		FEC0AA9419CADF730090191B /* libgecodefloat.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */; };
 		FEC0AA9519CADF730090191B /* libgecodeminimodel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90419BDA0CF000A281E /* libgecodeminimodel.dylib */; };
@@ -86,6 +97,7 @@
 		FEC0AA9819CADF730090191B /* libgecodesearch.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FE19BDA0BD000A281E /* libgecodesearch.dylib */; };
 		FEC0AA9919CADF730090191B /* libgecodeint.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FC19BDA0B5000A281E /* libgecodeint.dylib */; };
 		FEC0AA9A19CADF730090191B /* libgecodekernel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FA19BDA082000A281E /* libgecodekernel.dylib */; };
+		FEFDF3FB1A5EC63800519B29 /* WebSocketServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFDF3F91A5EC63800519B29 /* WebSocketServer.cpp */; };
 		FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */; };
 /* End PBXBuildFile section */
 
@@ -140,8 +152,24 @@
 		FE14161E18464D3D00F7AF26 /* server.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = server.cpp; sourceTree = "<group>"; };
 		FE14161F18464D3D00F7AF26 /* server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = server.hpp; sourceTree = "<group>"; };
 		FE1416281846507F00F7AF26 /* libboost_system-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_system-mt.dylib"; path = "lib/boost/libboost_system-mt.dylib"; sourceTree = "<group>"; };
+		FE15DE4C1A6565850045F4F5 /* OdbcHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = OdbcHandler.cpp; path = capture/OdbcHandler.cpp; sourceTree = "<group>"; };
+		FE15DE4D1A6565850045F4F5 /* OdbcHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OdbcHandler.h; path = capture/OdbcHandler.h; sourceTree = "<group>"; };
+		FE15DE4F1A6569EA0045F4F5 /* libsoci_core.3.2 2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsoci_core.3.2 2.dylib"; path = "../../../../opt/local/lib/libsoci_core.3.2 2.dylib"; sourceTree = "<group>"; };
+		FE15DE501A6569EA0045F4F5 /* libsoci_odbc.3.2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsoci_odbc.3.2.2.dylib; path = ../../../../opt/local/lib/libsoci_odbc.3.2.2.dylib; sourceTree = "<group>"; };
 		FE2361921917ABDC0050B430 /* KymaHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KymaHandler.cpp; path = utils/KymaHandler.cpp; sourceTree = "<group>"; };
 		FE2361931917ABDC0050B430 /* KymaHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KymaHandler.h; path = utils/KymaHandler.h; sourceTree = "<group>"; };
+		FE2371091A6E44B3002D1B92 /* MidiHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiHandler.cpp; path = outputs/MidiHandler.cpp; sourceTree = "<group>"; };
+		FE23710A1A6E44B3002D1B92 /* MidiHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiHandler.h; path = outputs/MidiHandler.h; sourceTree = "<group>"; };
+		FE23710C1A6E473D002D1B92 /* librtmidi.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librtmidi.2.1.0.dylib; path = ../../../../opt/local/lib/librtmidi.2.1.0.dylib; sourceTree = "<group>"; };
+		FE23710E1A6E4934002D1B92 /* librtmidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtmidi.a; path = ../../../../opt/local/lib/librtmidi.a; sourceTree = "<group>"; };
+		FE2371111A6E6B43002D1B92 /* NoteFactoryClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoteFactoryClass.cpp; path = outputs/Midi/NoteFactoryClass.cpp; sourceTree = "<group>"; };
+		FE2371121A6E6B43002D1B92 /* NoteFactoryClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteFactoryClass.h; path = outputs/Midi/NoteFactoryClass.h; sourceTree = "<group>"; };
+		FE2371141A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiNoteKeyHandler.cpp; path = outputs/Midi/MidiNoteKeyHandler.cpp; sourceTree = "<group>"; };
+		FE2371151A6E6B94002D1B92 /* MidiNoteKeyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiNoteKeyHandler.h; path = outputs/Midi/MidiNoteKeyHandler.h; sourceTree = "<group>"; };
+		FE2371171A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiNoteDurationHandler.cpp; path = outputs/Midi/MidiNoteDurationHandler.cpp; sourceTree = "<group>"; };
+		FE2371181A6E6BC7002D1B92 /* MidiNoteDurationHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiNoteDurationHandler.h; path = outputs/Midi/MidiNoteDurationHandler.h; sourceTree = "<group>"; };
+		FE23711A1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiNoteVelocityHandler.cpp; path = outputs/Midi/MidiNoteVelocityHandler.cpp; sourceTree = "<group>"; };
+		FE23711B1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiNoteVelocityHandler.h; path = outputs/Midi/MidiNoteVelocityHandler.h; sourceTree = "<group>"; };
 		FE26FEED19B49D800096EBCE /* PcapDnsProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapDnsProcessing.cpp; path = processings/PcapDnsProcessing.cpp; sourceTree = "<group>"; };
 		FE26FEEE19B49D800096EBCE /* PcapDnsProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapDnsProcessing.h; path = processings/PcapDnsProcessing.h; sourceTree = "<group>"; };
 		FE26FEF019B49D8B0096EBCE /* SerialToucheProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SerialToucheProcessing.cpp; path = processings/SerialToucheProcessing.cpp; sourceTree = "<group>"; };
@@ -253,8 +281,12 @@
 		FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libgecodefloat.dylib; path = /opt/local/lib/libgecodefloat.dylib; sourceTree = "<absolute>"; };
 		FEAED90B19BDE7DB000A281E /* Constrain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Constrain.cpp; path = mapping/Constrain.cpp; sourceTree = "<group>"; };
 		FEAED90C19BDE7DB000A281E /* Constrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constrain.h; path = mapping/Constrain.h; sourceTree = "<group>"; };
+		FEB9B0E51A6683490022F074 /* ScalingProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScalingProcessing.cpp; path = processings/ScalingProcessing.cpp; sourceTree = "<group>"; };
+		FEB9B0E61A6683490022F074 /* ScalingProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScalingProcessing.h; path = processings/ScalingProcessing.h; sourceTree = "<group>"; };
 		FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreadHttpRequest.cpp; path = utils/ThreadHttpRequest.cpp; sourceTree = "<group>"; };
 		FEBEA68E19DE9F5C000EAFB6 /* ThreadHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadHttpRequest.h; path = utils/ThreadHttpRequest.h; sourceTree = "<group>"; };
+		FEFDF3F91A5EC63800519B29 /* WebSocketServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebSocketServer.cpp; path = view/websocket/WebSocketServer.cpp; sourceTree = "<group>"; };
+		FEFDF3FA1A5EC63800519B29 /* WebSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSocketServer.h; path = view/websocket/WebSocketServer.h; sourceTree = "<group>"; };
 		FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapDhcpProcessing.cpp; path = processings/PcapDhcpProcessing.cpp; sourceTree = "<group>"; };
 		FEFED9221920FD37002936C8 /* PcapDhcpProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapDhcpProcessing.h; path = processings/PcapDhcpProcessing.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -264,9 +296,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE23710D1A6E473D002D1B92 /* librtmidi.2.1.0.dylib in Frameworks */,
 				FEA134411A3B2E0A00A87897 /* libportaudio.a in Frameworks */,
 				FEA1343F1A3B2E0300A87897 /* libportaudio.dylib in Frameworks */,
 				FE32272018EAC99A001B483A /* libboost_thread-mt.dylib in Frameworks */,
+				FE15DE521A6569EA0045F4F5 /* libsoci_odbc.3.2.2.dylib in Frameworks */,
 				FE48182818210E2A0094602C /* libpcap.A.dylib in Frameworks */,
 				FE48182918210E2A0094602C /* libpcap.dylib in Frameworks */,
 				FEAED90319BDA0CA000A281E /* libgecodedriver.dylib in Frameworks */,
@@ -274,6 +308,8 @@
 				FEAED8FD19BDA0B5000A281E /* libgecodeint.dylib in Frameworks */,
 				FEAED90119BDA0C1000A281E /* libgecodesupport.dylib in Frameworks */,
 				FE0678FC1A09050F00E4729F /* libLeap.dylib in Frameworks */,
+				FE15DE511A6569EA0045F4F5 /* libsoci_core.3.2 2.dylib in Frameworks */,
+				FE23710F1A6E4934002D1B92 /* librtmidi.a in Frameworks */,
 				FEAED8FB19BDA082000A281E /* libgecodekernel.dylib in Frameworks */,
 				FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */,
 				FEAED8FF19BDA0BD000A281E /* libgecodesearch.dylib in Frameworks */,
@@ -299,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				FE14160E18464D3D00F7AF26 /* server */,
+				FEFDF3FC1A5EC63D00519B29 /* websocket */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -329,6 +366,23 @@
 			path = view/server;
 			sourceTree = "<group>";
 		};
+		FE2371101A6E689E002D1B92 /* Midi */ = {
+			isa = PBXGroup;
+			children = (
+				FE2371091A6E44B3002D1B92 /* MidiHandler.cpp */,
+				FE23710A1A6E44B3002D1B92 /* MidiHandler.h */,
+				FE2371111A6E6B43002D1B92 /* NoteFactoryClass.cpp */,
+				FE2371121A6E6B43002D1B92 /* NoteFactoryClass.h */,
+				FE2371141A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp */,
+				FE2371151A6E6B94002D1B92 /* MidiNoteKeyHandler.h */,
+				FE2371171A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp */,
+				FE2371181A6E6BC7002D1B92 /* MidiNoteDurationHandler.h */,
+				FE23711A1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp */,
+				FE23711B1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.h */,
+			);
+			name = Midi;
+			sourceTree = "<group>";
+		};
 		FE284E9418BC8FF100CEC7E9 /* save */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,8 +398,12 @@
 				FEA134401A3B2E0A00A87897 /* libportaudio.a */,
 				FEA1343E1A3B2E0300A87897 /* libportaudio.dylib */,
 				FE0678FB1A09050F00E4729F /* libLeap.dylib */,
+				FE15DE4F1A6569EA0045F4F5 /* libsoci_core.3.2 2.dylib */,
+				FE15DE501A6569EA0045F4F5 /* libsoci_odbc.3.2.2.dylib */,
+				FE23710E1A6E4934002D1B92 /* librtmidi.a */,
 				FEA2055419D6BDF400EAD3F3 /* libgecodeset.35.0.dylib */,
 				FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */,
+				FE23710C1A6E473D002D1B92 /* librtmidi.2.1.0.dylib */,
 				FEA9FB1818D1DF4700DB4811 /* processings */,
 				FE8F914718C64AFE0047D4BA /* www */,
 				FE1415F618464C1C00F7AF26 /* view */,
@@ -412,6 +470,8 @@
 				FE32271D18EAB8A2001B483A /* CaptureDevice.h */,
 				FE0678EF1A08E05800E4729F /* LeapMotionHandler.cpp */,
 				FE0678F01A08E05800E4729F /* LeapMotionHandler.h */,
+				FE15DE4C1A6565850045F4F5 /* OdbcHandler.cpp */,
+				FE15DE4D1A6565850045F4F5 /* OdbcHandler.h */,
 			);
 			name = capture;
 			sourceTree = "<group>";
@@ -425,6 +485,7 @@
 				FE481830182119D00094602C /* OutputsHandler.cpp */,
 				FE481831182119D00094602C /* OutputsHandler.h */,
 				FE9C26CD18A38FE900E5DC5C /* Parameter.h */,
+				FE2371101A6E689E002D1B92 /* Midi */,
 			);
 			name = ouputs;
 			sourceTree = "<group>";
@@ -568,6 +629,7 @@
 		FEA9FB1818D1DF4700DB4811 /* processings */ = {
 			isa = PBXGroup;
 			children = (
+				FEB9B0E41A6682FB0022F074 /* database */,
 				FE8B881E1A42E66200E02D27 /* Audio */,
 				FE0678F41A08E64200E4729F /* leap */,
 				FEA9FB2A18D1E13000DB4811 /* Processings.h */,
@@ -600,6 +662,24 @@
 				FE7BD65119C6DA4400B9BF14 /* PcapKissProcessing.h */,
 			);
 			name = pcap;
+			sourceTree = "<group>";
+		};
+		FEB9B0E41A6682FB0022F074 /* database */ = {
+			isa = PBXGroup;
+			children = (
+				FEB9B0E51A6683490022F074 /* ScalingProcessing.cpp */,
+				FEB9B0E61A6683490022F074 /* ScalingProcessing.h */,
+			);
+			name = database;
+			sourceTree = "<group>";
+		};
+		FEFDF3FC1A5EC63D00519B29 /* websocket */ = {
+			isa = PBXGroup;
+			children = (
+				FEFDF3F91A5EC63800519B29 /* WebSocketServer.cpp */,
+				FEFDF3FA1A5EC63800519B29 /* WebSocketServer.h */,
+			);
+			name = websocket;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -659,14 +739,18 @@
 				FE8B88211A42E66900E02D27 /* FftProcessing.cpp in Sources */,
 				FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */,
 				FE7059781A419DD30020DEA7 /* GSParametersHandler.cpp in Sources */,
+				FEB9B0E71A6683490022F074 /* ScalingProcessing.cpp in Sources */,
 				FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */,
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
+				FE2371131A6E6B43002D1B92 /* NoteFactoryClass.cpp in Sources */,
 				FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */,
 				FE34166819DC2A1900845704 /* PcapGrabAndStorePictures.cpp in Sources */,
 				FE7059741A419DD30020DEA7 /* GSDurationHandler.cpp in Sources */,
 				FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */,
+				FE23711C1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp in Sources */,
 				FE48182B182110AC0094602C /* main.cpp in Sources */,
 				FE14162718464D3D00F7AF26 /* server.cpp in Sources */,
+				FE15DE4E1A6565850045F4F5 /* OdbcHandler.cpp in Sources */,
 				FE7059751A419DD30020DEA7 /* GSInitPositionHandler.cpp in Sources */,
 				FE30405B18C48BA800CB147E /* LocationIp.cpp in Sources */,
 				FE0678F11A08E05800E4729F /* LeapMotionHandler.cpp in Sources */,
@@ -680,6 +764,7 @@
 				FE43C1EF18DC52B300742A0C /* Chromosome.cpp in Sources */,
 				FE7059721A419DD30020DEA7 /* GranularSyntheziser.cpp in Sources */,
 				FE96F4BC183CF48E00C59843 /* Input.cpp in Sources */,
+				FE2371191A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp in Sources */,
 				FE70597A1A419DD30020DEA7 /* GSReverbDelayHandler.cpp in Sources */,
 				FE84597A19BEE9E5006804FF /* GrilleOptions.cpp in Sources */,
 				FEA9FB2618D1E00F00DB4811 /* PcapIpProcessing.cpp in Sources */,
@@ -692,8 +777,11 @@
 				FEBEA68F19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp in Sources */,
 				FE7059771A419DD30020DEA7 /* GSOverlapHandler.cpp in Sources */,
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
+				FE23710B1A6E44B3002D1B92 /* MidiHandler.cpp in Sources */,
+				FE2371161A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
 				FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */,
+				FEFDF3FB1A5EC63800519B29 /* WebSocketServer.cpp in Sources */,
 				FE2A9948191CFA0E0007ADEF /* ConstrainGenetic.cpp in Sources */,
 				FE2361941917ABDC0050B430 /* KymaHandler.cpp in Sources */,
 				FE96F4B8183CF42A00C59843 /* Grid.cpp in Sources */,
@@ -812,7 +900,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SYMROOT = "${PROJECT_DIR}/build";
-				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib /opt/local/include/";
+				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib /opt/local/include/ /opt/local/include/soci/**";
 			};
 			name = Debug;
 		};
@@ -824,22 +912,22 @@
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
+					/opt/local/lib,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/lo,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
 					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
 					"$(PROJECT_DIR)/lib/boost",
-					/opt/local/lib,
 					"/opt/local/lib/leap/libc++",
 					"$(BUILT_PRODUCTS_DIR)",
+					"$(inherited)",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				SYMROOT = "${PROJECT_DIR}/build";
-				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib /opt/local/include/";
+				USER_HEADER_SEARCH_PATHS = "./lib/lo/** ./lib /opt/local/include/ /opt/local/include/soci/**";
 			};
 			name = Release;
 		};

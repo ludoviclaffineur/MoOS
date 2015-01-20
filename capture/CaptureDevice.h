@@ -24,6 +24,7 @@ public:
     Grid*   getGrid(){
         return mGrid;
     }
+    virtual ~CaptureDevice(){};
 protected:
     std::vector <Processings*> mProcessings;
     Grid*       mGrid;

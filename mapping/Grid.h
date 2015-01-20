@@ -14,7 +14,7 @@
 #include "OutputsHandler.h"
 #include "Cell.h"
 #include <vector>
-
+#include "WebSocketServer.h"
 class Grid{
 
 public:
@@ -43,12 +43,18 @@ public:
         mActive = !mActive;
     }
 
+    WebSocketServer* getWebSocketServer(){
+        return mWebSocket;
+    }
+
 private:
     int mCurrentOutputId;
     std::vector <Input*> mInputs;
     std::vector <OutputsHandler*> mOutputs;
     std::vector <Cell*>  mCells;
     bool mActive;
+    bool mIsMonitored;
+    WebSocketServer* mWebSocket;
 };
 
 #endif /* defined(__LibLoAndCap__Grid__) */

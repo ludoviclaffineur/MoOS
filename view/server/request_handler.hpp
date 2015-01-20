@@ -14,6 +14,8 @@
 #include <string>
 #include "Grid.h"
 #include "SnfHandler.h"
+#include "OdbcHandler.h"
+
 
 namespace http {
 namespace server {
@@ -29,7 +31,7 @@ public:
   request_handler& operator=(const request_handler&) = delete;
 
   /// Construct with a directory containing files to be served.
-  explicit request_handler(const std::string& doc_root, Grid* g, Genetic* algoGen,ConstrainGenetic* constrainAlgo);
+  explicit request_handler(const std::string& doc_root, Grid* g, Genetic* algoGen,ConstrainGenetic* constrainAlgo, OdbcHandler* database);
 
   /// Handle a request and produce a reply.
   void handle_request(const request& req, reply& rep);

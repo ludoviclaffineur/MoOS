@@ -22,11 +22,12 @@
 namespace http {
     namespace server{
 
-        SnfHandler::SnfHandler(Grid* g, Genetic* algoGen, ConstrainGenetic* constrainGene){
+        SnfHandler::SnfHandler(Grid* g, Genetic* algoGen, ConstrainGenetic* constrainGene,OdbcHandler* database){
             mGrid = g;
             mAlgoGen = algoGen;
             mConstrainGene = constrainGene;
             mCurrentIdPicture = 0;
+            mDatabase = database;
         }
 
         bool SnfHandler::computeRequest(std::string method, std::string parameters, reply &rep){
@@ -51,6 +52,11 @@ namespace http {
                 int id = atoi(m_input[1].str().c_str());
                 mGrid->removeOutput(id);
 
+            }
+            else if( method.compare("trig")==0){
+                //mGrid->removeOutput(id);
+                mDatabase->trig();
+                std::cout<<"TRIG TRIG TRIG" << std::endl;
             }
             else if (method.compare("kymaOutput")==0){
                 std::vector <std::string> listParameters = ExtractPamameters(parameters);

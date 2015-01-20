@@ -19,14 +19,16 @@
 
 
 namespace CONSTANCES {
-    const std::string CaptureDeviceList [4] = {"Pcap Handler", "Serial Handler", "LeapMotion Handler", "ReadWave Handler"};
     enum CaptureDeviceType{
         PCAP_HANDLER ,
         SERIAL_HANDLER,
         LEAPMOTION_HANDLER,
-        READWAVHANDLER_HANDLER,
+        READWAV_HANDLER,
+        ODBC_HANDLER,
         TOTAL,
     };
+    const std::string CaptureDeviceList [CaptureDeviceType::TOTAL] = {"Pcap Handler", "Serial Handler", "LeapMotion Handler", "ReadWave Handler", "ODBC Handler"};
+
 }
 
 
