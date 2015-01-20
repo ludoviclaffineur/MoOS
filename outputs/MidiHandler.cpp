@@ -60,3 +60,19 @@ void MidiHandler::selectPort(){
     std::cin >> selectedPort;
     mMidiOut->openPort( selectedPort-1 );
 }
+
+void MidiHandler::sendNoteOn(unsigned char key, unsigned char velocity){
+    std::vector<unsigned char> messages (3);
+    messages[0] = NOTE_ON;
+    messages[1] = key;
+    messages[2] = velocity;
+    mMidiOut->sendMessage( &messages );
+}
+
+void MidiHandler::sendNoteOff(unsigned char key, unsigned char velocity){
+    std::vector<unsigned char> messages (3);
+    messages[0] = NOTE_OFF;
+    messages[1] = key;
+    messages[2] = velocity;
+    mMidiOut->sendMessage( &messages );
+}

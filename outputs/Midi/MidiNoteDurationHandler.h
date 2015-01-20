@@ -10,5 +10,15 @@
 #define __LibLoAndCap__MidiNoteDurationHandler__
 
 #include <stdio.h>
+#include "OutputsHandler.h"
+#include "MidiNoteHandler.h"
+class MidiNoteDurationHandler : public OutputsHandler{
+public:
+    MidiNoteDurationHandler(MidiNoteHandler* mh);
+    bool sendData();
+    void setParameters(std::vector<std::string> ParameterList);
+private:
+    MidiNoteHandler* mMidiNoteHandler;
+};
 
 #endif /* defined(__LibLoAndCap__MidiNoteDurationHandler__) */

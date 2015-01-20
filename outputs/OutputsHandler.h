@@ -22,6 +22,7 @@ public:
     enum OutputType{
         OSC =0,
         GRANULAR_SYNTH,
+        MIDI,
         Total
     };
     OutputsHandler();

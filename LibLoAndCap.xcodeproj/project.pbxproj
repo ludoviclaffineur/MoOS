@@ -26,7 +26,7 @@
 		FE23710B1A6E44B3002D1B92 /* MidiHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371091A6E44B3002D1B92 /* MidiHandler.cpp */; };
 		FE23710D1A6E473D002D1B92 /* librtmidi.2.1.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE23710C1A6E473D002D1B92 /* librtmidi.2.1.0.dylib */; };
 		FE23710F1A6E4934002D1B92 /* librtmidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE23710E1A6E4934002D1B92 /* librtmidi.a */; };
-		FE2371131A6E6B43002D1B92 /* NoteFactoryClass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371111A6E6B43002D1B92 /* NoteFactoryClass.cpp */; };
+		FE2371131A6E6B43002D1B92 /* MidiNoteHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371111A6E6B43002D1B92 /* MidiNoteHandler.cpp */; };
 		FE2371161A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371141A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp */; };
 		FE2371191A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2371171A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp */; };
 		FE23711C1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE23711A1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp */; };
@@ -162,8 +162,8 @@
 		FE23710A1A6E44B3002D1B92 /* MidiHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiHandler.h; path = outputs/MidiHandler.h; sourceTree = "<group>"; };
 		FE23710C1A6E473D002D1B92 /* librtmidi.2.1.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librtmidi.2.1.0.dylib; path = ../../../../opt/local/lib/librtmidi.2.1.0.dylib; sourceTree = "<group>"; };
 		FE23710E1A6E4934002D1B92 /* librtmidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librtmidi.a; path = ../../../../opt/local/lib/librtmidi.a; sourceTree = "<group>"; };
-		FE2371111A6E6B43002D1B92 /* NoteFactoryClass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NoteFactoryClass.cpp; path = outputs/Midi/NoteFactoryClass.cpp; sourceTree = "<group>"; };
-		FE2371121A6E6B43002D1B92 /* NoteFactoryClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NoteFactoryClass.h; path = outputs/Midi/NoteFactoryClass.h; sourceTree = "<group>"; };
+		FE2371111A6E6B43002D1B92 /* MidiNoteHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiNoteHandler.cpp; path = outputs/Midi/MidiNoteHandler.cpp; sourceTree = "<group>"; };
+		FE2371121A6E6B43002D1B92 /* MidiNoteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiNoteHandler.h; path = outputs/Midi/MidiNoteHandler.h; sourceTree = "<group>"; };
 		FE2371141A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiNoteKeyHandler.cpp; path = outputs/Midi/MidiNoteKeyHandler.cpp; sourceTree = "<group>"; };
 		FE2371151A6E6B94002D1B92 /* MidiNoteKeyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiNoteKeyHandler.h; path = outputs/Midi/MidiNoteKeyHandler.h; sourceTree = "<group>"; };
 		FE2371171A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiNoteDurationHandler.cpp; path = outputs/Midi/MidiNoteDurationHandler.cpp; sourceTree = "<group>"; };
@@ -371,8 +371,8 @@
 			children = (
 				FE2371091A6E44B3002D1B92 /* MidiHandler.cpp */,
 				FE23710A1A6E44B3002D1B92 /* MidiHandler.h */,
-				FE2371111A6E6B43002D1B92 /* NoteFactoryClass.cpp */,
-				FE2371121A6E6B43002D1B92 /* NoteFactoryClass.h */,
+				FE2371111A6E6B43002D1B92 /* MidiNoteHandler.cpp */,
+				FE2371121A6E6B43002D1B92 /* MidiNoteHandler.h */,
 				FE2371141A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp */,
 				FE2371151A6E6B94002D1B92 /* MidiNoteKeyHandler.h */,
 				FE2371171A6E6BC7002D1B92 /* MidiNoteDurationHandler.cpp */,
@@ -742,7 +742,7 @@
 				FEB9B0E71A6683490022F074 /* ScalingProcessing.cpp in Sources */,
 				FEA9FB2718D1E00F00DB4811 /* PcapLocationProcessing.cpp in Sources */,
 				FE14162518464D3D00F7AF26 /* request_handler.cpp in Sources */,
-				FE2371131A6E6B43002D1B92 /* NoteFactoryClass.cpp in Sources */,
+				FE2371131A6E6B43002D1B92 /* MidiNoteHandler.cpp in Sources */,
 				FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */,
 				FE34166819DC2A1900845704 /* PcapGrabAndStorePictures.cpp in Sources */,
 				FE7059741A419DD30020DEA7 /* GSDurationHandler.cpp in Sources */,

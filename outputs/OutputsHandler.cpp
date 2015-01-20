@@ -52,7 +52,8 @@ void OutputsHandler::extrapolate(){
 }
 
 void OutputsHandler::setValue(float newValue){
-    mValueBeforeSending = newValue;
+    mValueBeforeSending = mConverter.extrapolate(newValue);
+
 }
 
 void OutputsHandler::reset(){

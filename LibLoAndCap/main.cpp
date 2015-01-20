@@ -35,6 +35,11 @@
 
 #include "MidiHandler.h"
 
+#include "MidiNoteHandler.h"
+#include "MidiNoteDurationHandler.h"
+#include "MidiNoteVelocityHandler.h"
+#include "MidiNoteKeyHandler.h"
+
 #include "WebSocketServer.h"
 
 //#include "storage_adaptors.hpp"
@@ -100,7 +105,8 @@ int main(int argc, const char * argv[])
             break;
     }
 
-    MidiHandler();
+
+    theCaptureDevice->init();
     /*system("ls /dev/tty.usb*");
     string serialName;
     std::cin>>serialName;
@@ -109,11 +115,19 @@ int main(int argc, const char * argv[])
     //_captureDevice =
 
     //const char* osc1= "OSC1";
-    theCaptureDevice->init();
+
    // TheGrid->addOutput(new OscHandler(osc1,"127.0.0.1","20000", "/osc", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC2","127.0.0.1","20000", "/osc1", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC3","127.0.0.1","20000", "/osc2", "f" ));
     //TheGrid->addOutput(new OscHandler("OSC4","127.0.0.1","20000", "/osc3", "f" ));
+
+
+
+     MidiHandler* mh = new MidiHandler();
+    MidiNoteHandler* MNH = new MidiNoteHandler(mh);
+    theGrid->addOutput(new MidiNoteVelocityHandler(MNH));
+    theGrid->addOutput(new MidiNoteKeyHandler(MNH));
+    theGrid->addOutput(new MidiNoteDurationHandler(MNH));
 
 
 
@@ -137,6 +151,9 @@ int main(int argc, const char * argv[])
     }
     theConstrainAlgo->computeGrid();*/
 
+
+    //GRANULAR SYNTH
+    /*
     GranularSyntheziser *gs = new GranularSyntheziser();
     theGrid->addOutput(new GSDurationHandler(gs));
     theGrid->addOutput(new GSOverlapHandler(gs));
@@ -144,7 +161,12 @@ int main(int argc, const char * argv[])
     theGrid->addOutput(new GSReverbDecayHandler(gs));
     theGrid->addOutput(new GSReverbDelayHandler(gs));
     theGrid->addOutput(new GSLowPassCutoffHandler(gs));
-    theGrid->addOutput(new GSInitPositionHandler(gs));
+    theGrid->addOutput(new GSInitPositionHandler(gs));*/
+
+
+
+
+
     Genetic* theGeneticAlgorithm = new Genetic(theGrid, true, 0.5, 0.2, 0.5,5);
      //theGeneticAlgorithm->reinit();
     //theGeneticAlgorithm->evaluateAndEvolve(0.1);
@@ -175,7 +197,7 @@ int main(int argc, const char * argv[])
     delete theCaptureDevice;
     delete theGrid;
     delete theGeneticAlgorithm;
-    delete gs;
+   // delete gs;
     return 0;
 }
 

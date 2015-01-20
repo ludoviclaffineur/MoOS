@@ -17,7 +17,9 @@ class MidiHandler /*: public OutputsHandler*/{
 public:
     MidiHandler();
     ~MidiHandler();
-
+    void sendNoteOn(unsigned char key, unsigned char velocity);
+    void sendNoteOff(unsigned char key, unsigned char velocity);
+    void controlChange(unsigned char controller, unsigned char controllerValue );
 
     enum MIDI_COMMANDS{
         NOTE_OFF = 128,
@@ -32,6 +34,8 @@ private:
     //RtMidiIn  *mMidiin = 0;
     RtMidiOut *mMidiOut = 0;
     void selectPort();
+
+    
 };
 
 

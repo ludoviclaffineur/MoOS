@@ -7,3 +7,20 @@
 //
 
 #include "MidiNoteDurationHandler.h"
+
+MidiNoteDurationHandler::MidiNoteDurationHandler(MidiNoteHandler* mh):
+    OutputsHandler("Duration"){
+    mMidiNoteHandler = mh;
+        mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 5000);    //mConverter = new Converter
+}
+
+bool MidiNoteDurationHandler::sendData(){
+
+    mMidiNoteHandler->setDuration(mValueBeforeSending);
+    mMidiNoteHandler->sendMidiOnOff();
+   
+    return true;
+}
+
+void MidiNoteDurationHandler::setParameters(std::vector<std::string> ParameterList){
+}
