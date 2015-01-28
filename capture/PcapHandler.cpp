@@ -87,7 +87,7 @@ PcapHandler::PcapHandler(const char* filter, Grid* g){
     mGrid = g;
     mProcessings.push_back(new PcapLocationProcessing(g));
     mProcessings.push_back(new PcapIpProcessing(g));
-    //mProcessings.push_back(new PcapDnsProcessing());
+    mProcessings.push_back(new PcapDnsProcessing());
     mProcessings.push_back(new PcapDhcpProcessing(g));
     //mProcessings.push_back(new PcapKissProcessing());
     //mProcessings.push_back(new PcapPasswordsProcessing());
@@ -123,6 +123,11 @@ pcap_t* PcapHandler::listAndChooseInterface(){
     return handle;
 }
 
+pcap_if_t* PcapHandler::getAllDevs(){
+    findAllDevs(&mAlldevs, mErrbuf);
+    return mAlldevs;
+}
+
 void PcapHandler::listAllDevs(){
     pcap_if_t* d;
     findAllDevs(&mAlldevs, mErrbuf);
@@ -146,6 +151,15 @@ pcap_t* PcapHandler::chooseDev(){
     }
     mHandle = openLive(selected->name, BUFSIZ, 1, 1000, mErrbuf);
 	return mHandle;
+}
+
+void PcapHandler::setDev(int a){
+    pcap_if_t* selected = mAlldevs;
+    for (int i = 1; i<a; i++){
+        selected = selected->next;
+    }
+    mHandle = openLive(selected->name, BUFSIZ, 1, 1000, mErrbuf);
+    loopThreading();
 }
 
 pcap_t* PcapHandler::getHandle(){

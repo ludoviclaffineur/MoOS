@@ -1,4 +1,4 @@
-//
+    //
 //  WebSocketServer.cpp
 //  LibLoAndCap
 //
@@ -8,7 +8,7 @@
 
 #include "WebSocketServer.h"
 #include <boost/thread.hpp>
-
+#include "AppIncludes.h"
 /*
 
 |Opcode  | Meaning                             | Reference |
@@ -30,24 +30,29 @@
 
 
 
-void WebSocketServer::onMessage(WebSocketServer* ws, websocketpp::connection_hdl hdl, message_ptr msg){
+void WebSocketServer::onMessage(WebSocketServer* ws, websocketpp::connection_hdl hdl, message_ptr msg){ 
     ws->mConnectionHandler = hdl;
-    std::cout<<"I am HERE" <<std::endl;
+    //std::cout<<"I am HERE" <<std::endl;
+    ws->dispatchRequest(msg);
+
 }
 
 
 WebSocketServer::WebSocketServer(int port){
-    mServer = new server();
+    //mServer = new server();
+    mCaptureDevice =NULL;
+    mTypeOfCaptureDevice = -1;
     mListenningPort = port;
+    mGrid = new Grid();
     try{
-        mServer->set_access_channels(websocketpp::log::alevel::none);
-        mServer->clear_access_channels(websocketpp::log::alevel::frame_payload);
-        mServer->init_asio();
+        mServer.set_access_channels(websocketpp::log::alevel::none);
+        mServer.clear_access_channels(websocketpp::log::alevel::frame_payload);
+        mServer.init_asio();
 
         // Register our message handler
-        mServer->set_message_handler(bind(&WebSocketServer::onMessage,this,::_1,::_2));
-        mServer->listen(port);
-        mServer->start_accept();
+        mServer.set_message_handler(bind(&WebSocketServer::onMessage,this,::_1,::_2));
+        mServer.listen(port);
+        mServer.start_accept();
     }
     catch (const std::exception & e) {
         std::cout << e.what() << std::endl;
@@ -59,17 +64,157 @@ WebSocketServer::WebSocketServer(int port){
 
 }
 
+
+
 WebSocketServer::~WebSocketServer(){
-    mServer->stop();
-    delete mServer;
+    sendStopMessage();
+    mConnectionHandler.reset();
+    mServer.stop();
+    pthread_join(mThread, NULL);
 }
 
+void WebSocketServer::sendStopMessage(){
+    using boost::property_tree::ptree;
+    ptree action;
+    action.put("action","stopConnection");
+    sendMessage(action);
+}
+
+void WebSocketServer::dispatchRequest(message_ptr msg){
+    using boost::property_tree::ptree;
+    ptree pt;
+    try{
+        std::stringstream ss;
+        std::cout<< msg->get_raw_payload().c_str() <<std::endl;
+        ss<<msg->get_raw_payload().c_str();
+        read_json(ss, pt);
+    }
+    catch (const std::exception & e) {
+        std::cout << e.what() << std::endl;
+    }
+    if (strcmp(pt.get<std::string>("action").c_str(), "init") == 0) {
+        sendInit();
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "setCaptureDevice") == 0) {
+        setCaptureDevice(pt.get<int>("parameters.id"));
+    }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "setConfigurationPcap")==0){
+        setConfigurationPcap(pt.get<int>("parameters.id"));
+        sendOutputList();
+    }
+}
+
+void WebSocketServer::sendOutputList(){
+    using boost::property_tree::ptree;
+    ptree child, action;
+    for (int i =0; i< CONSTANCES::OutputType::Total; i++) {
+        std::stringstream ss;
+        ss<< i;
+        child.put(ss.str() ,CONSTANCES::OutputList[i]);
+    }
+    action.put("action","set_outputs_list");
+    action.put_child("parameters", child);
+    sendMessage(action);
+}
+
+void WebSocketServer::setConfigurationPcap(int identifier){
+    ((PcapHandler*)(mCaptureDevice))->setDev(identifier);
+}
+
+void WebSocketServer::setCaptureDevice(int identifier){
+    mTypeOfCaptureDevice = identifier;
+    switch (identifier) {
+        case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
+            mCaptureDevice = new PcapHandler("!udp port 8000", mGrid);
+            break;
+        case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
+            mCaptureDevice = new SerialHandler(mGrid, "/dev/tty.usbmodem1411", 115200);
+            break;
+        case CONSTANCES::CaptureDeviceType::LEAPMOTION_HANDLER:
+            mCaptureDevice = new LeapMotionHandler(mGrid);
+            break;
+        case CONSTANCES::CaptureDeviceType::READWAV_HANDLER:
+            mCaptureDevice = new ReadWavFileHandler(mGrid,"/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sinus440_1000.wav");
+            break;
+        case CONSTANCES::CaptureDeviceType::ODBC_HANDLER:
+            mCaptureDevice = new OdbcHandler(mGrid,"filedsn=/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/psql.dsn");
+            break;
+        default:
+            mCaptureDevice = NULL;
+            break;
+    }
+    if (mCaptureDevice) {
+        //mCaptureDevice->init();
+        sendConfigurationCaptureDevice();
+    }
+}
+
+void WebSocketServer::sendConfigurationCaptureDevice(){
+    switch (mTypeOfCaptureDevice) {
+        case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
+            pcap_if_t* AllDevs =  ((PcapHandler*)(mCaptureDevice))->getAllDevs();
+            sendPcapInterfaces(AllDevs);
+            break;
+    }
+}
+
+void WebSocketServer::sendPcapInterfaces(pcap_if_t* interfaces){
+    using boost::property_tree::ptree;
+    ptree child, action;
+    pcap_if_t* d;
+    int i=0;
+    for( d = interfaces; d; d=d->next){
+        std::stringstream ss;
+        ss<< i++;
+        child.put(ss.str(), d->name);
+    }
+    action.put("action", "setConfiguration");
+    action.put_child("parameters", child);
+    sendMessage(action);
+
+}
+
+
+void WebSocketServer::sendInit(){
+    using boost::property_tree::ptree;
+    std::cout<< "sendINIt()"<<std::endl;
+    if (mCaptureDevice) {
+        delete mCaptureDevice;
+    }
+
+    ptree child, action;
+
+
+    for (int i =0; i< CONSTANCES::CaptureDeviceType::TOTAL; i++) {
+        std::stringstream ss;
+        ss<< i;
+        child.put(ss.str() ,CONSTANCES::CaptureDeviceList[i]);
+    }
+    action.put("action","capture_device_list");
+    action.put_child("parameters", child);
+    sendMessage(action);
+
+
+
+}
+
+void WebSocketServer::sendMessage(boost::property_tree::ptree ptree){
+    std::stringstream ss;
+    write_json(ss, ptree);
+    try {
+        mServer.send(mConnectionHandler, ss.str(), websocketpp::frame::opcode::TEXT);
+    } catch (const websocketpp::lib::error_code& e) {
+        std::cout << "Echo failed because: " << e
+        << "(" << e.message() << ")" << std::endl;
+    }
+
+}
 
 
 void WebSocketServer::sendMessage(std::vector<Input*>* inputs){
     std::string JsonArray = inputsToJson(inputs);
     try {
-        mServer->send(mConnectionHandler, JsonArray, websocketpp::frame::opcode::TEXT);
+        mServer.send(mConnectionHandler, JsonArray, websocketpp::frame::opcode::TEXT);
     } catch (const websocketpp::lib::error_code& e) {
         std::cout << "Echo failed because: " << e
         << "(" << e.message() << ")" << std::endl;
@@ -107,7 +252,7 @@ void WebSocketServer::start(){
 
 void* WebSocketServer::run(void* userData){
     WebSocketServer* s = (WebSocketServer*) userData;
-    s->mServer->run();
+    s->mServer.run();
     return nullptr;
 }
 

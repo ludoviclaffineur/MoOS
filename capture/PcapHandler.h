@@ -37,6 +37,8 @@ public:
     PcapHandler(const char* filter, Grid* g);
     pcap_t* getHandle();
     void    init();
+    pcap_if_t* getAllDevs();
+    void setDev(int a);
 
 
 private:

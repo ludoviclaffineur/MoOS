@@ -17,14 +17,8 @@
 class OutputsHandler{
 
 
-
 public:
-    enum OutputType{
-        OSC =0,
-        GRANULAR_SYNTH,
-        MIDI,
-        Total
-    };
+
     OutputsHandler();
     OutputsHandler(const char* n);
     OutputsHandler(const char* n, float min, float max);

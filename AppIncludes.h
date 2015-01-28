@@ -29,6 +29,15 @@ namespace CONSTANCES {
     };
     const std::string CaptureDeviceList [CaptureDeviceType::TOTAL] = {"Pcap Handler", "Serial Handler", "LeapMotion Handler", "ReadWave Handler", "ODBC Handler"};
 
+    enum OutputType{
+        OSC =0,
+        GRANULAR_SYNTH,
+        MIDI,
+        Total
+    };
+
+    const std::string OutputList [OutputType::Total] = {"OSC", "Granular Synth", "MIDI"};
+
 }
 
 

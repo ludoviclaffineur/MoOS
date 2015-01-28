@@ -12,9 +12,22 @@
 Grid::Grid(){
     mCurrentOutputId = 0;
     mActive=false;
-    mWebSocket = new WebSocketServer(9002);
-    mWebSocket->start();
+    //mWebSocket = new WebSocketServer(9002);
+    //mWebSocket->start();
     mIsMonitored = true;
+}
+
+Grid::~Grid(){
+    for(int i = 0; i<mInputs.size();i++){
+        delete mInputs[i];
+    }
+    for(int i = 0; i<mOutputs.size();i++){
+        delete mOutputs[i];
+    }
+    for(int i = 0; i<mCells.size();i++){
+        delete mCells[i];
+    }
+    //delete mWebSocket;
 }
 
 float* Grid::getCoeffs(){
@@ -72,7 +85,7 @@ void Grid::addCell(const char* inputName, const char* outputName, float corrCoef
 
 void Grid::compute(){
     if (mIsMonitored){
-        mWebSocket->sendMessage(getInputs());
+        //mWebSocket->sendMessage(getInputs());
     }
     if (mActive) {
         std::vector<Cell*>::iterator i;

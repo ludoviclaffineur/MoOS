@@ -43,7 +43,6 @@ void MidiNoteHandler::sendMidiOnOff(){
 
 
 void* MidiNoteHandler::tSendMidi(void* midiNote){
-
     MidiNote* mn = (MidiNote*) midiNote;
     std::cout<<"IN"<< mn->mDuration<<std::endl;
     mn->mMidiHandler->sendNoteOn(mn->mKey, mn->mVelocity);

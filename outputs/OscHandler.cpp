@@ -9,6 +9,7 @@
 #include "OscHandler.h"
 #include <string.h>
 #include <algorithm>
+#include "AppIncludes.h"
 OscHandler::OscHandler(): OutputsHandler("OscNew",0,1){
     mDistant = lo_address_new("127.0.0.1", "57120");
     mParamNumber = 0;
@@ -26,7 +27,7 @@ OscHandler::OscHandler(): OutputsHandler("OscNew",0,1){
     mOscTag = new char [strlen("f") + 1];
     strcpy(mOscTag , "f");
     mIdController = -1;
-    mOutputType = OutputsHandler::OSC;
+    mOutputType = CONSTANCES::OSC;
     mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char*>("Port", &mPort));
     mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
@@ -49,7 +50,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     mDistant = lo_address_new(mIpAddress, mPort);
     mParamNumber = 0;
     //mValueBeforeSending = 0;
-    mOutputType = OutputsHandler::OSC;
+    mOutputType = CONSTANCES::OSC;
     mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char*>("Port", &mPort));
     mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));
@@ -80,7 +81,7 @@ OscHandler::OscHandler(const char* n, const char* ipAddress, const char* port, c
     //mValueBeforeSending = 0;
 
 
-    mOutputType = OutputsHandler::OSC;
+    mOutputType = CONSTANCES::OSC;
     mParameters.push_back(new Parameter<char*>("IPAddress", &mIpAddress));
     mParameters.push_back(new Parameter<char*>("Port", &mPort));
     mParameters.push_back(new Parameter<char*>("OscAddressPattern", &mOscAddress));

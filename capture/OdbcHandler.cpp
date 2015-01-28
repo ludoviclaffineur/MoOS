@@ -59,14 +59,14 @@ void OdbcHandler::init(){
                     soci::into(mRequest[8]),
                     soci::into(mRequest[9]);
         //std::cout<<OUTPUT<<std::endl;
-        std::cout<< "#C\t#H\t#O\tac\tal\tdb\tes\tke\tol\tMW"<<std::endl;
+       /* std::cout<< "#C\t#H\t#O\tac\tal\tdb\tes\tke\tol\tMW"<<std::endl;
         for (int i = 0; i<mRequest[0].size(); i++) {
 
             for(int j = 0; j<mRequest.size(); j++){
                 std::cout << mRequest[j][i]<<"\t";
             }
             std::cout<<std::endl;
-        }
+        }*/
         for(int i = 0; i< mRequest.size(); i++){
             mProcessings.push_back(new ScalingProcessing<double>(mGrid, &mRequest[i], mNames[i]));
         }

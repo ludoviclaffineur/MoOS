@@ -19,7 +19,7 @@ public:
     ~MidiHandler();
     void sendNoteOn(unsigned char key, unsigned char velocity);
     void sendNoteOff(unsigned char key, unsigned char velocity);
-    void controlChange(unsigned char controller, unsigned char controllerValue );
+    void sendControlChange(unsigned char controller, unsigned char controllerValue );
 
     enum MIDI_COMMANDS{
         NOTE_OFF = 128,

@@ -19,6 +19,15 @@
 #include "Input.h"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
+#include "LeapMotionHandler.h"
+#include "ReadWavFileHandler.h"
+#include "OdbcHandler.h"
+#include "SerialHandler.h"
+#include "PcapHandler.h"
+
+
+#include "Grid.h"
+#include "CaptureDevice.h"
 
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
@@ -37,11 +46,27 @@ public:
     static void* run(void* userData);
     void sendMessage(std::vector<Input*>* inputs);
     std::string inputsToJson(std::vector<Input*>* inputs);
-    
+
+    void dispatchRequest(message_ptr msg);
+    void sendStopMessage();
+
 private:
+    int mTypeOfCaptureDevice;
     int mListenningPort;
-    server* mServer;
+    server mServer;
     pthread_t mThread;
     websocketpp::connection_hdl mConnectionHandler;
+    void sendMessage(boost::property_tree::ptree ptree);
+    void sendInit();
+    CaptureDevice* mCaptureDevice;
+    Grid* mGrid;
+    void setCaptureDevice(int identifier);
+    void setConfigurationPcap(int identifier);
+    void sendConfigurationCaptureDevice();
+    void sendOutputList();
+
+
+
+    void sendPcapInterfaces(pcap_if_t* interfaces);
 };
 #endif /* defined(__LibLoAndCap__WebSocketServer__) */

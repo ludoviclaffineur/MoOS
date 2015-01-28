@@ -97,6 +97,7 @@
 		FEC0AA9819CADF730090191B /* libgecodesearch.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FE19BDA0BD000A281E /* libgecodesearch.dylib */; };
 		FEC0AA9919CADF730090191B /* libgecodeint.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FC19BDA0B5000A281E /* libgecodeint.dylib */; };
 		FEC0AA9A19CADF730090191B /* libgecodekernel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED8FA19BDA082000A281E /* libgecodekernel.dylib */; };
+		FEEEF6891A6FB02100512903 /* MidiControlChange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEEEF6871A6FB02100512903 /* MidiControlChange.cpp */; };
 		FEFDF3FB1A5EC63800519B29 /* WebSocketServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFDF3F91A5EC63800519B29 /* WebSocketServer.cpp */; };
 		FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */; };
 /* End PBXBuildFile section */
@@ -285,6 +286,8 @@
 		FEB9B0E61A6683490022F074 /* ScalingProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScalingProcessing.h; path = processings/ScalingProcessing.h; sourceTree = "<group>"; };
 		FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreadHttpRequest.cpp; path = utils/ThreadHttpRequest.cpp; sourceTree = "<group>"; };
 		FEBEA68E19DE9F5C000EAFB6 /* ThreadHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadHttpRequest.h; path = utils/ThreadHttpRequest.h; sourceTree = "<group>"; };
+		FEEEF6871A6FB02100512903 /* MidiControlChange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiControlChange.cpp; path = outputs/Midi/MidiControlChange.cpp; sourceTree = "<group>"; };
+		FEEEF6881A6FB02100512903 /* MidiControlChange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MidiControlChange.h; path = outputs/Midi/MidiControlChange.h; sourceTree = "<group>"; };
 		FEFDF3F91A5EC63800519B29 /* WebSocketServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WebSocketServer.cpp; path = view/websocket/WebSocketServer.cpp; sourceTree = "<group>"; };
 		FEFDF3FA1A5EC63800519B29 /* WebSocketServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WebSocketServer.h; path = view/websocket/WebSocketServer.h; sourceTree = "<group>"; };
 		FEFED9211920FD37002936C8 /* PcapDhcpProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PcapDhcpProcessing.cpp; path = processings/PcapDhcpProcessing.cpp; sourceTree = "<group>"; };
@@ -379,6 +382,8 @@
 				FE2371181A6E6BC7002D1B92 /* MidiNoteDurationHandler.h */,
 				FE23711A1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp */,
 				FE23711B1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.h */,
+				FEEEF6871A6FB02100512903 /* MidiControlChange.cpp */,
+				FEEEF6881A6FB02100512903 /* MidiControlChange.h */,
 			);
 			name = Midi;
 			sourceTree = "<group>";
@@ -737,6 +742,7 @@
 				FEAED90D19BDE7DB000A281E /* Constrain.cpp in Sources */,
 				FE43C1EC18DC50DC00742A0C /* Genetic.cpp in Sources */,
 				FE8B88211A42E66900E02D27 /* FftProcessing.cpp in Sources */,
+				FEEEF6891A6FB02100512903 /* MidiControlChange.cpp in Sources */,
 				FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */,
 				FE7059781A419DD30020DEA7 /* GSParametersHandler.cpp in Sources */,
 				FEB9B0E71A6683490022F074 /* ScalingProcessing.cpp in Sources */,

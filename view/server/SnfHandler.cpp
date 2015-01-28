@@ -174,7 +174,7 @@ namespace http {
                     std::stringstream s;
                     const char* cName = Params->at(i)->getName();
                     s<<"<"<<cName<<">"<< Params->at(i)->toString()->str()<<"</"<<cName<<">";
-                    //printf("%s \n ",s.str().c_str());
+                    printf("%s \n ",s.str().c_str());
                     rep.content.append(s.str().c_str());
                 }
                 rep.content.append("</output>");

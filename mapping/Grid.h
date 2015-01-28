@@ -14,11 +14,12 @@
 #include "OutputsHandler.h"
 #include "Cell.h"
 #include <vector>
-#include "WebSocketServer.h"
+//#include "WebSocketServer.h"
 class Grid{
 
 public:
     Grid();
+    ~Grid();
     void    addComplementaryCells(OutputsHandler* o);
     void    addInput(Input* i);
     void    addInput(const char* Name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation);
@@ -43,9 +44,9 @@ public:
         mActive = !mActive;
     }
 
-    WebSocketServer* getWebSocketServer(){
-        return mWebSocket;
-    }
+    //WebSocketServer* getWebSocketServer(){
+      //  return mWebSocket;
+    //}
 
 private:
     int mCurrentOutputId;
@@ -54,7 +55,7 @@ private:
     std::vector <Cell*>  mCells;
     bool mActive;
     bool mIsMonitored;
-    WebSocketServer* mWebSocket;
+    //WebSocketServer* mWebSocket;
 };
 
 #endif /* defined(__LibLoAndCap__Grid__) */

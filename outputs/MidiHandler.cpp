@@ -76,3 +76,12 @@ void MidiHandler::sendNoteOff(unsigned char key, unsigned char velocity){
     messages[2] = velocity;
     mMidiOut->sendMessage( &messages );
 }
+
+
+void MidiHandler::sendControlChange(unsigned char controller, unsigned char controllerValue){
+    std::vector<unsigned char> messages (3);
+    messages[0] = CONTINUOUS_CONTROLLER;
+    messages[1] = controller;
+    messages[2] = controllerValue;
+    mMidiOut->sendMessage( &messages );
+}

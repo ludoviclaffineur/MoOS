@@ -39,6 +39,7 @@
 #include "MidiNoteDurationHandler.h"
 #include "MidiNoteVelocityHandler.h"
 #include "MidiNoteKeyHandler.h"
+#include "MidiControlChange.h"
 
 #include "WebSocketServer.h"
 
@@ -51,14 +52,15 @@ int main(int argc, const char * argv[])
     using namespace std;
 //    pthread_setname_np("Main");
     std::cout<<"\n------------------------------------------\n             Welcome in MoOS! \n------------------------------------------\n";
-    for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
+  /*  for(int  i =0 ;i<CONSTANCES::CaptureDeviceType::TOTAL; i++){
         std::cout<<i+1<<".\t"<< CONSTANCES::CaptureDeviceList[i]<<std::endl;
     }
     int choice;
     std::cout<<"Your choice:"<<std::flush;
     std::cin>>choice;
-    choice--;
-
+    choice--;*/
+    WebSocketServer* theWebSocketServer = new WebSocketServer(9002);
+    theWebSocketServer->start();
 
     theGrid = new Grid();
 
@@ -82,7 +84,7 @@ int main(int argc, const char * argv[])
 //
 //	cout << "A=" << A << endl << "Z=" << Z <<"IDENTITY" << prod(A, Z)<< endl;
     OdbcHandler* p = NULL;
-    CaptureDevice* theCaptureDevice;
+   /* CaptureDevice* theCaptureDevice;
     switch (choice) {
         case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
             theCaptureDevice = new PcapHandler("!udp port 8000", theGrid);
@@ -104,9 +106,9 @@ int main(int argc, const char * argv[])
             theCaptureDevice = NULL;
             break;
     }
+*/
 
-
-    theCaptureDevice->init();
+  //  theCaptureDevice->init();
     /*system("ls /dev/tty.usb*");
     string serialName;
     std::cin>>serialName;
@@ -123,11 +125,13 @@ int main(int argc, const char * argv[])
 
 
 
-     MidiHandler* mh = new MidiHandler();
+/*     MidiHandler* mh = new MidiHandler();
     MidiNoteHandler* MNH = new MidiNoteHandler(mh);
+    theGrid->addOutput(new MidiControlChange(mh));
     theGrid->addOutput(new MidiNoteVelocityHandler(MNH));
     theGrid->addOutput(new MidiNoteKeyHandler(MNH));
     theGrid->addOutput(new MidiNoteDurationHandler(MNH));
+*/
 
 
 
@@ -185,7 +189,6 @@ int main(int argc, const char * argv[])
 
 
 
-
    // WebSocketServer serverSoc(9002);
 
 
@@ -194,9 +197,11 @@ int main(int argc, const char * argv[])
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
 
-    delete theCaptureDevice;
+    //delete theCaptureDevice;
     delete theGrid;
     delete theGeneticAlgorithm;
+    theWebSocketServer->sendStopMessage();
+    delete theWebSocketServer;  
    // delete gs;
     return 0;
 }
