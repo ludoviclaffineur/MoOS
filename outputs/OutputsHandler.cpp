@@ -28,6 +28,7 @@ OutputsHandler::OutputsHandler(const char* n, float min, float max){
     //mConverter.test();
     mParameters.push_back(new Parameter<char*>("Name", &mName));
     mParameters.push_back(new Parameter<int>("Identifier", &mId));
+    
 }
 
 bool OutputsHandler::compareName(const char *n){

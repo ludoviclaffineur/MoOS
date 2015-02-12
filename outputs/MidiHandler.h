@@ -20,7 +20,10 @@ public:
     void sendNoteOn(unsigned char key, unsigned char velocity);
     void sendNoteOff(unsigned char key, unsigned char velocity);
     void sendControlChange(unsigned char controller, unsigned char controllerValue );
+    void setMidiPort(int identifier);
 
+    std::string* getPorts();
+    int getPortsNbr();
     enum MIDI_COMMANDS{
         NOTE_OFF = 128,
         NOTE_ON = 144,

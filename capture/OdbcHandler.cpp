@@ -20,6 +20,7 @@ OdbcHandler::OdbcHandler(Grid* g, std::string configFile){
     {
         std::cerr << "Error: " << e.what() <<'\n';
     }
+    init();
 
 }
 

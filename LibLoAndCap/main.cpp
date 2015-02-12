@@ -196,7 +196,6 @@ int main(int argc, const char * argv[])
     http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", theGrid, theGeneticAlgorithm,theConstrainAlgo, p);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
-
     //delete theCaptureDevice;
     delete theGrid;
     delete theGeneticAlgorithm;

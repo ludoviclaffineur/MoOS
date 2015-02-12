@@ -24,6 +24,7 @@ public:
     Grid*   getGrid(){
         return mGrid;
     }
+    virtual void trig(){};
     virtual ~CaptureDevice(){};
 protected:
     std::vector <Processings*> mProcessings;

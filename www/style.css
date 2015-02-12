@@ -35,7 +35,7 @@ width: 1000px;
 }
 
 #explanation, #participation, #benefits, #requirements {
-	
+
 	margin: auto auto 0 360px;
 	/*width: auto;*/
 }
@@ -113,7 +113,7 @@ text-decoration: none;
 
 #linkList a:hover {
 text-decoration: underline;
-color: #333;	
+color: #333;
 }
 
 #linkList a.c, #linkList a.c:link, #linkList a.c:visited {
@@ -142,8 +142,8 @@ text-decoration: none;
 }
 
 #canvas{
-	min-width:200px; 
-	max-height:100%;
+	min-width:200px;
+	max-height:200%;
 	width:auto;
 	display:block;
 

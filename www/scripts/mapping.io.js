@@ -1,3 +1,6 @@
+var OutputNames = [];
+    var InputNames = [];
+
 mapping = function(io){
 
 	var nbrx = 1;
@@ -14,8 +17,7 @@ mapping = function(io){
               .setFillStyle('black');
 
    
-    OutputNames = [];
-    InputNames = [];
+    
     Circles = [];
     document.getElementById('myForm').style.display = "none"
 
@@ -86,6 +88,8 @@ mapping = function(io){
 
 				//var dc = document.getElementById('preamble').children[4]; //output Form
 				dc.appendChild(f);
+
+
 			}
 		};
 		if (!found){
@@ -101,8 +105,8 @@ mapping = function(io){
 function init(){
 	var Inputs = getInputs();
     grid.C = Inputs.length + 1;
-    InputNames=[];
-    OutputNames=[]
+    //InputNames=[];
+    //OutputNames=[]
     Cells=[];
     Circles = [];
     for (var i = Inputs.length - 1; i >= 0; i--) {
@@ -134,8 +138,17 @@ function init(){
 
 		var weight = Cells[i].children[2].firstChild.nodeValue;
 		//var colorVal = "rgb(" + weight + "," + weight + "," + weight +")";
-		var colorVal = "rgb(54,93,142)";
-		Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,40+originPosY + (40*cOutputId),2+(parseFloat(weight*8))).setFillStyle(colorVal).setStrokeStyle('white');
+		
+		if (weight >=0 ) {
+			var colorVal = "rgb(54,93,142)";
+			Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,40+originPosY + (40*cOutputId),2+(parseFloat(weight*8))).setFillStyle(colorVal).setStrokeStyle('white');
+		}
+		else{
+			var colorVal = "rgb(142,10,10)";
+			Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,40+originPosY + (40*cOutputId),2+(parseFloat(-weight*8))).setFillStyle(colorVal).setStrokeStyle('white');
+		}
+
+		//Circles[cOutputId*InputNames.length+cInputId] = new iio.Circle(40*cInputId+40,40+originPosY + (40*cOutputId),2+(parseFloat(weight*8))).setFillStyle(colorVal).setStrokeStyle('white');
 		Circles[cOutputId*InputNames.length+cInputId].addObj(new iio.Text(Cells[i].children[2].firstChild.nodeValue));
 			//.setFont('15px Consolas')
        		//.setTextAlign('center')

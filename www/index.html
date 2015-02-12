@@ -23,7 +23,7 @@
 			    <p> Input Name: <input type="hidden" id="inputHidden" /> <input type="text" id="input" disabled/> </p>
 				<p>Output Name: <input type="hidden" id="ouputHidden" /> <input type="text" id="output" disabled/> </p>
 			    <p>Coefficient: <input type="text" id="coeff" /> </p>
-			    <INPUT type="button" value="Update" onClick="updateCell(this.form)">
+			    <INPUT type="button" value="Update" onClick="updateCell(this.form)"/>
 			</form>
 
 			<h3><span>Output</span></h3>
@@ -31,7 +31,7 @@
 			<form id="Output" action="" method="get">
 
 			</form>
-		</div>
+		        </div>
 	</div>
 
 	<div id="supportingText">
@@ -39,35 +39,49 @@
 			<div id="canvas">
 
 
-	        <canvas id="ttt" width="800px" height="400px"/>
-	          <script type="text/javascript" src="scripts/iioEngine.min.js"></script>
+	                        <canvas id="ttt" width="800px" height="400px"/>
+	                        <script type="text/javascript" src="scripts/iioEngine.min.js"></script>
 
 	   	   	 	<script type="text/javascript" src="scripts/mapping.io.js"></script>
-	         	 <script type="text/javascript">
-	   	   		iio.start(mapping,'ttt');
-	          </script>
+	         	        <script type="text/javascript">
+	   	   		        iio.start(mapping,'ttt');
+	                        </script>
 
-  			</div>
-			<INPUT type="button" value="Add Output" onClick="addOutput()"/>
-			<form id="SaveState" action="" method="get">
-				<INPUT type="text" id="filename"/>
-				<INPUT type="button" value="Save state" onClick="saveState(this.form)">
-			</form>
-			<form id="LoadState" action="" method="get">
-				<INPUT type="text" id="filename"/>
-				<INPUT type="button" value="Load state" onClick="loadState(this.form)">
-			</form>
+  	                </div>
+			<p><INPUT type="button" value="Add Output" onClick="addOutput()"/></p>
+                        <p><INPUT type="button" value="TRIG" onClick="trig()"/></p>
+                        <p> <INPUT type="button" value="Activate Grid" onClick="switchGrid(this)"/></p>
+                        <div id="outputSetValue">
 
+                         </div>
+                         <p><INPUT type="button" value="SET Constrain" onClick="setConstrain()"/></p>
+         		 <form id="SaveState" action="" method="get">
+         			<INPUT type="text" id="filename"/>
+         			<INPUT type="button" value="Save state" onClick="saveState(this.form)">
+         		</form>
+         		<form id="LoadState" action="" method="get">
+         			<INPUT type="text" id="filename"/>
+         			<INPUT type="button" value="Load state" onClick="loadState(this.form)">
+         		</form>
 			<form id="SetRate" action="" method="get">
 				<INPUT type="text" id="rate"/>
 				<INPUT type="button" value="rate and evolve the grid" onClick="rateGrid(this.form)">
 			</form>
-			<form id="KymaOutput" action="" method="get">
-				<INPUT type="text" id="ipAddress" placeholder="IP Address"/>
-				<INPUT type="button" value="System on Kyma" onClick="kymaOutput(this.form)">
-			</form>
 
-		</div>
+                </div>
+
+
+        </div>
+
+
+
+         <script type="text/javascript">
+                 initConstrainMode();
+         </script>
+
+</div>
+
+
 
 	<!--	<div id="participation">
 			<h3><span>Where can I get some?</span></h3>

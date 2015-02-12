@@ -24,6 +24,13 @@
 #include "OdbcHandler.h"
 #include "SerialHandler.h"
 #include "PcapHandler.h"
+#include "OscHandler.h"
+#include "MidiHandler.h"
+#include "MidiNoteHandler.h"
+#include "MidiNoteKeyHandler.h"
+#include "MidiNoteDurationHandler.h"
+#include "MidiNoteVelocityHandler.h"
+#include "MidiControlChange.h"
 
 
 #include "Grid.h"
@@ -53,7 +60,11 @@ public:
 private:
     int mTypeOfCaptureDevice;
     int mListenningPort;
-    server mServer;
+    int mDefaultOutput;
+    void sendMidiPorts();
+    void setMidiPort(int identifier);
+    void trigGrid();
+    server      mServer;
     pthread_t mThread;
     websocketpp::connection_hdl mConnectionHandler;
     void sendMessage(boost::property_tree::ptree ptree);
@@ -64,7 +75,15 @@ private:
     void setConfigurationPcap(int identifier);
     void sendConfigurationCaptureDevice();
     void sendOutputList();
+    void sendGoToOutputs();
+    void setDefaultOutput(int identifier);
+    void sendGrid();
+    boost::property_tree::ptree getJsonOutputs();
+    boost::property_tree::ptree getJsonInputs();
+    boost::property_tree::ptree getJsonWeights();
+    void setWeightForCell(std::string inputName, std::string outputName, float weight);
 
+    MidiHandler* mMidiHandler;
 
 
     void sendPcapInterfaces(pcap_if_t* interfaces);

@@ -32,7 +32,7 @@ MidiHandler::MidiHandler(){
         error.printMessage();
         exit( EXIT_FAILURE );
     }
-    selectPort();
+    //selectPort();
 }
 
 MidiHandler::~MidiHandler(){
@@ -59,6 +59,32 @@ void MidiHandler::selectPort(){
     int selectedPort = 0;
     std::cin >> selectedPort;
     mMidiOut->openPort( selectedPort-1 );
+}
+
+void MidiHandler::setMidiPort(int identifier ){
+    mMidiOut->openPort( identifier );
+}
+
+std::string* MidiHandler::getPorts(){
+    int nPorts;
+
+    nPorts = mMidiOut->getPortCount();
+    std::string* portName = new std::string[nPorts];
+    for ( unsigned int i=0; i<nPorts; i++ ) {
+        try {
+            portName[i] = mMidiOut->getPortName(i);
+        }
+        catch (RtMidiError &error) {
+            error.printMessage();
+            //~MidiHandler();
+        }
+
+    }
+    return portName;
+}
+
+int MidiHandler::getPortsNbr(){
+    return mMidiOut->getPortCount();
 }
 
 void MidiHandler::sendNoteOn(unsigned char key, unsigned char velocity){
