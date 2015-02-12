@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "OutputsHandler.h"
 #include "GranularSyntheziser.h"
+#include "AppIncludes.h"
 class GSParametersHandler: public OutputsHandler{
 public:
     GSParametersHandler(const char* n,GranularSyntheziser* GS);

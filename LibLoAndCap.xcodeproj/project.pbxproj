@@ -919,10 +919,9 @@
 				INSTALL_PATH = /usr/local/bin;
 				LIBRARY_SEARCH_PATHS = (
 					/opt/local/lib,
-					/Users/ludoviclaffineur/Documents/LibLoAndCap/lo,
-					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/lo,
-					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/pcap,
-					/Users/ludoviclaffineur/Documents/LibLoAndCap/lib/boost,
+					"$(PROJECT_DIR)/lo",
+					"$(PROJECT_DIR)/lib/lo",
+					"$(PROJECT_DIR)/lib/pcap",
 					"$(PROJECT_DIR)/lib/boost",
 					"/opt/local/lib/leap/libc++",
 					"$(BUILT_PRODUCTS_DIR)",

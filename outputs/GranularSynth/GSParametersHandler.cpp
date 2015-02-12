@@ -10,7 +10,7 @@
 
 GSParametersHandler::GSParametersHandler(const char* n,GranularSyntheziser* GS):OutputsHandler(n){
     mGranularSynth = GS;
-    mOutputType = GRANULAR_SYNTH;
+    mOutputType = CONSTANCES::GRANULAR_SYNTH;
 }
 
 void GSParametersHandler::setParameters(std::vector<std::string> ParameterList){

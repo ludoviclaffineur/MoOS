@@ -1,0 +1,8 @@
+[ODBC]
+Description=DSN for SOCI ODBC connection to PostgreSQL
+Driver=/usr/local/lib/psqlodbcw.so
+Server=localhost
+Port=5432
+Database=PoidsMolecule
+UID=postgres
+PWD=laffi14

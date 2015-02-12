@@ -90,10 +90,10 @@ void SaveXml::loadXml(const std::string &filename, Grid* g){
             const ptree& child = v.second;
             int type = child.get<int>("type");
             switch (type) {
-                case OutputsHandler::OSC:
+                case CONSTANCES::OSC:
                     createOsc( g, child);
                     break;
-                case OutputsHandler::GRANULAR_SYNTH:
+                case CONSTANCES::GRANULAR_SYNTH:
                 //    createOsc( g, child);
                     break;
                 default:
