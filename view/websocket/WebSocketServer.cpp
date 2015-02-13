@@ -43,6 +43,7 @@ void WebSocketServer::onMessage(WebSocketServer* ws, websocketpp::connection_hdl
 WebSocketServer::WebSocketServer(int port){
     //mServer = new server();
     mCaptureDevice =NULL;
+    isConfigured = false;
     mTypeOfCaptureDevice = -1;
     mDefaultOutput = -1;
     mListenningPort = port;
@@ -189,6 +190,7 @@ void WebSocketServer::trigGrid(){
 }
 
 void WebSocketServer::sendGrid(){
+    isConfigured = true;
     using boost::property_tree::ptree;
     ptree inputs,parameters,outputs,weights, action;
     outputs = getJsonOutputs();
@@ -346,23 +348,30 @@ void WebSocketServer::sendPcapInterfaces(pcap_if_t* interfaces){
 
 
 void WebSocketServer::sendInit(){
-    using boost::property_tree::ptree;
-    std::cout<< "sendINIt()"<<std::endl;
-    if (mCaptureDevice) {
-        //delete mCaptureDevice;
+
+    if (isConfigured) {
+        sendGrid();
+    }
+    else{
+        using boost::property_tree::ptree;
+        std::cout<< "sendINIt()"<<std::endl;
+        if (mCaptureDevice) {
+            //delete mCaptureDevice;
+        }
+
+        ptree child, action;
+
+
+        for (int i =0; i< CONSTANCES::CaptureDeviceType::TOTAL; i++) {
+            std::stringstream ss;
+            ss<< i;
+            child.put(ss.str() ,CONSTANCES::CaptureDeviceList[i]);
+        }
+        action.put("action","capture_device_list");
+        action.put_child("parameters", child);
+        sendMessage(action);
     }
 
-    ptree child, action;
-
-
-    for (int i =0; i< CONSTANCES::CaptureDeviceType::TOTAL; i++) {
-        std::stringstream ss;
-        ss<< i;
-        child.put(ss.str() ,CONSTANCES::CaptureDeviceList[i]);
-    }
-    action.put("action","capture_device_list");
-    action.put_child("parameters", child);
-    sendMessage(action);
 
 
 

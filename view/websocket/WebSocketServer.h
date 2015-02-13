@@ -84,7 +84,7 @@ private:
     void setWeightForCell(std::string inputName, std::string outputName, float weight);
 
     MidiHandler* mMidiHandler;
-
+    bool isConfigured;
 
     void sendPcapInterfaces(pcap_if_t* interfaces);
 };

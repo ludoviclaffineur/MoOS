@@ -76,13 +76,15 @@ function  showOutput(selectedOutput){
         if(i<keys.length){
                 for(var j =i;j<keys.length;j++){
                         $(".sidebar").append(
-                                $("<p>").append(
+                                $("<p>").prop("class", "textArea").append(
                                         $("<label>").append(
                                               keys[j]
                                         )
                                 )
                         ).append(
-                                $("<input>").prop("value", selectedOutput[keys[j]])
+                                $("<p>").prop("class", "textArea").append(
+                                        $("<input>").prop("type","text").prop("value", selectedOutput[keys[j]])
+                                )
                         )
                 }
                 $(".sidebar").append(
