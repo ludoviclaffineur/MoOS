@@ -3,6 +3,7 @@ $(document).ready(function(){
                 window.location.href = $(this).find("option:selected").attr("id") + '.html';
         });
         //setGrid();
+        $(".sidebar").hide();
         var $body = $('#drawingGrid');
         $body.mousedown(function (evt) {
                 selectedWeight = selectWeight(evt);
@@ -36,6 +37,7 @@ $(document).ready(function(){
                 else{
                         var selectedOutput = getOutput(evt);
                         showOutput(selectedOutput);
+                        $(".sidebar").bPopup();
                 }
 
 
@@ -55,6 +57,7 @@ decalageY = 100;
 sizeGrid = 50;
 
 function trigGrid(){
+
         var text = '{"action": "trig"}';
         doSend(text);
 }
