@@ -26,9 +26,13 @@ public:
     }
     virtual void trig(){};
     virtual ~CaptureDevice(){};
+    std::string getDescription(){
+        return mDescription;
+    }
 protected:
     std::vector <Processings*> mProcessings;
     Grid*       mGrid;
+    std::string mDescription;
 };
 
 #endif /* defined(__LibLoAndCap__CaptureDevice__) */

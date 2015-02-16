@@ -187,6 +187,15 @@ void WebSocketServer::setMidiPort(int identifier ){
 
 void WebSocketServer::trigGrid(){
     mCaptureDevice->trig();
+    sendDescription();
+}
+
+void WebSocketServer::sendDescription(){
+    using boost::property_tree::ptree;
+    ptree inputs,parameters, action;
+    action.put("action", "setDescription");
+    action.put("parameters", mCaptureDevice->getDescription());
+    sendMessage(action);
 }
 
 void WebSocketServer::sendGrid(){
@@ -200,6 +209,7 @@ void WebSocketServer::sendGrid(){
     parameters.put_child("outputs", outputs);
     parameters.put_child("inputs", inputs);
     parameters.put_child("weights", weights);
+    parameters.put("description", mCaptureDevice->getDescription());
     
     action.put_child("parameters", parameters);
     sendMessage(action);

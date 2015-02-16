@@ -29,6 +29,7 @@ private:
     soci::session* mSql;
     Grid* mGrid;
     std::vector<std::vector<double>> mRequest;
+    std::vector<std::string> mDescriptions;
     std::vector<std::string> mNames;
 };
 #endif /* defined(__LibLoAndCap__ODBCHandler__) */

@@ -44,7 +44,7 @@
 
 
 <ul id="topmenu">
-	<li data-menuanchor="captureDevice" class="active"><a href="#captureDevice">Capture Device</a></li>
+	<li data-menuanchor="captureDevice" class="active"> <a href="#captureDevice">Capture Device</a></li>
 	<li data-menuanchor="configuration"><a href="#configuration">Configuration</a></li>
         <li data-menuanchor="outputs"><a href="#outputs">Outputs</a></li>
         <li data-menuanchor="outputsConfiguration"><a href="#outputsConfiguration">Outputs Configuration</a></li>
@@ -65,11 +65,13 @@
 
 <div id="fullpage">
 	<div class="section" id="section0">
-		<h1>MoOS </h1>
+		<img src="pictures/MoOS.png"/ width=200px>
+                <div class="intro">
                 <p> 1. Select your capture device: </p>
                 <ul id="menu" class="CaptureList">
                 	<li> <a href="#configuration">NOT SET</a></li>
                 </ul>
+        </div>
 	</div>
 	<div class="section" id="section1">
 		<div class="intro">
@@ -112,10 +114,12 @@
                                 </p>
 
                         </div>
+                        <h1>Description</h1>
                         <canvas id="drawingGrid" width="700" height="700"></canvas>
                         <div class="sidebar-right">
                                 <p class="HP">
                                 <input type="image" src="./pictures/speaker.png" name="image" height="100" onClick="trigGrid()"/>
+                                <input type="range"/>
                         </p>
                         </div>
 		</div>

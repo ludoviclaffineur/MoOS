@@ -8,7 +8,7 @@
 
 #include "OdbcHandler.h"
 
-OdbcHandler::OdbcHandler(Grid* g, std::string configFile){
+OdbcHandler::OdbcHandler(Grid* g, std::string configFile):  mDescriptions(500){
     mGrid = g;
     try
     {
@@ -30,10 +30,6 @@ OdbcHandler::~OdbcHandler(){
 }
 
 void OdbcHandler::init(){
-    for (int i = 0; i<10; i++) {
-        mRequest.push_back(std::vector<double>(500));
-
-    }
     mNames.push_back("nombreC");
     mNames.push_back("nombreH");
     mNames.push_back("nombreO");
@@ -44,11 +40,17 @@ void OdbcHandler::init(){
     mNames.push_back("ke");
     mNames.push_back("ol");
     mNames.push_back("MW");
+    mNames.push_back("CoName");
+
+    for (int i = 0; i<10; i++) {
+        mRequest.push_back(std::vector<double>(500));
+    }
+
 
     std::string OUTPUT = "";
     try
     {
-        (*mSql) << "select \"nombreC\",\"nombreH\",\"nombreO\",\"ac\",\"al\",\"db\",\"es\",\"ke\",\"ol\",\"MW\" from sonification;",
+        (*mSql) << "select \"nombreC\",\"nombreH\",\"nombreO\",\"ac\",\"al\",\"db\",\"es\",\"ke\",\"ol\",\"MW\",\"CoName\" from sonification;",
                     soci::into(mRequest[0]),
                     soci::into(mRequest[1]),
                     soci::into(mRequest[2]),
@@ -58,7 +60,8 @@ void OdbcHandler::init(){
                     soci::into(mRequest[6]),
                     soci::into(mRequest[7]),
                     soci::into(mRequest[8]),
-                    soci::into(mRequest[9]);
+                    soci::into(mRequest[9]),
+                    soci::into(mDescriptions);
         //std::cout<<OUTPUT<<std::endl;
        /* std::cout<< "#C\t#H\t#O\tac\tal\tdb\tes\tke\tol\tMW"<<std::endl;
         for (int i = 0; i<mRequest[0].size(); i++) {
@@ -71,7 +74,7 @@ void OdbcHandler::init(){
         for(int i = 0; i< mRequest.size(); i++){
             mProcessings.push_back(new ScalingProcessing<double>(mGrid, &mRequest[i], mNames[i]));
         }
-
+        mDescription = mDescriptions[0];
 
     }
     catch (std::exception const &e)
@@ -88,7 +91,11 @@ void OdbcHandler::trig(){
     for (int i=0; i<mProcessings.size();i++) {
         mProcessings[i]->process(&mRequest[i][LINE]);
     }
+    std::cout<<mDescriptions[LINE];
+
     LINE = (LINE+1)%mRequest[0].size();
+    mDescription = mDescriptions[LINE];
+    
     mGrid->compute();
 }
 

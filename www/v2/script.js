@@ -49,7 +49,7 @@ $(document).ready(function(){
 
 wsUri = "ws://127.0.0.1:9002"; var output;
 obj = new Object();
-colorLine = "#7E3027"
+colorLine = "#ccc" /*"#7E3027"*/
 colorPositive = "#19B2A5"
 colorNegative = "#FC5F4D"
 //decalageX = 200;
@@ -68,27 +68,23 @@ function  showOutput(selectedOutput){
         var label =  section0.eq(0);
         var keys = Object.keys(selectedOutput);
         var i = 0;
-        //if(selectedOutput["OutputType"] == "0"){
-                for(i =0; i<section0.length;i++){
-                        label =  section0.eq(i);
-                        label[0].textContent = keys[i];
-                        var input = $(".sidebar").find("input").eq(i);
-                        input[0].value = selectedOutput[keys[i]];
-                }
-                //}
+        $( ".sidebar" ).empty();
         if(i<keys.length){
                 for(var j =i;j<keys.length;j++){
-                        $(".sidebar").append(
-                                $("<p>").prop("class", "textArea").append(
-                                        $("<label>").append(
-                                              keys[j]
+                        if(keys[j] !== "Identifier"){
+                                $(".sidebar").append(
+                                        $("<p>").prop("class", "textArea").append(
+                                                $("<label>").append(
+                                                      keys[j]
+                                                )
+                                        )
+                                ).append(
+                                        $("<p>").prop("class", "textArea").append(
+                                                $("<input>").prop("type","text").prop("value", selectedOutput[keys[j]])
                                         )
                                 )
-                        ).append(
-                                $("<p>").prop("class", "textArea").append(
-                                        $("<input>").prop("type","text").prop("value", selectedOutput[keys[j]])
-                                )
-                        )
+                        }
+
                 }
                 $(".sidebar").append(
                         $("<p>").prop("class","submit").append(
@@ -153,7 +149,12 @@ function setGrid(params){
         drawInputsLabels(inputs);
         drawOutputsLabels(outputs, inputs.length);
         drawWeigths(weights, inputs.length);
+        setDescription(params['description']);
         window.location.href = '#grid';
+}
+
+function setDescription(desc){
+        $(".grid h1").text(desc);
 }
 
 function redraw(){
@@ -307,6 +308,9 @@ function onMessage(evt) {
         }
         else  if(Json_Tree_Object["action"] == "setOutputConfig"){
                 setOutputConfig(Json_Tree_Object["parameters"]);
+        }
+        else  if(Json_Tree_Object["action"] == "setDescription"){
+                setDescription(Json_Tree_Object["parameters"]);
         }
         // lineChartData.datasets[0].data =Object.keys(obj).map(function(k) { return obj[k] });
 

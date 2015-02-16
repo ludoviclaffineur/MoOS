@@ -58,6 +58,7 @@ public:
     void sendStopMessage();
 
 private:
+    void sendDescription();
     int mTypeOfCaptureDevice;
     int mListenningPort;
     int mDefaultOutput;
