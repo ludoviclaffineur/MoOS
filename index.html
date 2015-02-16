@@ -1,62 +1,131 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>MoOS by ludoviclaffineur</title>
+<!DOCTYPE html>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>MoOS</h1>
-        <p>Modular Open Sonification Framework</p>
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>MoOS V2</title>
+	<meta name="author" content="Ludovic LAFFINEUR" />
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+	<link rel="stylesheet" type="text/css" href="./jquery.fullPage.css" />
+	<link rel="stylesheet" type="text/css" href="index.css" />
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+       <script type="text/javascript" src="./jquery.bpopup.min.js"></script>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+	<script type="text/javascript" src="./jquery.fullPage.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript">
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+			  sectionsColor: ['#FC5F4D', '#FC5F4D', '#FC5F4D','#FC5F4D', '#FC5F4D'],
+			  anchors: ['captureDevice', 'configuration','outputs','outputsConfiguration' ,'grid'],
+			  menu: '#topmenu',
+			  continuousVertical: false
+			});
+                        init();
+		});
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+	</script>
+                 <script language="javascript" type="text/javascript">
+                         function init() { output = document.getElementById("output"); testWebSocket(); }
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+                </script>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+</head>
+<body>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/ludoviclaffineur">ludoviclaffineur</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
+<ul id="topmenu">
+	<li data-menuanchor="captureDevice" class="active"> <a href="#captureDevice">Capture Device</a></li>
+	<li data-menuanchor="configuration"><a href="#configuration">Configuration</a></li>
+        <li data-menuanchor="outputs"><a href="#outputs">Outputs</a></li>
+        <li data-menuanchor="outputsConfiguration"><a href="#outputsConfiguration">Outputs Configuration</a></li>
+	<li data-menuanchor="grid"><a href="#grid">Grid</a></li>
+        <li > <a href="#grid">Load</a></li>
+</ul>
+<div class=toggleButton >
+        <form action="">
+          <input type="radio" name="rdo" id="yes"  />
+          <input type="radio" name="rdo" id="no" checked/>
+          <div class="switch">
+            <label for="yes">Yes</label>
+            <label for="no">No</label>
+            <span></span>
+          </div>
+        </form>
+</div>
 
-  </body>
+<div id="fullpage">
+	<div class="section" id="section0">
+		<img src="pictures/MoOS.png"/ width=200px>
+                <div class="intro">
+                <p> 1. Select your capture device: </p>
+                <ul id="menu" class="CaptureList">
+                	<li> <a href="#configuration">NOT SET</a></li>
+                </ul>
+        </div>
+	</div>
+	<div class="section" id="section1">
+		<div class="intro">
+			<h1>Configuration:</h1>
+                        <p>Select the interface for sniffing:</p>
+                        <ul id="menu" class="Configuration">
+                        	<li> <a href="#captureDevice"> NO CAPTURE DEVICE</a></li>
+                        </ul>
+                </div>
+	</div>
+	<div class="section" id="section2">
+		<div class="intro">
+			<h1>Outputs:</h1>
+                        <p>Which type of output will you use?</p>
+                        <ul id="menu" class="Outputs">
+                        	<li> <a href="#captureDevice"> NOT SET</a></li>
+
+                        </ul>
+                </div>
+	</div>
+	<div class="section" id="section3">
+		<div class="intro">
+			<h1>Output Configuration:</h1>
+                        <p></p>
+                        <ul id="menu" class="OutputsConfiguration">
+                        	<li> <a href="#captureDevice"> NOT SET</a></li>
+
+                        </ul>
+                </div>
+	</div>
+	<div class="section" id="section4">
+		<div class="grid">
+                        <div class="sidebar">
+        		        <h2>Outputs:</h2>
+                                <p class="textArea">
+                                    <label for="name">Name:</label>
+                                </p>
+                                <p class="textArea">
+                                      <input type="text" name="name" id="name" />
+                                </p>
+
+                        </div>
+                        <h1>Description</h1>
+                        <canvas id="drawingGrid" width="700" height="700"></canvas>
+                        <div class="sidebar-right">
+                                <p class="HP">
+                                <input type="image" src="./pictures/speaker.png" name="image" height="100" onClick="trigGrid()"/>
+                                <input type="range"/>
+                        </p>
+                        </div>
+		</div>
+
+	</div>
+</div>
+
+</body>
 </html>
