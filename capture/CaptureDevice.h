@@ -19,7 +19,7 @@
 class CaptureDevice{
 public:
 
-
+    CaptureDevice():mDescriptions(500){};
     virtual void init() = 0;
     Grid*   getGrid(){
         return mGrid;
@@ -29,10 +29,14 @@ public:
     std::string getDescription(){
         return mDescription;
     }
+    std::vector<std::string> getAllDescriptions(){
+        return mDescriptions;
+    }
 protected:
     std::vector <Processings*> mProcessings;
     Grid*       mGrid;
     std::string mDescription;
+    std::vector<std::string> mDescriptions;
 };
 
 #endif /* defined(__LibLoAndCap__CaptureDevice__) */

@@ -32,6 +32,9 @@
 		FE23711C1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE23711A1A6E6BDF002D1B92 /* MidiNoteVelocityHandler.cpp */; };
 		FE26FEEF19B49D800096EBCE /* PcapDnsProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE26FEED19B49D800096EBCE /* PcapDnsProcessing.cpp */; };
 		FE26FEF219B49D8B0096EBCE /* SerialToucheProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE26FEF019B49D8B0096EBCE /* SerialToucheProcessing.cpp */; };
+		FE27F0631A93547A00D37C83 /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27F0611A93547A00D37C83 /* libopencv_core.dylib */; };
+		FE27F0641A93547A00D37C83 /* libopencv_highgui.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27F0621A93547A00D37C83 /* libopencv_highgui.dylib */; };
+		FE27F0661A9356DA00D37C83 /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE27F0651A9356DA00D37C83 /* libopencv_imgproc.dylib */; };
 		FE284E9718BC905300CEC7E9 /* SaveXml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE284E9518BC905300CEC7E9 /* SaveXml.cpp */; };
 		FE2A9948191CFA0E0007ADEF /* ConstrainGenetic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE2A9946191CFA0E0007ADEF /* ConstrainGenetic.cpp */; };
 		FE30405818C47B5E00CB147E /* CsvImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE30405618C47B5E00CB147E /* CsvImporter.cpp */; };
@@ -51,6 +54,7 @@
 		FE48182F182111400094602C /* OscHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48182D182111400094602C /* OscHandler.cpp */; };
 		FE481832182119D00094602C /* OutputsHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE481830182119D00094602C /* OutputsHandler.cpp */; };
 		FE48183618211AF10094602C /* Converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE48183418211AF10094602C /* Converter.cpp */; };
+		FE510C311A948352005F7A5E /* VideoOpenCvHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE510C2F1A948352005F7A5E /* VideoOpenCvHandler.cpp */; };
 		FE5939B018F2B0EA00E4426C /* libboost_thread-mt.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FE32271F18EAC99A001B483A /* libboost_thread-mt.dylib */; };
 		FE7059711A419DD30020DEA7 /* Grain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70595D1A419DD30020DEA7 /* Grain.cpp */; };
 		FE7059721A419DD30020DEA7 /* GranularSyntheziser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE70595F1A419DD30020DEA7 /* GranularSyntheziser.cpp */; };
@@ -175,6 +179,9 @@
 		FE26FEEE19B49D800096EBCE /* PcapDnsProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PcapDnsProcessing.h; path = processings/PcapDnsProcessing.h; sourceTree = "<group>"; };
 		FE26FEF019B49D8B0096EBCE /* SerialToucheProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SerialToucheProcessing.cpp; path = processings/SerialToucheProcessing.cpp; sourceTree = "<group>"; };
 		FE26FEF119B49D8B0096EBCE /* SerialToucheProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerialToucheProcessing.h; path = processings/SerialToucheProcessing.h; sourceTree = "<group>"; };
+		FE27F0611A93547A00D37C83 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../opt/local/lib/libopencv_core.dylib; sourceTree = "<group>"; };
+		FE27F0621A93547A00D37C83 /* libopencv_highgui.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.dylib; path = ../../../../opt/local/lib/libopencv_highgui.dylib; sourceTree = "<group>"; };
+		FE27F0651A9356DA00D37C83 /* libopencv_imgproc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.dylib; path = ../../../../opt/local/lib/libopencv_imgproc.dylib; sourceTree = "<group>"; };
 		FE284E9518BC905300CEC7E9 /* SaveXml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SaveXml.cpp; path = save/SaveXml.cpp; sourceTree = "<group>"; };
 		FE284E9618BC905300CEC7E9 /* SaveXml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SaveXml.h; path = save/SaveXml.h; sourceTree = "<group>"; };
 		FE2A9946191CFA0E0007ADEF /* ConstrainGenetic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConstrainGenetic.cpp; path = mapping/ConstrainGenetic.cpp; sourceTree = "<group>"; };
@@ -211,6 +218,8 @@
 		FE48183418211AF10094602C /* Converter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Converter.cpp; path = utils/Converter.cpp; sourceTree = "<group>"; };
 		FE48183518211AF10094602C /* Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Converter.h; path = utils/Converter.h; sourceTree = "<group>"; };
 		FE48183718211BFC0094602C /* IpHeaderDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IpHeaderDefinitions.h; path = utils/IpHeaderDefinitions.h; sourceTree = "<group>"; };
+		FE510C2F1A948352005F7A5E /* VideoOpenCvHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VideoOpenCvHandler.cpp; path = capture/VideoOpenCvHandler.cpp; sourceTree = "<group>"; };
+		FE510C301A948352005F7A5E /* VideoOpenCvHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoOpenCvHandler.h; path = capture/VideoOpenCvHandler.h; sourceTree = "<group>"; };
 		FE586CD318EC1A5F0069ED48 /* SerialProcessings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SerialProcessings.h; path = processings/SerialProcessings.h; sourceTree = "<group>"; };
 		FE70595D1A419DD30020DEA7 /* Grain.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Grain.cpp; path = outputs/GranularSynth/Grain.cpp; sourceTree = "<group>"; };
 		FE70595E1A419DD30020DEA7 /* Grain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Grain.h; path = outputs/GranularSynth/Grain.h; sourceTree = "<group>"; };
@@ -315,9 +324,12 @@
 				FE23710F1A6E4934002D1B92 /* librtmidi.a in Frameworks */,
 				FEAED8FB19BDA082000A281E /* libgecodekernel.dylib in Frameworks */,
 				FE1416291846507F00F7AF26 /* libboost_system-mt.dylib in Frameworks */,
+				FE27F0631A93547A00D37C83 /* libopencv_core.dylib in Frameworks */,
+				FE27F0661A9356DA00D37C83 /* libopencv_imgproc.dylib in Frameworks */,
 				FEAED8FF19BDA0BD000A281E /* libgecodesearch.dylib in Frameworks */,
 				FE481813182108700094602C /* liblo.dylib in Frameworks */,
 				FE7BD64F19C6D15F00B9BF14 /* libgecodefloat.dylib in Frameworks */,
+				FE27F0641A93547A00D37C83 /* libopencv_highgui.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,9 +412,12 @@
 		FE4817EF182102680094602C = {
 			isa = PBXGroup;
 			children = (
+				FE27F0611A93547A00D37C83 /* libopencv_core.dylib */,
+				FE27F0621A93547A00D37C83 /* libopencv_highgui.dylib */,
 				FEA134401A3B2E0A00A87897 /* libportaudio.a */,
 				FEA1343E1A3B2E0300A87897 /* libportaudio.dylib */,
 				FE0678FB1A09050F00E4729F /* libLeap.dylib */,
+				FE27F0651A9356DA00D37C83 /* libopencv_imgproc.dylib */,
 				FE15DE4F1A6569EA0045F4F5 /* libsoci_core.3.2 2.dylib */,
 				FE15DE501A6569EA0045F4F5 /* libsoci_odbc.3.2.2.dylib */,
 				FE23710E1A6E4934002D1B92 /* librtmidi.a */,
@@ -464,6 +479,7 @@
 		FE48181718210A650094602C /* capture */ = {
 			isa = PBXGroup;
 			children = (
+				FE32271D18EAB8A2001B483A /* CaptureDevice.h */,
 				FE8B881B1A42E64200E02D27 /* ReadWavFileHandler.cpp */,
 				FE8B881C1A42E64200E02D27 /* ReadWavFileHandler.h */,
 				FE30405918C48BA800CB147E /* LocationIp.cpp */,
@@ -472,11 +488,12 @@
 				FE48182418210E070094602C /* PcapHandler.h */,
 				FE43C1F018DC917400742A0C /* SerialHandler.cpp */,
 				FE43C1F118DC917400742A0C /* SerialHandler.h */,
-				FE32271D18EAB8A2001B483A /* CaptureDevice.h */,
 				FE0678EF1A08E05800E4729F /* LeapMotionHandler.cpp */,
 				FE0678F01A08E05800E4729F /* LeapMotionHandler.h */,
 				FE15DE4C1A6565850045F4F5 /* OdbcHandler.cpp */,
 				FE15DE4D1A6565850045F4F5 /* OdbcHandler.h */,
+				FE510C2F1A948352005F7A5E /* VideoOpenCvHandler.cpp */,
+				FE510C301A948352005F7A5E /* VideoOpenCvHandler.h */,
 			);
 			name = capture;
 			sourceTree = "<group>";
@@ -785,6 +802,7 @@
 				FE14162018464D3D00F7AF26 /* connection.cpp in Sources */,
 				FE23710B1A6E44B3002D1B92 /* MidiHandler.cpp in Sources */,
 				FE2371161A6E6B94002D1B92 /* MidiNoteKeyHandler.cpp in Sources */,
+				FE510C311A948352005F7A5E /* VideoOpenCvHandler.cpp in Sources */,
 				FE48182F182111400094602C /* OscHandler.cpp in Sources */,
 				FEFED9231920FD37002936C8 /* PcapDhcpProcessing.cpp in Sources */,
 				FEFDF3FB1A5EC63800519B29 /* WebSocketServer.cpp in Sources */,

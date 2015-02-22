@@ -43,7 +43,9 @@
 
 #include "WebSocketServer.h"
 
+#include <opencv2/opencv.hpp>
 //#include "storage_adaptors.hpp"
+
 
 int main(int argc, const char * argv[])
 {
@@ -184,12 +186,53 @@ int main(int argc, const char * argv[])
 //    for (int i = 0; i<theGrid->getCells()->size();i++){
 //        cout<< "The best \t"<<best[i] << "\t" << flush;
 //    }
-
     //delete k;
-
-
-
+ /*   using namespace cv;
+    using namespace std;
+    
    // WebSocketServer serverSoc(9002);
+    std::cout<< "INIIIIIT WEBCAM" <<std::endl;
+    // open the video camera no. 0
+    cv::VideoCapture* cap;
+    cap = new VideoCapture(0);
+    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    if (!cap->isOpened())  // if not success, exit program
+    {
+        std::cout << "Cannot open the video cam" << endl;
+    }
+
+    double dWidth = cap->get(CV_CAP_PROP_FRAME_WIDTH); //get the width of frames of the video
+    double dHeight = cap->get(CV_CAP_PROP_FRAME_HEIGHT); //get the height of frames of the video
+
+    std::cout << "Frame size : " << dWidth << " x " << dHeight << endl;
+
+    namedWindow("MyVideo",CV_WINDOW_AUTOSIZE); //create a window called "MyVideo"
+
+    //createTrackbar( TrackbarName, "Linear Blend", &tresh, 255.0, on_trackbar );
+    // createTrackbar(TrackbarName, "Linear Blend", int *value, int count)
+    while (1)
+    {
+        Mat frame;
+
+        bool bSuccess = cap->read(frame); // read a new frame from video
+
+        if (!bSuccess) //if not success, break loop
+        {
+            std::cout << "Cannot read a frame from video stream" << endl;
+            break;
+        }else{
+            cvtColor( frame, frame, CV_RGB2GRAY );
+            threshold(frame, frame, 0, 255, THRESH_OTSU);
+            imshow("MyVideo", frame); //show the frame in "MyVideo" window
+        }
+
+
+        if (waitKey(30) == 27) //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+        {
+            cout << "esc key is pressed by user" << endl;
+            break; 
+        }
+    }*/
 
 
     std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
@@ -200,7 +243,7 @@ int main(int argc, const char * argv[])
     delete theGrid;
     delete theGeneticAlgorithm;
     theWebSocketServer->sendStopMessage();
-    delete theWebSocketServer;  
+    delete theWebSocketServer;
    // delete gs;
     return 0;
 }

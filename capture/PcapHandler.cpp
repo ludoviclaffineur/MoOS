@@ -155,7 +155,7 @@ pcap_t* PcapHandler::chooseDev(){
 
 void PcapHandler::setDev(int a){
     pcap_if_t* selected = mAlldevs;
-    for (int i = 1; i<a; i++){
+    for (int i = 0; i<a; i++){
         selected = selected->next;
     }
     mHandle = openLive(selected->name, BUFSIZ, 1, 1000, mErrbuf);

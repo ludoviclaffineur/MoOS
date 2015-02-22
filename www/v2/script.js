@@ -143,6 +143,7 @@ function setGrid(params){
         outputs = Object.keys(params["outputs"]).map(function(k) { return params["outputs"][k] });
         inputs = Object.keys(params["inputs"]).map(function(k) { return params["inputs"][k] });
         weights = Object.keys(params["weights"]).map(function(k) { return params["weights"][k] });
+        rowData = Object.keys(params["rowsData"]).map(function(k) { return params["rowsData"][k] });
         contextGlobal = getContextHq();
         contextGlobal.clearRect(0, 0, 800, 800);
         drawGrid(inputs.length,outputs.length);
@@ -150,7 +151,21 @@ function setGrid(params){
         drawOutputsLabels(outputs, inputs.length);
         drawWeigths(weights, inputs.length);
         setDescription(params['description']);
+        setDropDownMenu(rowData);
+
         window.location.href = '#grid';
+}
+
+function setDropDownMenu(desc){
+        var dropdown = $(".dropdown");
+        dropdown.empty();
+        for(var i=0; i<desc.length;i++){
+                dropdown.append(
+                        $("<li>").append(
+                                $("<a>").text(desc[i])
+                        )
+                )
+        }
 }
 
 function setDescription(desc){
@@ -268,6 +283,7 @@ function init() {
 
         testWebSocket();
 }
+
 function testWebSocket() {
         websocket = new WebSocket(wsUri);
         websocket.onopen = function(evt) { onOpen(evt) };

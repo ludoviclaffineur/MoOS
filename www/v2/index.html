@@ -18,7 +18,7 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
        <script type="text/javascript" src="./jquery.bpopup.min.js"></script>
-
+        <script type="text/javascript" src="./modernizr.custom.79639.js"></script>
 	<script type="text/javascript" src="./jquery.fullPage.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<script type="text/javascript">
@@ -117,9 +117,20 @@
                         <h1>Description</h1>
                         <canvas id="drawingGrid" width="700" height="700"></canvas>
                         <div class="sidebar-right">
+				<div class="wrapper-demo">
+					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
+						<span>Molecules</span>
+						<ul class="dropdown">
+							<li><a href="#"><i class="icon-envelope icon-large"></i>Classic mail</a></li>
+							<li><a href="#"><i class="icon-truck icon-large"></i>UPS Delivery</a></li>
+							<li><a href="#"><i class="icon-plane icon-large"></i>Private jet</a></li>
+						</ul>
+					</div>
+				​</div>
                                 <p class="HP">
                                 <input type="image" src="./pictures/speaker.png" name="image" height="100" onClick="trigGrid()"/>
-                                <input type="range"/>
+                                <!--<input type="range"/> -->
+
                         </p>
                         </div>
 		</div>

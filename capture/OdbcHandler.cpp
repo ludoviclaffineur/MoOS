@@ -8,7 +8,7 @@
 
 #include "OdbcHandler.h"
 
-OdbcHandler::OdbcHandler(Grid* g, std::string configFile):  mDescriptions(500){
+OdbcHandler::OdbcHandler(Grid* g, std::string configFile):CaptureDevice(){
     mGrid = g;
     try
     {
@@ -20,7 +20,7 @@ OdbcHandler::OdbcHandler(Grid* g, std::string configFile):  mDescriptions(500){
     {
         std::cerr << "Error: " << e.what() <<'\n';
     }
-    init();
+    //init();
 
 }
 

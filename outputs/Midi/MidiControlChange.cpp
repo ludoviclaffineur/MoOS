@@ -11,7 +11,7 @@
 
 MidiControlChange::MidiControlChange(MidiHandler* mh): OutputsHandler("ControlChange"){
     mMidiHandler = mh;
-    mController = 0;
+    mController = 1;
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 127);
     mParameters.push_back(new Parameter<unsigned short>("cc", &mController));
 }

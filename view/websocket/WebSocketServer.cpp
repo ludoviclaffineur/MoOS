@@ -67,6 +67,8 @@ WebSocketServer::WebSocketServer(int port){
         std::cout << "other exception" << std::endl;
     }
 
+    //To be in the main thread...
+
 }
 
 
@@ -201,19 +203,36 @@ void WebSocketServer::sendDescription(){
 void WebSocketServer::sendGrid(){
     isConfigured = true;
     using boost::property_tree::ptree;
-    ptree inputs,parameters,outputs,weights, action;
+    ptree inputs,parameters,outputs,weights, action, rowsData;
+
     outputs = getJsonOutputs();
     inputs = getJsonInputs();
     weights = getJsonWeights();
+    rowsData = getJsonRowsData();
+
     action.put("action", "setGrid");
     parameters.put_child("outputs", outputs);
     parameters.put_child("inputs", inputs);
     parameters.put_child("weights", weights);
     parameters.put("description", mCaptureDevice->getDescription());
-    
+    parameters.put_child("rowsData", rowsData);
+
+
     action.put_child("parameters", parameters);
     sendMessage(action);
 
+}
+
+boost::property_tree::ptree WebSocketServer::getJsonRowsData(){
+    using boost::property_tree::ptree;
+    ptree rows;
+    std::vector<std::string> descriptions = mCaptureDevice->getAllDescriptions();
+    for (int i =0; i<descriptions.size()&& !descriptions[i].empty(); i++) {
+        std::stringstream ss;
+        ss<<i;
+        rows.put(ss.str(), descriptions[i]);
+    }
+    return rows;
 }
 
 boost::property_tree::ptree WebSocketServer::getJsonOutputs(){
@@ -287,6 +306,9 @@ void WebSocketServer::setConfigurationPcap(int identifier){
 }
 
 void WebSocketServer::setCaptureDevice(int identifier){
+    if (mCaptureDevice) {
+
+    }
     if (mCaptureDevice == NULL) {
 
         mTypeOfCaptureDevice = identifier;
@@ -306,13 +328,17 @@ void WebSocketServer::setCaptureDevice(int identifier){
             case CONSTANCES::CaptureDeviceType::ODBC_HANDLER:
                 mCaptureDevice = new OdbcHandler(mGrid,"filedsn=/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/psql.dsn");
                 break;
+            case CONSTANCES::CaptureDeviceType::VIDEO_OPENCV_HANDLER:
+                mCaptureDevice = new VideoOpenCvHandler(mGrid);
+                break;
             default:
                 mCaptureDevice = NULL;
                 break;
         }
     }
     if (mCaptureDevice) {
-        //mCaptureDevice->init();
+
+        mCaptureDevice->init();
         sendConfigurationCaptureDevice();
     }
 }

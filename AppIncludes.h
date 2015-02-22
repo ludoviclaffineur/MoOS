@@ -25,9 +25,10 @@ namespace CONSTANCES {
         LEAPMOTION_HANDLER,
         READWAV_HANDLER,
         ODBC_HANDLER,
+        VIDEO_OPENCV_HANDLER,
         TOTAL,
     };
-    const std::string CaptureDeviceList [CaptureDeviceType::TOTAL] = {"Pcap Handler", "Serial Handler", "LeapMotion Handler", "ReadWave Handler", "ODBC Handler"};
+    const std::string CaptureDeviceList [CaptureDeviceType::TOTAL] = {"Pcap Handler", "Serial Handler", "LeapMotion Handler", "ReadWave Handler", "ODBC Handler", "VideoOpenCv Handler"};
 
     enum OutputType{
         OSC =0,

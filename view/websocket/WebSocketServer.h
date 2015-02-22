@@ -31,7 +31,7 @@
 #include "MidiNoteDurationHandler.h"
 #include "MidiNoteVelocityHandler.h"
 #include "MidiControlChange.h"
-
+#include "VideoOpenCvHandler.h"
 
 #include "Grid.h"
 #include "CaptureDevice.h"
@@ -82,6 +82,7 @@ private:
     boost::property_tree::ptree getJsonOutputs();
     boost::property_tree::ptree getJsonInputs();
     boost::property_tree::ptree getJsonWeights();
+    boost::property_tree::ptree getJsonRowsData();
     void setWeightForCell(std::string inputName, std::string outputName, float weight);
 
     MidiHandler* mMidiHandler;
