@@ -131,10 +131,19 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
         setMidiPort(pt.get<int>("parameters.id"));
         sendGrid();
     }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "setRow")==0){
+        setRow(pt.get<int>("parameters"));
+        //sendGrid();
+    }
 }
 
 void WebSocketServer::setWeightForCell(std::string inputName, std::string outputName, float weight){
     mGrid->getCellWithName(inputName, outputName)->setCoeff(weight);
+}
+
+void WebSocketServer::setRow(int identifier){
+    mCaptureDevice->setRow(identifier);
+    sendDescription();
 }
 
 void WebSocketServer::setDefaultOutput(int identifier){

@@ -31,5 +31,7 @@ private:
     std::vector<std::vector<double>> mRequest;
 
     std::vector<std::string> mNames;
+    void setRow(int identifier);
+    int mCurrentRow;
 };
 #endif /* defined(__LibLoAndCap__ODBCHandler__) */

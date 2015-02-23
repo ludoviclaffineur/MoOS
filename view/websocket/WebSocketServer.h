@@ -79,6 +79,8 @@ private:
     void sendGoToOutputs();
     void setDefaultOutput(int identifier);
     void sendGrid();
+    void setRow(int identifier);
+    int mCurrentRow;
     boost::property_tree::ptree getJsonOutputs();
     boost::property_tree::ptree getJsonInputs();
     boost::property_tree::ptree getJsonWeights();

@@ -20,6 +20,7 @@ OdbcHandler::OdbcHandler(Grid* g, std::string configFile):CaptureDevice(){
     {
         std::cerr << "Error: " << e.what() <<'\n';
     }
+    mCurrentRow = 0;
     //init();
 
 }
@@ -85,16 +86,20 @@ void OdbcHandler::init(){
 
 }
 
+void OdbcHandler::setRow(int identifier){
+    mCurrentRow = identifier;
+    mDescription = mDescriptions[mCurrentRow];
+}
 
 void OdbcHandler::trig(){
-    static int LINE = 0;
-    for (int i=0; i<mProcessings.size();i++) {
-        mProcessings[i]->process(&mRequest[i][LINE]);
-    }
-    std::cout<<mDescriptions[LINE];
 
-    LINE = (LINE+1)%mRequest[0].size();
-    mDescription = mDescriptions[LINE];
+    for (int i=0; i<mProcessings.size();i++) {
+        mProcessings[i]->process(&mRequest[i][mCurrentRow]);
+    }
+    //std::cout<<mDescriptions[LINE];
+
+    //LINE = (LINE+1)%mRequest[0].size();
+
     
     mGrid->compute();
 }

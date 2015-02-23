@@ -32,11 +32,15 @@ public:
     std::vector<std::string> getAllDescriptions(){
         return mDescriptions;
     }
+    virtual void setRow(int identifier){
+
+    }
 protected:
     std::vector <Processings*> mProcessings;
     Grid*       mGrid;
     std::string mDescription;
     std::vector<std::string> mDescriptions;
+    //int mCurrentRow = 0;
 };
 
 #endif /* defined(__LibLoAndCap__CaptureDevice__) */
