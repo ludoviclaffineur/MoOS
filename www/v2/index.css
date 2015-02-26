@@ -623,15 +623,14 @@ p{
          float: right;
          color: inherit;
      }
-
-     .wrapper-dropdown-3 .dropdown li:first-of-type a {
+    /* .wrapper-dropdown-3 .dropdown li:first-of-type a {
          border-radius: 7px 7px 0 0;
      }
 
      .wrapper-dropdown-3 .dropdown li:last-of-type a {
          border: none;
          border-radius: 0 0 7px 7px;
-     }
+     }*/
 
      /* Hover state */
 

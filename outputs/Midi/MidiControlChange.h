@@ -12,17 +12,20 @@
 #include <stdio.h>
 #include "OutputsHandler.h"
 #include "MidiHandler.h"
+#include "AppIncludes.h"
 
 
 class MidiControlChange : public OutputsHandler{
 public:
-    MidiControlChange(MidiHandler* mh);
+    MidiControlChange(MidiHandler* mh, int controller, std::string name);
+    MidiControlChange(MidiHandler* mh ,std::string name);
     bool sendData();
     void setControllerId(unsigned char newController);
     void setParameters(std::vector<std::string> ParameterList);
 private:
     MidiHandler* mMidiHandler;
     unsigned short mController;
+    unsigned short minMidi;
 };
 
 #endif /* defined(__LibLoAndCap__MidiControlChange__) */

@@ -35,6 +35,7 @@
 
 #include "Grid.h"
 #include "CaptureDevice.h"
+#include <boost/foreach.hpp>
 
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
@@ -85,6 +86,7 @@ private:
     boost::property_tree::ptree getJsonInputs();
     boost::property_tree::ptree getJsonWeights();
     boost::property_tree::ptree getJsonRowsData();
+    void setOutput(boost::property_tree::ptree pt);
     void setWeightForCell(std::string inputName, std::string outputName, float weight);
 
     MidiHandler* mMidiHandler;

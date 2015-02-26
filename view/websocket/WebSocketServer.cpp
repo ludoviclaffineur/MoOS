@@ -135,6 +135,23 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
         setRow(pt.get<int>("parameters"));
         //sendGrid();
     }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "setOutput")==0){
+        setOutput(pt.get_child("parameters"));
+        //sendGrid();
+    }
+}
+
+void WebSocketServer::setOutput(boost::property_tree::ptree pt){
+    using boost::property_tree::ptree;
+    std::vector<std::string> paramList;
+    std::cout<< pt.get<std::string>("Name").c_str() <<std::endl;
+    //int outputType = pt.get<int>("OutputType");
+    for (const std::pair<std::string, ptree> &p : pt){
+        paramList.push_back(p.first);
+        paramList.push_back(p.second.get_value<std::string>());
+    }
+    mGrid->getOutputWithId(pt.get<int>("identifier"))->setParameters(paramList);
+    sendGrid();
 }
 
 void WebSocketServer::setWeightForCell(std::string inputName, std::string outputName, float weight){
@@ -161,15 +178,11 @@ void WebSocketServer::setDefaultOutput(int identifier){
                 sendMidiPorts();
 
             }
-
             default:
                 break;
         }
         mGrid->switchActive();
     }
-
-
-
 }
 
 void WebSocketServer::sendMidiPorts(){
@@ -190,7 +203,10 @@ void WebSocketServer::sendMidiPorts(){
 void WebSocketServer::setMidiPort(int identifier ){
     mMidiHandler->setMidiPort(identifier);
     MidiNoteHandler* MNH = new MidiNoteHandler(mMidiHandler);
-    mGrid->addOutput(new MidiControlChange(mMidiHandler));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "CC1"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,20, "CC20"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,21, "CC21"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,22, "CC22"));
     mGrid->addOutput(new MidiNoteVelocityHandler(MNH));
     mGrid->addOutput(new MidiNoteKeyHandler(MNH));
     mGrid->addOutput(new MidiNoteDurationHandler(MNH));
@@ -220,16 +236,15 @@ void WebSocketServer::sendGrid(){
     rowsData = getJsonRowsData();
 
     action.put("action", "setGrid");
+
     parameters.put_child("outputs", outputs);
     parameters.put_child("inputs", inputs);
     parameters.put_child("weights", weights);
     parameters.put("description", mCaptureDevice->getDescription());
     parameters.put_child("rowsData", rowsData);
 
-
     action.put_child("parameters", parameters);
     sendMessage(action);
-
 }
 
 boost::property_tree::ptree WebSocketServer::getJsonRowsData(){
@@ -324,6 +339,7 @@ void WebSocketServer::setCaptureDevice(int identifier){
         switch (identifier) {
             case CONSTANCES::CaptureDeviceType::PCAP_HANDLER:
                 mCaptureDevice = new PcapHandler("!udp port 8000", mGrid);
+
                 break;
             case CONSTANCES::CaptureDeviceType::SERIAL_HANDLER:
                 mCaptureDevice = new SerialHandler(mGrid, "/dev/tty.usbmodem1411", 115200);
@@ -347,7 +363,7 @@ void WebSocketServer::setCaptureDevice(int identifier){
     }
     if (mCaptureDevice) {
 
-        mCaptureDevice->init();
+
         sendConfigurationCaptureDevice();
     }
 }
@@ -361,6 +377,7 @@ void WebSocketServer::sendConfigurationCaptureDevice(){
             break;
         }
         default:
+            mCaptureDevice->init();
             sendOutputList();
             break;
     }

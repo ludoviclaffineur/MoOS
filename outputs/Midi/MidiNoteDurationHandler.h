@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include "OutputsHandler.h"
 #include "MidiNoteHandler.h"
+#include "AppIncludes.h"
+
 class MidiNoteDurationHandler : public OutputsHandler{
 public:
     MidiNoteDurationHandler(MidiNoteHandler* mh);

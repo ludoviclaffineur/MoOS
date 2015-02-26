@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "OutputsHandler.h"
 #include "MidiNoteHandler.h"
-
+#include "AppIncludes.h"
 
 class MidiNoteKeyHandler : public OutputsHandler{
 public:

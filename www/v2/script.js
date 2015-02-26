@@ -54,7 +54,7 @@ colorPositive = "#19B2A5"
 colorNegative = "#FC5F4D"
 //decalageX = 200;
 decalageY = 100;
-sizeGrid = 50;
+sizeGrid = 43;
 
 function trigGrid(){
 
@@ -69,9 +69,10 @@ function  showOutput(selectedOutput){
         var keys = Object.keys(selectedOutput);
         var i = 0;
         $( ".sidebar" ).empty();
+        var identifierO;
         if(i<keys.length){
                 for(var j =i;j<keys.length;j++){
-                        if(keys[j] !== "Identifier"){
+                        if(keys[j] !== "Identifier" && keys[j] !== "OutputType"){
                                 $(".sidebar").append(
                                         $("<p>").prop("class", "textArea").append(
                                                 $("<label>").append(
@@ -80,20 +81,43 @@ function  showOutput(selectedOutput){
                                         )
                                 ).append(
                                         $("<p>").prop("class", "textArea").append(
-                                                $("<input>").prop("type","text").prop("value", selectedOutput[keys[j]])
+                                                $("<input>").prop("type","text").prop("id",keys[j]).prop("value", selectedOutput[keys[j]])
                                         )
                                 )
+                        }
+                        else if (keys[j] == "Identifier"){
+                                identifierO = selectedOutput[keys[j]];
+                        }
+                        else if (keys[j] == "OutputType"){
+                                currentOutputType = selectedOutput[keys[j]];
                         }
 
                 }
                 $(".sidebar").append(
                         $("<p>").prop("class","submit").append(
-                                $("<input>").prop("type", "submit")
+                                $("<input>").prop("type", "submit").click({id: identifierO},function(evt){ setOutput(evt.data.id); return false; })
                         )
                 )
 
         }
 
+}
+
+function setOutput(identifier){
+       var newValuesInputs = $( ".sidebar" ).find("input");
+       var text = '{"action": "setOutput",'+
+       '"parameters": {"identifier": "'+identifier+'",';
+       text = text+'"OutputType": "'+currentOutputType+'",';
+       for (var i = 0; i<newValuesInputs.length-1;i++){
+               text = text+'"'+ newValuesInputs[i].id +'": "'+newValuesInputs[i].value+'"';
+               if( i !=newValuesInputs.length-2){
+                       text = text+',';
+               }
+
+       }
+       text = text + "}}"
+       doSend(text);
+       $(".sidebar").bPopup().close();
 }
 
 function getOutput(evt){
@@ -162,10 +186,17 @@ function setDropDownMenu(desc){
         for(var i=0; i<desc.length;i++){
                 dropdown.append(
                         $("<li>").append(
-                                $("<a>").text(desc[i])
+                                $("<a>").text(desc[i]).click({id: i},function(evt){ setRow(evt.data.id); return false; })
                         )
                 )
         }
+}
+
+function setRow(id){
+        var text = '{"action": "setRow", "parameters": "'+id+'"}';
+        var dd =  $(".wrapper-dropdown-3").blur();
+        doSend(text);
+        dd.blur();
 }
 
 function setDescription(desc){
@@ -393,7 +424,7 @@ function setConfigurationList(CPList){
         var uls = $(".Configuration");
         var lis =  section0.eq(0);
         lis.text(arrayWork[0]);
-        lis.click(function(){ setCaptureDevice(0); return false; });
+        lis.click(function(){ setConfigDevice(0); return false; });
         var id = 1;
         for (var  i = 1 ; i< arrayWork.length; i++){
                 uls.append(

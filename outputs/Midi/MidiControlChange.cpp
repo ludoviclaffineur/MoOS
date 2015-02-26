@@ -9,11 +9,17 @@
 #include "MidiControlChange.h"
 
 
-MidiControlChange::MidiControlChange(MidiHandler* mh): OutputsHandler("ControlChange"){
+MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): OutputsHandler(name.c_str()){
+    mOutputType = CONSTANCES::MIDI;
     mMidiHandler = mh;
     mController = 1;
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 127);
     mParameters.push_back(new Parameter<unsigned short>("cc", &mController));
+    mParameters.push_back(new Parameter<int>("OutputType", &mOutputType));
+}
+
+MidiControlChange::MidiControlChange(MidiHandler* mh, int controller,std::string name): MidiControlChange(mh,name){
+    mController = controller;
 }
 
 

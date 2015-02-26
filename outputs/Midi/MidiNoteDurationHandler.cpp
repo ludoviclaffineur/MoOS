@@ -10,6 +10,7 @@
 
 MidiNoteDurationHandler::MidiNoteDurationHandler(MidiNoteHandler* mh):
     OutputsHandler("Duration"){
+    mOutputType = CONSTANCES::MIDI;
     mMidiNoteHandler = mh;
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 5000);    //mConverter = new Converter
 }

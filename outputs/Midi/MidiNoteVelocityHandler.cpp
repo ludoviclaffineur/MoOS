@@ -10,6 +10,7 @@
 
 MidiNoteVelocityHandler::MidiNoteVelocityHandler(MidiNoteHandler* mh): OutputsHandler("MidiVelocity"){
     mMidiNoteHandler = mh;
+    mOutputType = CONSTANCES::MIDI;
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 127);
     //mConverter = new Converter
 }
