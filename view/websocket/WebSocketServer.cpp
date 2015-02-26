@@ -176,6 +176,20 @@ void WebSocketServer::setDefaultOutput(int identifier){
             case CONSTANCES::MIDI:{
                 mMidiHandler = new MidiHandler();
                 sendMidiPorts();
+                break;
+
+            }
+            case CONSTANCES::GRANULAR_SYNTH:{
+                mGranularSynth = new GranularSyntheziser();
+                mGrid->addOutput(new GSDurationHandler(mGranularSynth));
+                mGrid->addOutput(new GSOverlapHandler(mGranularSynth));
+                mGrid->addOutput(new GSBlankHandler(mGranularSynth));
+                mGrid->addOutput(new GSReverbDecayHandler(mGranularSynth));
+                mGrid->addOutput(new GSReverbDelayHandler(mGranularSynth));
+                mGrid->addOutput(new GSLowPassCutoffHandler(mGranularSynth));
+                mGrid->addOutput(new GSInitPositionHandler(mGranularSynth));
+                sendGrid();
+                break;
 
             }
             default:

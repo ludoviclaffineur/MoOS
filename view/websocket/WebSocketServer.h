@@ -34,6 +34,14 @@
 #include "VideoOpenCvHandler.h"
 
 #include "Grid.h"
+#include "GranularSyntheziser.h"
+#include "GSDurationHandler.h"
+#include "GSOverlapHandler.h"
+#include "GSBlankHandler.h"
+#include "GSReverbDecayHandler.h"
+#include "GSReverbDelayHandler.h"
+#include "GSLowPassCutoffHandler.h"
+#include "GSInitPositionHandler.h"
 #include "CaptureDevice.h"
 #include <boost/foreach.hpp>
 
@@ -63,6 +71,8 @@ private:
     int mTypeOfCaptureDevice;
     int mListenningPort;
     int mDefaultOutput;
+
+    GranularSyntheziser* mGranularSynth;
     void sendMidiPorts();
     void setMidiPort(int identifier);
     void trigGrid();
