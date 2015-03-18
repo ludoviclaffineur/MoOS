@@ -12,6 +12,7 @@ MidiNoteVelocityHandler::MidiNoteVelocityHandler(MidiNoteHandler* mh): OutputsHa
     mMidiNoteHandler = mh;
     mOutputType = CONSTANCES::MIDI;
     mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,127, 127);
+    mMinVelocity = mMaxVelocity = 127;
     //mConverter = new Converter
 }
 
@@ -23,4 +24,33 @@ bool MidiNoteVelocityHandler::sendData(){
 }
 
 void MidiNoteVelocityHandler::setParameters(std::vector<std::string> ParameterList){
+    for (int i=0; i<ParameterList.size(); i++) {
+        if (ParameterList.at(i).compare("MinDuration")==0) {
+            setMinVelocity(std::atoi(ParameterList.at(i+1).c_str()));
+        }
+        else if(ParameterList.at(i).compare("MaxDuration")==0) {
+            setMaxVelocity(std::atoi(ParameterList.at(i+1).c_str()));
+        }
+    }
 }
+
+void MidiNoteVelocityHandler::setMinVelocity(int minVelocity){
+    if(minVelocity>0 && minVelocity<=127){
+        mMinVelocity = minVelocity;
+        updateConverter();
+    }
+}
+
+void MidiNoteVelocityHandler::setMaxVelocity(int maxVelocity){
+    if (maxVelocity>=0 && maxVelocity<=127 ){
+        mMaxVelocity  = maxVelocity;
+        updateConverter();
+    }
+}
+
+void MidiNoteVelocityHandler::updateConverter(){
+    mConverter->setYMin(mMinVelocity);
+    mConverter->setYMax(mMaxVelocity);
+
+}
+

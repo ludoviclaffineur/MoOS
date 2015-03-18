@@ -47,13 +47,13 @@ void OutputsHandler::extrapolate(){
     else if (mValueBeforeSending <0.0){
         mValueBeforeSending = 0.0;
     }
-    mValueBeforeSending = mConverter.extrapolate(mValueBeforeSending);
+    mValueBeforeSending = mConverter->extrapolate(mValueBeforeSending);
     //std::cout<< mValueBeforeSending <<std::endl;
 
 }
 
 void OutputsHandler::setValue(float newValue){
-    mValueBeforeSending = mConverter.extrapolate(newValue);
+    mValueBeforeSending = mConverter->extrapolate(newValue);
 
 }
 
@@ -63,6 +63,7 @@ void OutputsHandler::reset(){
 
 OutputsHandler::~OutputsHandler(){
     delete mName;
+    delete mConverter;
 }
 
 

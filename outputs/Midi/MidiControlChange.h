@@ -26,7 +26,11 @@ public:
 private:
     MidiHandler* mMidiHandler;
     unsigned short mController;
-    unsigned short minMidi;
+    unsigned short mMinMidi;
+    unsigned short mMaxMidi;
+    void setMaxCCValue(int max);
+    void setMinCCValue(int min);
+    void updateConverter();
 };
 
 #endif /* defined(__LibLoAndCap__MidiControlChange__) */

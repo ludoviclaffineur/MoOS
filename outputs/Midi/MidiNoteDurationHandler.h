@@ -21,6 +21,11 @@ public:
     void setParameters(std::vector<std::string> ParameterList);
 private:
     MidiNoteHandler* mMidiNoteHandler;
+    void setMinDuration(int minDuration);
+    void setMaxDuration(int maxDuration);
+    int mMinDuration;
+    int mMaxDuration;
+    void updateConverter();
 };
 
 #endif /* defined(__LibLoAndCap__MidiNoteDurationHandler__) */

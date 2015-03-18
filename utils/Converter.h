@@ -29,6 +29,8 @@ public:
     void    setDModifier(float d);
     void    setCModifier(float c);
     void    test();
+    void    setYMin(int YMin);
+    void    setYMax(int YMax);
 
 private:
     float   exponential(float inputValue);

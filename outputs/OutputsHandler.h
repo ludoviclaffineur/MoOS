@@ -47,7 +47,7 @@ protected:
     float   mValueBeforeSending;
     int     mParamNumber; //pas topitop
     char*   mName;
-    Converter mConverter;
+    Converter* mConverter;
     std::vector<IParameter*> mParameters;
 };
 

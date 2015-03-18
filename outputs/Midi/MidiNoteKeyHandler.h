@@ -19,8 +19,14 @@ public:
     MidiNoteKeyHandler(MidiNoteHandler* mh);
     bool sendData();
     void setParameters(std::vector<std::string> ParameterList);
+
 private:
     MidiNoteHandler* mMidiNoteHandler;
+    void setMinKey(int minKey);
+    void setMaxKey(int maxKey);
+    int mMinKey;
+    int mMaxKey;
+    void updateConverter();
 };
 
 

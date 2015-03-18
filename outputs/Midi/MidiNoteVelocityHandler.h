@@ -21,6 +21,11 @@ public:
     void setParameters(std::vector<std::string> ParameterList);
 private:
     MidiNoteHandler* mMidiNoteHandler;
+    void setMinVelocity(int minVelocity);
+    void setMaxVelocity(int maxVelocity);
+    int mMaxVelocity;
+    int mMinVelocity;
+    void updateConverter();
 };
 
 #endif /* defined(__LibLoAndCap__MidiNoteVelocityHandler__) */

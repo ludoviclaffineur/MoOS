@@ -97,5 +97,12 @@ void Converter::test(){
         std::cout<<mXMinValue + i*increment<<" \t"<< extrapolate(mXMinValue + i*increment) <<std::endl;
 
     }
+}
 
+void Converter::setYMin(int YMin){
+    mYMinValue = YMin;
+}
+
+void Converter::setYMax(int YMax){
+    mYMaxValue = YMax;
 }
