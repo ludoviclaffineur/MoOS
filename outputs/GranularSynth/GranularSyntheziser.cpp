@@ -9,6 +9,7 @@
 #include "GranularSyntheziser.h"
 #include <fstream>
 #include <math.h>
+#include "Constant.h"
 #define NUM_SECONDS   (40)
 #define SAMPLE_RATE   (44100)
 
@@ -91,7 +92,9 @@ GranularSyntheziser::GranularSyntheziser(){
     /* Initialize our data for use by callback. */
     data->left_phase = data->right_phase = 0.0;
     /* Initialize library before making any other calls. */
-    loadWave("/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sound15.wav"); //15 OK
+    std::stringstream ss;
+    ss << CURRENT_PATH <<"/data/bouceAllSounds.wav";
+    loadWave(ss.str()); //15 OK
 
  //   mGrains.push_back(Grain(music, 2000 ,500));
    // mGrains.push_back(Grain(music, 3000,500 ));

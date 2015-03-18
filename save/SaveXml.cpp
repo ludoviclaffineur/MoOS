@@ -138,3 +138,27 @@ void SaveXml::createOsc( Grid* g, const boost::property_tree::ptree& pt){
     g->addOutput(o);
 }
 
+std::vector<std::string>* SaveXml::listFiles(std::string path){
+    namespace fs = boost::filesystem;
+    std::vector<std::string>* filesVector = new std::vector<std::string>();
+    std::stringstream ss ;
+
+    ss<< CURRENT_PATH<<path;
+    fs::path someDir(ss.str());
+    fs::directory_iterator end_iter;
+
+    typedef std::multimap<std::time_t, fs::path> result_set_t;
+    result_set_t result_set;
+
+    if ( fs::exists(someDir) && fs::is_directory(someDir))
+    {
+        for( fs::directory_iterator dir_iter(someDir) ; dir_iter != end_iter ; ++dir_iter)
+        {
+            if (fs::is_regular_file(dir_iter->status()) )
+            {
+                filesVector->push_back(dir_iter->path().filename().string());
+            }
+        }
+    }
+    return filesVector;
+}

@@ -12,11 +12,11 @@ MidiNoteDurationHandler::MidiNoteDurationHandler(MidiNoteHandler* mh):
     OutputsHandler("Duration"){
     mOutputType = CONSTANCES::MIDI;
     mMidiNoteHandler = mh;
-    mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 5000);    //mConverter = new Converter
+    mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,1677, 10000);    //mConverter = new Converter
 }
 
 bool MidiNoteDurationHandler::sendData(){
-
+    std::cout<<"DURATION"<<mValueBeforeSending<<std::endl;
     mMidiNoteHandler->setDuration(mValueBeforeSending);
     mMidiNoteHandler->sendMidiOnOff();
    

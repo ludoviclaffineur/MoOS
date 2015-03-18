@@ -44,6 +44,7 @@
 #include "GSInitPositionHandler.h"
 #include "CaptureDevice.h"
 #include <boost/foreach.hpp>
+#include "SaveXml.h"
 
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
@@ -90,6 +91,7 @@ private:
     void sendGoToOutputs();
     void setDefaultOutput(int identifier);
     void sendGrid();
+    void sendSavedFiles();
     void setRow(int identifier);
     int mCurrentRow;
     boost::property_tree::ptree getJsonOutputs();

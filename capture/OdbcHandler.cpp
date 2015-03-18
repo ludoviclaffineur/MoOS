@@ -51,7 +51,7 @@ void OdbcHandler::init(){
     std::string OUTPUT = "";
     try
     {
-        (*mSql) << "select \"nombreC\",\"nombreH\",\"nombreO\",\"ac\",\"al\",\"db\",\"es\",\"ke\",\"ol\",\"MW\",\"CoName\" from sonification;",
+        (*mSql) << "select \"nombreC\",\"nombreH\",\"nombreO\",\"ac\",\"al\",\"db\",\"es\",\"ke\",\"ol\",\"MW\",\"CoCode\" from sonification;",
                     soci::into(mRequest[0]),
                     soci::into(mRequest[1]),
                     soci::into(mRequest[2]),

@@ -21,7 +21,7 @@ public:
     virtual void process (void* vdata) = 0;
 
 protected:
-    //! processing active
+    //! boolean to active or desactive processing
     bool mActive;
     //! permit user to give setter for computed values of the processing
     //! @param nbrSetter amount of setters,

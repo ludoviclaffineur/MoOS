@@ -18,6 +18,7 @@
 class MidiControlChange : public OutputsHandler{
 public:
     MidiControlChange(MidiHandler* mh, int controller, std::string name);
+    MidiControlChange(MidiHandler* mh, int controller, std::string name, int midiMin, int midiMax);
     MidiControlChange(MidiHandler* mh ,std::string name);
     bool sendData();
     void setControllerId(unsigned char newController);

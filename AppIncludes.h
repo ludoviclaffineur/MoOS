@@ -16,7 +16,7 @@
 #include "Converter.h"
 #include "IpHeaderDefinitions.h"
 #include "Grid.h"
-
+#include "Constant.h"
 
 namespace CONSTANCES {
     enum CaptureDeviceType{
@@ -38,7 +38,7 @@ namespace CONSTANCES {
     };
 
     const std::string OutputList [OutputType::Total] = {"OSC", "Granular Synth", "MIDI"};
-
+    
 }
 
 

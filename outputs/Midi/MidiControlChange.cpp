@@ -18,12 +18,20 @@ MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): Outputs
     mParameters.push_back(new Parameter<int>("OutputType", &mOutputType));
 }
 
+MidiControlChange::MidiControlChange(MidiHandler* mh, int controller, std::string name,int midiMin, int midiMaxt): MidiControlChange(mh,controller,name){
+
+
+    mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,midiMin, midiMaxt);
+
+}
+
 MidiControlChange::MidiControlChange(MidiHandler* mh, int controller,std::string name): MidiControlChange(mh,name){
     mController = controller;
 }
 
 
 bool MidiControlChange::sendData(){
+    std::cout<< "CC "<< mController << " " << mValueBeforeSending <<std::endl;
     mMidiHandler->sendControlChange(mController, mValueBeforeSending);
     return true;
 }

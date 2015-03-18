@@ -43,8 +43,11 @@
 
 #include "WebSocketServer.h"
 
+#include "SaveXml.h"
 #include <opencv2/opencv.hpp>
 //#include "storage_adaptors.hpp"
+
+
 
 
 int main(int argc, const char * argv[])
@@ -234,9 +237,12 @@ int main(int argc, const char * argv[])
         }
     }*/
 
+    //SaveXml::listFiles("/save");
 
+    std::stringstream ss;
+    ss << CURRENT_PATH << "/www";
     std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", "/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/www", theGrid, theGeneticAlgorithm,theConstrainAlgo, p);
+    http::server::server s("0.0.0.0", "80", ss.str(), theGrid, theGeneticAlgorithm,theConstrainAlgo, p);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
     //delete theCaptureDevice;

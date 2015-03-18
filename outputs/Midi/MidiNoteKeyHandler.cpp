@@ -10,13 +10,13 @@
 MidiNoteKeyHandler::MidiNoteKeyHandler(MidiNoteHandler* mh):OutputsHandler("MidiKey"){
     mMidiNoteHandler = mh;
     mOutputType = CONSTANCES::MIDI;
-    mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,0.0, 127);
+    mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,111, 33);
     //mConverter = new Converter
 }
 
 bool MidiNoteKeyHandler::sendData(){
-    //mConverter.extrapolate(mValueBeforeSending)
-    mMidiNoteHandler->setKey(mValueBeforeSending);
+    std::cout << "KEY SENT" <<mValueBeforeSending<< std::endl;
+        mMidiNoteHandler->setKey(mValueBeforeSending);
     return true;
 }
 

@@ -93,6 +93,7 @@
 		FEAED90819BDA469000A281E /* MagicGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90619BDA469000A281E /* MagicGrid.cpp */; };
 		FEAED90D19BDE7DB000A281E /* Constrain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEAED90B19BDE7DB000A281E /* Constrain.cpp */; };
 		FEB9B0E71A6683490022F074 /* ScalingProcessing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEB9B0E51A6683490022F074 /* ScalingProcessing.cpp */; };
+		FEBDBF481AB6FAF200901456 /* libboost_filesystem-mt.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FEBDBF471AB6FAF200901456 /* libboost_filesystem-mt.dylib */; };
 		FEBEA68F19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */; };
 		FEC0AA9419CADF730090191B /* libgecodefloat.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */; };
 		FEC0AA9519CADF730090191B /* libgecodeminimodel.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = FEAED90419BDA0CF000A281E /* libgecodeminimodel.dylib */; };
@@ -293,6 +294,8 @@
 		FEAED90C19BDE7DB000A281E /* Constrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constrain.h; path = mapping/Constrain.h; sourceTree = "<group>"; };
 		FEB9B0E51A6683490022F074 /* ScalingProcessing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScalingProcessing.cpp; path = processings/ScalingProcessing.cpp; sourceTree = "<group>"; };
 		FEB9B0E61A6683490022F074 /* ScalingProcessing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScalingProcessing.h; path = processings/ScalingProcessing.h; sourceTree = "<group>"; };
+		FEBDBF461AB6CB6300901456 /* Constant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		FEBDBF471AB6FAF200901456 /* libboost_filesystem-mt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libboost_filesystem-mt.dylib"; path = "../../../../opt/local/lib/libboost_filesystem-mt.dylib"; sourceTree = "<group>"; };
 		FEBEA68D19DE9F5C000EAFB6 /* ThreadHttpRequest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ThreadHttpRequest.cpp; path = utils/ThreadHttpRequest.cpp; sourceTree = "<group>"; };
 		FEBEA68E19DE9F5C000EAFB6 /* ThreadHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ThreadHttpRequest.h; path = utils/ThreadHttpRequest.h; sourceTree = "<group>"; };
 		FEEEF6871A6FB02100512903 /* MidiControlChange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MidiControlChange.cpp; path = outputs/Midi/MidiControlChange.cpp; sourceTree = "<group>"; };
@@ -317,6 +320,7 @@
 				FE48182918210E2A0094602C /* libpcap.dylib in Frameworks */,
 				FEAED90319BDA0CA000A281E /* libgecodedriver.dylib in Frameworks */,
 				FEAED90519BDA0CF000A281E /* libgecodeminimodel.dylib in Frameworks */,
+				FEBDBF481AB6FAF200901456 /* libboost_filesystem-mt.dylib in Frameworks */,
 				FEAED8FD19BDA0B5000A281E /* libgecodeint.dylib in Frameworks */,
 				FEAED90119BDA0C1000A281E /* libgecodesupport.dylib in Frameworks */,
 				FE0678FC1A09050F00E4729F /* libLeap.dylib in Frameworks */,
@@ -424,10 +428,12 @@
 				FEA2055419D6BDF400EAD3F3 /* libgecodeset.35.0.dylib */,
 				FEAED90919BDAA7A000A281E /* libgecodefloat.dylib */,
 				FE23710C1A6E473D002D1B92 /* librtmidi.2.1.0.dylib */,
+				FEBDBF471AB6FAF200901456 /* libboost_filesystem-mt.dylib */,
 				FEA9FB1818D1DF4700DB4811 /* processings */,
 				FE8F914718C64AFE0047D4BA /* www */,
 				FE1415F618464C1C00F7AF26 /* view */,
 				FE48182A182110A90094602C /* AppIncludes.h */,
+				FEBDBF461AB6CB6300901456 /* Constant.h */,
 				FE48181718210A650094602C /* capture */,
 				FE96F4B9183CF47600C59843 /* inputs */,
 				FE48183318211AB30094602C /* utils */,

@@ -11,6 +11,7 @@
 #include "AppIncludes.h"
 
 #include "Parameter.h"
+
 /*
 
 |Opcode  | Meaning                             | Reference |
@@ -29,8 +30,6 @@
 -+--------+-------------------------------------+-----------|
 
 */
-
-
 
 void WebSocketServer::onMessage(WebSocketServer* ws, websocketpp::connection_hdl hdl, message_ptr msg){ 
     ws->mConnectionHandler = hdl;
@@ -139,6 +138,10 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
         setOutput(pt.get_child("parameters"));
         //sendGrid();
     }
+    else if (strcmp(pt.get<std::string>("action").c_str(), "getSavedFiles")==0){
+        sendSavedFiles();
+        //sendGrid();
+    }
 }
 
 void WebSocketServer::setOutput(boost::property_tree::ptree pt){
@@ -214,13 +217,16 @@ void WebSocketServer::sendMidiPorts(){
     sendMessage(action);
 }
 
-void WebSocketServer::setMidiPort(int identifier ){
+void WebSocketServer::setMidiPort(int identifier){
     mMidiHandler->setMidiPort(identifier);
     MidiNoteHandler* MNH = new MidiNoteHandler(mMidiHandler);
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "CC1"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,20, "CC20"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,21, "CC21"));
-    mGrid->addOutput(new MidiControlChange(mMidiHandler,22, "CC22"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "Noise"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,5, "Feedback"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,6, "FreqEq", 131,0));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,2, "Resonnance",80,127));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,4, "Insert"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,3, "Modulation"));
+    mGrid->addOutput(new MidiControlChange(mMidiHandler,7, "EqualBoost",0,64));
     mGrid->addOutput(new MidiNoteVelocityHandler(MNH));
     mGrid->addOutput(new MidiNoteKeyHandler(MNH));
     mGrid->addOutput(new MidiNoteDurationHandler(MNH));
@@ -509,6 +515,15 @@ void* WebSocketServer::run(void* userData){
     WebSocketServer* s = (WebSocketServer*) userData;
     s->mServer.run();
     return nullptr;
+}
+
+void WebSocketServer::sendSavedFiles(){
+    std::vector<std::string>* tab = SaveXml::listFiles("/save");
+    for (int i = 0; i<tab->size(); i++) {
+        std::cout<<tab->at(i)<<std::endl;
+    }
+    delete tab;
+
 }
 
 void WebSocketServer::stop(){

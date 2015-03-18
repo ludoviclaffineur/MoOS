@@ -22,6 +22,7 @@ public:
         g->addInput(name.c_str(), (float)min, (float)max, -1, 0, Converter::LINEAR);
 
         mOutput = g->getInputWithName(name.c_str());
+        std::cout<< name << "min " <<min << " max " <<max <<std::endl;
     }
     //template<typename T>
     void process (T t){

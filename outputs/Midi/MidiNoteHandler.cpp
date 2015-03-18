@@ -46,7 +46,7 @@ void* MidiNoteHandler::tSendMidi(void* midiNote){
     MidiNote* mn = (MidiNote*) midiNote;
     //std::cout<<"IN"<< mn->mDuration<<std::endl;
     mn->mMidiHandler->sendNoteOn(mn->mKey, mn->mVelocity);
-    sleep((float)(mn->mDuration)/1000.0);
+    sleep(((float)(mn->mDuration))/1000.0);
     mn->mMidiHandler->sendNoteOff(mn->mKey, mn->mVelocity);
     //std::cout<<"OUT"<< std::endl;
     //pthread_join(*mn->mThread,NULL);
