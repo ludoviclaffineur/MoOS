@@ -15,7 +15,8 @@ MidiNoteDurationHandler::MidiNoteDurationHandler(MidiNoteHandler* mh):
         mMinDuration = 1677;
         mMaxDuration = 10000;
         mConverter = new Converter(Converter::TypeOfExtrapolation::LINEAR, 0.0,1.0,mMinDuration, mMaxDuration);
-
+        mParameters.push_back(new Parameter<int>("MinDuration", &mMinDuration));
+        mParameters.push_back(new Parameter<int>("MaxDuration", &mMaxDuration));
 
 }
 

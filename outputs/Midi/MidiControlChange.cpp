@@ -18,6 +18,8 @@ MidiControlChange::MidiControlChange(MidiHandler* mh, std::string name): Outputs
     mMaxMidi = 127;
     mParameters.push_back(new Parameter<unsigned short>("cc", &mController));
     mParameters.push_back(new Parameter<int>("OutputType", &mOutputType));
+    mParameters.push_back(new Parameter<unsigned short>("MinCCValue", &mMinMidi));
+    mParameters.push_back(new Parameter<unsigned short>("MaxCCValue", &mMaxMidi));
 }
 
 MidiControlChange::MidiControlChange(MidiHandler* mh, int controller, std::string name,int midiMin, int midiMax): MidiControlChange(mh,controller,name){

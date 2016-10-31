@@ -9,6 +9,7 @@
 #include "SaveXml.h"
 #include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
+#include "testSerialisation.h"
 
 SaveXml::SaveXml(const std::string &filename, Grid* g){
     using boost::property_tree::ptree;
@@ -122,6 +123,30 @@ void SaveXml::loadXml(const std::string &filename, Grid* g){
 
     }
 
+}
+
+
+
+void SaveXml::serializeToXml(Grid* g){
+
+/*
+    std::stringstream ss, ss2;
+    ss<<"/Users/ludoviclaffineur/Documents/LibLoAndCap/SAVEXMLSERIALE.XML";
+
+    std::wofstream* ofile = new std::wofstream(ss.str().c_str(),std::ios::out);
+    if(ofile->is_open()){
+        boost::archive::xml_woarchive oTextArchive(*ofile);
+        oTextArchive << BOOST_SERIALIZATION_NVP(g);
+    }
+    //boost::archive::text_oarchive ar(ss2);
+
+    //ar << g;
+    ofile->close();
+    delete ofile;*/
+//    Test t(2, std::string("essai"), 2.0, 3.5);
+//    std::ofstream ofile("youps.txt");
+//    boost::archive::text_oarchive oTextArchive(ofile);
+//    oTextArchive << t;    // sérialisation de t
 }
 
 

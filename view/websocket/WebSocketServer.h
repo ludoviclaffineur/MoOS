@@ -46,6 +46,14 @@
 #include <boost/foreach.hpp>
 #include "SaveXml.h"
 
+
+#include "SerializeXml.h"
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+
+#include <iomanip>
+#include <iostream>
+#include <fstream>
 using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
 using websocketpp::lib::bind;

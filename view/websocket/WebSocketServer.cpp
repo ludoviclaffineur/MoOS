@@ -1,4 +1,4 @@
-    //
+   //
 //  WebSocketServer.cpp
 //  LibLoAndCap
 //
@@ -432,7 +432,10 @@ void WebSocketServer::sendPcapInterfaces(pcap_if_t* interfaces){
 void WebSocketServer::sendInit(){
 
     if (isConfigured) {
-        sendGrid();
+
+        SerializeXml* xmlS = new SerializeXml();
+
+
     }
     else{
         using boost::property_tree::ptree;

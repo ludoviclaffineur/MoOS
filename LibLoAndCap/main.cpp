@@ -45,6 +45,7 @@
 
 #include "SaveXml.h"
 #include <opencv2/opencv.hpp>
+#include "SerializeXml.h"
 //#include "storage_adaptors.hpp"
 
 
@@ -238,6 +239,8 @@ int main(int argc, const char * argv[])
     }*/
 
     //SaveXml::listFiles("/save");
+    SerializeXml* xmlS= new SerializeXml();
+    xmlS->doIt();
 
     std::stringstream ss;
     ss << CURRENT_PATH << "/www";

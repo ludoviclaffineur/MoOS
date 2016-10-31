@@ -19,11 +19,21 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include "AppIncludes.h"
 
+// archives Boost
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/xml_woarchive.hpp>
+
+// pour la sérialisation de std::vector
+#include <boost/serialization/vector.hpp>
+#include <sstream>
 class SaveXml{
 public:
     static void loadXml(const std::string &filename, Grid* g);
     SaveXml(const std::string &filename,  Grid* g);
     static void createOsc( Grid* g, const boost::property_tree::ptree& pt);
     static std::vector<std::string>* listFiles(std::string path);
+
+    static void serializeToXml(Grid* g);
 };
 #endif /* defined(__LibLoAndCap__SaveXml__) */
