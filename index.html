@@ -1,131 +1,917 @@
-<!DOCTYPE html>
-
+<!doctype html>
+<html lang="fr">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>MoOS V2</title>
-	<meta name="author" content="Ludovic LAFFINEUR" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MoOS — Modular Open Sonification Framework</title>
+<meta name="description" content="MoOS transforme des flux de données vivants (son, réseau, capteurs) en contrôles sonores OSC, MIDI ou audio, via une grille de poids réglable depuis un navigateur.">
+<link rel="icon" href="assets/MoOS.png">
+<style>
+@font-face { font-family: "Fira Sans"; src: url("assets/fonts/FiraSans-Regular.woff") format("woff"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Fira Sans"; src: url("assets/fonts/FiraSans-Medium.woff") format("woff"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Fira Sans"; src: url("assets/fonts/FiraSans-Bold.woff") format("woff"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Fira Mono"; src: url("assets/fonts/FiraMono-Regular.woff") format("woff"); font-weight: 400; font-display: swap; }
 
+:root {
+  --coral: #FC5F4D;
+  --bg: #ffffff;
+  --fg: #1d1d1f;
+  --muted: #5f6368;
+  --line: #e6e6e6;
+  --line-strong: #9a9a9a;
+  --accent: #e8473a;
+  --accent-tint: #fdebe8;
+  --tint: #f4f4f2;
+  --code-bg: #f6f6f4;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161617;
+    --fg: #ececec;
+    --muted: #a3a3a8;
+    --line: #2c2c2e;
+    --line-strong: #77777c;
+    --accent: #ff7a6b;
+    --accent-tint: #3a211e;
+    --tint: #222224;
+    --code-bg: #1f1f21;
+  }
+}
 
-	<link rel="stylesheet" type="text/css" href="./jquery.fullPage.css" />
-	<link rel="stylesheet" type="text/css" href="index.css" />
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font: 17px/1.6 "Fira Sans", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 2px; }
+code, pre { font-family: "Fira Mono", ui-monospace, monospace; font-size: 0.86em; }
+code { background: var(--code-bg); padding: 0.1em 0.35em; border-radius: 4px; overflow-wrap: anywhere; }
+pre { background: var(--code-bg); padding: 14px 16px; border-radius: 8px; overflow-x: auto; line-height: 1.5; }
+pre code { background: none; padding: 0; overflow-wrap: normal; }
 
-	<!--[if IE]>
-		<script type="text/javascript">
-			 var console = { log: function() {} };
-		</script>
-	<![endif]-->
+/* ------------------------------------------------------------------ hero */
+.hero { background: var(--coral); color: #fff; }
+.hero-inner {
+  max-width: 1100px; margin: 0 auto; padding: 56px 24px 48px;
+  display: flex; gap: 40px; align-items: center;
+}
+.hero img { width: 150px; flex: none; }
+.hero h1 { font-size: 64px; line-height: 1; margin: 0 0 6px; font-weight: 700; letter-spacing: -0.02em; }
+.hero .tagline { font-size: 20px; font-weight: 500; margin: 0 0 14px; display: flex; align-items: center; gap: 12px; }
+.hero .pitch { max-width: 560px; margin: 0 0 22px; font-size: 18px; opacity: 0.95; }
+.buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-block; padding: 10px 18px; border-radius: 999px; font-weight: 500;
+  text-decoration: none; border: 2px solid #fff; color: #fff;
+}
+.btn.primary { background: #fff; color: var(--coral); }
+.btn:hover { background: rgba(255,255,255,0.15); }
+.btn.primary:hover { background: #fff3f1; }
 
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-       <script type="text/javascript" src="./jquery.bpopup.min.js"></script>
+/* égaliseur : la donnée qui bouge */
+.eq { display: inline-flex; gap: 3px; align-items: flex-end; height: 18px; }
+.eq span { width: 4px; background: #fff; border-radius: 2px; animation: eq 1.1s ease-in-out infinite; }
+.eq span:nth-child(2) { animation-delay: -0.4s; }
+.eq span:nth-child(3) { animation-delay: -0.8s; }
+.eq span:nth-child(4) { animation-delay: -0.2s; }
+.eq span:nth-child(5) { animation-delay: -0.6s; }
+@keyframes eq { 0%, 100% { height: 4px; } 50% { height: 18px; } }
+@media (prefers-reduced-motion: reduce) { .eq span { animation: none; height: 10px; } }
 
-	<script type="text/javascript" src="./jquery.fullPage.js"></script>
-	<script type="text/javascript" src="script.js"></script>
-	<script type="text/javascript">
+/* ------------------------------------------------------------------ layout */
+.layout { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 48px; }
+nav.toc { position: sticky; top: 24px; align-self: start; font-size: 15px; }
+nav.toc p { margin: 0 0 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+nav.toc a { display: block; padding: 5px 0 5px 12px; color: var(--muted); text-decoration: none; border-left: 2px solid var(--line); }
+nav.toc a:hover { color: var(--fg); border-left-color: var(--accent); }
+nav.toc details > summary { display: none; }
 
-		$(document).ready(function() {
-			$('#fullpage').fullpage({
-			  sectionsColor: ['#FC5F4D', '#FC5F4D', '#FC5F4D','#FC5F4D', '#FC5F4D'],
-			  anchors: ['captureDevice', 'configuration','outputs','outputsConfiguration' ,'grid'],
-			  menu: '#topmenu',
-			  continuousVertical: false
-			});
-                        init();
-		});
+main { max-width: 760px; }
+main h2 { font-size: 30px; line-height: 1.2; margin: 56px 0 14px; letter-spacing: -0.01em; }
+main h2:first-child { margin-top: 0; }
+main h2::before { content: ""; display: block; width: 32px; height: 4px; border-radius: 2px; background: var(--coral); margin-bottom: 14px; }
+main h3 { font-size: 20px; margin: 32px 0 8px; }
+main li { margin: 4px 0; }
 
-	</script>
-                 <script language="javascript" type="text/javascript">
-                         function init() { output = document.getElementById("output"); testWebSocket(); }
+.table-wrap { overflow-x: auto; margin: 18px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.45; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--line); }
+th { font-weight: 600; border-bottom: 2px solid var(--line-strong); white-space: nowrap; }
 
-                </script>
+.formula { background: var(--tint); border-left: 3px solid var(--coral); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 18px; }
 
+figure.diagram { margin: 22px 0; }
+.pipeline { width: 100%; height: auto; font-family: "Fira Sans", system-ui, sans-serif; }
+.pipeline .ink { fill: var(--fg); }
+.pipeline .quiet { fill: var(--muted); }
+.pipeline .edge { stroke: var(--line-strong); }
+.pipeline .arrowhead { fill: var(--line-strong); }
+.pipeline .box { fill: none; stroke: var(--line-strong); stroke-width: 1.25; }
+.pipeline .box.accent { fill: var(--accent-tint); stroke: var(--accent); stroke-width: 2; }
+.pipeline .box.tint { fill: var(--tint); }
+
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+footer div { max-width: 1100px; margin: 0 auto; padding: 24px; }
+
+/* ------------------------------------------------------------------ mobile */
+@media (max-width: 860px) {
+  .hero-inner { flex-direction: column; align-items: flex-start; gap: 20px; padding: 36px 16px 32px; }
+  .hero img { width: 96px; }
+  .hero h1 { font-size: 46px; }
+  .layout { display: block; padding: 24px 16px 64px; }
+  nav.toc { position: static; margin-bottom: 28px; }
+  nav.toc p { display: none; }
+  nav.toc details { border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; }
+  nav.toc details > summary { display: list-item; cursor: pointer; font-weight: 600; }
+  main h2 { font-size: 25px; margin-top: 44px; }
+}
+</style>
 </head>
 <body>
+<header class="hero">
+  <div class="hero-inner">
+    <img src="assets/MoOS.png" alt="Logo MoOS : un élan stylisé">
+    <div>
+      <h1>MoOS</h1>
+      <p class="tagline">Modular Open Sonification Framework <span class="eq" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span></p>
+      <p class="pitch">Faire chanter des données : le son d'un fichier, le trafic d'un réseau ou un capteur pilotent tes synthés en OSC, MIDI ou audio.</p>
+      <div class="buttons">
+        <a class="btn primary" href="#demarrage-en-2-minutes">Démarrer en 2 minutes</a>
+        <a class="btn" href="https://github.com/ludoviclaffineur/MoOS">Le code sur GitHub</a>
+      </div>
+    </div>
+  </div>
+</header>
 
-
-<ul id="topmenu">
-	<li data-menuanchor="captureDevice" class="active"> <a href="#captureDevice">Capture Device</a></li>
-	<li data-menuanchor="configuration"><a href="#configuration">Configuration</a></li>
-        <li data-menuanchor="outputs"><a href="#outputs">Outputs</a></li>
-        <li data-menuanchor="outputsConfiguration"><a href="#outputsConfiguration">Outputs Configuration</a></li>
-	<li data-menuanchor="grid"><a href="#grid">Grid</a></li>
-        <li > <a href="#grid">Load</a></li>
+<div class="layout">
+  <nav class="toc" aria-label="Sommaire">
+    <details open>
+      <summary>Sommaire</summary>
+      <p>Le manuel</p>
+      <a href="#en-bref">En bref</a>
+<a href="#la-petite-histoire">La petite histoire</a>
+<a href="#demarrage-en-2-minutes">Démarrage en 2 minutes</a>
+<a href="#comment-ca-marche">Comment ça marche</a>
+<a href="#le-zoo-des-inputs">Le zoo des inputs</a>
+<a href="#les-outputs">Les outputs</a>
+<a href="#la-grille-et-le-mapping">La grille et le mapping</a>
+<a href="#les-interfaces-et-lapi">Les interfaces et l&#x27;API</a>
+<a href="#recettes">Recettes</a>
+<a href="#developper-sur-moos">Développer sur MoOS</a>
+<a href="#securite-et-limites-connues">Sécurité et limites connues</a>
+<a href="#et-apres-une-vraie-api-puis-une-interface-quon-a-envie-douvrir">Et après : une vraie API, puis une interface qu&#x27;on a envie d&#x27;ouvrir</a>
+    </details>
+  </nav>
+  <main>
+<h2 id="en-bref">En bref</h2>
+<p>MoOS transforme des flux de données vivants en contrôles sonores : le son d'un fichier, le trafic d'un réseau ou un capteur pilote des synthés via OSC, MIDI ou un synthé granulaire intégré. Entre les deux, une grille de poids décide quelle donnée fait bouger quel paramètre, et on la règle depuis un navigateur.</p>
+<p>État au 9 octobre 2026 : le projet de 2013–2015 a été relancé. Il compile, tourne dans Docker sous Ubuntu et passe une suite de tests (unitaires et intégration). La partie la plus faible est la configuration web : c'est le prochain chantier (voir « Et après »).</p>
+<p>Selon ce que tu cherches :</p>
+<ul>
+<li><strong>Faire du son</strong> : Démarrage, Le zoo des inputs, Les outputs, Recettes.</li>
+<li><strong>Comprendre le moteur</strong> : Comment ça marche, La grille et le mapping.</li>
+<li><strong>Coder dessus</strong> : Les interfaces, Développer, Sécurité et limites.</li>
 </ul>
-<div class=toggleButton >
-        <form action="">
-          <input type="radio" name="rdo" id="yes"  />
-          <input type="radio" name="rdo" id="no" checked/>
-          <div class="switch">
-            <label for="yes">Yes</label>
-            <label for="no">No</label>
-            <span></span>
-          </div>
-        </form>
+<h2 id="la-petite-histoire">La petite histoire</h2>
+<p>MoOS est né le 30 octobre 2013 sous le nom LibPcapAndLiblo : capturer des paquets réseau et les envoyer en OSC. En 18 mois, il a grandi jusqu'à une dizaine d'inputs et trois familles d'outputs, au service d'installations artistiques, de concerts et de travaux de recherche. Son nom dit son projet : Modular Open Sonification Framework. Il a dormi de 2016 à 2026, puis a été relancé.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Jalon</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oct. 2026</td>
+<td>Docker Ubuntu, suite de tests, CI Linux</td>
+</tr>
+<tr>
+<td>Oct. 2026</td>
+<td>Résurrection : build CMake moderne, correctifs de plantages</td>
+</tr>
+<tr>
+<td>Oct. 2016</td>
+<td>Dernier commit : MIDI</td>
+</tr>
+<tr>
+<td>Mars 2015</td>
+<td>« Modifications for JL »</td>
+</tr>
+<tr>
+<td>Fév. 2015</td>
+<td>Interface web v2 en WebSocket, OpenCV, synthé granulaire pilotable</td>
+</tr>
+<tr>
+<td>Janv. 2015</td>
+<td>Outputs MIDI, input base de données (ODBC)</td>
+</tr>
+<tr>
+<td>Déc. 2014</td>
+<td>Synthé granulaire (PortAudio), FFT et lecteur WAV</td>
+</tr>
+<tr>
+<td>Nov. 2014</td>
+<td>Leap Motion</td>
+</tr>
+<tr>
+<td>Oct. 2014</td>
+<td>Branches KIKK et KISS</td>
+</tr>
+<tr>
+<td>Sept. 2014</td>
+<td>Premier CMake, build pour Raspberry Pi, solveur de contraintes</td>
+</tr>
+<tr>
+<td>Mai 2014</td>
+<td>Requêtes DNS, support Kyma (Pacarana)</td>
+</tr>
+<tr>
+<td>Mars–avr. 2014</td>
+<td>Couche Processings, algorithme génétique, input série (Arduino)</td>
+</tr>
+<tr>
+<td>Mars 2014</td>
+<td>Géolocalisation des adresses IP</td>
+</tr>
+<tr>
+<td>Fév. 2014</td>
+<td>Ajout/suppression d'outputs depuis le web, sauvegardes</td>
+</tr>
+<tr>
+<td>Nov.–déc. 2013</td>
+<td>Grille, cellules et inputs ; mini serveur web</td>
+</tr>
+<tr>
+<td>Oct. 2013</td>
+<td>Capture pcap → messages OSC</td>
+</tr>
+</tbody>
+</table></div>
+<p>À compléter par toi : les œuvres, concerts et lieux où MoOS a joué et ce qu'étaient KIKK, KISS et « JL ».</p>
+<h2 id="demarrage-en-2-minutes">Démarrage en 2 minutes</h2>
+<p>MoOS se lance toujours avec Docker : une commande construit l'image, exécute les tests et démarre le serveur. Seul prérequis : Docker (Docker Desktop sur Mac ou Windows).</p>
+<ol>
+<li>Récupérer le code et lancer : <code>git clone https://github.com/ludoviclaffineur/MoOS.git &amp;&amp; cd MoOS &amp;&amp; docker compose up --build -d</code>. Le premier build prend quelques minutes ; si un test échoue, l'image n'est pas créée.</li>
+<li>Ouvrir l'interface : http://localhost:8080/v2/index.html.</li>
+<li>Choisir l'input « ReadWave Handler » : MoOS lit <code>data/sound15.wav</code> en boucle (5,9 s) et l'analyse en 512 bandes de fréquence.</li>
+<li>Choisir l'output « OSC » : deux sorties, <code>TEST</code> et <code>TEST2</code>, envoient un float sur <code>/osc</code> et <code>/osc1</code>.</li>
+<li>Monter quelques poids dans la grille, puis écouter l'OSC sur ta machine, port UDP 20000, avec n'importe quel logiciel qui reçoit de l'OSC (TouchDesigner, SuperCollider, VCV Rack, Processing, Max for Live…). Par exemple :<ul>
+<li>Pure Data : <code>[netreceive -u -b 20000]</code> → <code>[oscparse]</code></li>
+<li>Max : <code>[udpreceive 20000]</code></li>
+<li>Terminal : <code>oscdump 20000</code> (paquet liblo-tools)</li>
+</ul>
+</li>
+</ol>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Sens</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8080/tcp</td>
+<td>entrant</td>
+<td>Interfaces web et API HTTP <code>.snf</code></td>
+</tr>
+<tr>
+<td>9002/tcp</td>
+<td>entrant</td>
+<td>WebSocket de l'interface v2</td>
+</tr>
+<tr>
+<td>20000/udp</td>
+<td>sortant, vers ta machine</td>
+<td>Messages OSC des sorties par défaut</td>
+</tr>
+</tbody>
+</table></div>
+<p>Les ports ne sont ouverts que sur <code>127.0.0.1</code> de ta machine : MoOS n'a aucune authentification. L'input ne se choisit qu'une fois par lancement ; pour repartir de zéro : <code>docker compose restart moos</code>. Logs : <code>docker compose logs -f moos</code>. Pour envoyer l'OSC ailleurs que sur ta machine, change <code>MOOS_OSC_HOST</code> dans <code>compose.yaml</code>.</p>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<p>Les données vont toujours dans le même sens : source, capture, inputs, grille, outputs. Les interfaces web ne transportent aucune donnée : elles règlent le circuit.</p>
+<figure class="diagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 328" role="img" aria-label="Une donnée traverse cinq étapes avant de devenir un message" class="pipeline" font-size="11.5">
+  <defs>
+    <marker id="moos-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="arrowhead"/>
+    </marker>
+  </defs>
+  <text x="24" y="34" font-size="15" font-weight="600" class="ink">Une donnée traverse cinq étapes avant de devenir un message</text>
+
+  <g class="edge" fill="none" stroke-width="1.25">
+    <path d="M152 108H170" marker-end="url(#moos-arrow)"/>
+    <path d="M298 108H316" marker-end="url(#moos-arrow)"/>
+    <path d="M444 108H462" marker-end="url(#moos-arrow)"/>
+    <path d="M590 108H608" marker-end="url(#moos-arrow)"/>
+  </g>
+  <g class="edge" fill="none" stroke-width="1.25" stroke-dasharray="4 4">
+    <path d="M234 232V152" marker-end="url(#moos-arrow)"/>
+    <path d="M526 232V152" marker-end="url(#moos-arrow)"/>
+    <path d="M672 232V152" marker-end="url(#moos-arrow)"/>
+  </g>
+  <text x="242" y="196" class="quiet">configure</text>
+
+  <g text-anchor="middle">
+    <rect x="24" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="88" y="88" font-size="13" font-weight="600" class="ink">Source</text>
+    <text x="88" y="104" class="quiet">son WAV, réseau,</text>
+    <text x="88" y="120" class="quiet">Arduino, Leap,</text>
+    <text x="88" y="136" class="quiet">SQL, webcam</text>
+
+    <rect x="170" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="234" y="88" font-size="13" font-weight="600" class="ink">Capture</text>
+    <text x="234" y="104" class="quiet">un thread par</text>
+    <text x="234" y="120" class="quiet">source ; FFT,</text>
+    <text x="234" y="136" class="quiet">champs IP…</text>
+
+    <rect x="316" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="380" y="88" font-size="13" font-weight="600" class="ink">Inputs</text>
+    <text x="380" y="104" class="quiet">valeurs 0–1</text>
+    <text x="380" y="120" class="quiet">ex. 512 bandes</text>
+    <text x="380" y="136" class="quiet">de fréquence</text>
+
+    <rect x="462" y="64" width="128" height="88" rx="8" class="box accent"/>
+    <text x="526" y="88" font-size="13" font-weight="600" class="ink">Grille</text>
+    <text x="526" y="104" class="ink">Σ input × poids</text>
+    <text x="526" y="120" class="ink">poids −1 … 1</text>
+    <text x="526" y="136" class="ink">à chaque trame</text>
+
+    <rect x="608" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="672" y="88" font-size="13" font-weight="600" class="ink">Outputs</text>
+    <text x="672" y="104" class="quiet">OSC (UDP 20000)</text>
+    <text x="672" y="120" class="quiet">MIDI</text>
+    <text x="672" y="136" class="quiet">synthé (audio)</text>
+  </g>
+
+  <rect x="170" y="232" width="566" height="72" rx="8" class="box tint"/>
+  <text x="186" y="256" font-size="13" font-weight="600" class="ink">Configuration web</text>
+  <text x="186" y="272" class="ink">Interface v2 (WebSocket, port 9002) ou legacy (HTTP .snf, port 8080)</text>
+  <text x="186" y="288" class="quiet">choisit la source, règle les poids de la grille, crée et règle les outputs</text>
+</svg>
+</figure>
+
+<p>Chaque trame de la source traverse la chaîne de gauche à droite, environ 86 fois par seconde avec un WAV ; la grille, en couleur, est le seul endroit où l'on décide quoi pilote quoi. Le code suit le même découpage : <code>capture/</code>, <code>processings/</code>, <code>mapping/</code>, <code>outputs/</code>, <code>view/</code>.</p>
+<h2 id="le-zoo-des-inputs">Le zoo des inputs</h2>
+<p>Six sources de données existent ; seul le lecteur WAV fonctionne tel quel dans Docker aujourd'hui. Chaque source crée ses inputs dans la grille, et chaque input est une valeur qui bouge, ramenée entre 0 et 1.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Input (id)</th>
+<th>Ce qu'il capte</th>
+<th>Inputs créés</th>
+<th>État dans Docker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ReadWave Handler (3)</td>
+<td>Un fichier WAV 16 bits lu en boucle, analysé par FFT (fenêtre de 1024)</td>
+<td>512 bandes, nommées par leur fréquence en Hz : <code>0</code>, <code>43</code>, <code>86</code>…</td>
+<td>Fonctionne (<code>data/sound15.wav</code>)</td>
+</tr>
+<tr>
+<td>Pcap Handler (0)</td>
+<td>Les paquets du réseau</td>
+<td><code>TypeOfService</code>, <code>TTL</code>, <code>Protocol</code>, <code>PacketLength</code> ; latitude/longitude source et destination ; requêtes DHCP</td>
+<td>Docker Desktop (Mac) : voit la VM Linux, pas le wifi du Mac. Docker sur Linux (ex. Raspberry Pi) : possible avec le réseau de l'hôte et les droits de capture</td>
+</tr>
+<tr>
+<td>Serial Handler (1)</td>
+<td>Un Arduino sur port série (115200 bauds), trames de 8 octets</td>
+<td>Une valeur 0–1024 par canal</td>
+<td>Port <code>/dev/tty.usbmodem1411</code> codé en dur ; pas d'USB dans Docker Desktop sur Mac</td>
+</tr>
+<tr>
+<td>LeapMotion Handler (2)</td>
+<td>Les deux mains : chaque doigt, chaque os, sur 3 axes</td>
+<td>Une valeur −300…300 par main × doigt × os × axe</td>
+<td>Désactivé : SDK Leap v2 plus distribué</td>
+</tr>
+<tr>
+<td>ODBC Handler (4)</td>
+<td>Les lignes d'une requête SQL, une ligne à la fois (<code>trig</code>, <code>setRow</code>)</td>
+<td>Une valeur par colonne</td>
+<td>Désactivé (option <code>MOOS_WITH_ODBC</code>)</td>
+</tr>
+<tr>
+<td>VideoOpenCv Handler (5)</td>
+<td>La webcam</td>
+<td>Aucun : le code lit l'image mais ne nourrit pas encore la grille</td>
+<td>Désactivé (option <code>MOOS_WITH_OPENCV</code>)</td>
+</tr>
+</tbody>
+</table></div>
+<p>La capture réseau écoute tout ce qui passe par la carte réseau. Sur un réseau moderne (switch, wifi), c'est le trafic de la machine plus ce qui est diffusé à tous (ARP, DHCP, mDNS) ; pour entendre tout un réseau, MoOS doit tourner là où tout passe : le routeur, un point d'accès ou un port miroir du switch.</p>
+<p>Elle a aussi des modules en sommeil : géolocalisation par une base IP→GPS de 50 Mo, détection de mots de passe en clair, récupération des images HTTP. Ils sont désactivés et contiennent des bugs connus (voir Sécurité et limites).</p>
+<h2 id="les-outputs">Les outputs</h2>
+<p>MoOS sait sortir de l'OSC, du MIDI et de l'audio, mais depuis Docker seul l'OSC sort aujourd'hui. L'OSC voyage par le réseau et traverse le conteneur ; le MIDI et l'audio ont besoin d'un périphérique que Docker Desktop sur Mac ne donne pas au conteneur.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Output (id)</th>
+<th>Ce qu'il envoie</th>
+<th>Paramètres réglables</th>
+<th>Depuis Docker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OSC (0)</td>
+<td>Un float par sortie, à chaque calcul de la grille (~86 fois/s en WAV)</td>
+<td><code>IPAddress</code>, <code>Port</code>, <code>OscAddressPattern</code>, <code>Name</code></td>
+<td>Oui, vers ta machine (UDP 20000)</td>
+</tr>
+<tr>
+<td>MIDI (2)</td>
+<td>7 Control Change (<code>Noise</code>, <code>Feedback</code>, <code>FreqEq</code>, <code>Resonnance</code>, <code>Insert</code>, <code>Modulation</code>, <code>EqualBoost</code>) + des notes (hauteur, vélocité, durée)</td>
+<td><code>cc</code>, <code>MinCCValue</code>, <code>MaxCCValue</code>, <code>MinKey</code>, <code>MaxKey</code>, <code>MinVelocity</code>, <code>MaxVelocity</code>, <code>MinDuration</code>, <code>MaxDuration</code></td>
+<td>Non : aucun port MIDI visible</td>
+</tr>
+<tr>
+<td>Synthé granulaire (1)</td>
+<td>Du son, via PortAudio, à partir d'un fichier source</td>
+<td>7 paramètres pilotés : durée des grains, recouvrement, silence, décroïssance et délai de réverb, coupure passe-bas, position de départ</td>
+<td>Non : aucune carte son ; plante aussi en natif</td>
+</tr>
+<tr>
+<td>Kyma (API HTTP)</td>
+<td>OSC vers un Pacarana Kyma, dont MoOS récupère les widgets</td>
+<td>Adresse IP du Pacarana</td>
+<td>Non testé</td>
+</tr>
+</tbody>
+</table></div>
+<p>À savoir :</p>
+<ul>
+<li>Les noms MIDI (<code>Noise</code>, <code>Feedback</code>…) visaient un instrument précis ; <code>FreqEq</code> envoie des valeurs jusqu'à 131, hors de la norme MIDI (0–127).</li>
+<li>Le synthé granulaire cherche <code>data/bouceAllSounds.wav</code>, absent du repo, et son callback audio a des bugs connus : à éviter tant qu'ils ne sont pas corrigés.</li>
+<li>En build natif sur Mac, le MIDI devrait passer par CoreMIDI (non testé depuis la relance).</li>
+</ul>
+<h2 id="la-grille-et-le-mapping">La grille et le mapping</h2>
+<p>La grille est une matrice inputs × outputs : chaque cellule porte un poids entre −1 et 1, à 0 par défaut. Tant que tous les poids valent 0, les sorties envoient 0. À chaque calcul, chaque sortie reçoit la somme pondérée des inputs :</p>
+<p class="formula">sortie<sub>j</sub> = conv<sub>j</sub>( Σ<sub>i</sub> input<sub>i</sub> × w<sub>ij</sub> ), avec w<sub>ij</sub> ∈ [−1, 1]</p>
+
+<p><code>conv</code> ramène la somme dans la plage de la sortie (0–127 pour un CC MIDI, par exemple). Trois façons de régler les poids :</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Comment</th>
+<th>Appel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>À la main</td>
+<td>Un poids par cellule, depuis l'interface</td>
+<td>WebSocket <code>sendWeight</code>, HTTP <code>updateCell.snf</code></td>
+</tr>
+<tr>
+<td>Algorithme génétique</td>
+<td>Tu notes la grille que tu entends ; MoOS croise les meilleures grilles notées et applique l'enfant. Population de départ : 5 grilles aléatoires</td>
+<td>HTTP <code>rateGrid.snf?rate=N</code></td>
+</tr>
+<tr>
+<td>Solveur de contraintes</td>
+<td>Tu captures deux instants « ces inputs doivent donner ces valeurs de sortie » ; MoOS calcule des poids qui les respectent</td>
+<td>HTTP <code>setConstain.snf</code>, deux fois</td>
+</tr>
+</tbody>
+</table></div>
+<p>Pièges à connaître :</p>
+<ul>
+<li>L'ordre compte : choisir l'input <strong>avant</strong> les outputs. Les cellules sont créées quand une sortie arrive ; un input ajouté après n'en a pas.</li>
+<li>Le solveur fixe les poids des 2 derniers inputs et tire les autres au hasard ; il abandonne après 10 000 essais si aucune solution ne tient dans [−1, 1]. Avec la FFT, ce sont les 2 bandes les plus aiguës, souvent proches de 0 : le résultat est rarement exploitable.</li>
+<li>La grille n'est calculée que si elle est active : l'output par défaut l'active au moment où on le choisit.</li>
+</ul>
+<h2 id="les-interfaces-et-lapi">Les interfaces et l'API</h2>
+<p>Deux interfaces web cohabitent, chacune avec son protocole, et toutes deux pilotent la même grille. Aucune n'est documentée côté serveur ailleurs qu'ici.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>Adresse</th>
+<th>Protocole</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v2 (2015)</td>
+<td><code>/v2/index.html</code></td>
+<td>WebSocket JSON, port 9002</td>
+<td>Parcours complet : input, outputs, grille de poids</td>
+</tr>
+<tr>
+<td>Legacy (2014)</td>
+<td><code>/</code></td>
+<td>HTTP GET <code>*.snf</code>, réponses XML</td>
+<td>Édition des cellules et des outputs, algorithmes, sauvegardes</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="websocket-messages-du-navigateur-vers-moos">WebSocket : messages du navigateur vers MoOS</h3>
+<p>Format : <code>{"action": "&lt;nom&gt;", "parameters": {…}}</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Paramètres</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>init</code></td>
+<td>—</td>
+<td>Renvoie la liste des inputs (<code>capture_device_list</code>)</td>
+</tr>
+<tr>
+<td><code>setCaptureDevice</code></td>
+<td><code>id</code> (0–5, voir Le zoo des inputs)</td>
+<td>Choisit l'input, une seule fois par lancement</td>
+</tr>
+<tr>
+<td><code>setConfigurationPcap</code></td>
+<td><code>id</code> d'interface réseau</td>
+<td>Lance la capture sur cette interface</td>
+</tr>
+<tr>
+<td><code>setDefaultOutput</code></td>
+<td><code>id</code> : 0 OSC, 1 synthé granulaire, 2 MIDI</td>
+<td>Crée les outputs par défaut et active la grille</td>
+</tr>
+<tr>
+<td><code>setMidiPort</code></td>
+<td><code>id</code> de port MIDI</td>
+<td>Ouvre le port et crée les 10 outputs MIDI</td>
+</tr>
+<tr>
+<td><code>sendWeight</code></td>
+<td><code>inputName</code>, <code>outputName</code>, <code>weight</code></td>
+<td>Règle un poids</td>
+</tr>
+<tr>
+<td><code>setOutput</code></td>
+<td><code>identifier</code> + les paramètres de l'output</td>
+<td>Modifie un output (nom, IP, port…)</td>
+</tr>
+<tr>
+<td><code>trig</code>, <code>setRow</code></td>
+<td>— / numéro de ligne</td>
+<td>Avance dans une base de données (ODBC)</td>
+</tr>
+<tr>
+<td><code>getSavedFiles</code></td>
+<td>—</td>
+<td>Liste les sauvegardes (côté serveur seulement)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="websocket-messages-de-moos-vers-le-navigateur">WebSocket : messages de MoOS vers le navigateur</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>capture_device_list</code></td>
+<td>Les 6 inputs disponibles</td>
+</tr>
+<tr>
+<td><code>setConfiguration</code></td>
+<td>Les interfaces réseau (pcap), ou le passage à l'étape outputs</td>
+</tr>
+<tr>
+<td><code>set_outputs_list</code></td>
+<td>Les 3 types d'outputs</td>
+</tr>
+<tr>
+<td><code>setOutputConfig</code></td>
+<td>Les ports MIDI disponibles</td>
+</tr>
+<tr>
+<td><code>setGrid</code></td>
+<td>Inputs, outputs, poids et description : l'état complet de la grille</td>
+</tr>
+<tr>
+<td><code>setDescription</code></td>
+<td>Description de la ligne courante (ODBC)</td>
+</tr>
+<tr>
+<td><code>stopConnection</code></td>
+<td>MoOS s'arrête</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="http-snf">HTTP <code>.snf</code></h3>
+<p>Chaque appel est un GET <code>/&lt;méthode&gt;.snf?clé=valeur&amp;…</code>, avec une réponse XML <code>&lt;response&gt;…&lt;/response&gt;</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Paramètres</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getInputs</code>, <code>getOutputs</code>, <code>getCells</code></td>
+<td>—</td>
+<td>Liste les inputs, les outputs, les cellules et leurs poids</td>
+</tr>
+<tr>
+<td><code>getOutput</code></td>
+<td><code>output</code> (nom)</td>
+<td>Paramètres d'un output</td>
+</tr>
+<tr>
+<td><code>updateCell</code></td>
+<td><code>input</code>, <code>output</code>, <code>coeff</code></td>
+<td>Règle un poids</td>
+</tr>
+<tr>
+<td><code>addOutput</code>, <code>deleteOutput</code></td>
+<td>— / <code>id</code></td>
+<td>Ajoute un output OSC, en supprime un</td>
+</tr>
+<tr>
+<td><code>updateOutput</code></td>
+<td><code>Identifier</code> + paramètres, chaque paire terminée par <code>&amp;</code></td>
+<td>Modifie un output</td>
+</tr>
+<tr>
+<td><code>setOutputValue</code></td>
+<td><code>name</code>, <code>value</code></td>
+<td>Force la valeur d'un output et l'envoie</td>
+</tr>
+<tr>
+<td><code>setActiveGrid</code></td>
+<td>—</td>
+<td>Active ou désactive la grille</td>
+</tr>
+<tr>
+<td><code>rateGrid</code></td>
+<td><code>rate</code></td>
+<td>Note la grille (algorithme génétique)</td>
+</tr>
+<tr>
+<td><code>setConstain</code></td>
+<td>—</td>
+<td>Capture une contrainte (solveur)</td>
+</tr>
+<tr>
+<td><code>save</code>, <code>load</code></td>
+<td><code>filename</code></td>
+<td>Sauvegarde ou recharge la configuration en XML</td>
+</tr>
+<tr>
+<td><code>kymaOutput</code></td>
+<td><code>ip</code></td>
+<td>Se connecte à un Pacarana Kyma</td>
+</tr>
+<tr>
+<td><code>trig</code></td>
+<td>—</td>
+<td>Ligne suivante de la base de données</td>
+</tr>
+<tr>
+<td><code>getPictureToCheck</code>, <code>setPictureValided</code></td>
+<td>— / <code>OK</code></td>
+<td>Modération des images capturées (module pcap en sommeil)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Limites du protocole actuel : actions toutes en GET (donc déclenchables par n'importe quelle page web ouverte), paramètres parsés par expressions régulières, coefficients négatifs ou à deux décimales mal lus par <code>updateCell</code>, et deux protocoles pour une même grille. C'est le point de départ de « Et après ».</p>
+<h2 id="recettes">Recettes</h2>
+<p>Deux recettes marchent aujourd'hui dans Docker ; les autres demandent du matériel ou un build natif.</p>
+<h3 id="le-son-qui-pilote-le-son-marche-aujourdhui">Le son qui pilote le son (marche aujourd'hui)</h3>
+<ol>
+<li>Input « ReadWave Handler », output « OSC ».</li>
+<li>Poids à 1 entre les bandes graves (<code>43</code> à <code>430</code> Hz) et <code>TEST</code>, entre les médiums (<code>473</code> à <code>1722</code> Hz) et <code>TEST2</code>.</li>
+<li>Dans ton logiciel, <code>/osc</code> (l'énergie des graves) ouvre un filtre, <code>/osc1</code> (les médiums) module une réverb ou une vitesse de lecture.</li>
+</ol>
+<p>Résultat mesuré lors des tests : <code>/osc</code> oscille entre 0,52 et 0,66 et <code>/osc1</code> entre 0,11 et 0,37, environ 80 messages par seconde.</p>
+<h3 id="ton-propre-morceau-marche-aujourdhui">Ton propre morceau (marche aujourd'hui)</h3>
+<p>Remplace le son lu par MoOS sans reconstruire l'image, en le montant par-dessus <code>sound15.wav</code> dans <code>compose.yaml</code> :</p>
+<pre><code>    volumes:
+      - moos-data:/var/lib/moos
+      - ./mon-son.wav:/opt/moos/share/moos/data/sound15.wav:ro
+</code></pre>
+<p>Le fichier doit être un WAV PCM 16 bits, mono ou stéréo, d'au moins 1024 échantillons ; sinon MoOS refuse de le lire et le dit dans les logs.</p>
+<h3 id="laisser-moos-composer-a-tester">Laisser MoOS composer (à tester)</h3>
+<p>Partir de poids aléatoires, écouter, noter avec <code>rateGrid.snf?rate=N</code> : MoOS croise les grilles les mieux notées et applique la suivante. L'idée : converger vers une grille qui te plaît sans régler une cellule à la main. La note se donne depuis l'interface legacy (<code>/</code>), pas depuis la v2. Pas encore essayé sur une vraie grille depuis la relance.</p>
+<h3 id="le-reseau-qui-chante-demande-du-materiel">Le réseau qui chante (demande du matériel)</h3>
+<p>MoOS sur un Raspberry Pi qui sert de point d'accès wifi, en Docker avec le réseau de l'hôte : chaque paquet fait varier <code>TTL</code>, <code>PacketLength</code> et <code>Protocol</code>, donc le son suit l'activité du lieu. C'est l'usage d'origine du projet ; il reste à adapter <code>compose.yaml</code> (réseau hôte, droits de capture).</p>
+<h2 id="developper-sur-moos">Développer sur MoOS</h2>
+<p>La référence est Docker sous Ubuntu 24.04 : c'est ce que la CI construit et teste. Un build natif sur Mac reste possible pour itérer vite.</p>
+<pre><code>docker build --target test .                       # compile + toute la suite de tests
+docker compose up --build -d                       # compile + tests + lance
+
+# natif (Homebrew : cmake boost@1.85 gecode liblo websocketpp portaudio rtmidi pkgconf)
+cmake -S . -B build &amp;&amp; cmake --build build -j8
+ctest --test-dir build --output-on-failure         # toute la suite
+ctest --test-dir build -R unit.grid                # une suite
+</code></pre>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Dossier</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>capture/</code></td>
+<td>Les inputs : un thread par source</td>
+</tr>
+<tr>
+<td><code>processings/</code></td>
+<td>Transforment les données brutes en inputs de la grille (FFT, champs IP, série…)</td>
+</tr>
+<tr>
+<td><code>mapping/</code></td>
+<td>La grille, les cellules, l'algorithme génétique et le solveur</td>
+</tr>
+<tr>
+<td><code>outputs/</code></td>
+<td>OSC, MIDI, synthé granulaire</td>
+</tr>
+<tr>
+<td><code>view/server/</code>, <code>view/websocket/</code></td>
+<td>Les deux serveurs de contrôle</td>
+</tr>
+<tr>
+<td><code>save/</code></td>
+<td>Sauvegarde et chargement XML</td>
+</tr>
+<tr>
+<td><code>www/</code></td>
+<td>Les deux interfaces web</td>
+</tr>
+<tr>
+<td><code>tests/</code></td>
+<td>Tests unitaires (Boost.Test) et batterie d'intégration (Node)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tests : 4 suites unitaires (grille, solveur, WAV, HTTP) et 27 tests d'intégration qui lancent le vrai binaire et le pilotent comme un navigateur (sécurité, requêtes malformées, chaîne WAV → OSC, arrêt propre). La CI GitHub Actions construit l'image Docker sur Ubuntu à chaque pull request ; jamais de runner macOS.</p>
+<p>Pièges du code :</p>
+<ul>
+<li>Boost doit rester sous la 1.87 : websocketpp 0.8 et le serveur HTTP utilisent <code>io_service</code>, supprimé ensuite.</li>
+<li>La grille est partagée entre threads : tout code qui parcourt ses listes hors des serveurs doit prendre <code>getMutex()</code>.</li>
+<li>Les recherches par nom ou id (<code>getOutputWithName</code>…) renvoient NULL : toujours tester.</li>
+<li>Linux est sensible à la casse des noms de fichiers et plus strict sur les <code>#include</code> que macOS.</li>
+<li>Une exception dans une requête est rattrapée ; un segfault ne l'est pas.</li>
+<li>Le <code>CLAUDE.md</code> du repo tient à jour ces règles pour Claude Code.</li>
+</ul>
+<h2 id="securite-et-limites-connues">Sécurité et limites connues</h2>
+<p>Le parcours WAV → grille → OSC est solide et testé ; le reste contient encore des bugs connus, listés ici par gravité. Déjà corrigé lors de la relance : grille partagée et verrouillée, serveurs sur localhost, origine WebSocket vérifiée, exceptions rattrapées, lecture WAV, solveur sans <code>exit()</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Zone</th>
+<th>Problème</th>
+<th>Conséquence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sécurité</td>
+<td>Aucune authentification ; actions HTTP en GET</td>
+<td>Une page web ouverte dans ton navigateur peut piloter MoOS</td>
+</tr>
+<tr>
+<td>Synthé granulaire</td>
+<td>Fichier source absent, lecture hors limites dans le callback audio, membres non initialisés</td>
+<td>Plante dès qu'on le choisit</td>
+</tr>
+<tr>
+<td>Capture réseau</td>
+<td>Longueurs lues dans les paquets sans vérification ; index d'interface non borné ; <code>PacketLength</code> sans conversion d'ordre réseau</td>
+<td>Plantage possible provoqué par une machine du réseau ; valeur <code>PacketLength</code> fausse</td>
+</tr>
+<tr>
+<td>Modules pcap en sommeil</td>
+<td>Débordement dans l'import CSV, longueur non initialisée (mots de passe), pointeurs non initialisés (KISS)</td>
+<td>Plantent dès qu'on les réactive : à corriger avant</td>
+</tr>
+<tr>
+<td>Mots de passe</td>
+<td>Le module recopie le trafic en clair dans les logs</td>
+<td>À ne jamais réactiver tel quel</td>
+</tr>
+<tr>
+<td>MIDI</td>
+<td>Un thread par note, sur un port MIDI non thread-safe</td>
+<td>Des centaines de threads sur un flux FFT</td>
+</tr>
+<tr>
+<td>Chargement XML</td>
+<td>Cellule absente non vérifiée</td>
+<td>Plantage si la sauvegarde ne correspond pas à l'input choisi</td>
+</tr>
+<tr>
+<td>Inputs désactivés</td>
+<td>Choisir Leap, ODBC ou Vidéo installe une coquille vide</td>
+<td>Plus d'autre input possible sans redémarrer</td>
+</tr>
+<tr>
+<td>Interface</td>
+<td><code>updateCell</code> lit mal les poids négatifs et à deux décimales ; <code>FreqEq</code> sort de la plage MIDI</td>
+<td>Réglages faux sans message d'erreur</td>
+</tr>
+<tr>
+<td>Chemins</td>
+<td>Plusieurs chemins <code>/Users/…/LibLoAndCap/…</code> encore codés en dur</td>
+<td>Fonctions concernées inopérantes</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="et-apres-une-vraie-api-puis-une-interface-quon-a-envie-douvrir">Et après : une vraie API, puis une interface qu'on a envie d'ouvrir</h2>
+<p>Le prochain chantier est la configuration web : la remplacer par une API unique et documentée, puis construire dessus une interface vivante. Aujourd'hui, on configure à l'aveugle : on ne voit pas les valeurs bouger, on ne peut pas changer d'input sans redémarrer, et deux protocoles se partagent la même grille.</p>
+<p>Ce qui ne va pas aujourd'hui :</p>
+<ul>
+<li>Deux interfaces, deux protocoles (GET <code>.snf</code> en XML et WebSocket JSON), aucune ne fait tout.</li>
+<li>Des actions qui modifient l'état en GET, des paramètres lus par expressions régulières.</li>
+<li>Un input choisi une fois pour toutes ; une adresse WebSocket codée en dur (<code>ws://127.0.0.1:9002</code>).</li>
+<li>Aucun retour en direct : ni niveau des inputs, ni valeur des outputs.</li>
+</ul>
+<p>Proposition d'API, en JSON, toutes les modifications en POST/PUT/PATCH/DELETE :</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Ressource</th>
+<th>Méthodes</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/api/devices</code></td>
+<td>GET</td>
+<td>Inputs disponibles et leur état (compilé, matériel présent)</td>
+</tr>
+<tr>
+<td><code>/api/input</code></td>
+<td>GET, PUT</td>
+<td>Input actif ; le changer sans redémarrer</td>
+</tr>
+<tr>
+<td><code>/api/outputs</code>, <code>/api/outputs/{id}</code></td>
+<td>GET, POST, PATCH, DELETE</td>
+<td>Outputs et leurs paramètres (hôte OSC, port MIDI…)</td>
+</tr>
+<tr>
+<td><code>/api/grid</code></td>
+<td>GET, PATCH</td>
+<td>Poids de la grille, en lot</td>
+</tr>
+<tr>
+<td><code>/api/presets</code>, <code>/api/presets/{nom}</code></td>
+<td>GET, POST, PUT</td>
+<td>Sauvegarder et rappeler une configuration complète</td>
+</tr>
+<tr>
+<td><code>/api/genetic/rate</code>, <code>/api/constraints</code></td>
+<td>POST</td>
+<td>Les deux algorithmes de mapping</td>
+</tr>
+<tr>
+<td><code>/api/live</code></td>
+<td>WebSocket</td>
+<td>Flux des valeurs d'inputs et d'outputs, environ 30 images/s</td>
+</tr>
+</tbody>
+</table></div>
+<p>Avec : une spécification OpenAPI comme contrat, un jeton d'accès, les tests d'intégration réécrits sur l'API, et les anciennes interfaces retirées une fois la nouvelle prête.</p>
+<p>Idées pour la nouvelle interface :</p>
+<ul>
+<li>Une matrice vivante : chaque input affiche son niveau, chaque output sa valeur, les poids se règlent en glissant.</li>
+<li>Des presets en un clic, un bouton « au hasard », et la note étoilée de l'algorithme génétique directement dans la grille.</li>
+<li>Le spectre FFT dessiné en temps réel au-dessus des 512 bandes.</li>
+</ul>
+<p>Autres pistes : faire sortir le MIDI et l'audio de Docker sur un hôte Linux (accès à <code>/dev/snd</code>), corriger le synthé granulaire, sécuriser la capture réseau pour le Raspberry Pi.</p>
+<p>Questions ouvertes :</p>
+<ul>
+<li>L'API dans le binaire C++ (Boost.Beast) ou dans un petit service à côté, qui pilote le moteur ?</li>
+<li>Quelle techno pour la nouvelle interface ?</li>
+<li>Faut-il garder les deux anciennes interfaces pendant la transition ?</li>
+</ul>
+  </main>
 </div>
 
-<div id="fullpage">
-	<div class="section" id="section0">
-		<img src="pictures/MoOS.png"/ width=200px>
-                <div class="intro">
-                <p> 1. Select your capture device: </p>
-                <ul id="menu" class="CaptureList">
-                	<li> <a href="#configuration">NOT SET</a></li>
-                </ul>
-        </div>
-	</div>
-	<div class="section" id="section1">
-		<div class="intro">
-			<h1>Configuration:</h1>
-                        <p>Select the interface for sniffing:</p>
-                        <ul id="menu" class="Configuration">
-                        	<li> <a href="#captureDevice"> NO CAPTURE DEVICE</a></li>
-                        </ul>
-                </div>
-	</div>
-	<div class="section" id="section2">
-		<div class="intro">
-			<h1>Outputs:</h1>
-                        <p>Which type of output will you use?</p>
-                        <ul id="menu" class="Outputs">
-                        	<li> <a href="#captureDevice"> NOT SET</a></li>
-
-                        </ul>
-                </div>
-	</div>
-	<div class="section" id="section3">
-		<div class="intro">
-			<h1>Output Configuration:</h1>
-                        <p></p>
-                        <ul id="menu" class="OutputsConfiguration">
-                        	<li> <a href="#captureDevice"> NOT SET</a></li>
-
-                        </ul>
-                </div>
-	</div>
-	<div class="section" id="section4">
-		<div class="grid">
-                        <div class="sidebar">
-        		        <h2>Outputs:</h2>
-                                <p class="textArea">
-                                    <label for="name">Name:</label>
-                                </p>
-                                <p class="textArea">
-                                      <input type="text" name="name" id="name" />
-                                </p>
-
-                        </div>
-                        <h1>Description</h1>
-                        <canvas id="drawingGrid" width="700" height="700"></canvas>
-                        <div class="sidebar-right">
-                                <p class="HP">
-                                <input type="image" src="./pictures/speaker.png" name="image" height="100" onClick="trigGrid()"/>
-                                <input type="range"/>
-                        </p>
-                        </div>
-		</div>
-
-	</div>
-</div>
-
+<script>
+  // Sommaire replié par défaut sur petit écran
+  if (window.matchMedia("(max-width: 860px)").matches) document.querySelector("nav.toc details").removeAttribute("open");
+</script>
+<footer><div>MoOS · 2013–2026 · Ludovic Laffineur · <a href="https://github.com/ludoviclaffineur/MoOS">github.com/ludoviclaffineur/MoOS</a></div></footer>
 </body>
 </html>
