@@ -22,6 +22,8 @@
 
 .DS_Store
 CMAKE/
+# ...mais pas les modules CMake du projet (core.ignorecase=true sur macOS)
+!/cmake/
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
 
 .Trashes
