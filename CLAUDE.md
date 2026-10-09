@@ -23,6 +23,7 @@ docker build --target test .          # build and run the test suite only
 - The build context is a whitelist (`.dockerignore`). New top-level source dirs must be added there.
 - Linux has a case-sensitive filesystem and libstdc++ is stricter about transitive includes than macOS/libc++: include file names exactly, and include `<cstring>` etc. explicitly.
 - `cmake/FindGecode.cmake` uses Homebrew's GecodeConfig when present, otherwise locates the Debian/Ubuntu libraries itself.
+- Documentation site: `docs/manuel.md` (the manual, French) → `python docs/build.py` (python-markdown, `docs/template.html`, assets incl. `pipeline.svg`) → `docs/_site/`. `.github/workflows/pages.yml` publishes it to the `gh-pages` branch (https://ludoviclaffineur.github.io/MoOS/) on every push to `master` touching `docs/`. Edit the manual there, not the generated output.
 - CI (`.github/workflows/ci.yml`) builds the Docker image on `ubuntu-latest` only. Never use macOS runners to build or test Linux.
 
 Native build (optional, for quick iteration on macOS). Homebrew deps: `cmake boost@1.85 gecode liblo websocketpp portaudio rtmidi pkgconf`.

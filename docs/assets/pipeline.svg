@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 328" role="img" aria-label="Une donnée traverse cinq étapes avant de devenir un message" class="pipeline" font-size="11.5">
+  <defs>
+    <marker id="moos-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" class="arrowhead"/>
+    </marker>
+  </defs>
+  <text x="24" y="34" font-size="15" font-weight="600" class="ink">Une donnée traverse cinq étapes avant de devenir un message</text>
+
+  <g class="edge" fill="none" stroke-width="1.25">
+    <path d="M152 108H170" marker-end="url(#moos-arrow)"/>
+    <path d="M298 108H316" marker-end="url(#moos-arrow)"/>
+    <path d="M444 108H462" marker-end="url(#moos-arrow)"/>
+    <path d="M590 108H608" marker-end="url(#moos-arrow)"/>
+  </g>
+  <g class="edge" fill="none" stroke-width="1.25" stroke-dasharray="4 4">
+    <path d="M234 232V152" marker-end="url(#moos-arrow)"/>
+    <path d="M526 232V152" marker-end="url(#moos-arrow)"/>
+    <path d="M672 232V152" marker-end="url(#moos-arrow)"/>
+  </g>
+  <text x="242" y="196" class="quiet">configure</text>
+
+  <g text-anchor="middle">
+    <rect x="24" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="88" y="88" font-size="13" font-weight="600" class="ink">Source</text>
+    <text x="88" y="104" class="quiet">son WAV, réseau,</text>
+    <text x="88" y="120" class="quiet">Arduino, Leap,</text>
+    <text x="88" y="136" class="quiet">SQL, webcam</text>
+
+    <rect x="170" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="234" y="88" font-size="13" font-weight="600" class="ink">Capture</text>
+    <text x="234" y="104" class="quiet">un thread par</text>
+    <text x="234" y="120" class="quiet">source ; FFT,</text>
+    <text x="234" y="136" class="quiet">champs IP…</text>
+
+    <rect x="316" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="380" y="88" font-size="13" font-weight="600" class="ink">Inputs</text>
+    <text x="380" y="104" class="quiet">valeurs 0–1</text>
+    <text x="380" y="120" class="quiet">ex. 512 bandes</text>
+    <text x="380" y="136" class="quiet">de fréquence</text>
+
+    <rect x="462" y="64" width="128" height="88" rx="8" class="box accent"/>
+    <text x="526" y="88" font-size="13" font-weight="600" class="ink">Grille</text>
+    <text x="526" y="104" class="ink">Σ input × poids</text>
+    <text x="526" y="120" class="ink">poids −1 … 1</text>
+    <text x="526" y="136" class="ink">à chaque trame</text>
+
+    <rect x="608" y="64" width="128" height="88" rx="8" class="box"/>
+    <text x="672" y="88" font-size="13" font-weight="600" class="ink">Outputs</text>
+    <text x="672" y="104" class="quiet">OSC (UDP 20000)</text>
+    <text x="672" y="120" class="quiet">MIDI</text>
+    <text x="672" y="136" class="quiet">synthé (audio)</text>
+  </g>
+
+  <rect x="170" y="232" width="566" height="72" rx="8" class="box tint"/>
+  <text x="186" y="256" font-size="13" font-weight="600" class="ink">Configuration web</text>
+  <text x="186" y="272" class="ink">Interface v2 (WebSocket, port 9002) ou legacy (HTTP .snf, port 8080)</text>
+  <text x="186" y="288" class="quiet">choisit la source, règle les poids de la grille, crée et règle les outputs</text>
+</svg>
