@@ -41,7 +41,7 @@ namespace http {
                 std::stringstream ssName,ssTag ;
                 ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
                 ssTag<<"/"<< mGrid->getCurrentOutputId();
-                mGrid->addOutput(new OscHandler(ssName.str().c_str(), "127.0.0.1", "20000", ssTag.str().c_str(), "f"));
+                mGrid->addOutput(new OscHandler(ssName.str().c_str(), moosOscHost().c_str(), "20000", ssTag.str().c_str(), "f"));
             }
             else if( method.compare("deleteOutput")==0){
                 std::smatch m_input;

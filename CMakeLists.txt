@@ -5,6 +5,7 @@ project(MoOS LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
@@ -114,6 +115,12 @@ endif()
 
 add_executable(MoOS LibLoAndCap/main.cpp)
 target_link_libraries(MoOS PRIVATE moos_core)
+
+# Installation : le binaire + les ressources lues via CURRENT_PATH (www/, data/).
+# Au lancement d'une version installée, MOOS_RESOURCE_DIR doit pointer sur share/moos.
+include(GNUInstallDirs)
+install(TARGETS MoOS RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(DIRECTORY www data DESTINATION ${CMAKE_INSTALL_DATADIR}/moos)
 
 option(MOOS_BUILD_TESTS "Tests unitaires (Boost.Test) et batterie d'integration (Node)" ON)
 if(MOOS_BUILD_TESTS)

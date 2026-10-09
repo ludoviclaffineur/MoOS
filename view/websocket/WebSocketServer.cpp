@@ -209,8 +209,8 @@ void WebSocketServer::setDefaultOutput(int identifier){
         mDefaultOutput = identifier;
         switch (mDefaultOutput) {
             case CONSTANCES::OSC:{
-                mGrid->addOutput(new OscHandler("TEST","127.0.0.1","20000", "/osc", "f" ));
-                mGrid->addOutput(new OscHandler("TEST2","127.0.0.1","20000", "/osc1", "f" ));
+                mGrid->addOutput(new OscHandler("TEST",moosOscHost().c_str(),"20000", "/osc", "f" ));
+                mGrid->addOutput(new OscHandler("TEST2",moosOscHost().c_str(),"20000", "/osc1", "f" ));
                 sendGrid();
                 break;
             }

@@ -8,13 +8,28 @@ MoOS (historical names: LibLoAndCap, LibPcapAndLiblo) is a 2013–2015 C++ app t
 
 ## Build & run
 
-Dependencies (Homebrew): `cmake boost@1.85 gecode liblo websocketpp portaudio rtmidi pkgconf`. libpcap comes from the macOS SDK.
+**MoOS is always started with Docker** (Ubuntu 24.04). Multi-stage `Dockerfile`: `build` → `test` (runs the whole ctest suite; the runtime image is built from it, so it only exists if tests pass) → `runtime` (non-root, ~140 MB).
 
 ```sh
-cmake -S . -B build
-cmake --build build -j8
-./build/MoOS 8080          # MoOS [httpPort=80] [bindAddress=127.0.0.1] [wsPort=9002]
+docker compose up --build -d          # build + test + run; UI on http://localhost:8080/v2/index.html
+docker compose logs -f moos
+docker compose restart moos           # fresh state (a capture device can only be chosen once per process)
+docker compose down
+docker build --target test .          # build and run the test suite only
+```
 
+- Ports are published on the host's `127.0.0.1` only (no authentication). Inside the container MoOS binds `0.0.0.0` (`CMD ["8080", "0.0.0.0", "9002"]`).
+- Default OSC outputs go to the host via `MOOS_OSC_HOST=host.docker.internal`, on UDP 20000. `MOOS_RESOURCE_DIR` overrides `CURRENT_PATH` (`/opt/moos/share/moos` in the image). Saves are written to the `moos-data` volume (`/var/lib/moos`).
+- The build context is a whitelist (`.dockerignore`). New top-level source dirs must be added there.
+- Linux has a case-sensitive filesystem and libstdc++ is stricter about transitive includes than macOS/libc++: include file names exactly, and include `<cstring>` etc. explicitly.
+- `cmake/FindGecode.cmake` uses Homebrew's GecodeConfig when present, otherwise locates the Debian/Ubuntu libraries itself.
+- CI (`.github/workflows/ci.yml`) builds the Docker image on `ubuntu-latest` only. Never use macOS runners to build or test Linux.
+
+Native build (optional, for quick iteration on macOS). Homebrew deps: `cmake boost@1.85 gecode liblo websocketpp portaudio rtmidi pkgconf`.
+
+```sh
+cmake -S . -B build && cmake --build build -j8
+./build/MoOS 8080          # MoOS [httpPort=80] [bindAddress=127.0.0.1] [wsPort=9002]
 ctest --test-dir build --output-on-failure        # all tests
 ctest --test-dir build -L unit                    # Boost.Test units only
 ctest --test-dir build -R unit.grid               # a single suite

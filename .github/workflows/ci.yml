@@ -11,31 +11,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
-    # Les dépendances (boost@1.85, gecode, liblo, websocketpp, portaudio, rtmidi) viennent de Homebrew
-    runs-on: macos-latest
+  docker:
+    # Build Linux uniquement, via l'image Ubuntu 24.04 du Dockerfile :
+    # son étape "test" compile puis lance toute la suite (unitaires + intégration),
+    # et l'image finale n'est produite que si elle passe.
+    runs-on: ubuntu-latest
     timeout-minutes: 45
-    env:
-      HOMEBREW_NO_AUTO_UPDATE: 1
-      HOMEBREW_NO_INSTALL_CLEANUP: 1
     steps:
       - uses: actions/checkout@v4
 
-      - name: Installer les dépendances
-        run: brew install cmake boost@1.85 gecode liblo websocketpp portaudio rtmidi pkgconf
+      - uses: docker/setup-buildx-action@v3
 
-      - uses: actions/setup-node@v4
+      - name: Construire et tester (Ubuntu 24.04)
+        uses: docker/build-push-action@v6
         with:
-          node-version: 22   # WebSocket global requis par la batterie d'intégration
-
-      - name: Configurer
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-
-      - name: Compiler
-        run: cmake --build build -j"$(sysctl -n hw.ncpu)"
-
-      - name: Tests unitaires
-        run: ctest --test-dir build -L unit --output-on-failure
-
-      - name: Batterie d'intégration
-        run: ctest --test-dir build -L integration --output-on-failure
+          context: .
+          push: false
+          tags: moos:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

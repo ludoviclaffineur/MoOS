@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Louis Commere. All rights reserved.
 //
 
-#include "FFTprocessing.h"
+#include "FftProcessing.h"
 #include "Input.h"
 
 

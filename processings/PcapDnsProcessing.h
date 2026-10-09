@@ -12,6 +12,7 @@
 #include "IpHeaderDefinitions.h"
 #include <iostream>
 #include <string.h>
+#include <cstring>
 #include <regex>
 #include <sstream>
 #include "OscHandler.h"

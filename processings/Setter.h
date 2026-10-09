@@ -17,7 +17,7 @@ public:
         return mValue;
     }
 protected:
-    T   mValue;
+    T   mValue = T();   // non initialisé auparavant : résidu mémoire tant qu'aucune capture n'a écrit
 };
 
 #endif
