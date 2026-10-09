@@ -11,41 +11,13 @@
 using namespace Gecode;
 
 
-MagicGrid::MagicGrid(bool share, MagicGrid& s) : Script(share,s), n(s.n), m(s.m), t(s.t) {
-    gridMag.update(*this, share, s.gridMag);
-}
-
-MagicGrid::MagicGrid(const MagicGrid& magicGrid): //, const SizeOptions& optOutput
-n(magicGrid.n),
-m(magicGrid.m),
-t(magicGrid.t),
-gridMag(*this,n,-1.0,1.0)
-{
-    mConstrains = magicGrid.mConstrains;
-    Matrix<FloatVarArray> TheMatrix(gridMag, m, n);
-    //BoolExpr* e = new BoolExpr [mConstrains->size()];
-    //for (int i = 0; i<m; i++) {
-    for (int k = 0;k<mConstrains->size();k++){
-        LinFloatExpr ligne;
-        float outputValue = mConstrains->at(k)->mOutputsValues->at(0);
-        for (int j=0; j<n; j++) {
-            ligne = ligne + mConstrains->at(k)->mOutputsValues->at(j) * TheMatrix(0,j);
-        }
-        BoolExpr e = (ligne == 0.3);
-        rel(*this,  e);
-    }
-
-    //}
-
-    //rel(*this,  e);
-    //rel(*this, 0.24 *  TheMatrix(0,0) +    TheMatrix(0,1) * 0.8 +      0.24 * TheMatrix(0,2) +     0.24 * TheMatrix(0,3)   == 0.9 );
-    branch(*this, gridMag, FLOAT_VAR_SIZE_MIN(), FLOAT_VAL_SPLIT_MIN());
-
-
+MagicGrid::MagicGrid(MagicGrid& s) : Script(s), n(s.n), m(s.m), t(s.t), mConstrains(s.mConstrains) {
+    gridMag.update(*this, s.gridMag);
 }
 
 
 MagicGrid::MagicGrid(const GrilleOptions& opt): //, const SizeOptions& optOutput
+            Script(opt),
             n(opt.InputLength()),
             m(opt.OutputLength()),
             t(opt.Constrains()->size()),
@@ -88,8 +60,8 @@ MagicGrid::MagicGrid(const GrilleOptions& opt): //, const SizeOptions& optOutput
 }
 
 
-Gecode::Space* MagicGrid::copy(bool share) {
-    return new MagicGrid(share,*this);
+Gecode::Space* MagicGrid::copy() {
+    return new MagicGrid(*this);
 }
 
 void MagicGrid::print(std::ostream& os) const {

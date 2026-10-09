@@ -44,7 +44,6 @@
 #include "WebSocketServer.h"
 
 #include "SaveXml.h"
-#include <opencv2/opencv.hpp>
 #include "SerializeXml.h"
 //#include "storage_adaptors.hpp"
 
@@ -65,10 +64,17 @@ int main(int argc, const char * argv[])
     std::cout<<"Your choice:"<<std::flush;
     std::cin>>choice;
     choice--;*/
-    WebSocketServer* theWebSocketServer = new WebSocketServer(9002);
-    theWebSocketServer->start();
+    // Usage : MoOS [httpPort=80] [bindAddress=127.0.0.1] [wsPort=9002]
+    // 0.0.0.0 expose les serveurs (sans authentification) à tout le réseau local.
+    const std::string httpPort = argc > 1 ? argv[1] : "80";
+    const std::string bindAddress = argc > 2 ? argv[2] : "127.0.0.1";
+    const int wsPort = argc > 3 ? std::atoi(argv[3]) : 9002;
 
+    // Une seule grille, partagée par le serveur HTTP, les algorithmes et le WebSocket
     theGrid = new Grid();
+
+    WebSocketServer* theWebSocketServer = new WebSocketServer(wsPort, theGrid, bindAddress);
+    theWebSocketServer->start();
 
     ConstrainGenetic* theConstrainAlgo = new ConstrainGenetic(theGrid);
 
@@ -244,15 +250,14 @@ int main(int argc, const char * argv[])
 
     std::stringstream ss;
     ss << CURRENT_PATH << "/www";
-    std::cout<<"Lauching Web server... you can access at http://127.0.0.1"<<std::endl;
-    http::server::server s("0.0.0.0", "80", ss.str(), theGrid, theGeneticAlgorithm,theConstrainAlgo, p);
+    std::cout<<"Lauching Web server... you can access at http://"<<bindAddress<<":"<<httpPort<<std::endl;
+    http::server::server s(bindAddress, httpPort, ss.str(), theGrid, theGeneticAlgorithm,theConstrainAlgo, p);
     s.run();
     std::cout<<"\nShuting down Web server..."<<std::endl;
     //delete theCaptureDevice;
-    delete theGrid;
+    delete theWebSocketServer; // envoie stopConnection et joint son thread
     delete theGeneticAlgorithm;
-    theWebSocketServer->sendStopMessage();
-    delete theWebSocketServer;
+    // theGrid n'est pas libérée : les threads de capture (non joignables) peuvent encore appeler compute()
    // delete gs;
     return 0;
 }

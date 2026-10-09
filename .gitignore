@@ -22,6 +22,8 @@
 
 .DS_Store
 CMAKE/
+# ...mais pas les modules CMake du projet (core.ignorecase=true sur macOS)
+!/cmake/
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
 
 .Trashes
@@ -158,3 +160,9 @@ xcuserdata
 # UNKNOWN: recommended by others, but I can't discover what these files are
 #
 # ...none. Everything is now explained.
+
+# CMake out-of-source build
+/build/
+
+# Exemple de sérialisation écrit par main() à chaque démarrage
+BUSTOP.XML

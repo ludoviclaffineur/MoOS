@@ -10,6 +10,7 @@
 
 #include "request_handler.hpp"
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include "mime_types.hpp"
@@ -76,7 +77,14 @@ namespace http {
             //ATTENTION A REFACTORER
             // Open the file to send back.
             if (extension == "snf") {
-                snf.computeRequest(request_path.substr(1, last_dot_pos-1), parameters, rep);
+                // Une exception non attrapée remonterait de io_service::run() et tuerait le process
+                try {
+                    snf.computeRequest(request_path.substr(1, last_dot_pos-1), parameters, rep);
+                }
+                catch (const std::exception& e) {
+                    std::cerr << "HTTP : requete " << request_path << " ignoree (" << e.what() << ")" << std::endl;
+                    rep = reply::stock_reply(reply::internal_server_error);
+                }
             }
             else{
                 std::string full_path = doc_root_ + request_path;

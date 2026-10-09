@@ -43,6 +43,7 @@ private:
     } wh;
 
     float* mSound;
+    bool mLoaded;
     FILE *fp;
     bool loadWave(std::string filePath);
     FFTprocessing* fft;

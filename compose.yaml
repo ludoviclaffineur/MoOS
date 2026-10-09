@@ -1,0 +1,23 @@
+# docker compose up --build
+#   UI v2 (WebSocket) : http://localhost:8080/v2/index.html
+#   UI legacy (HTTP)  : http://localhost:8080
+#   Sorties OSC       : vers la machine hôte, UDP 20000
+services:
+  moos:
+    build: .
+    image: moos:latest
+    init: true                       # transmet SIGTERM à MoOS et récolte ses threads
+    ports:
+      # MoOS n'a aucune authentification : publié sur la boucle locale de l'hôte uniquement
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:9002:9002"        # fixe : www/v2/script.js se connecte à ws://127.0.0.1:9002
+    environment:
+      MOOS_OSC_HOST: host.docker.internal
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # Linux ; implicite avec Docker Desktop
+    volumes:
+      - moos-data:/var/lib/moos      # sauvegardes XML
+    restart: unless-stopped
+
+volumes:
+  moos-data:

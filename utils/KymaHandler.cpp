@@ -35,14 +35,14 @@ KymaHandler::KymaHandler(const char* ipAddress, const char* port, Grid* g){
 
 }
 
-int KymaHandler::responseFrom(const char *path, const char *types, lo_arg **argv, int argc,void *data, void *user_data){
+int KymaHandler::responseFrom(const char *path, const char *types, lo_arg **argv, int argc,lo_message data, void *user_data){
     KymaHandler* k = (KymaHandler*) user_data;
     printf("Received From %i \n", argv[0]->i);
     lo_send(k->mAddress, "/osc/widget", "i", k->widgetId++);
     return 1;
 }
 
-int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **argv, int argc,void *data, void *user_data){
+int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **argv, int argc,lo_message data, void *user_data){
     KymaHandler* k = (KymaHandler*) user_data;
     char*  c = &argv[1]->S;
     std::stringstream ss;
@@ -84,8 +84,12 @@ int KymaHandler::receivedWidget(const char *path, const char *types, lo_arg **ar
     return 1;
 }
 KymaHandler::~KymaHandler(){
-    lo_server_thread_stop(mServerOsc);
-    lo_server_thread_free(mServerOsc);
+    if (mServerOsc) {
+        lo_server_thread_stop(mServerOsc);
+        lo_server_thread_free(mServerOsc);
+    }
+    lo_address_free(mAddress);
+    delete [] mIpAdress;
     //lo_server_free(mServerOsc);
 }
 

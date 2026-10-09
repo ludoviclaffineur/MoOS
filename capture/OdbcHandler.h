@@ -10,12 +10,24 @@
 #define __LibLoAndCap__ODBCHandler__
 
 #include "CaptureDevice.h"
-#include <soci.h>
-#include <soci-odbc.h>
-    
 #include <stdio.h>
 #include <vector>
 #include "Grid.h"
+
+#ifndef MOOS_HAS_ODBC
+// Build sans SOCI/ODBC : stub inerte
+class OdbcHandler : public CaptureDevice{
+public:
+    OdbcHandler(Grid* g, std::string configFile){
+        mGrid = g;
+        std::cerr << "OdbcHandler: MoOS compile sans ODBC (MOOS_WITH_ODBC=OFF)" << std::endl;
+    }
+    void init(){}
+    void trig(){}
+};
+#else
+#include <soci.h>
+#include <soci-odbc.h>
 #include "ScalingProcessing.h"
 
 class OdbcHandler : public CaptureDevice{
@@ -34,4 +46,5 @@ private:
     void setRow(int identifier);
     int mCurrentRow;
 };
+#endif /* MOOS_HAS_ODBC */
 #endif /* defined(__LibLoAndCap__ODBCHandler__) */

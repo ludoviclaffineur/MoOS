@@ -22,7 +22,7 @@ public:
     OutputsHandler();
     OutputsHandler(const char* n);
     OutputsHandler(const char* n, float min, float max);
-    ~OutputsHandler();
+    virtual ~OutputsHandler();
     void    setId(int newId);
     int     getId();
     void    addToValue(float a);

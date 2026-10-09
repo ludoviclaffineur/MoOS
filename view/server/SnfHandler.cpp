@@ -28,9 +28,11 @@ namespace http {
             mConstrainGene = constrainGene;
             mCurrentIdPicture = 0;
             mDatabase = database;
+            mKymaHandler = NULL;
         }
 
         bool SnfHandler::computeRequest(std::string method, std::string parameters, reply &rep){
+            std::lock_guard<std::recursive_mutex> lock(mGrid->getMutex());
             rep.status = reply::ok;
 
             rep.content.append("<?xml version=\"1.0\"  standalone=\"yes\"?>\n<response>\n");
@@ -39,10 +41,7 @@ namespace http {
                 std::stringstream ssName,ssTag ;
                 ssName<<"NewOsc"<< mGrid->getCurrentOutputId();
                 ssTag<<"/"<< mGrid->getCurrentOutputId();
-                char* theName = new char[ssName.str().size()];
-                strcpy(theName, ssName.str().c_str());
-                mGrid->addOutput(new OscHandler(theName, "127.0.0.1", "20000", ssTag.str().c_str(), "f"));
-                delete theName;
+                mGrid->addOutput(new OscHandler(ssName.str().c_str(), moosOscHost().c_str(), "20000", ssTag.str().c_str(), "f"));
             }
             else if( method.compare("deleteOutput")==0){
                 std::smatch m_input;
@@ -55,12 +54,19 @@ namespace http {
             }
             else if( method.compare("trig")==0){
                 //mGrid->removeOutput(id);
-                mDatabase->trig();
+                if (mDatabase) mDatabase->trig();
                 std::cout<<"TRIG TRIG TRIG" << std::endl;
             }
             else if (method.compare("kymaOutput")==0){
                 std::vector <std::string> listParameters = ExtractPamameters(parameters);
-                KymaHandler(listParameters[1].c_str(), "8000", mGrid);
+                if (listParameters.size() < 2) {
+                    rep.content.append("<status>ERROR</status>\n");
+                }
+                else {
+                    // Le handler doit survivre à la requête : son serveur OSC reçoit les réponses du Pacarana
+                    delete mKymaHandler;
+                    mKymaHandler = new KymaHandler(listParameters[1].c_str(), "8000", mGrid);
+                }
                 //std::cout<< listParameters[0] <<std::endl;
 
             }
@@ -138,7 +144,7 @@ namespace http {
 
                 Cell* c = mGrid->getCellWithName(m_input[1], m_output[1]);
                 char* err= nullptr;
-                c->setCoeff(std::strtof(m_coeff[1].str().c_str(),&err));
+                if (c) c->setCoeff(std::strtof(m_coeff[1].str().c_str(),&err));
                 //printf("%s\n ",err);
                 rep.content.append("<status>OK</status>\n");
 
@@ -168,9 +174,9 @@ namespace http {
                 //std::cout<<"REGEX"<< m_output[1].str()<<std::endl;
 
                 OutputsHandler* cOutput = mGrid->getOutputWithName(m_output[1].str().c_str());
-                std::vector<IParameter*>* Params = cOutput->getParameters();
+                std::vector<IParameter*>* Params = cOutput ? cOutput->getParameters() : NULL;
                 rep.content.append("<output>");
-                for (int i=0; i<Params->size(); i++) {
+                for (int i=0; Params && i<Params->size(); i++) {
                     std::stringstream s;
                     const char* cName = Params->at(i)->getName();
                     s<<"<"<<cName<<">"<< Params->at(i)->toString()->str()<<"</"<<cName<<">";
@@ -185,7 +191,8 @@ namespace http {
                 int cId = findIdInListParameters(listParameters);
                 //printf("ID %d\n", cId);
 
-                mGrid->getOutputWithId(cId)->setParameters(listParameters);
+                OutputsHandler* cOutput = mGrid->getOutputWithId(cId);
+                if (cOutput) cOutput->setParameters(listParameters);
             }
             else if( method.compare("setConstain")==0){
                 mConstrainGene->setConstrain();
@@ -200,8 +207,11 @@ namespace http {
                 std::regex e_name ("name=(\\w+)");   // matches words beginning by "sub"
                 std::regex_search (parameters,m_name,e_name);
                 //std::cout<<"SetOUTPUT : " <<m_name[1] <<std::endl;
-                mGrid->getOutputWithName(m_name[1].str().c_str())->setValue(std::atof(m_input[1].str().c_str()));
-                mGrid->getOutputWithName(m_name[1].str().c_str())->sendData();
+                OutputsHandler* cOutput = mGrid->getOutputWithName(m_name[1].str().c_str());
+                if (cOutput) {
+                    cOutput->setValue(std::atof(m_input[1].str().c_str()));
+                    cOutput->sendData();
+                }
 
 
             }

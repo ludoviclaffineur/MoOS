@@ -39,14 +39,17 @@ void WebSocketServer::onMessage(WebSocketServer* ws, websocketpp::connection_hdl
 }
 
 
-WebSocketServer::WebSocketServer(int port){
+WebSocketServer::WebSocketServer(int port, Grid* grid, const std::string& bindAddress){
     //mServer = new server();
     mCaptureDevice =NULL;
+    mMidiHandler = NULL;
+    mGranularSynth = NULL;
     isConfigured = false;
     mTypeOfCaptureDevice = -1;
     mDefaultOutput = -1;
     mListenningPort = port;
-    mGrid = new Grid();
+    mBindAddress = bindAddress;
+    mGrid = grid;
     try{
         mServer.set_access_channels(websocketpp::log::alevel::none);
         mServer.clear_access_channels(websocketpp::log::alevel::frame_payload);
@@ -55,7 +58,8 @@ WebSocketServer::WebSocketServer(int port){
 
         // Register our message handler
         mServer.set_message_handler(bind(&WebSocketServer::onMessage,this,::_1,::_2));
-        mServer.listen(port);
+        mServer.set_validate_handler(bind(&WebSocketServer::validateOrigin,this,::_1));
+        mServer.listen(bindAddress, std::to_string(port));
         mServer.start_accept();
     }
     catch (const std::exception & e) {
@@ -71,6 +75,29 @@ WebSocketServer::WebSocketServer(int port){
 }
 
 
+
+// Refuse les connexions ouvertes depuis une page d'un autre site : seules les pages
+// servies en local (ou depuis l'adresse d'écoute) peuvent piloter MoOS.
+// Les clients hors navigateur n'envoient pas d'Origin et sont acceptés.
+bool WebSocketServer::validateOrigin(websocketpp::connection_hdl hdl){
+    server::connection_ptr con = mServer.get_con_from_hdl(hdl);
+    std::string origin = con->get_origin();
+    if (origin.empty() || origin == "null") {
+        return origin.empty();
+    }
+    std::string host = origin.substr(origin.find("://") == std::string::npos ? 0 : origin.find("://") + 3);
+    if (!host.empty() && host[0] == '[') {
+        host = host.substr(0, host.find(']') + 1);
+    } else {
+        host = host.substr(0, host.find_first_of(":/"));
+    }
+    bool allowed = host == "localhost" || host == "127.0.0.1" || host == "[::1]"
+                || (mBindAddress != "0.0.0.0" && host == mBindAddress);
+    if (!allowed) {
+        std::cerr << "WebSocket : connexion refusee depuis l'origine " << origin << std::endl;
+    }
+    return allowed;
+}
 
 WebSocketServer::~WebSocketServer(){
     sendStopMessage();
@@ -98,7 +125,11 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
     }
     catch (const std::exception & e) {
         std::cout << e.what() << std::endl;
+        return;
     }
+    // Une exception non attrapée ici remonterait de mServer.run() et tuerait le process
+    try{
+    std::lock_guard<std::recursive_mutex> lock(mGrid->getMutex());
     if (strcmp(pt.get<std::string>("action").c_str(), "init") == 0) {
         sendInit();
     }
@@ -142,6 +173,10 @@ void WebSocketServer::dispatchRequest(message_ptr msg){
         sendSavedFiles();
         //sendGrid();
     }
+    }
+    catch (const std::exception & e) {
+        std::cerr << "WebSocket : requete ignoree (" << e.what() << ")" << std::endl;
+    }
 }
 
 void WebSocketServer::setOutput(boost::property_tree::ptree pt){
@@ -153,15 +188,18 @@ void WebSocketServer::setOutput(boost::property_tree::ptree pt){
         paramList.push_back(p.first);
         paramList.push_back(p.second.get_value<std::string>());
     }
-    mGrid->getOutputWithId(pt.get<int>("identifier"))->setParameters(paramList);
+    OutputsHandler* o = mGrid->getOutputWithId(pt.get<int>("identifier"));
+    if (o) o->setParameters(paramList);
     sendGrid();
 }
 
 void WebSocketServer::setWeightForCell(std::string inputName, std::string outputName, float weight){
-    mGrid->getCellWithName(inputName, outputName)->setCoeff(weight);
+    Cell* c = mGrid->getCellWithName(inputName, outputName);
+    if (c) c->setCoeff(weight);
 }
 
 void WebSocketServer::setRow(int identifier){
+    if (!mCaptureDevice) return;
     mCaptureDevice->setRow(identifier);
     sendDescription();
 }
@@ -171,8 +209,8 @@ void WebSocketServer::setDefaultOutput(int identifier){
         mDefaultOutput = identifier;
         switch (mDefaultOutput) {
             case CONSTANCES::OSC:{
-                mGrid->addOutput(new OscHandler("TEST","127.0.0.1","20000", "/osc", "f" ));
-                mGrid->addOutput(new OscHandler("TEST2","127.0.0.1","20000", "/osc1", "f" ));
+                mGrid->addOutput(new OscHandler("TEST",moosOscHost().c_str(),"20000", "/osc", "f" ));
+                mGrid->addOutput(new OscHandler("TEST2",moosOscHost().c_str(),"20000", "/osc1", "f" ));
                 sendGrid();
                 break;
             }
@@ -218,6 +256,7 @@ void WebSocketServer::sendMidiPorts(){
 }
 
 void WebSocketServer::setMidiPort(int identifier){
+    if (!mMidiHandler) return;
     mMidiHandler->setMidiPort(identifier);
     MidiNoteHandler* MNH = new MidiNoteHandler(mMidiHandler);
     mGrid->addOutput(new MidiControlChange(mMidiHandler,1, "Noise"));
@@ -233,6 +272,7 @@ void WebSocketServer::setMidiPort(int identifier){
 }
 
 void WebSocketServer::trigGrid(){
+    if (!mCaptureDevice) return;
     mCaptureDevice->trig();
     sendDescription();
 }
@@ -241,7 +281,7 @@ void WebSocketServer::sendDescription(){
     using boost::property_tree::ptree;
     ptree inputs,parameters, action;
     action.put("action", "setDescription");
-    action.put("parameters", mCaptureDevice->getDescription());
+    action.put("parameters", mCaptureDevice ? mCaptureDevice->getDescription() : std::string());
     sendMessage(action);
 }
 
@@ -260,7 +300,7 @@ void WebSocketServer::sendGrid(){
     parameters.put_child("outputs", outputs);
     parameters.put_child("inputs", inputs);
     parameters.put_child("weights", weights);
-    parameters.put("description", mCaptureDevice->getDescription());
+    parameters.put("description", mCaptureDevice ? mCaptureDevice->getDescription() : std::string());
     parameters.put_child("rowsData", rowsData);
 
     action.put_child("parameters", parameters);
@@ -270,6 +310,7 @@ void WebSocketServer::sendGrid(){
 boost::property_tree::ptree WebSocketServer::getJsonRowsData(){
     using boost::property_tree::ptree;
     ptree rows;
+    if (!mCaptureDevice) return rows;
     std::vector<std::string> descriptions = mCaptureDevice->getAllDescriptions();
     for (int i =0; i<descriptions.size()&& !descriptions[i].empty(); i++) {
         std::stringstream ss;
@@ -346,6 +387,7 @@ void WebSocketServer::sendOutputList(){
 }
 
 void WebSocketServer::setConfigurationPcap(int identifier){
+    if (!mCaptureDevice || mTypeOfCaptureDevice != CONSTANCES::CaptureDeviceType::PCAP_HANDLER) return;
     ((PcapHandler*)(mCaptureDevice))->setDev(identifier);
 }
 
@@ -368,7 +410,7 @@ void WebSocketServer::setCaptureDevice(int identifier){
                 mCaptureDevice = new LeapMotionHandler(mGrid);
                 break;
             case CONSTANCES::CaptureDeviceType::READWAV_HANDLER:
-                mCaptureDevice = new ReadWavFileHandler(mGrid,"/Users/ludoviclaffineur/Documents/LibLoAndCap/data/sinus440_1000.wav");
+                mCaptureDevice = new ReadWavFileHandler(mGrid, CURRENT_PATH + "/data/sound15.wav");
                 break;
             case CONSTANCES::CaptureDeviceType::ODBC_HANDLER:
                 mCaptureDevice = new OdbcHandler(mGrid,"filedsn=/Users/ludoviclaffineur/Documents/LibLoAndCap/build/Release/psql.dsn");
@@ -467,9 +509,8 @@ void WebSocketServer::sendMessage(boost::property_tree::ptree ptree){
     write_json(ss, ptree);
     try {
         mServer.send(mConnectionHandler, ss.str(), websocketpp::frame::opcode::TEXT);
-    } catch (const websocketpp::lib::error_code& e) {
-        std::cout << "Echo failed because: " << e
-        << "(" << e.message() << ")" << std::endl;
+    } catch (const websocketpp::exception& e) {
+        std::cout << "Echo failed because: " << e.what() << std::endl;
     }
 
 }
@@ -479,9 +520,8 @@ void WebSocketServer::sendMessage(std::vector<Input*>* inputs){
     std::string JsonArray = inputsToJson(inputs);
     try {
         mServer.send(mConnectionHandler, JsonArray, websocketpp::frame::opcode::TEXT);
-    } catch (const websocketpp::lib::error_code& e) {
-        std::cout << "Echo failed because: " << e
-        << "(" << e.message() << ")" << std::endl;
+    } catch (const websocketpp::exception& e) {
+        std::cout << "Echo failed because: " << e.what() << std::endl;
     }
 
 }

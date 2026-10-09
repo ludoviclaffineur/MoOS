@@ -16,6 +16,7 @@
 #include "Genetic.h"
 #include "ConstrainGenetic.h"
 #include "OdbcHandler.h"
+#include "KymaHandler.h"
 
 namespace http {
 namespace server {
@@ -35,6 +36,7 @@ namespace server {
         ConstrainGenetic*  mConstrainGene;
         OdbcHandler* mDatabase;
         int mCurrentIdPicture;
+        KymaHandler* mKymaHandler;
     };
 }
 }

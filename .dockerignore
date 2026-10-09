@@ -1,0 +1,24 @@
+# Liste blanche : seul ce qui sert à compiler, tester et exécuter MoOS entre dans
+# le contexte Docker (le repo contient ~100 Mo de reliques : binaires Windows,
+# copies de bibliothèques dans lib/, base IP->GPS de 50 Mo...).
+*
+
+!CMakeLists.txt
+!cmake/
+!AppIncludes.h
+!Constant.h
+!LibLoAndCap/main.cpp
+!capture/
+!Inputs/
+!mapping/
+!outputs/
+!processings/
+!save/
+!utils/
+!view/
+!tests/
+!www/
+!data/
+
+# Base de géolocalisation IP (50 Mo), lue seulement par des processings pcap désactivées
+data/IpGps.csv
