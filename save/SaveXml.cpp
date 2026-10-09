@@ -7,6 +7,7 @@
 //
 
 #include "SaveXml.h"
+#include <map>
 #include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
 #include "testSerialisation.h"

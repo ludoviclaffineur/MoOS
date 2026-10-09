@@ -31,6 +31,8 @@ Grid::~Grid(){
 }
 
 float* Grid::getCoeffs(){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     float* coeffs = new float[mCells.size()];
     std::vector<Cell*>::iterator i;
     int j=0;
@@ -41,6 +43,8 @@ float* Grid::getCoeffs(){
 }
 
 void Grid::setCoeffs(float *coeffs){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     std::vector<Cell*>::iterator i;
     int j=0;
     for (i= mCells.begin(); i!=mCells.end();i++,j++ ) {
@@ -50,6 +54,8 @@ void Grid::setCoeffs(float *coeffs){
 }
 
 void Grid::setCoeffs(float **coeffs){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     std::vector<Cell*>::iterator i;
     int j=0;
     for (i= mCells.begin(); i!=mCells.end();i++,j++ ) {
@@ -60,30 +66,42 @@ void Grid::setCoeffs(float **coeffs){
 
 
 void Grid::addInput(const char* name, float min, float max, float xOffset, float yOffset, int typeOfExtrapolation){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     mInputs.push_back(new Input(name, min, max, xOffset, yOffset, typeOfExtrapolation));
 }
 
 void Grid::addInput(Input* i){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     mInputs.push_back(i);
 }
 
 void Grid::addOutput(OutputsHandler* o){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     o->setId(mCurrentOutputId++);
     mOutputs.push_back(o);
     addComplementaryCells(o);
 }
 
 void Grid::addComplementaryCells(OutputsHandler *o){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     for (int i=0;i< mInputs.size();i++){
         addCell(mInputs.at(i)->getName(), o->getName(), 0.0);
     }
 }
 
 void Grid::addCell(const char* inputName, const char* outputName, float corrCoeff){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     mCells.push_back(new Cell(getInputWithName(inputName), getOutputWithName(outputName) , corrCoeff));
 }
 
 void Grid::compute(){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     if (mIsMonitored){
         //mWebSocket->sendMessage(getInputs());
     }
@@ -105,6 +123,8 @@ int Grid::getCurrentOutputId(){
 }
 
 Input* Grid::getInputWithName(const char* n){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     std::vector<Input*>::iterator j;
     for (j= mInputs.begin(); j!=mInputs.end();j++ ) {
         if ((*j)->compareName(n)) return (*j);
@@ -113,6 +133,8 @@ Input* Grid::getInputWithName(const char* n){
 }
 
 OutputsHandler* Grid::getOutputWithName(const char* n){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     std::vector<OutputsHandler*>::iterator j;
     for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) {
         if ((*j)->compareName(n)) return (*j);
@@ -121,6 +143,8 @@ OutputsHandler* Grid::getOutputWithName(const char* n){
 }
 
 OutputsHandler* Grid::getOutputWithId(int theId){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     std::vector<OutputsHandler*>::iterator j;
     for (j= mOutputs.begin(); j!=mOutputs.end();j++ ) 
         if (theId == (*j)->getId()) return (*j);
@@ -128,10 +152,14 @@ OutputsHandler* Grid::getOutputWithId(int theId){
 }
 
 size_t Grid::getNbrInputs(){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     return mInputs.size();
 }
 
 size_t Grid::getNbrOutputs(){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     return mOutputs.size();
 }
 
@@ -148,6 +176,8 @@ std::vector<Cell*>* Grid::getCells(){
 }
 
 Cell* Grid::getCellWithName(std::string input, std::string output){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     for(int i=0;i<mCells.size();i++){
         Cell* c = mCells.at(i);
         if (c->getInput()->getName() == input && c->getOutput()->getName() == output){
@@ -158,6 +188,8 @@ Cell* Grid::getCellWithName(std::string input, std::string output){
 }
 
 void Grid::removeOutput(int id){
+    std::lock_guard<std::recursive_mutex> lock(mMutex);
+
     std::vector<Cell*>::iterator i; 
     for (i= mCells.begin(); i!=mCells.end(); ) {
         if ((*i)->getOutput()->getId() == id) {

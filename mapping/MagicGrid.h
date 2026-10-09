@@ -22,9 +22,8 @@ class MagicGrid : public Gecode::Script{
 
 public:
     MagicGrid(const GrilleOptions& opt);
-    MagicGrid(const MagicGrid& magicGrid);
-    MagicGrid(bool share, MagicGrid& s);
-    virtual Space* copy(bool share);
+    MagicGrid(MagicGrid& s);
+    virtual Space* copy();
     virtual void print(std::ostream& os) const;
     //virtual const int restart() const;
 private:

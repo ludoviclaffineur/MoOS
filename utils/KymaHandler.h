@@ -21,11 +21,11 @@ public:
     KymaHandler(const char* ipAddress, const char* port, Grid* g);
     ~KymaHandler();
 private:
-    lo_server mServerOsc;
+    lo_server_thread mServerOsc;
     lo_address mAddress;
     Grid* mGrid;
-    static int responseFrom(const char *path, const char *types, lo_arg **argv, int argc,void *data, void *user_data);
-    static int receivedWidget(const char *path, const char *types, lo_arg **argv, int argc,void *data, void *user_data);
+    static int responseFrom(const char *path, const char *types, lo_arg **argv, int argc,lo_message data, void *user_data);
+    static int receivedWidget(const char *path, const char *types, lo_arg **argv, int argc,lo_message data, void *user_data);
     int widgetId;
     char* mIpAdress;
 };

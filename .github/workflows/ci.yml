@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    # Les dépendances (boost@1.85, gecode, liblo, websocketpp, portaudio, rtmidi) viennent de Homebrew
+    runs-on: macos-latest
+    timeout-minutes: 45
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer les dépendances
+        run: brew install cmake boost@1.85 gecode liblo websocketpp portaudio rtmidi pkgconf
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22   # WebSocket global requis par la batterie d'intégration
+
+      - name: Configurer
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Compiler
+        run: cmake --build build -j"$(sysctl -n hw.ncpu)"
+
+      - name: Tests unitaires
+        run: ctest --test-dir build -L unit --output-on-failure
+
+      - name: Batterie d'intégration
+        run: ctest --test-dir build -L integration --output-on-failure

@@ -76,8 +76,9 @@ bool PcapGrapAndStorePictures::getPictureUrl(u_char* dataIn, int size_payload, s
         ss<<typeOfRequest<<"://";
         std::smatch m_output_png;
         std::regex e_output_png ("(png|jpeg|jpg|gif|tiff|tif)$");
+        const std::string requestedPath = m_output[1].str();
 
-        if (std::regex_search (m_output[1].str(),m_output_png,e_output_png)){
+        if (std::regex_search (requestedPath,m_output_png,e_output_png)){
 
 
             //std::cout<<"IMAGE "<< m_output[1].str()<<std::endl <<std::endl;

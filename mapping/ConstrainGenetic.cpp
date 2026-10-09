@@ -7,6 +7,7 @@
 //
 
 #include "ConstrainGenetic.h"
+#include <cmath>
 
 
 
@@ -21,6 +22,12 @@ void ConstrainGenetic::setConstrain(std::vector<float> inputsValues, std::vector
 }
 
 void ConstrainGenetic::setConstrain(){
+    // computeGrid() soustrait le nombre de contraintes (2) au nombre d'inputs (size_t) :
+    // sans capture device configuré, ça déborde et plante.
+    if (mGrid->getNbrInputs() < 2 || mGrid->getNbrOutputs() == 0) {
+        std::cerr << "setConstrain ignore : il faut au moins 2 inputs et 1 output (choisir un capture device et des outputs d'abord)" << std::endl;
+        return;
+    }
     std::vector<float> input;
     std::vector<float> output;
     for (int i =0 ; i<mGrid->getOutputs()->size(); i++) {
@@ -37,6 +44,13 @@ void ConstrainGenetic::setConstrain(){
     mListContrain->push_back(new IA::Constrain(new std::vector<float>(input), new std::vector<float>(output)));
     if (mListContrain->size() ==2){
         computeGrid();
+        // Repartir de zéro : sinon la 3e contrainte ne déclenchait plus jamais de calcul
+        for (int k = 0; k<mListContrain->size(); k++) {
+            delete mListContrain->at(k)->mInputsValues;
+            delete mListContrain->at(k)->mOutputsValues;
+            delete mListContrain->at(k);
+        }
+        mListContrain->clear();
     }
 }
 
@@ -127,10 +141,19 @@ void ConstrainGenetic::computeGrid(){
     std::vector<float> appartConstance (mListContrain->size());
     std::vector<float> solution (mListContrain->size());
 
+    // La matrice ne dépend pas du tirage : singulière une fois, singulière toujours.
+    // Sans borne, une contrainte inatteignable faisait boucler le thread HTTP à l'infini.
+    const int MAX_ATTEMPTS = 10000;
     for (int j = 0; j<mGrid->getNbrOutputs(); j++) {
 
-
+        int attempts = 0;
         do{
+            if (++attempts > MAX_ATTEMPTS) {
+                std::cerr << "computeGrid : pas de solution dans [-1, 1] pour l'output " << j << " apres " << MAX_ATTEMPTS << " essais, grille inchangee" << std::endl;
+                for (int i = 0; i<mGrid->getNbrInputs(); i++) delete [] gridCoeff[i];
+                delete [] gridCoeff;
+                return;
+            }
             solution.clear();
 
             float coefDotInput = 0.0;
@@ -150,6 +173,12 @@ void ConstrainGenetic::computeGrid(){
                 
             }
             solution = gauss(coeffMatrix, solution, appartConstance);
+            if (solution.empty()) {
+                std::cerr << "computeGrid : matrice des contraintes singuliere (inputs identiques ou nuls), grille inchangee" << std::endl;
+                for (int i = 0; i<mGrid->getNbrInputs(); i++) delete [] gridCoeff[i];
+                delete [] gridCoeff;
+                return;
+            }
         }
         while (!isCorrectSolution(solution) );
         std::cout<<"Output Résolu: " << j << std::endl;
@@ -176,7 +205,8 @@ void ConstrainGenetic::computeGrid(){
         }
     }
     mGrid->setCoeffs(gridCoeff);
-
+    for (int i = 0; i<mGrid->getNbrInputs(); i++) delete [] gridCoeff[i];
+    delete [] gridCoeff;
 }
 
 
@@ -246,7 +276,7 @@ std::vector<float> ConstrainGenetic::gauss( boost::numeric::ublas::matrix<float>
         {
             if (valmin != 0)
             {
-                if (abs(input(i,k)) < abs(valmin) && input(i,k) != 0)
+                if (std::fabs(input(i,k)) < std::fabs(valmin) && input(i,k) != 0)
                 {
                     valmin = input(i,k) ;
                     imin = i ;
@@ -266,7 +296,7 @@ std::vector<float> ConstrainGenetic::gauss( boost::numeric::ublas::matrix<float>
         if (valmin == 0.)
         {
             printf("\n\n\nAttention! Matrice singuliere!\n\n\n") ;
-            exit( EXIT_FAILURE ) ;
+            return std::vector<float>();
         }
 
         /* Si la matrice n'est pas singulière, on inverse    */
@@ -307,7 +337,7 @@ std::vector<float> ConstrainGenetic::gauss( boost::numeric::ublas::matrix<float>
     if (input(n-1,n-1) == 0)
     {
         printf("\n\n\nAttention! Matrice singuliere!\n\n\n") ;
-        exit( EXIT_FAILURE ) ;
+        return std::vector<float>();
     }
 
     /* Une fois le système réduit, on obtient une matrice triangulaire */

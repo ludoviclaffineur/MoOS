@@ -11,6 +11,18 @@
 
 #include "CaptureDevice.h"
 #include "Grid.h"
+
+#ifndef MOOS_HAS_LEAP
+// Build sans SDK Leap Motion : stub inerte
+class LeapMotionHandler : public CaptureDevice{
+public:
+    LeapMotionHandler(Grid* g){
+        mGrid = g;
+        std::cerr << "LeapMotionHandler: MoOS compile sans Leap (MOOS_WITH_LEAP=OFF)" << std::endl;
+    }
+    void init(){}
+};
+#else
 #include <leap/Leap.h>
 
 using namespace Leap;
@@ -46,4 +58,5 @@ private:
     LeapMotionListener listener;
     Leap::Controller controller;
 };
+#endif /* MOOS_HAS_LEAP */
 #endif /* defined(__LibLoAndCap__LeapMotionHandler__) */

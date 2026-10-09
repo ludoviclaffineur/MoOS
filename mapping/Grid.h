@@ -14,6 +14,7 @@
 #include "OutputsHandler.h"
 #include "Cell.h"
 #include <vector>
+#include <mutex>
 // archives Boost
 #include <iomanip>
 #include <iostream>
@@ -58,7 +59,14 @@ public:
     void    setCoeffs(float* coeffs);
     void    setCoeffs(float **coeffs);
     void    switchActive(){
+        std::lock_guard<std::recursive_mutex> lock(mMutex);
         mActive = !mActive;
+    }
+    // La grille est partagée entre les threads de capture (compute) et les
+    // threads HTTP/WebSocket. Les méthodes de Grid se verrouillent elles-mêmes ;
+    // tout code qui parcourt getInputs()/getOutputs()/getCells() doit tenir ce verrou.
+    std::recursive_mutex& getMutex(){
+        return mMutex;
     }
 
     //WebSocketServer* getWebSocketServer(){
@@ -72,6 +80,7 @@ private:
     std::vector <Cell*>  mCells;
     bool mActive;
     bool mIsMonitored;
+    std::recursive_mutex mMutex;
     //WebSocketServer* mWebSocket;
     friend class boost::serialization::access;
     //friend std::ostream & operator<<(std::ostream &os, Grid &g);

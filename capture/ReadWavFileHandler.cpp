@@ -1,10 +1,18 @@
 #include "ReadWavFileHandler.h"
+#include <cstring>
 
 
 pthread_t thread;
 
 ReadWavFileHandler::ReadWavFileHandler(Grid*g, std::string filePath){
-    loadWave(filePath);
+    mSound = NULL;
+    mLoaded = loadWave(filePath);
+    if (!mLoaded) {
+        // Valeurs sûres : l'input FFT est créé mais aucun thread de lecture ne démarre
+        std::cerr << "ReadWavFileHandler : impossible de lire " << filePath << std::endl;
+        wh.frequency = 44100;
+        wh.NumSamples = 0;
+    }
     mProcessings.push_back(new FFTprocessing (g, wh.frequency, 1024));
     mGrid = g;
 }
@@ -14,6 +22,9 @@ ReadWavFileHandler::~ReadWavFileHandler(){
 }
 
 void ReadWavFileHandler::init(){
+    if (!mLoaded) {
+        return;
+    }
     int result;
     
 
@@ -45,7 +56,19 @@ bool ReadWavFileHandler::loadWave(std::string filePath){
     fread(&wh.bits_per_samples, 2,1,fp);
     fread(wh.data, 4, 1, fp);
     fread(&wh.data_size,4,1,fp);
+    // Seul le WAV PCM 16 bits mono/stéréo à en-tête canonique (44 octets) est géré
+    if (memcmp(wh.riff, "RIFF", 4) != 0 || memcmp(wh.wave, "WAVE", 4) != 0 || memcmp(wh.data, "data", 4) != 0
+        || wh.bits_per_samples != 16 || (wh.channels != 1 && wh.channels != 2) || wh.frequency == 0) {
+        std::cout<<"format WAV non supporte (PCM 16 bits mono/stereo attendu)"<<std::endl;
+        fclose(fp);
+        return false;
+    }
     wh.NumSamples= ((wh.data_size*8)/wh.bits_per_samples)/wh.channels;
+    if (wh.NumSamples < 1024) {
+        std::cout<<"fichier WAV trop court (moins d'une fenetre de 1024 echantillons)"<<std::endl;
+        fclose(fp);
+        return false;
+    }
     mSound = new float[wh.NumSamples];
     int count = 0;
 
@@ -59,6 +82,7 @@ bool ReadWavFileHandler::loadWave(std::string filePath){
 
         count++;
     }
+    fclose(fp);
     return true;
 }
 
@@ -69,10 +93,14 @@ void* ReadWavFileHandler::WavProcess(){
 
     t1= clock();
 
-    for (int i = 0 ; i<wh.NumSamples; i+=N) {
+    // Lecture en boucle du fichier (auparavant par récursion, qui faisait grossir la pile)
+    while (true) {
+    for (int i = 0 ; i + N <= wh.NumSamples; i+=N) {
+        float* window = mSound+i;
         std::vector<Processings*>::iterator it = mProcessings.begin();
-        for (it= mProcessings.begin(); it!=mProcessings.end();i++ ) {
-            (*it)->process(mSound+i);
+        for (it= mProcessings.begin(); it!=mProcessings.end();it++ ) {
+            // Processings::process(void*) attend un float** (cf. FFTprocessing::process)
+            (*it)->process(&window);
         }
         //fft->process(mSound+i);
         mGrid->compute();
@@ -89,7 +117,7 @@ void* ReadWavFileHandler::WavProcess(){
         N0+=N;
 
     }
-    WavProcess();
+    }
 
     return 0;
     

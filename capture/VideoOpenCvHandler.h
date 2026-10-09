@@ -12,6 +12,18 @@
 #include <stdio.h>
 #include "Grid.h"
 #include "CaptureDevice.h"
+
+#ifndef MOOS_HAS_OPENCV
+// Build sans OpenCV : stub inerte
+class VideoOpenCvHandler : public CaptureDevice{
+public:
+    VideoOpenCvHandler(Grid* g){
+        mGrid = g;
+        std::cerr << "VideoOpenCvHandler: MoOS compile sans OpenCV (MOOS_WITH_OPENCV=OFF)" << std::endl;
+    }
+    void init(){}
+};
+#else
 #include <opencv2/opencv.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/thread/locks.hpp>
@@ -37,5 +49,6 @@ private:
     boost::thread capture_thread_boost;
     boost::thread *trackerThread;
 };
+#endif /* MOOS_HAS_OPENCV */
 
 #endif /* defined(__LibLoAndCap__VideoOpenCvHandler__) */

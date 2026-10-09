@@ -63,7 +63,7 @@ class WebSocketServer{
 public:
     typedef websocketpp::server<websocketpp::config::asio> server;
     typedef server::message_ptr message_ptr;
-    WebSocketServer(int port);
+    WebSocketServer(int port, Grid* grid, const std::string& bindAddress);
     ~WebSocketServer();
     void start();
     void stop();
@@ -73,12 +73,14 @@ public:
     std::string inputsToJson(std::vector<Input*>* inputs);
 
     void dispatchRequest(message_ptr msg);
+    bool validateOrigin(websocketpp::connection_hdl hdl);
     void sendStopMessage();
 
 private:
     void sendDescription();
     int mTypeOfCaptureDevice;
     int mListenningPort;
+    std::string mBindAddress;
     int mDefaultOutput;
 
     GranularSyntheziser* mGranularSynth;
