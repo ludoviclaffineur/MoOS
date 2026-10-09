@@ -166,3 +166,6 @@ xcuserdata
 
 # Exemple de sérialisation écrit par main() à chaque démarrage
 BUSTOP.XML
+
+# Site généré par docs/build.py
+docs/_site/
